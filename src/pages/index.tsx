@@ -228,10 +228,10 @@ const Home: NextPage = () => {
           />
         </div>
       </div>
-      <div className="contact-s relative mt-[200px] md:min-h-[630px] pt-[80px]">
+      <div className="contact-s relative mt-[200px] md:min-h-[630px] pt-[30px] md:pt-[80px]">
         <img
           src="/assets/images/purple-b.png"
-          className="absolute w-full right-0 left-0 top-0 h-[630px]"
+          className="absolute w-full right-0 left-0 top-0 h-[630px] hidden md:block"
         />
         <div className="relative mx-[20px] md:mx-[130px]">
           <h3 className="uppercase text-[40px] md:text-[69px] leading-[1]">

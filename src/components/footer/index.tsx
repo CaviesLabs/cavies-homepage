@@ -1,14 +1,35 @@
 import { FC, useMemo } from "react";
 
-const Footer: FC = () => {
-  const footers = useMemo<string[]>(() => ["About Us", "Blog", "Careers"], []);
+interface FooterItem {
+  name: string;
+  uri: string;
+}
 
-  const bottomFooters = useMemo<string[]>(
+const Footer: FC = () => {
+  const footers = useMemo<FooterItem[]>(
     () => [
-      "© 2022 Cavies, Ltd.",
-      "Privacy Policy",
-      "Terms of Use",
-      "Media Kit",
+      { name: "About Us", uri: "About Us" },
+      {
+        name: "Blog",
+        uri: "https://www.notion.so/cavies/b4ff0745a92144aaaccf5b052d92b540?v=7891d7724e1349a5943c8a101174af5c",
+      },
+      {
+        name: "Careers",
+        uri: "https://cavies.notion.site/Job-Board-320ac7987dc64a53b0d3d3e7c52c5ce7",
+      },
+    ],
+    []
+  );
+
+  const bottomFooters = useMemo<FooterItem[]>(
+    () => [
+      { name: "© 2022 Cavies, Ltd.", uri: "" },
+      { name: "Privacy Policy", uri: "" },
+      { name: "Terms of Use", uri: "" },
+      {
+        name: "Media Kit",
+        uri: "https://cavies.notion.site/59aa5e24fdb146359cdd3cb9336aef45?v=83eedde046594e689d7fabf8932a7284",
+      },
     ],
     []
   );
@@ -27,9 +48,10 @@ const Footer: FC = () => {
             {footers.map((item, index) => (
               <li
                 key={`footer-item-${index}`}
-                className="float-left ml-[20px] md:ml-[30px]"
+                className="float-left ml-[20px] md:ml-[30px] cursor-pointer"
+                onClick={() => window.open(item.uri)}
               >
-                <p className="text-[10px] md:text-[16px]">{item}</p>
+                <p className="text-[10px] md:text-[16px]">{item.name}</p>
               </li>
             ))}
           </ul>
@@ -43,9 +65,13 @@ const Footer: FC = () => {
         <div className="bottom-menu-wrapper float-left">
           <ul className="bottom-footer-menu">
             {bottomFooters.map((item, index) => (
-              <li key={`bottom-footer-item-${index}`} className="md:float-left">
-                <p className="text-grey text-[10px] md:text-[14px] mr-[20px]">
-                  {item}
+              <li
+                key={`bottom-footer-item-${index}`}
+                className="md:float-left"
+                onClick={() => window.open(item.uri)}
+              >
+                <p className="text-grey text-[10px] md:text-[14px] mr-[20px] cursor-pointer">
+                  {item.name}
                 </p>
               </li>
             ))}
