@@ -1,6 +1,7 @@
 import { FC, useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import classnames from "classnames";
+import styles from "./index.module.scss";
 
 interface MenuItem {
   title: string;
@@ -18,6 +19,13 @@ const Header: FC = () => {
     ],
     []
   );
+
+  const handleClickMobileMenu = (e: any) => {
+    const toggleButton = document.getElementById("mobile-toggle");
+    const mobileMemu = document.getElementById("mobile-menu");
+    toggleButton?.classList?.toggle(styles.active);
+    mobileMemu?.classList?.toggle(styles.active);
+  };
 
   useEffect(() => {
     if (router.asPath.includes("#")) {
@@ -54,6 +62,34 @@ const Header: FC = () => {
             ))}
           </ul>
         }
+      </div>
+      <div
+        className={styles["toggle-button"]}
+        id="mobile-toggle"
+        onClick={(e: any) => handleClickMobileMenu(e)}
+      >
+        <span className={classnames(styles.bar, styles.top)}></span>
+        <span className={classnames(styles.bar, styles.middle)}></span>
+        <span className={classnames(styles.bar, styles.bottom)}></span>
+      </div>
+      <div className={classnames(styles["mobile-nav"])}>
+        <div
+          className={classnames(styles["menu-container"], "pt-10")}
+          id="mobile-menu"
+        >
+          <ul className={styles["mobile-menu"]}>
+            {menuData.map((item: any, index: number) => (
+              <li key={`mobile-menu-${index}`}>
+                <a
+                  href={item.slug}
+                  onClick={() => (window.location.href = item.slug)}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
