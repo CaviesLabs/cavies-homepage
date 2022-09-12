@@ -1,0 +1,53 @@
+
+
+.contact-right-wrapper {
+  .contact-bottom-container {
+    position: relative;
+    display: initial;
+    .hidden-layer {
+      background: #3CBF7C;
+      transform: rotate(-5deg);
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+    
+    .shown-layer {
+      position: relative;
+      background: #3CBF7C;
+      box-shadow: -2px 5px 0px #000000;
+      transform: rotate(-5deg);
+      font-size: 32px;
+      padding: 1px 25px;
+      color: #ffffff;
+      @media screen and (max-width: 768px) {
+        font-size: 24px;
+      }
+    }
+  
+    &:hover{
+      .hidden-layer{
+        transform: rotate(3deg);
+        box-shadow: -2px 5px 0px #000000;
+      }
+  
+      .shown-layer {
+        background: #7B64FF;
+      }
+    }
+  }
+
+  .rau-container {
+    .green {
+      display: none;
+    }
+  }
+
+  .contact-bottom-container:hover + .utils-wrapper {
+    .green {
+      display: block;
+    }
+  }
+}

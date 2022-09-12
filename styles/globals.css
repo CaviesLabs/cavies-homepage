@@ -2,11 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: poppins-bold;
+  src: url(../public/assets/fonts/poppins/Poppins-Bold.otf);
+}
+
+@font-face {
+  font-family: poppins-medium;
+  src: url(../public/assets/fonts/poppins/Poppins-Medium.otf);
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: poppins-bold;
+  background: url(../public/assets/images/c-background.png);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 70%, 70%;
+  background-position-x: 750px, -30px;
+  background-position-y: 800px, 3500px;
+  padding-bottom: 20px;
+  overflow-x: hidden;
+  transform: none, rotate(30deg);
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-position-x: 120px;
+    background-size: 100%;
+    background-position-y: 2000px;
+  }
 }
 
 a {
@@ -16,4 +43,18 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+p {
+  font-family: poppins-medium;
+}
+
+.circle-purple {
+  border-radius: 50%;
+  background-color: rgba(185, 152, 251, 0.1);
+}
+
+.circle-green {
+  border-radius: 50%;
+  background-color: rgba(104, 213, 157, 0.1);
 }
