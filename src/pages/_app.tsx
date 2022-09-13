@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
 import { FC } from "react";
-import Script from "next/script";
 import Head from "next/head";
 
 import "../../styles/globals.css";
@@ -147,7 +146,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link
           rel="icon"
-          href="https://cavies.xyz/assets/icons/favicon.ico"
+          href="https://cavies.xyz/favicon.ico"
           type="image/x-icon"
         />
         <link rel="manifest" href="https://cavies.xyz/manifest.json" />
@@ -159,18 +158,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff" />
 
         {/*  Google Analytics */}
-        <Script
+        <script
           async={true}
-          strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-RL35P8RT0R"
         />
-        <Script strategy="afterInteractive">
+        <script>
           {`window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+          function gtag(){
+              dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
 
-            gtag('config', 'G-RL35P8RT0R');`}
-        </Script>
+          gtag('config', 'G-RL35P8RT0R');`}
+        </script>
       </Head>
       <AppComponent {...{ Component, pageProps }} />
     </>
