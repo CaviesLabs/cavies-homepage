@@ -30,24 +30,34 @@ const Home: NextPage = () => {
     []
   );
 
+  const handleContactUs = () => {
+    window.open(
+      "mailto:contact@cavies.xyz?subject=Hello Cavies Labs",
+      "_blank"
+    );
+  };
+
   return (
     <MainLayout>
       <div className=" px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px] pt-[50px] md:pt-[180px]">
         <div className="top-inf md:inline-flex grid" id="about-us">
           <div className="md:float-left order-1 md:order-0 relative">
-            <div className="circle-purple absolute w-[59px] h-[59px] top-[-70px]"></div>
-            <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]"></div>
+            <div className="circle-purple absolute w-[59px] h-[59px] top-[-70px]" />
+            <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
-              <h3 className="text-[26px] md:text-[50px] uppercase font-bold">
+              <h1 className="text-[26px] md:text-[50px] uppercase font-bold">
                 Unorthodox <span className="text-green">Web3</span> <br />{" "}
                 Gaming Infrastructure
-              </h3>
+              </h1>
               <p className="text-grey text-[12px] md:text-[16px] md:text-normal mt-[20px]">
                 Building towards mass adoption of blockchain-enabled games - the
                 friendly way
               </p>
-              <button className="anim-button mt-[60px]">
-                <div className="hidden-layer"></div>
+              <button
+                className="anim-button mt-[60px]"
+                onClick={handleContactUs}
+              >
+                <div className="hidden-layer" />
                 <div className="shown-layer">
                   <h3 className="uppercase text-[32px] text-white">
                     Contact Us
@@ -57,12 +67,12 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-right relative md:pl-[80px] md:pt-0 pt-[30px] order-0 md:order-1">
-            <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-150px] left-[260px]"></div>
-            <div className="circle-purple absolute w-[31px] h-[31px] bottom-[100px] left-[-30px]"></div>
-            <div className="circle-green absolute top-[30px] left-[0px] w-[21px] h-[21px]"></div>
-            <div className="circle-green absolute top-[40px] right-[-10px] w-[43px] h-[43px]"></div>
-            <div className="circle-green absolute w-[59px] h-[59px] bottom-[-50px] left-[260px]"></div>
-            <div className="circle-purple absolute bottom-[40px] right-[-50px] w-[27px] h-[27px]"></div>
+            <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-150px] left-[260px]" />
+            <div className="circle-purple absolute w-[31px] h-[31px] bottom-[100px] left-[-30px]" />
+            <div className="circle-green absolute top-[30px] left-[0px] w-[21px] h-[21px]" />
+            <div className="circle-green absolute top-[40px] right-[-10px] w-[43px] h-[43px]" />
+            <div className="circle-green absolute w-[59px] h-[59px] bottom-[-50px] left-[260px]" />
+            <div className="circle-purple absolute bottom-[40px] right-[-50px] w-[27px] h-[27px]" />
             <img
               src="/assets/images/hamster-top-c.png"
               className="w-[500px] h-auto md:mt-[-100px]"
@@ -77,9 +87,9 @@ const Home: NextPage = () => {
             />
           </div>
           <div className="md:float-right relative md:pl-[200px]">
-            <h3 className="text-[50px] md:text-[70px] rotate-[-5deg]">OUR</h3>
+            <h1 className="text-[50px] md:text-[70px] rotate-[-5deg]">OUR</h1>
             <div className="inline-flex bg-green rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
-              <h3 className="text-[30px] text-[48px] text-white">Objectives</h3>
+              <h1 className="text-[30px] text-[48px] text-white">Objectives</h1>
             </div>
             <div className="mt-[50px]">
               <ul>
@@ -107,10 +117,10 @@ const Home: NextPage = () => {
               src="/assets/images/hamster-head.png"
               className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
             />
-            <h3 className="text-center text-[30px] md:text-[60px] text-purple uppercase">
+            <h1 className="text-center text-[30px] md:text-[60px] text-purple uppercase">
               Hamsterbox
-            </h3>
-            <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]"></div>
+            </h1>
+            <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]" />
           </div>
           <p className="mx-auto max-w-[600px] text-center text-grey text-[11px] md:text-[16px] mt-[20px]">
             A powerful toolbox for game studios and gamers to easily get started
@@ -164,9 +174,9 @@ const Home: NextPage = () => {
             />
           </div>
           <div className="md:float-right relative md:pl-[200px]">
-            <h3 className="text-[50px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+            <h1 className="text-[50px] md:text-[70px] rotate-[-5deg]">FOR</h1>
             <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-              <h3 className="text-[30px] md:text-[48px] text-white">GAMES</h3>
+              <h1 className="text-[30px] md:text-[48px] text-white">GAMES</h1>
             </div>
             <div className="mt-[50px]">
               <h3 className="text-[16px] md:text-[20px] text-greyText">
@@ -196,9 +206,9 @@ const Home: NextPage = () => {
           id="#forgamers"
         >
           <div className="md:float-right relative">
-            <h3 className="text-[50px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+            <h1 className="text-[50px] md:text-[70px] rotate-[-5deg]">FOR</h1>
             <div className="inline-flex bg-purple rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-              <h3 className="text-[30px] md:text-[48px] text-white">GAMERS</h3>
+              <h1 className="text-[30px] md:text-[48px] text-white">GAMERS</h1>
             </div>
             <div className="mt-[50px]">
               <h3 className="text-[16px] md:text-[20px] text-greyText">
@@ -247,10 +257,10 @@ const Home: NextPage = () => {
           className="absolute w-full right-0 left-0 top-0 h-[630px] hidden md:block"
         />
         <div className="relative mx-[20px] md:mx-[130px]">
-          <h3 className="uppercase text-[40px] md:text-[69px] leading-[1]">
+          <h1 className="uppercase text-[40px] md:text-[69px] leading-[1]">
             Transform the future of <br />{" "}
             <span className="md:text-[90px] text-green">WEB3</span>{" "}
-          </h3>
+          </h1>
           <div className="game-with-wrapper block md:hidden">
             <h3 className="text-[40px] leading-[1] uppercase">Gaming with</h3>
             <h3 className="text-purple text-[71px] leading-[1] uppercase">
@@ -264,9 +274,12 @@ const Home: NextPage = () => {
                 src="/assets/images/astronaunt-hamster.png"
                 className="w-[314px] md:w-[530px] h-[auto] relative right-[-30px] md:right-[-100px] top-[-80px] md:top-[-100px]"
               />
-              <div className="contact-right-wrapper absolute top-[50px] md:top-[200px] left-[-50px] md:left-[20px]">
+              <div
+                className="contact-right-wrapper absolute top-[50px] md:top-[200px] left-[-50px] md:left-[20px]"
+                onClick={handleContactUs}
+              >
                 <button className="contact-bottom-container">
-                  <div className="hidden-layer"></div>
+                  <div className="hidden-layer" />
                   <div className="shown-layer">
                     <h3 className="uppercase">Contact Us</h3>
                   </div>
