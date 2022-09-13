@@ -24,7 +24,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         {/* Primary meta tags*/}
         <title>Cavies Labs | Transform the future of Web3 Gaming</title>
-        <meta name="keywords" content="cavies,web3,gamefi,crypto,unorthodox,infrastructure,multichain,btc,eth,solana,polygon,unorthodox infrastructure,blockchain,web3 gaming" />
+        <meta
+          name="keywords"
+          content="cavies,web3,gamefi,crypto,unorthodox,infrastructure,multichain,btc,eth,solana,polygon,unorthodox infrastructure,blockchain,web3 gaming"
+        />
         <meta
           name="title"
           content="Cavies Labs | Transform the future of Web3 Gaming"
@@ -49,10 +52,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           property="og:image"
           content="https://cavies.xyz/assets/images/hamster-top-c.png"
         />
-        <meta property="og:image:alt" content="Cavies Labs | Transform the future of Web3 Gaming" />
+        <meta
+          property="og:image:alt"
+          content="Cavies Labs | Transform the future of Web3 Gaming"
+        />
         <meta property="og:locale" content="en_US" />
         <meta property="og:locale:alternate" content="en_GB" />
-
 
         {/* For Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
