@@ -1,5 +1,7 @@
 import type { AppProps } from "next/app";
 import { FC } from "react";
+import Head  from "next/head";
+
 import { SeoComponent } from "@/src/components/seo/seo.component";
 
 import "../../styles/globals.css";
@@ -15,7 +17,9 @@ const AppComponent: FC<{ Component: any; pageProps: any }> = ({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <SeoComponent />
+      <Head>
+        <SeoComponent />
+      </Head>
       <AppComponent {...{ Component, pageProps }} />
     </>
   );

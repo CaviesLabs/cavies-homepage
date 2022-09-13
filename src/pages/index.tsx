@@ -48,11 +48,11 @@ const Home: NextPage = () => {
               </p>
               <button className="anim-button mt-[60px]">
                 <div className="hidden-layer"></div>
-                <button className="shown-layer">
+                <div className="shown-layer">
                   <h3 className="uppercase text-[32px] text-white">
                     Contact Us
                   </h3>
-                </button>
+                </div>
               </button>
             </div>
           </div>
@@ -267,9 +267,9 @@ const Home: NextPage = () => {
               <div className="contact-right-wrapper absolute top-[50px] md:top-[200px] left-[-50px] md:left-[20px]">
                 <button className="contact-bottom-container">
                   <div className="hidden-layer"></div>
-                  <button className="shown-layer">
+                  <div className="shown-layer">
                     <h3 className="uppercase">Contact Us</h3>
-                  </button>
+                  </div>
                 </button>
                 <div className="utils-wrapper">
                   <div className="mouse-container absolute left-[20px] md:top-[50px]">
