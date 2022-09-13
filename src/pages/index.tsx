@@ -33,7 +33,7 @@ const Home: NextPage = () => {
   return (
     <MainLayout>
       <div className=" px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px] pt-[50px] md:pt-[180px]">
-        <div className="top-inf md:inline-flex grid" id="#about-us">
+        <div className="top-inf md:inline-flex grid" id="about-us">
           <div className="md:float-left order-1 md:order-0 relative">
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-70px]"></div>
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]"></div>
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
                 Unorthodox <span className="text-green">Web3</span> <br />{" "}
                 Gaming Infrastructure
               </h3>
-              <p className="text-grey text-[14px] md:text-normal mt-[20px]">
+              <p className="text-grey text-[12px] md:text-[16px] md:text-normal mt-[20px]">
                 Building towards mass adoption of blockchain-enabled games - the
                 friendly way
               </p>
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
-        <div className="objectives mt-[150px] md:inline-flex" id="#objectives">
+        <div className="objectives mt-[150px] md:inline-flex" id="objectives">
           <div className="md:float-left relative">
             <img
               src="/assets/images/older-hamster.png"
@@ -101,24 +101,28 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="hamsterbox mt-[50px]">
+        <div className="hamsterbox mt-[50px]" id="hamsterbox">
           <div className="t-c justify-center items-center flex">
             <img
               src="/assets/images/hamster-head.png"
-              className="w-[69px] h-[57px] ml-[-20px] mr-[20px]"
+              className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
             />
-            <h3 className="text-center text-[32px] md:text-[60px] text-purple">
+            <h3 className="text-center text-[30px] md:text-[60px] text-purple uppercase">
               Hamsterbox
             </h3>
             <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]"></div>
           </div>
+          <p className="mx-auto max-w-[600px] text-center text-grey text-[11px] md:text-[16px] mt-[20px]">
+            A powerful toolbox for game studios and gamers to easily get started
+            on their web3 gaming journey.
+          </p>
           <div className="md:items-center md:flex md:justify-center mt-[30px]">
             <div className="float-left flex">
               <div className="float-left md:pr-[50px]">
                 <h3 className="text-blurPurple text-[100px] md:text-[200px] leading-[1]">
                   01.
                 </h3>
-                <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px]">
+                <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
                   Effortless plug-and-play solution for users and game studios
                   where Hamsterbox is integrated
                 </p>
@@ -138,10 +142,10 @@ const Home: NextPage = () => {
                 />
               </div>
               <div className="float-left md:pl-[50px]">
-                <h3 className="text-blurGreen text-[100px] md:text-[200px]  leading-[1]">
+                <h3 className="text-blurGreen text-[100px] md:text-[200px] leading-[1]">
                   02.
                 </h3>
-                <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px]">
+                <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
                   Secure asset management, trading and profiling for all
                   Hamsterbox-ready games at one place
                 </p>
@@ -165,7 +169,9 @@ const Home: NextPage = () => {
               <h3 className="text-[30px] md:text-[48px] text-white">GAMES</h3>
             </div>
             <div className="mt-[50px]">
-              <p>Integrate our pioneering Hamsterbox SDK for:</p>
+              <h3 className="text-[16px] md:text-[20px] text-greyText">
+                Integrate our pioneering Hamsterbox SDK for:
+              </h3>
               <ul className="mt-[30px]">
                 {forGameItems.map((item, index) => (
                   <li
@@ -174,7 +180,7 @@ const Home: NextPage = () => {
                   >
                     <img
                       src="/assets/images/dot-item.png"
-                      className="float-left w-[30px] h-[31px]"
+                      className="float-left w-[25px] h-[25px] md:w-[31.28px] md:h-[31.28px]"
                     />
                     <div className="float-right pl-[20px]">
                       <p className="text-grey text-[16px]">{item}</p>
@@ -195,7 +201,9 @@ const Home: NextPage = () => {
               <h3 className="text-[30px] md:text-[48px] text-white">GAMERS</h3>
             </div>
             <div className="mt-[50px]">
-              <p>Enter Web3 gaming via Hamsterbox portal (app):</p>
+              <h3 className="text-[16px] md:text-[20px] text-greyText">
+                Enter Web3 gaming via Hamsterbox portal (app):
+              </h3>
               <ul className="mt-[30px]">
                 {forGameItems2.map((item, index) => (
                   <li
@@ -204,7 +212,7 @@ const Home: NextPage = () => {
                   >
                     <img
                       src="/assets/images/dot-item.png"
-                      className="float-left w-[30px] h-[31px]"
+                      className="float-left w-[25px] h-[25px] md:w-[31.28px] md:h-[31.28px]"
                     />
                     <div className="float-right pl-[20px]">
                       <p className="text-grey text-[16px]">{item}</p>
@@ -300,11 +308,15 @@ const Home: NextPage = () => {
             </div>
             <img
               src="/assets/images/astronaunt-hamster.svg"
-              className="absolute right-[50px] top-[120px] spin-el"
+              className="absolute right-[30px] top-[30px] md:right-[20px] md:top-[120px] spin-el"
             />
             <img
               src="/assets/images/astronaunt-hamster.svg"
-              className="absolute right-[150px] bottom-[120px] spin-el"
+              className="absolute left-[30px] top-[-45px]  w-[58px] h-[58px] block md:hidden spin-el"
+            />
+            <img
+              src="/assets/images/astronaunt-hamster.svg"
+              className="absolute right-0 bottom-[160px] md:right-[150px] md:bottom-[120px] w-[40px] md:w-[70px] spin-el"
             />
           </div>
         </div>

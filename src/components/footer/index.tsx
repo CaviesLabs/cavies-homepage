@@ -5,6 +5,11 @@ interface FooterItem {
   uri: string;
 }
 
+interface SocialItem {
+  image: string;
+  uri: string;
+}
+
 const Footer: FC = () => {
   const footers = useMemo<FooterItem[]>(
     () => [
@@ -31,6 +36,11 @@ const Footer: FC = () => {
         uri: "https://cavies.notion.site/59aa5e24fdb146359cdd3cb9336aef45?v=83eedde046594e689d7fabf8932a7284",
       },
     ],
+    []
+  );
+
+  const socialItems = useMemo<SocialItem[]>(
+    () => [{ image: "/assets/images/telegram.svg", uri: "telegram.svg" }],
     []
   );
 
@@ -61,8 +71,8 @@ const Footer: FC = () => {
         <div></div>
         <div></div>
       </div>
-      <div className="flow-root md:px-[80px] px-[40px] py-[10px]">
-        <div className="bottom-menu-wrapper float-left">
+      <div className="flex md:px-[80px] px-[40px] py-[10px]">
+        <div className="bottom-menu-wrapper float-left w-[40%] md:w-[60%] lg:w-[70%]">
           <ul className="bottom-footer-menu">
             {bottomFooters.map((item, index) => (
               <li
@@ -73,6 +83,22 @@ const Footer: FC = () => {
                 <p className="text-grey text-[10px] md:text-[14px] mr-[20px] cursor-pointer">
                   {item.name}
                 </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="float-right menu-wrapper">
+          <ul className="footer-menu">
+            {socialItems.map((item, index) => (
+              <li
+                key={`footer-item-${index}`}
+                className="float-left ml-[20px] md:ml-[30px] cursor-pointer"
+                onClick={() => window.open(item.uri)}
+              >
+                <img
+                  src={item.image}
+                  className="text-[10px] md:text-[16px] w-[15px] h-[15px] md:w-[32px] md:h-[32px]"
+                />
               </li>
             ))}
           </ul>

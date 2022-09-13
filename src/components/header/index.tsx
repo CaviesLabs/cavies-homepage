@@ -1,5 +1,6 @@
 import { FC, useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import skrolltop from "skrolltop";
 import classnames from "classnames";
 import styles from "./index.module.scss";
 
@@ -25,6 +26,18 @@ const Header: FC = () => {
     const mobileMemu = document.getElementById("mobile-menu");
     toggleButton?.classList?.toggle(styles.active);
     mobileMemu?.classList?.toggle(styles.active);
+  };
+
+  const handleOnClickMenu = (slug: string) => {
+    setCurSlug(slug);
+
+    const element = document.getElementById(slug.split("#")[1]);
+    element !== null &&
+      skrolltop.scrollTo({
+        element: element,
+        to: 800,
+        duration: 800,
+      });
   };
 
   useEffect(() => {
@@ -67,7 +80,7 @@ const Header: FC = () => {
               <li
                 key={`desktop-menu-item-${index}`}
                 className="float-left md:mr-[80px] lg:mr-[108px]"
-                onClick={() => setCurSlug(item.slug)}
+                onClick={() => handleOnClickMenu(item.slug)}
               >
                 <a
                   href={item.slug}

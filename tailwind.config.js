@@ -17,6 +17,7 @@ module.exports = {
         blurPurple: "rgba(185, 152, 251, 0.8)",
         blurGreen: "rgba(60, 191, 124, 0.8)",
         hamserText: "rgba(149, 131, 255, 0.3)",
+        greyText: "rgba(77, 77, 77, 1)",
       },
       spacing: {
         normal: "18px",
