@@ -6,8 +6,6 @@ export const SeoComponent: FC = () => {
       {/* TODO: remove this metatag once we go live */}
       <meta name="robots" content="noindex" />
 
-      <html lang="en" />
-
       {/* Primary meta tags*/}
       <title>Cavies Labs | Transform the future of Web3 Gaming</title>
       <meta
