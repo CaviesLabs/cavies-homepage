@@ -1,23 +1,22 @@
-FROM node:lts-alpine AS deps
+FROM node:16-buster AS builder
+ARG APP_ENV=prod
+ENV APP_ENV ${APP_ENV}
+RUN echo ${APP_ENV}
 
-WORKDIR /opt/app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-
-FROM node:lts-alpine AS builder
-
-ENV NODE_ENV=production
 WORKDIR /opt/app
 COPY . .
-COPY --from=deps /opt/app/node_modules ./node_modules
+
+RUN yarn install
 RUN yarn build
 
-FROM node:lts-alpine AS runner
+FROM node:16-buster AS runner
 
-ARG X_TAG
 WORKDIR /opt/app
-ENV NODE_ENV=production
+
+ARG APP_ENV=prod
+ENV APP_ENV ${APP_ENV}
+RUN echo ${APP_ENV}
+
 COPY --from=builder /opt/app/next.config.js ./
 COPY --from=builder /opt/app/public ./public
 COPY --from=builder /opt/app/.next ./.next
