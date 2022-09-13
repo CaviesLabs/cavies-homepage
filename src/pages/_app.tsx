@@ -162,7 +162,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           async={true}
           src="https://www.googletagmanager.com/gtag/js?id=G-RL35P8RT0R"
         />
-        <script src='https://cavies.xyz/assets/js/ga.js' />
+        <script src="https://cavies.xyz/assets/js/ga.js" />
       </Head>
       <AppComponent {...{ Component, pageProps }} />
     </>
