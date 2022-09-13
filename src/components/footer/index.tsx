@@ -5,6 +5,11 @@ interface FooterItem {
   uri: string;
 }
 
+interface SocialItem {
+  image: string;
+  uri: string;
+}
+
 const Footer: FC = () => {
   const footers = useMemo<FooterItem[]>(
     () => [
@@ -31,6 +36,11 @@ const Footer: FC = () => {
         uri: "https://cavies.notion.site/59aa5e24fdb146359cdd3cb9336aef45?v=83eedde046594e689d7fabf8932a7284",
       },
     ],
+    []
+  );
+
+  const socialItems = useMemo<SocialItem[]>(
+    () => [{ image: "/assets/images/telegram.svg", uri: "telegram.svg" }],
     []
   );
 

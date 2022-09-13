@@ -70,7 +70,7 @@
   display: initial;
   .hidden-layer {
     background: $purple;
-    transform: rotate(-5deg);
+    transform: rotate(3deg);
     position: absolute;
     right: 0;
     left: 0;
@@ -80,6 +80,7 @@
   
   .shown-layer {
     position: relative;
+    transform: rotate(-3deg);
     background: $green;
     font-size: 32px;
     padding: 1px 25px;
@@ -91,12 +92,12 @@
 
   &:hover{
     .hidden-layer{
-      transform: rotate(3deg);
+      transform: rotate(-3deg);
     }
 
     .shown-layer {
       background: $green;
-      transform: rotate(-3deg);
+      transform: rotate(3deg);
     }
   }
 }
