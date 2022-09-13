@@ -162,15 +162,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           async={true}
           src="https://www.googletagmanager.com/gtag/js?id=G-RL35P8RT0R"
         />
-        <script>
-          {`window.dataLayer = window.dataLayer || [];
-          function gtag(){
-              dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-
-          gtag('config', 'G-RL35P8RT0R');`}
-        </script>
+        <script src='https://cavies.xyz/assets/js/ga.js' />
       </Head>
       <AppComponent {...{ Component, pageProps }} />
     </>
