@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import { FC } from "react";
-import Head  from "next/head";
+import Head from "next/head";
 
 import { SeoComponent } from "@/src/components/seo/seo.component";
 
