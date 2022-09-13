@@ -20,7 +20,7 @@ const Header: FC = () => {
     []
   );
 
-  const handleClickMobileMenu = (e: any) => {
+  const handleClickMobileMenu = () => {
     const toggleButton = document.getElementById("mobile-toggle");
     const mobileMemu = document.getElementById("mobile-menu");
     toggleButton?.classList?.toggle(styles.active);
@@ -64,9 +64,9 @@ const Header: FC = () => {
         }
       </div>
       <div
-        className={styles["toggle-button"]}
+        className={classnames(styles["toggle-button"], "block md:hidden")}
         id="mobile-toggle"
-        onClick={(e: any) => handleClickMobileMenu(e)}
+        onClick={() => handleClickMobileMenu()}
       >
         <span className={classnames(styles.bar, styles.top)}></span>
         <span className={classnames(styles.bar, styles.middle)}></span>
