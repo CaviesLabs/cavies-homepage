@@ -33,8 +33,30 @@ const Header: FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    window.onscroll = () => {
+      const header = document.getElementById("app-header");
+      const className = "scrolled-header";
+      if (
+        document.body.scrollTop > 120 ||
+        document.documentElement.scrollTop > 120
+      ) {
+        if (!header?.classList.contains(className)) {
+          header?.classList.add("scrolled-header");
+        }
+      } else {
+        if (header?.classList.contains(className)) {
+          header?.classList.remove("scrolled-header");
+        }
+      }
+    };
+  }, []);
+
   return (
-    <div className="app-header py-[25px] px-[40px] flow-root border-solid-black border-b-[1px]">
+    <div
+      className="app-header py-[25px] px-[40px] flow-root border-solid-black border-b-[1px]"
+      id="app-header"
+    >
       <div className="float-left logo-wrapper">
         <img src="/assets/images/logo.png" className="w-[95px] md:w-[149px]" />
       </div>
