@@ -1,9 +1,8 @@
 import { FC } from "react";
-import Head from "next/head";
 
 export const SeoComponent: FC = () => {
   return (
-    <Head>
+    <>
       {/* TODO: remove this metatag once we go live */}
       <meta name="robots" content="noindex" />
 
@@ -151,6 +150,6 @@ export const SeoComponent: FC = () => {
         src="https://www.googletagmanager.com/gtag/js?id=G-RL35P8RT0R"
       />
       <script src="https://cavies.xyz/assets/js/ga.js" />
-    </Head>
+    </>
   );
 };
