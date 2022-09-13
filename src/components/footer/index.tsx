@@ -37,7 +37,7 @@ const Footer: FC = () => {
   return (
     <div className="footer">
       <div className="flex md:px-[80px] px-[40px]  items-center">
-        <div className="float-left logo-wrapper w-[40%] md:w-[80%]">
+        <div className="float-left logo-wrapper w-[40%] md:w-[60%] lg:w-[70%]">
           <img
             src="/assets/images/logo.png"
             className="w-[75px] md:w-[149px]"

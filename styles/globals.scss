@@ -1,4 +1,4 @@
-
+@import "./utilities/variables.scss";
 
 .contact-right-wrapper {
   .contact-bottom-container {
@@ -57,5 +57,57 @@
     background-image: url('../public/assets/images/purple-b.png');
     background-size: 100%;
     background-position: 0 0 0;
+  }
+}
+
+
+.anim-button {
+  position: relative;
+  display: initial;
+  .hidden-layer {
+    background: $purple;
+    transform: rotate(-5deg);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .shown-layer {
+    position: relative;
+    background: $green;
+    font-size: 32px;
+    padding: 1px 25px;
+    color: #ffffff;
+    @media screen and (max-width: 768px) {
+      font-size: 24px;
+    }
+  }
+
+  &:hover{
+    .hidden-layer{
+      transform: rotate(3deg);
+    }
+
+    .shown-layer {
+      background: $green;
+      transform: rotate(-3deg);
+    }
+  }
+}
+
+.spin-el {
+  animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+}
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
   }
 }

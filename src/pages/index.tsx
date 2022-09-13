@@ -46,8 +46,13 @@ const Home: NextPage = () => {
                 Building towards mass adoption of blockchain-enabled games - the
                 friendly way
               </p>
-              <button className="px-[25px] mt-[60px] bg-purple">
-                <h3 className="uppercase text-[32px] text-white">Contact us</h3>
+              <button className="anim-button mt-[60px]">
+                <div className="hidden-layer"></div>
+                <button className="shown-layer">
+                  <h3 className="uppercase text-[32px] text-white">
+                    Contact Us
+                  </h3>
+                </button>
               </button>
             </div>
           </div>
@@ -182,12 +187,12 @@ const Home: NextPage = () => {
         </div>
         <div
           className="for-games-2 mt-[150px] md:inline-flex relative"
-          id="#forgames"
+          id="#forgamers"
         >
           <div className="md:float-right relative">
             <h3 className="text-[50px] md:text-[70px] rotate-[-5deg]">FOR</h3>
             <div className="inline-flex bg-purple rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-              <h3 className="text-[30px] md:text-[48px] text-white">GAMES</h3>
+              <h3 className="text-[30px] md:text-[48px] text-white">GAMERS</h3>
             </div>
             <div className="mt-[50px]">
               <p>Enter Web3 gaming via Hamsterbox portal (app):</p>
@@ -293,6 +298,14 @@ const Home: NextPage = () => {
                 <br /> box
               </h3>
             </div>
+            <img
+              src="/assets/images/astronaunt-hamster.svg"
+              className="absolute right-[50px] top-[120px] spin-el"
+            />
+            <img
+              src="/assets/images/astronaunt-hamster.svg"
+              className="absolute right-[150px] bottom-[120px] spin-el"
+            />
           </div>
         </div>
       </div>
