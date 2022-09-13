@@ -18,11 +18,11 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-family: poppins-bold;
-  background: url(../public/assets/images/c-background.png);
+  background: url(../public/assets/images/c-background.png), url(../public/assets/images/c-background-rotate.png);
   background-repeat: no-repeat, no-repeat;
   background-size: 70%, 70%;
-  background-position-x: 750px, -30px;
-  background-position-y: 800px, 3500px;
+  background-position-x: 750px, -330px;
+  background-position-y: 800px, 2200px;
   padding-bottom: 20px;
   overflow-x: hidden;
   transform: none, rotate(30deg);
