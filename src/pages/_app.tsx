@@ -21,14 +21,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="robots" content="noindex" />
 
         {/* Primary meta tags*/}
-        <title>Cavies | TRANSFORM THE FUTURE OF WEB3 GAMING</title>
+        <title>Cavies Labs | Transform the future of Web3 Gaming</title>
         <meta
           name="title"
-          content="Cavies | TRANSFORM THE FUTURE OF WEB3 GAMING"
+          content="Cavies Labs | Transform the future of Web3 Gaming"
         />
         <meta
           name="description"
-          content="UNORTHODOX WEB3 GAMING INFRASTRUCTURE - Building towards mass adoption of blockchain-enabled games - the friendly way"
+          content="We build a friendly way toward mass adoption of blockchain-enabled games - an unorthodox Web3 gaming infrastructure"
         />
 
         {/* For OpenGraph/Facebook */}
@@ -36,11 +36,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:url" content="https://cavies.xyz/" />
         <meta
           property="og:title"
-          content="Cavies | TRANSFORM THE FUTURE OF WEB3 GAMING"
+          content="Cavies Labs | Transform the future of Web3 Gaming"
         />
         <meta
           property="og:description"
-          content="UNORTHODOX WEB3 GAMING INFRASTRUCTURE - Building towards mass adoption of blockchain-enabled games - the friendly way"
+          content="We build a friendly way toward mass adoption of blockchain-enabled games - an unorthodox Web3 gaming infrastructure"
         />
         <meta
           property="og:image"
@@ -52,11 +52,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="twitter:url" content="https://cavies.xyz/" />
         <meta
           property="twitter:title"
-          content="Cavies | TRANSFORM THE FUTURE OF WEB3 GAMING"
+          content="Cavies Labs | Transform the future of Web3 Gaming"
         />
         <meta
           property="twitter:description"
-          content="UNORTHODOX WEB3 GAMING INFRASTRUCTURE - Building towards mass adoption of blockchain-enabled games - the friendly way"
+          content="We build a friendly way toward mass adoption of blockchain-enabled games - an unorthodox Web3 gaming infrastructure"
         />
         <meta
           property="twitter:image"
