@@ -4,6 +4,11 @@ interface FooterItem {
   name: string;
   uri: string;
 }
+//
+// interface SocialItem {
+//   image: string;
+//   uri: string;
+// }
 
 interface SocialItem {
   image: string;
@@ -38,6 +43,11 @@ const Footer: FC = () => {
     ],
     []
   );
+  //
+  // const socialItems = useMemo<SocialItem[]>(
+  //   () => [{ image: "/assets/images/telegram.svg", uri: "telegram.svg" }],
+  //   []
+  // );
 
   const socialItems = useMemo<SocialItem[]>(
     () => [{ image: "/assets/images/telegram.svg", uri: "telegram.svg" }],

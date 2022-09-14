@@ -1,11 +1,8 @@
-import "../../styles/globals.css";
-import "../../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { FC } from "react";
-import { Provider } from "react-redux";
-import makeStore from "@/app-redux";
 
-const store = makeStore();
+import "../../styles/globals.css";
+import "../../styles/globals.scss";
 
 const AppComponent: FC<{ Component: any; pageProps: any }> = ({
   Component,
@@ -16,9 +13,9 @@ const AppComponent: FC<{ Component: any; pageProps: any }> = ({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
+    <>
       <AppComponent {...{ Component, pageProps }} />
-    </Provider>
+    </>
   );
 }
 
