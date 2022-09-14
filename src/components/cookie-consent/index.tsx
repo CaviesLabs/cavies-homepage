@@ -46,14 +46,14 @@ export const CookieConnsentComponent: FC = () => {
   return (
     <section
       className={classnames(
-        "fixed bottom-0 md:bottom-[20px] md:right-[20px] py-2 w-[100%] md:w-[416px] md:h-[388px] md:bg-white shadow-xl rounded-[8px] cookie-consent",
+        "fixed bottom-0 md:bottom-[20px] md:right-[20px] md:py-2 w-[100%] md:w-[416px] md:h-[388px] md:bg-white shadow-xl rounded-[8px] cookie-consent",
         {
           "shown-block": !cookieConsent,
           hidden: cookieConsent,
         }
       )}
     >
-      <div className="relative px-[30px] mx-[30px] md:mx-[0] flex items-center h-full bg-white shadow-xl md:shadow-none pb-[20px] md:pb-0 rounded-[8px]">
+      <div className="relative px-[30px] mx-[0px] md:mx-[0] flex items-center h-full bg-white shadow-xl md:shadow-none pb-[20px] md:pb-0 rounded-[8px]">
         <button
           onClick={handleClose}
           className="absolute right-[30px] md:top-0 top-[20px]"
