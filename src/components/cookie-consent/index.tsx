@@ -60,10 +60,10 @@ export const CookieConnsentComponent: FC = () => {
         >
           <i className="bx bx-x text-black text-[30px]"></i>
         </button>
-        <div>
+        <div className="md:pt-0 pt-[30px]">
           <img
             src="/assets/images/hamster-cookie.png"
-            className="mx-auto md:w-[167px]"
+            className="mx-auto w-[120px] md:w-[167px]"
           />
           <p className="text-center text-[16px]">
             We use{" "}
