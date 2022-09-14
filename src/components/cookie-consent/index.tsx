@@ -35,11 +35,20 @@ export const CookieConnsentComponent: FC = () => {
     closePopup();
   };
 
+  const handleDecline = () => {
+    Cookies.set(USER_CONSENT_COOKIE_KEY, "false", {
+      expires: USER_CONSENT_COOKIE_EXPIRE_DATE,
+    });
+    (window as any)["ga-disable-UA-XXXXXX-Y"] = true;
+    closePopup();
+  };
+
   const handleClose = () => {
     closePopup();
   };
 
   useEffect(() => {
+    if (Cookies.get(USER_CONSENT_COOKIE_KEY) === "false") return;
     setCookieConsent(Cookies.get(USER_CONSENT_COOKIE_KEY) === "true");
   }, []);
 
@@ -60,7 +69,7 @@ export const CookieConnsentComponent: FC = () => {
         >
           <i className="bx bx-x text-black text-[30px]"></i>
         </button>
-        <div className="md:pt-0 pt-[30px]">
+        <div className="md:pt-0 pt-[30px] text-center">
           <img
             src="/assets/images/hamster-cookie.png"
             className="mx-auto w-[120px] md:w-[167px]"
@@ -76,8 +85,13 @@ export const CookieConnsentComponent: FC = () => {
             onClick={handleAccept}
             className="rounded-[8px] w-full mt-[20px] py-[7px] bg-purple"
           >
-            <p className="text-white text-center text-[16px] font-bold">
+            <p className="text-white text-center text-[14px] md:text-[16px] font-bold">
               Accept
+            </p>
+          </button>
+          <button onClick={handleDecline} className="mt-[20px] mx-auto">
+            <p className="text-center text-[14px] md:text-[16px] underline">
+              Decline
             </p>
           </button>
         </div>
