@@ -49,6 +49,10 @@ p {
   font-family: poppins-medium;
 }
 
+.normal-text {
+  font-family: poppins-medium;
+}
+
 .circle-purple {
   border-radius: 50%;
   background-color: rgba(185, 152, 251, 0.1);

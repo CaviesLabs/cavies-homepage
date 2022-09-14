@@ -69,9 +69,14 @@ const Footer: FC = () => {
               <li
                 key={`footer-item-${index}`}
                 className="float-left ml-[20px] md:ml-[30px] cursor-pointer"
-                onClick={() => window.open(item.uri)}
               >
-                <p className="text-[10px] md:text-[16px]">{item.name}</p>
+                <a
+                  target="_blank"
+                  href={item.uri}
+                  className="text-[10px] md:text-[16px] normal-text"
+                >
+                  {item.name}
+                </a>
               </li>
             ))}
           </ul>
@@ -85,14 +90,13 @@ const Footer: FC = () => {
         <div className="bottom-menu-wrapper float-left w-[40%] md:w-[60%] lg:w-[70%]">
           <ul className="bottom-footer-menu">
             {bottomFooters.map((item, index) => (
-              <li
-                key={`bottom-footer-item-${index}`}
-                className="md:float-left"
-                onClick={() => window.open(item.uri)}
-              >
-                <p className="text-grey text-[10px] md:text-[14px] mr-[20px] cursor-pointer">
+              <li key={`bottom-footer-item-${index}`} className="md:float-left">
+                <a
+                  className="text-grey text-[10px] md:text-[14px] mr-[20px] cursor-pointer normal-text"
+                  href={item.uri}
+                >
                   {item.name}
-                </p>
+                </a>
               </li>
             ))}
           </ul>
