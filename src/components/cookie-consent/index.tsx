@@ -6,6 +6,8 @@ import classnames from "classnames";
  * @descriptionn
  * @var USER_CONSENT_COOKIE_KEY: Cookie consent variable present for cookie license
  * @var SER_CONSENT_COOKIE_EXPIRE_DATE: Exprire of license
+ * @var SHOWN_CLASS: Class name for popup animation presenting for showing status
+ * @var HIDDEN_CLASS: Class name for popup animation presenting for hiding status
  */
 const USER_CONSENT_COOKIE_KEY = "cookie_consent_is_true";
 const USER_CONSENT_COOKIE_EXPIRE_DATE =
