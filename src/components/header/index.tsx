@@ -30,7 +30,6 @@ const Header: FC = () => {
 
   const handleOnClickMenu = (slug: string) => {
     setCurSlug(slug);
-
     const element = document.getElementById(slug.split("#")[1]);
     element !== null &&
       skrolltop.scrollTo({
@@ -40,12 +39,20 @@ const Header: FC = () => {
       });
   };
 
+  /**
+   * @description
+   * This function will automatically make bold on menu item when user scroll
+   * into the view that item present for
+   */
   useEffect(() => {
     window.addEventListener("scroll", () => {
       const ids = ["about-us", "objectives", "hamsterbox"];
       const items = ids.map((id) => document.getElementById(id));
       items.map((item, index: number) => {
-        if (item?.offsetTop !== undefined && pageYOffset >= item?.offsetTop) {
+        if (
+          item?.offsetTop !== undefined &&
+          pageYOffset >= item?.offsetTop - 450
+        ) {
           setCurSlug(`#${ids[index]}`);
         }
 
