@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import { FC } from "react";
-import { CookieConnsentComponent } from "@/src/components/cookie-consent/cookie-consent.componennt";
+import { CookieConnsentComponent } from "@/src/components/cookie-consent";
 
 import "../../styles/globals.css";
 import "../../styles/globals.scss";
