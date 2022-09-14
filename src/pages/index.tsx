@@ -74,6 +74,10 @@ const Home: NextPage = () => {
               src="/assets/images/hamster-top-c.png"
               className="w-[500px] h-auto md:mt-[-100px]"
             />
+            <img
+              src="/assets/images/circle-astronaunt-hamster.png"
+              className="top-circle-astronaunt-hamster spin-el"
+            />
           </div>
         </div>
         <div
@@ -136,7 +140,7 @@ const Home: NextPage = () => {
             A powerful toolbox for game studios and gamers to easily get started
             on their web3 gaming journey.
           </p>
-          <div className="md:items-center md:flex md:justify-center mt-[30px]">
+          <div className="md:items-center grid lg:flex md:justify-center mt-[30px] items-center">
             <div className="float-left flex">
               <div className="float-left md:pr-[50px]">
                 <h3 className="text-blurPurple text-[100px] md:text-[200px] leading-[1]">
@@ -278,12 +282,12 @@ const Home: NextPage = () => {
           src="/assets/images/purple-b.png"
           className="absolute w-full right-0 left-0 top-0 h-[630px] hidden md:block"
         />
-        <div className="relative mx-[20px] md:mx-[130px]">
-          <h1 className="uppercase text-[40px] md:text-[69px] leading-[1]">
+        <div className="relative mx-[20px] lg:mx-[130px]">
+          <h1 className="uppercase text-[40px] lg:text-[50px] xl:text-[69px] leading-[1]">
             Transform the future of <br />{" "}
             <span className="md:text-[90px] text-green">WEB3</span>{" "}
           </h1>
-          <div className="game-with-wrapper block md:hidden">
+          <div className="game-with-wrapper block lg:hidden">
             <h3 className="text-[40px] leading-[1] uppercase">Gaming with</h3>
             <h3 className="text-purple text-[71px] leading-[1] uppercase">
               Hamster
@@ -291,10 +295,10 @@ const Home: NextPage = () => {
             </h3>
           </div>
           <div className="flex">
-            <div className="relative ml-[100px] float-left">
+            <div className="relative ml-[100px] float-left md:absolute md:right-0 md:top-[100px] lg:relative">
               <img
                 src="/assets/images/astronaunt-hamster.png"
-                className="w-[314px] md:w-[530px] h-[auto] relative right-[-30px] md:right-[-100px] top-[-80px] md:top-[-100px] mvup"
+                className="w-[314px] md:w-[490px] lg:w-[530px] h-[auto] relative right-[-30px] lg:right-[-100px] top-[-80px] lg:top-[-100px] mvup"
               />
               <div
                 className="contact-right-wrapper absolute top-[50px] md:top-[200px] left-[-50px] md:left-[20px]"
@@ -334,9 +338,11 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="game-with-wrapper hidden md:block">
-              <h3 className="text-[58px] leading-[1] uppercase">Gaming with</h3>
-              <h3 className="text-purple text-[70px] md:text-[130px] leading-[1] uppercase">
+            <div className="game-with-wrapper hidden lg:block">
+              <h3 className="text-[40px] lg:text-[58px] leading-[1] uppercase">
+                Gaming with
+              </h3>
+              <h3 className="text-purple text-[70px] lg:text-[90px] xl:text-[130px] leading-[1] uppercase">
                 Hamster
                 <br /> box
               </h3>
@@ -351,7 +357,7 @@ const Home: NextPage = () => {
             />
             <img
               src="/assets/images/circle-astronaunt-hamster.png"
-              className="absolute right-0 bottom-[160px] md:right-[150px] md:bottom-[120px] w-[40px] md:w-[70px] md:h-[70px] spin-el"
+              className="absolute right-0 bottom-[160px] md:right-[150px] md:bottom-[-40px] lg:bottom-[120px] w-[40px] md:w-[70px] md:h-[70px] spin-el"
             />
           </div>
         </div>
