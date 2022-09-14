@@ -38,18 +38,18 @@ const Home: NextPage = () => {
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-70px]"></div>
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]"></div>
             <div>
-              <h3 className="text-[26px] md:text-[50px] uppercase font-bold">
+              <h3 className="text-[26px] md:text-[48px] uppercase font-bold">
                 Unorthodox <span className="text-green">Web3</span> <br />{" "}
                 Gaming Infrastructure
               </h3>
-              <p className="text-grey text-[12px] md:text-[16px] md:text-normal mt-[20px]">
+              <p className="text-grey text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
                 Building towards mass adoption of blockchain-enabled games - the
                 friendly way
               </p>
-              <button className="anim-button mt-[60px]">
+              <button className="anim-button mt-[30px] md:mt-[60px]">
                 <div className="hidden-layer"></div>
                 <button className="shown-layer">
-                  <h3 className="uppercase text-[32px] text-white">
+                  <h3 className="uppercase text-[14px] md:text-[32px] text-white">
                     Contact Us
                   </h3>
                 </button>
@@ -69,17 +69,28 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
-        <div className="objectives mt-[150px] md:inline-flex" id="objectives">
+        <div
+          className="objectives mt-[250px] md:mt-[150px] md:inline-flex"
+          id="objectives"
+        >
           <div className="md:float-left relative">
             <img
               src="/assets/images/older-hamster.png"
-              className="w-[auto] h-[auto] lg:w-[550px] lg:h-[auto]"
+              className="w-[279px] h-[auto] md:w-[auto] md:h-[auto] lg:w-[550px] lg:h-[auto] hidden md:block"
             />
           </div>
           <div className="md:float-right relative md:pl-[200px]">
-            <h3 className="text-[50px] md:text-[70px] rotate-[-5deg]">OUR</h3>
-            <div className="inline-flex bg-green rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
-              <h3 className="text-[30px] text-[48px] text-white">Objectives</h3>
+            <div className="relative">
+              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">OUR</h3>
+              <div className="inline-flex bg-green rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
+                <h3 className="text-[28px] md:text-[48px] text-white">
+                  Objectives
+                </h3>
+              </div>
+              <img
+                src="/assets/images/older-hamster-mobile.png"
+                className="w-[279px] h-[auto] block md:hidden absolute right-[-20px] top-[-210px]"
+              />
             </div>
             <div className="mt-[50px]">
               <ul>
@@ -93,7 +104,9 @@ const Home: NextPage = () => {
                       className="float-left w-[30px] h-[31px]"
                     />
                     <div className="float-right pl-[20px]">
-                      <p className="text-grey text-[16px]">{item}</p>
+                      <p className="text-grey text-[13px] md:text-[16px]">
+                        {item}
+                      </p>
                     </div>
                   </li>
                 ))}
@@ -107,12 +120,12 @@ const Home: NextPage = () => {
               src="/assets/images/hamster-head.png"
               className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
             />
-            <h3 className="text-center text-[30px] md:text-[60px] text-purple uppercase">
+            <h3 className="text-center text-[32px] md:text-[60px] text-purple uppercase">
               Hamsterbox
             </h3>
             <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]"></div>
           </div>
-          <p className="mx-auto max-w-[600px] text-center text-grey text-[11px] md:text-[16px] mt-[20px]">
+          <p className="mx-auto max-w-[600px] text-center text-grey text-[13px] md:text-[16px] mt-[20px]">
             A powerful toolbox for game studios and gamers to easily get started
             on their web3 gaming journey.
           </p>
@@ -157,16 +170,24 @@ const Home: NextPage = () => {
           className="for-games mt-[100px] md:inline-flex md:items-center"
           id="#forgames"
         >
-          <div className="md:float-left">
+          <div className="md:float-left relative">
+            <div className="block md:hidden absolute right-0 bottom-[50px]">
+              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+              <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
+                <h3 className="text-[28px] md:text-[48px] text-white">GAMES</h3>
+              </div>
+            </div>
             <img
               src="/assets/images/hamster-sleep-email-arrow.png"
-              className="w-[auto] h-[auto] lg:w-[550px] lg:h-[auto]"
+              className="w-[215px] h-[auto] lg:w-[550px] lg:h-[auto] relative"
             />
           </div>
           <div className="md:float-right relative md:pl-[200px]">
-            <h3 className="text-[50px] md:text-[70px] rotate-[-5deg]">FOR</h3>
-            <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-              <h3 className="text-[30px] md:text-[48px] text-white">GAMES</h3>
+            <div className="hidden md:block">
+              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+              <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
+                <h3 className="text-[28px] md:text-[48px] text-white">GAMES</h3>
+              </div>
             </div>
             <div className="mt-[50px]">
               <h3 className="text-[16px] md:text-[20px] text-greyText">
@@ -183,7 +204,9 @@ const Home: NextPage = () => {
                       className="float-left w-[25px] h-[25px] md:w-[31.28px] md:h-[31.28px]"
                     />
                     <div className="float-right pl-[20px]">
-                      <p className="text-grey text-[16px]">{item}</p>
+                      <p className="text-grey text-[13px] md:text-[16px]">
+                        {item}
+                      </p>
                     </div>
                   </li>
                 ))}
@@ -196,9 +219,9 @@ const Home: NextPage = () => {
           id="#forgamers"
         >
           <div className="md:float-right relative">
-            <h3 className="text-[50px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+            <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h3>
             <div className="inline-flex bg-purple rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-              <h3 className="text-[30px] md:text-[48px] text-white">GAMERS</h3>
+              <h3 className="text-[28px] md:text-[48px] text-white">GAMERS</h3>
             </div>
             <div className="mt-[50px]">
               <h3 className="text-[16px] md:text-[20px] text-greyText">
@@ -207,7 +230,7 @@ const Home: NextPage = () => {
               <ul className="mt-[30px]">
                 {forGameItems2.map((item, index) => (
                   <li
-                    key={`for-games-item-2-${index}`}
+                    key={`for-gamers-item-2-${index}`}
                     className="flex pb-[20px] max-w-[500px]"
                   >
                     <img
@@ -215,7 +238,9 @@ const Home: NextPage = () => {
                       className="float-left w-[25px] h-[25px] md:w-[31.28px] md:h-[31.28px]"
                     />
                     <div className="float-right pl-[20px]">
-                      <p className="text-grey text-[16px]">{item}</p>
+                      <p className="text-grey text-[13px] md:text-[16px]">
+                        {item}
+                      </p>
                     </div>
                   </li>
                 ))}
@@ -268,18 +293,18 @@ const Home: NextPage = () => {
                 <button className="contact-bottom-container">
                   <div className="hidden-layer"></div>
                   <button className="shown-layer">
-                    <h3 className="uppercase">Contact Us</h3>
+                    <h1 className="uppercase">Contact Us</h1>
                   </button>
                 </button>
                 <div className="utils-wrapper">
                   <div className="mouse-container absolute left-[20px] md:top-[50px]">
                     <div className="relative">
                       <img
-                        src="/assets/images/mouse-ar-purple.svg"
+                        src="/assets/images/mouse-ar-purple.png"
                         className="purple w-[91px] h-[91px] md:w-[150px] md:h-[150px]"
                       />
                       <img
-                        src="/assets/images/mouse-ar-green.svg"
+                        src="/assets/images/mouse-ar-green.png"
                         className="green w-[91px] h-[91px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
                       />
                     </div>
@@ -307,16 +332,16 @@ const Home: NextPage = () => {
               </h3>
             </div>
             <img
-              src="/assets/images/astronaunt-hamster.svg"
-              className="absolute right-[30px] top-[30px] md:right-[20px] md:top-[120px] spin-el"
+              src="/assets/images/circle-astronaunt-hamster.png"
+              className="absolute right-[30px] top-[30px] md:right-[20px] md:top-[120px] w-[58px] h-[58px] md:w-[70.7px] md:h-[70.7px] spin-el"
             />
             <img
-              src="/assets/images/astronaunt-hamster.svg"
-              className="absolute left-[30px] top-[-45px]  w-[58px] h-[58px] block md:hidden spin-el"
+              src="/assets/images/circle-astronaunt-hamster.png"
+              className="absolute left-[30px] top-[-45px] w-[58px] h-[58px] block md:hidden spin-el"
             />
             <img
-              src="/assets/images/astronaunt-hamster.svg"
-              className="absolute right-0 bottom-[160px] md:right-[150px] md:bottom-[120px] w-[40px] md:w-[70px] spin-el"
+              src="/assets/images/circle-astronaunt-hamster.png"
+              className="absolute right-0 bottom-[160px] md:right-[150px] md:bottom-[120px] w-[40px] md:w-[70px] md:h-[70px] spin-el"
             />
           </div>
         </div>
