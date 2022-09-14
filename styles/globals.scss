@@ -162,3 +162,18 @@
   background: #ffff;
   z-index: 53;
 }
+
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+
+.mvup {
+  animation: MoveUpDown 1s linear infinite;
+}

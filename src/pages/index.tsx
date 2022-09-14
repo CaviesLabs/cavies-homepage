@@ -294,7 +294,7 @@ const Home: NextPage = () => {
             <div className="relative ml-[100px] float-left">
               <img
                 src="/assets/images/astronaunt-hamster.png"
-                className="w-[314px] md:w-[530px] h-[auto] relative right-[-30px] md:right-[-100px] top-[-80px] md:top-[-100px]"
+                className="w-[314px] md:w-[530px] h-[auto] relative right-[-30px] md:right-[-100px] top-[-80px] md:top-[-100px] mvup"
               />
               <div
                 className="contact-right-wrapper absolute top-[50px] md:top-[200px] left-[-50px] md:left-[20px]"
