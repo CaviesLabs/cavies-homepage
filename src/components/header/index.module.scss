@@ -33,6 +33,7 @@
 
     &.active {
       position: fixed;
+      right: 40px;
       .bar {
         &.top { -webkit-transform: translateY(5px) translateX(0) rotate(45deg); }
         &.middle { opacity: 0; }

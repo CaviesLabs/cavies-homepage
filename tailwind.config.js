@@ -26,7 +26,8 @@ module.exports = {
         greyText: "rgba(77, 77, 77, 1)",
       },
       boxShadow: {
-        xl: "0px 4px 4px rgb(0 0 0)",
+        xl: "3px 3px 3px 3px rgba(0, 0, 0, 0.25)",
+        lg: "3px 4px 4px rgba(0, 0, 0, 1)",
       },
       spacing: {
         normal: "18px",
