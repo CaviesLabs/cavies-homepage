@@ -104,6 +104,43 @@
   }
 }
 
+.mennu-anim-button {
+  position: relative;
+  display: initial;
+  .hidden-layer {
+    background: transparent;
+    transform: rotate(3deg);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .shown-layer {
+    position: relative;
+    font-size: 32px;
+    padding: 1px 25px;
+    color: #000000;
+    @media screen and (max-width: 768px) {
+      font-size: 24px;
+    }
+  }
+
+  &:hover{
+    .hidden-layer{
+      background: $purple;
+      transform: rotate(-7deg);
+    }
+
+    .shown-layer {
+      background: $green;
+      transform: rotate(5deg);
+      color: #ffffff;
+    }
+  }
+}
+
 .spin-el {
   animation-name: spin;
   animation-duration: 5000ms;
