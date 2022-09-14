@@ -41,6 +41,27 @@ const Header: FC = () => {
   };
 
   useEffect(() => {
+    window.addEventListener("scroll", () => {
+      const ids = ["about-us", "objectives", "hamsterbox"];
+      const items = ids.map((id) => document.getElementById(id));
+      items.map((item, index: number) => {
+        console.log(pageYOffset, ids[index], item?.offsetTop);
+        if (item?.offsetTop !== undefined && pageYOffset >= item?.offsetTop) {
+          setCurSlug(`#${ids[index]}`);
+        }
+
+        if (
+          index === items.length - 1 &&
+          item?.offsetTop !== undefined &&
+          pageYOffset + item?.offsetHeight >= item?.offsetTop
+        ) {
+          setCurSlug(`#${ids[index]}`);
+        }
+      });
+    });
+  }, []);
+
+  useEffect(() => {
     if (router.asPath.includes("#")) {
       setCurSlug(`#${router.asPath.split("#")[1]}`);
     }
