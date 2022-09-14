@@ -130,12 +130,12 @@
   &:hover{
     .hidden-layer{
       background: $purple;
-      transform: rotate(-7deg);
+      transform: rotate(7deg);
     }
 
     .shown-layer {
       background: $green;
-      transform: rotate(5deg);
+      transform: rotate(-5deg);
       color: #ffffff;
     }
   }

@@ -5,6 +5,12 @@ module.exports = {
     "./src/layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screes: {
+      xs: "380px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
+    },
     extend: {
       colors: {
         primary: "#191123",

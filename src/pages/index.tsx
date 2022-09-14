@@ -56,7 +56,7 @@ const Home: NextPage = () => {
               <button className="anim-button mt-[30px] md:mt-[60px]">
                 <div className="hidden-layer"></div>
                 <button className="shown-layer">
-                  <h3 className="text-[14px] md:text-[32px] text-white">
+                  <h3 className="text-[14px] md:text-[20px] text-white">
                     Contact Us
                   </h3>
                 </button>
@@ -178,7 +178,7 @@ const Home: NextPage = () => {
           id="#forgames"
         >
           <div className="md:float-left relative">
-            <div className="block md:hidden absolute right-0 bottom-[50px]">
+            <div className="block md:hidden absolute right-[-5px] xs:right-0 bottom-[50px]">
               <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h3>
               <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
                 <h3 className="text-[28px] md:text-[48px] text-white">GAMES</h3>
