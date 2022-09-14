@@ -85,7 +85,7 @@ export const CookieConnsentComponent: FC = () => {
             onClick={handleAccept}
             className="rounded-[8px] w-full mt-[20px] py-[7px] bg-purple"
           >
-            <p className="text-white text-center text-[14px] md:text-[16px] font-bold">
+            <p className="text-white text-center text-[14px] md:text-[16px]">
               Accept
             </p>
           </button>
