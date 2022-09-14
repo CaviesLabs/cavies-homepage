@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useMemo } from "react";
 import MainLayout from "@/src/layouts/main";
+import { Fade } from "react-awesome-reveal";
 
 const Home: NextPage = () => {
   const objectiveItems = useMemo<string[]>(
@@ -45,14 +46,18 @@ const Home: NextPage = () => {
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-70px]" />
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
-              <h3 className="text-[26px] md:text-[48px] uppercase font-bold">
-                Unorthodox <span className="text-green">Web3</span> <br />{" "}
-                Gaming Infrastructure
-              </h3>
-              <p className="text-grey text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
-                Building towards mass adoption of blockchain-enabled games - the
-                friendly way
-              </p>
+              <Fade duration={600} direction="up">
+                <h3 className="text-[26px] md:text-[48px] uppercase font-bold">
+                  Unorthodox <span className="text-green">Web3</span> <br />{" "}
+                  Gaming Infrastructure
+                </h3>
+              </Fade>
+              <Fade duration={600} direction="up">
+                <p className="text-grey text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
+                  Building towards mass adoption of blockchain-enabled games -
+                  the friendly way
+                </p>
+              </Fade>
               <button className="anim-button mt-[30px] md:mt-[60px]">
                 <div className="hidden-layer"></div>
                 <button className="shown-layer">
@@ -106,74 +111,89 @@ const Home: NextPage = () => {
             <div className="mt-[50px]">
               <ul>
                 {objectiveItems.map((item, index) => (
-                  <li
+                  <Fade
+                    duration={600}
+                    direction="up"
                     key={`objective-item-${index}`}
-                    className="flex pb-[20px] max-w-[500px]"
                   >
-                    <img
-                      src="/assets/images/dot-item.png"
-                      className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
-                    />
-                    <div className="float-right pl-[20px]">
-                      <p className="text-grey text-[13px] md:text-[16px]">
-                        {item}
-                      </p>
-                    </div>
-                  </li>
+                    <li className="flex pb-[20px] max-w-[500px]">
+                      <img
+                        src="/assets/images/dot-item.png"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
+                      />
+                      <div className="float-right pl-[20px]">
+                        <p className="text-grey text-[13px] md:text-[16px]">
+                          {item}
+                        </p>
+                      </div>
+                    </li>
+                  </Fade>
                 ))}
               </ul>
             </div>
           </div>
         </div>
         <div className="hamsterbox mt-[50px]" id="hamsterbox">
-          <div className="t-c justify-center items-center flex">
-            <img
-              src="/assets/images/hamster-head.png"
-              className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
-            />
-            <h3 className="text-center text-[32px] md:text-[60px] text-purple uppercase">
-              Hamsterbox
-            </h3>
-            <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]" />
-          </div>
-          <p className="mx-auto max-w-[600px] text-center text-grey text-[13px] md:text-[16px] mt-[20px]">
-            A powerful toolbox for game studios and gamers to easily get started
-            on their web3 gaming journey.
-          </p>
+          <Fade duration={600} direction="up">
+            <div className="t-c justify-center items-center flex">
+              <img
+                src="/assets/images/hamster-head.png"
+                className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
+              />
+              <h3 className="text-center text-[32px] md:text-[60px] text-purple uppercase">
+                Hamsterbox
+              </h3>
+              <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]" />
+            </div>
+          </Fade>
+          <Fade duration={600} direction="up">
+            <p className="mx-auto max-w-[600px] text-center text-grey text-[13px] md:text-[16px] mt-[20px]">
+              A powerful toolbox for game studios and gamers to easily get
+              started on their web3 gaming journey.
+            </p>
+          </Fade>
           <div className="md:items-center grid lg:flex md:justify-center mt-[30px] items-center">
             <div className="float-left flex">
-              <div className="float-left md:pr-[50px]">
-                <h3 className="text-blurPurple text-[100px] md:text-[200px] leading-[1]">
-                  01.
-                </h3>
-                <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
-                  Effortless plug-and-play solution for users and game studios
-                  where Hamsterbox is integrated
-                </p>
-              </div>
-              <div className="float-left">
-                <img
-                  src="/assets/images/cry-hamster.png"
-                  className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
-                />
-              </div>
+              <Fade duration={600} direction="up">
+                <div className="float-left md:pr-[50px]">
+                  <h3 className="text-blurPurple text-[100px] md:text-[200px] leading-[1]">
+                    01.
+                  </h3>
+                  <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
+                    Effortless plug-and-play solution for users and game studios
+                    where Hamsterbox is integrated
+                  </p>
+                </div>
+              </Fade>
+              <Fade duration={600} direction="up">
+                <div className="float-left">
+                  <img
+                    src="/assets/images/cry-hamster.png"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
+                  />
+                </div>
+              </Fade>
             </div>
             <div className="float-left flex">
-              <div className="float-left">
-                <img
-                  src="/assets/images/sleep-hamster.png"
-                  className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
-                />
-              </div>
-              <div className="float-left md:pl-[50px]">
-                <h3 className="text-blurGreen text-[100px] md:text-[200px] leading-[1]">
-                  02.
-                </h3>
-                <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
-                  Secure asset management, trading and profiling for all
-                  Hamsterbox-ready games at one place
-                </p>
-              </div>
+              <Fade duration={600} direction="up">
+                <div className="float-left">
+                  <img
+                    src="/assets/images/sleep-hamster.png"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
+                  />
+                </div>
+              </Fade>
+              <Fade duration={600} direction="up">
+                <div className="float-left md:pl-[50px]">
+                  <h3 className="text-blurGreen text-[100px] md:text-[200px] leading-[1]">
+                    02.
+                  </h3>
+                  <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
+                    Secure asset management, trading and profiling for all
+                    Hamsterbox-ready games at one place
+                  </p>
+                </div>
+              </Fade>
             </div>
           </div>
         </div>
@@ -206,20 +226,23 @@ const Home: NextPage = () => {
               </h3>
               <ul className="mt-[30px]">
                 {forGameItems.map((item, index) => (
-                  <li
+                  <Fade
+                    duration={600}
+                    direction="up"
                     key={`for-games-item-${index}`}
-                    className="flex pb-[20px] max-w-[500px]"
                   >
-                    <img
-                      src="/assets/images/dot-item.png"
-                      className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
-                    />
-                    <div className="float-right pl-[20px]">
-                      <p className="text-grey text-[13px] md:text-[16px]">
-                        {item}
-                      </p>
-                    </div>
-                  </li>
+                    <li className="flex pb-[20px] max-w-[500px]">
+                      <img
+                        src="/assets/images/dot-item.png"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
+                      />
+                      <div className="float-right pl-[20px]">
+                        <p className="text-grey text-[13px] md:text-[16px]">
+                          {item}
+                        </p>
+                      </div>
+                    </li>
+                  </Fade>
                 ))}
               </ul>
             </div>
@@ -240,20 +263,23 @@ const Home: NextPage = () => {
               </h3>
               <ul className="mt-[30px]">
                 {forGameItems2.map((item, index) => (
-                  <li
+                  <Fade
+                    duration={600}
+                    direction="up"
                     key={`for-gamers-item-2-${index}`}
-                    className="flex pb-[20px] max-w-[500px]"
                   >
-                    <img
-                      src="/assets/images/dot-item.png"
-                      className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
-                    />
-                    <div className="float-right pl-[20px]">
-                      <p className="text-grey text-[13px] md:text-[16px]">
-                        {item}
-                      </p>
-                    </div>
-                  </li>
+                    <li className="flex pb-[20px] max-w-[500px]">
+                      <img
+                        src="/assets/images/dot-item.png"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
+                      />
+                      <div className="float-right pl-[20px]">
+                        <p className="text-grey text-[13px] md:text-[16px]">
+                          {item}
+                        </p>
+                      </div>
+                    </li>
+                  </Fade>
                 ))}
               </ul>
             </div>
