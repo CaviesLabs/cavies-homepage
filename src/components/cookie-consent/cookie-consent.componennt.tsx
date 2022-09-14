@@ -38,7 +38,6 @@ export const CookieConnsentComponent: FC = () => {
   };
 
   useEffect(() => {
-    console.log(Cookies.get(USER_CONSENT_COOKIE_KEY) == "true");
     setCookieConsent(Cookies.get(USER_CONSENT_COOKIE_KEY) === "true");
   }, []);
 
