@@ -25,6 +25,9 @@ module.exports = {
         hamserText: "rgba(149, 131, 255, 0.3)",
         greyText: "rgba(77, 77, 77, 1)",
       },
+      boxShadow: {
+        xl: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+      },
       spacing: {
         normal: "18px",
       },

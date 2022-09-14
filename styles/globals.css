@@ -12,6 +12,11 @@
   src: url(../public/assets/fonts/poppins/Poppins-Medium.otf);
 }
 
+@font-face {
+  font-family: poppins-thin;
+  src: url(../public/assets/fonts/poppins/Poppins-Thin.otf);
+}
+
 html,
 body {
   padding: 0;
@@ -51,6 +56,10 @@ p {
 
 .normal-text {
   font-family: poppins-medium;
+}
+
+.thin-text {
+  font-family: poppins-thin;
 }
 
 .circle-purple {

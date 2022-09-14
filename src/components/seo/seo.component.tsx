@@ -135,6 +135,10 @@ export const SeoComponent: FC = () => {
         type="image/x-icon"
       />
       <link rel="manifest" href="https://cavies.xyz/manifest.json" />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+      ></link>
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta
         name="msapplication-TileImage"
