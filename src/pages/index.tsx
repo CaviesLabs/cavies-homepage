@@ -56,7 +56,7 @@ const Home: NextPage = () => {
               <button className="anim-button mt-[30px] md:mt-[60px]">
                 <div className="hidden-layer"></div>
                 <button className="shown-layer">
-                  <h3 className="uppercase text-[14px] md:text-[32px] text-white">
+                  <h3 className="text-[14px] md:text-[32px] text-white">
                     Contact Us
                   </h3>
                 </button>
@@ -108,7 +108,7 @@ const Home: NextPage = () => {
                   >
                     <img
                       src="/assets/images/dot-item.png"
-                      className="float-left w-[30px] h-[31px]"
+                      className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                     />
                     <div className="float-right pl-[20px]">
                       <p className="text-grey text-[13px] md:text-[16px]">
@@ -208,7 +208,7 @@ const Home: NextPage = () => {
                   >
                     <img
                       src="/assets/images/dot-item.png"
-                      className="float-left w-[25px] h-[25px] md:w-[31.28px] md:h-[31.28px]"
+                      className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                     />
                     <div className="float-right pl-[20px]">
                       <p className="text-grey text-[13px] md:text-[16px]">
@@ -242,7 +242,7 @@ const Home: NextPage = () => {
                   >
                     <img
                       src="/assets/images/dot-item.png"
-                      className="float-left w-[25px] h-[25px] md:w-[31.28px] md:h-[31.28px]"
+                      className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                     />
                     <div className="float-right pl-[20px]">
                       <p className="text-grey text-[13px] md:text-[16px]">
