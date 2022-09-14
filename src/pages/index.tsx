@@ -60,7 +60,7 @@ const Home: NextPage = () => {
               </Fade>
               <button className="anim-button mt-[30px] md:mt-[60px]">
                 <div className="hidden-layer"></div>
-                <button className="shown-layer">
+                <button className="shown-layer" onClick={handleContactUs}>
                   <h3 className="text-[14px] md:text-[20px] text-white">
                     Contact Us
                   </h3>
