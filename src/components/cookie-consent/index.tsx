@@ -53,7 +53,7 @@ export const CookieConnsentComponent: FC = () => {
         }
       )}
     >
-      <div className="relative px-[30px] mx-[30px] md:mx-[0] flex items-center h-full bg-white shadow-xl md:shadow-none  pb-[20px] md:pb-0">
+      <div className="relative px-[30px] mx-[30px] md:mx-[0] flex items-center h-full bg-white shadow-xl md:shadow-none pb-[20px] md:pb-0 rounded-[8px]">
         <button
           onClick={handleClose}
           className="absolute right-[30px] md:top-0 top-[20px]"
