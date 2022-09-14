@@ -45,7 +45,6 @@ const Header: FC = () => {
       const ids = ["about-us", "objectives", "hamsterbox"];
       const items = ids.map((id) => document.getElementById(id));
       items.map((item, index: number) => {
-        console.log(pageYOffset, ids[index], item?.offsetTop);
         if (item?.offsetTop !== undefined && pageYOffset >= item?.offsetTop) {
           setCurSlug(`#${ids[index]}`);
         }
