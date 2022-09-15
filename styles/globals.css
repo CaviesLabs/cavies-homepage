@@ -17,6 +17,12 @@
   src: url(../public/assets/fonts/poppins/Poppins-Thin.otf);
 }
 
+@font-face {
+  font-family: poppins-regular;
+  src: url(../public/assets/fonts/poppins/Poppins-Regular.otf);
+}
+
+
 html,
 body {
   padding: 0;
@@ -60,6 +66,14 @@ p {
 
 .thin-text {
   font-family: poppins-thin;
+}
+
+.regular-text {
+  font-family: poppins-regular;
+}
+
+.bold-text {
+  font-family: poppins-bold; 
 }
 
 .circle-purple {

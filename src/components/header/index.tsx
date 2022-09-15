@@ -111,12 +111,10 @@ const Header: FC = () => {
               >
                 <a
                   href={item.slug}
-                  className={classnames(
-                    "text-[18px] text-grey font-normal uppercase",
-                    {
-                      "text-black": item.slug === curSlug,
-                    }
-                  )}
+                  className={classnames("font-[16px] uppercase", {
+                    "text-[#2B2B2B]": item.slug === curSlug,
+                    "text-[#6E6E6E]": item.slug !== curSlug,
+                  })}
                 >
                   {item.title}
                 </a>

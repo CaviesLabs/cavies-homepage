@@ -24,10 +24,11 @@ module.exports = {
         blurGreen: "rgba(60, 191, 124, 0.8)",
         hamserText: "rgba(149, 131, 255, 0.3)",
         greyText: "rgba(77, 77, 77, 1)",
+        borderGrey: "#80808029",
       },
       boxShadow: {
-        xl: "3px 3px 3px 3px rgba(0, 0, 0, 0.25)",
-        lg: "3px 4px 4px rgba(0, 0, 0, 1)",
+        xl: "0px 4px 4px rgba(0, 0, 0, 0.25);",
+        lg: "0px 4px 4px rgba(0, 0, 0, 0.25);",
       },
       spacing: {
         normal: "18px",

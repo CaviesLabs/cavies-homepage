@@ -47,13 +47,13 @@ const Home: NextPage = () => {
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
               <Fade duration={600} direction="up">
-                <h3 className="text-[26px] md:text-[48px] uppercase font-bold">
+                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-[#2B2B2B]">
                   Unorthodox <span className="text-green">Web3</span> <br />{" "}
                   Gaming Infrastructure
-                </h3>
+                </h1>
               </Fade>
               <Fade duration={600} direction="up">
-                <p className="text-grey text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
+                <p className="text-[#6E6E6E] text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
                   Building towards mass adoption of blockchain-enabled games -
                   the friendly way
                 </p>
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
             <div className="circle-purple absolute bottom-[40px] right-[-50px] w-[27px] h-[27px]" />
             <img
               src="/assets/images/hamster-top-c.png"
-              className="w-[500px] h-auto md:mt-[-100px]"
+              className="w-[442px] h-auto md:mt-[-100px]"
             />
             <img
               src="/assets/images/circle-astronaunt-hamster.png"
@@ -122,7 +122,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-grey text-[13px] md:text-[16px]">
+                        <p className="text-[#9D9EA0] text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -147,7 +147,7 @@ const Home: NextPage = () => {
             </div>
           </Fade>
           <Fade duration={600} direction="up">
-            <p className="mx-auto max-w-[600px] text-center text-grey text-[13px] md:text-[16px] mt-[20px]">
+            <p className="mx-auto max-w-[600px] text-center text-[#6E6E6E] text-[13px] md:text-[16px] mt-[20px] bold-text">
               A powerful toolbox for game studios and gamers to easily get
               started on their web3 gaming journey.
             </p>
@@ -221,7 +221,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="mt-[50px]">
-              <h3 className="text-[16px] md:text-[20px] text-greyText">
+              <h3 className="text-[16px] md:text-[20px] text-[#2B2B2B]">
                 Integrate our pioneering Hamsterbox SDK for:
               </h3>
               <ul className="mt-[30px]">
@@ -237,7 +237,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-grey text-[13px] md:text-[16px]">
+                        <p className="text-[#9D9EA0] text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -258,7 +258,7 @@ const Home: NextPage = () => {
               <h3 className="text-[28px] md:text-[48px] text-white">GAMERS</h3>
             </div>
             <div className="mt-[50px]">
-              <h3 className="text-[16px] md:text-[20px] text-greyText">
+              <h3 className="text-[16px] md:text-[20px] text-[#2B2B2B]">
                 Enter Web3 gaming via Hamsterbox portal (app):
               </h3>
               <ul className="mt-[30px]">
@@ -274,7 +274,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-grey text-[13px] md:text-[16px]">
+                        <p className="text-[#9D9EA0] text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>

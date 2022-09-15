@@ -62,7 +62,7 @@ export const CookieConnsentComponent: FC = () => {
         }
       )}
     >
-      <div className="relative px-[30px] mx-[0px] md:mx-[0] flex items-center h-full bg-white shadow-lg md:shadow-none pb-[20px] pt-[24px] md:pt-0 md:pb-0 rounded-[8px]">
+      <div className="relative px-[50px] mx-[0px] md:mx-[0] flex items-center h-full bg-white shadow-lg md:shadow-none pb-[20px] pt-[24px] md:pt-0 md:pb-0 rounded-tr-[8px] md:shadow-none pb-[20px] pt-[24px] md:pt-0 md:pb-0 rounded-tl-[8px] border-t-borderGrey border-t-[0.25px] md:border-t-none md:border-t-0">
         <button
           onClick={handleClose}
           className="absolute right-[30px] md:top-0 top-[20px]"
@@ -74,7 +74,7 @@ export const CookieConnsentComponent: FC = () => {
             src="/assets/images/hamster-cookie.png"
             className="mx-auto w-[120px] md:w-[167px]"
           />
-          <p className="text-center text-[16px]">
+          <p className="text-center text-[14px] regular-text">
             We use{" "}
             <a href="/privacy" className="text-purple">
               third-party cookies
@@ -85,12 +85,12 @@ export const CookieConnsentComponent: FC = () => {
             onClick={handleAccept}
             className="rounded-[8px] w-full mt-[20px] py-[7px] bg-purple"
           >
-            <p className="text-white text-center text-[14px] md:text-[16px]">
+            <p className="text-white text-center text-[14px] md:text-[14px] regular-text">
               Accept
             </p>
           </button>
           <button onClick={handleDecline} className="mt-[20px] mx-auto">
-            <p className="text-center text-[14px] md:text-[16px] underline">
+            <p className="text-center text-[14px] md:text-[14px] underline regular-text">
               Decline
             </p>
           </button>
