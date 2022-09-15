@@ -61,9 +61,9 @@ const Home: NextPage = () => {
               <button className="anim-button mt-[30px] md:mt-[60px]">
                 <div className="hidden-layer"></div>
                 <button className="shown-layer" onClick={handleContactUs}>
-                  <h3 className="text-[14px] md:text-[20px] text-white">
+                  <p className="text-[14px] md:text-[20px] text-white bold-text">
                     Contact Us
-                  </h3>
+                  </p>
                 </button>
               </button>
             </div>
@@ -97,11 +97,11 @@ const Home: NextPage = () => {
           </div>
           <div className="md:float-right relative md:pl-[200px]">
             <div className="relative">
-              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">OUR</h3>
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg]">OUR</h2>
               <div className="inline-flex bg-green rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
-                <h3 className="text-[28px] md:text-[48px] text-white">
+                <h2 className="text-[28px] md:text-[48px] text-white">
                   Objectives
-                </h3>
+                </h2>
               </div>
               <img
                 src="/assets/images/older-hamster-mobile.png"
@@ -140,9 +140,9 @@ const Home: NextPage = () => {
                 src="/assets/images/hamster-head.png"
                 className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
               />
-              <h3 className="text-center text-[32px] md:text-[60px] text-purple uppercase">
+              <h2 className="text-center text-[32px] md:text-[60px] text-purple uppercase">
                 Hamsterbox
-              </h3>
+              </h2>
               <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]" />
             </div>
           </Fade>
@@ -156,13 +156,13 @@ const Home: NextPage = () => {
             <div className="float-left flex">
               <Fade duration={600} direction="up">
                 <div className="float-left md:pr-[50px]">
-                  <h3 className="text-blurPurple text-[100px] md:text-[200px] leading-[1]">
+                  <p className="text-blurPurple text-[100px] md:text-[200px] leading-[1] bold-text">
                     01.
-                  </h3>
-                  <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
+                  </p>
+                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-[#4D4D4D] regular-text">
                     Effortless plug-and-play solution for users and game studios
                     where Hamsterbox is integrated
-                  </p>
+                  </h3>
                 </div>
               </Fade>
               <Fade duration={600} direction="up">
@@ -185,13 +185,13 @@ const Home: NextPage = () => {
               </Fade>
               <Fade duration={600} direction="up">
                 <div className="float-left md:pl-[50px]">
-                  <h3 className="text-blurGreen text-[100px] md:text-[200px] leading-[1]">
+                  <p className="text-blurGreen text-[100px] md:text-[200px] leading-[1] bold-text">
                     02.
-                  </h3>
-                  <p className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-greyText">
+                  </p>
+                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-[#4D4D4D] regular-text">
                     Secure asset management, trading and profiling for all
                     Hamsterbox-ready games at one place
-                  </p>
+                  </h3>
                 </div>
               </Fade>
             </div>
@@ -203,9 +203,9 @@ const Home: NextPage = () => {
         >
           <div className="md:float-left relative">
             <div className="block md:hidden absolute right-[-5px] xs:right-0 bottom-[50px]">
-              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h2>
               <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-                <h3 className="text-[28px] md:text-[48px] text-white">GAMES</h3>
+                <h2 className="text-[28px] md:text-[48px] text-white">GAMES</h2>
               </div>
             </div>
             <img
@@ -333,7 +333,7 @@ const Home: NextPage = () => {
                 <button className="contact-bottom-container">
                   <div className="hidden-layer"></div>
                   <button className="shown-layer">
-                    <h1 className="uppercase">Contact Us</h1>
+                    <p className="uppercase bold-text">Contact Us</p>
                   </button>
                 </button>
                 <div className="utils-wrapper">
