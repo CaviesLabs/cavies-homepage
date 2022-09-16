@@ -44,20 +44,22 @@ export const SeoComponent: FC = () => {
       <meta property="og:locale:alternate" content="en_GB" />
 
       {/* For Twitter */}
-      <meta property="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" content="summary" />
       <meta property="twitter:url" content="https://cavies.xyz/" />
       <meta
-        property="twitter:title"
-        content="Cavies Labs | Transform the future of Web3 Gaming"
+        name="twitter:title"
+        content="Cavies Labs | Building towards the future of Web3 Gaming"
       />
       <meta
-        property="twitter:description"
-        content="We build a friendly way toward mass adoption of blockchain-enabled games - an unorthodox Web3 gaming infrastructure"
+        name="twitter:description"
+        content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
       />
+      <meta name="twitter:image" content="<banner-link>" />
       <meta
-        property="twitter:image"
-        content="https://cavies.xyz/assets/images/hamster-top-c.png"
+        name="twitter:image:alt"
+        content="Cavies Labs | Building towards the future of Web3 Gaming"
       />
+      <meta name="robots" content="noindex" />
 
       {/*  Icon stuffs */}
       <link
