@@ -54,7 +54,7 @@ const Footer: FC = () => {
 
   return (
     <div className="footer mt-[40px]">
-      <div className="flex md:px-[5%] px-[40px] items-center">
+      <div className="flex md:px-[7%] px-[40px] items-center">
         <div className="float-left logo-wrapper w-[60%] md:w-[60%] lg:w-[70%]">
           <img
             src="/assets/images/logo.png"
@@ -84,7 +84,7 @@ const Footer: FC = () => {
         <div></div>
         <div></div>
       </div>
-      <div className="flex md:px-[5%] px-[40px] py-[10px]">
+      <div className="flex md:px-[7%] px-[40px] py-[10px]">
         <div className="bottom-menu-wrapper float-left w-[60%] md:w-[60%] lg:w-[70%]">
           <ul className="bottom-footer-menu">
             {bottomFooters.map((item, index) => (
