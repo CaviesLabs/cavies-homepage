@@ -51,7 +51,7 @@ export const SeoComponent: FC = () => {
       <meta property="og:url" content="https://cavies.xyz/" />
       <meta
         property="og:title"
-        content="Cavies Labs | Transform the future of Web3 Gaming"
+        content="Cavies Labs | Building towards the future of Web3 Gaming"
       />
       <meta
         property="og:description"
