@@ -58,13 +58,13 @@ const Home: NextPage = () => {
                   the friendly way
                 </p>
               </Fade>
-              <button className="anim-button mt-[30px] md:mt-[60px]">
+              <button className="anim-button mt-[30px] md:mt-[60px]" onClick={handleContactUs}>
                 <div className="hidden-layer"></div>
-                <button className="shown-layer" onClick={handleContactUs}>
+                <div className="shown-layer">
                   <p className="text-[14px] md:text-[20px] text-white bold-text">
                     Contact Us
                   </p>
-                </button>
+                </div>
               </button>
             </div>
           </div>
@@ -330,11 +330,11 @@ const Home: NextPage = () => {
                 className="contact-right-wrapper absolute top-[50px] md:top-[200px] left-[-50px] md:left-[20px]"
                 onClick={handleContactUs}
               >
-                <button className="contact-bottom-container">
+                <button className="contact-bottom-container" onClick={handleContactUs}>
                   <div className="hidden-layer"></div>
-                  <button className="shown-layer">
+                  <div className="shown-layer">
                     <p className="uppercase bold-text">Contact Us</p>
-                  </button>
+                  </div>
                 </button>
                 <div className="utils-wrapper">
                   <div className="mouse-container absolute left-[20px] md:top-[50px]">
