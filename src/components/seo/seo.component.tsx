@@ -3,23 +3,48 @@ import { FC } from "react";
 export const SeoComponent: FC = () => {
   return (
     <>
-      {/* TODO: remove this metatag once we go live */}
-      <meta name="robots" content="noindex" />
-
       {/* Primary meta tags*/}
-      <title>Cavies Labs | Transform the future of Web3 Gaming</title>
+      <title>Cavies Labs | Building towards the future of Web3 Gaming</title>
       <meta
-        name="keywords"
-        content="cavies,web3,gamefi,crypto,unorthodox,infrastructure,multichain,btc,eth,solana,polygon,unorthodox infrastructure,blockchain,web3 gaming"
+        http-equiv="Cache-Control"
+        content="no-cache, no-store, must-revalidate"
       />
+      <meta http-equiv="Pragma" content="no-cache" />
+      <meta http-equiv="Expires" content="0" />
+      <meta name="language" content="EN" />
+
       <meta
         name="title"
-        content="Cavies Labs | Transform the future of Web3 Gaming"
+        content="Cavies Labs | Building towards the future of Web3 Gaming"
       />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="description"
-        content="We build a friendly way toward mass adoption of blockchain-enabled games - an unorthodox Web3 gaming infrastructure"
+        content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
       />
+      <meta
+        name="keywords"
+        content="cavies,hamsterbox,web3,gaming,game,gamer,gamefi,crypto,nft,metaverse,unorthodox,infrastructure,multichain,btc,eth,solana,polygon,unorthodox infrastructure,blockchain,web3 gaming"
+      />
+
+      {/**  */}
+      <meta
+        property="og:title"
+        content="Cavies Labs | Building towards the future of Web3 Gaming"
+      />
+      <meta property="og:type" content="website" />
+      <meta
+        property="og:description"
+        content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
+      />
+      <meta property="og:url" content="https://cavies.xyz" />
+      <meta property="og:image" content="<banner-link>" />
+      <meta
+        property="og:image:alt"
+        content="Cavies Labs | Building towards the future of Web3 Gaming"
+      />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
 
       {/* For OpenGraph/Facebook */}
       <meta property="og:type" content="website" />
@@ -59,6 +84,8 @@ export const SeoComponent: FC = () => {
         name="twitter:image:alt"
         content="Cavies Labs | Building towards the future of Web3 Gaming"
       />
+
+      {/* TODO: remove this metatag once we go live */}
       <meta name="robots" content="noindex" />
 
       {/*  Icon stuffs */}
