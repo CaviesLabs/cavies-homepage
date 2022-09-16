@@ -13,7 +13,10 @@ interface SocialItem {
 const Footer: FC = () => {
   const footers = useMemo<FooterItem[]>(
     () => [
-      { name: "About Us", uri: "https://cavies.notion.site/About-Cavies-72e60c00426b450e8e57ca3ea5acb0d0" },
+      {
+        name: "About Us",
+        uri: "https://cavies.notion.site/About-Cavies-72e60c00426b450e8e57ca3ea5acb0d0",
+      },
       {
         name: "Blog",
         uri: "https://cavies.notion.site/b4ff0745a92144aaaccf5b052d92b540?v=7891d7724e1349a5943c8a101174af5c",
@@ -40,7 +43,12 @@ const Footer: FC = () => {
   );
 
   const socialItems = useMemo<SocialItem[]>(
-    () => [{ image: "/assets/images/twitter.svg", uri: "https://twitter.com/CaviesLabs" }],
+    () => [
+      {
+        image: "/assets/images/twitter.svg",
+        uri: "https://twitter.com/CaviesLabs",
+      },
+    ],
     []
   );
 
