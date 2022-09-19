@@ -284,7 +284,7 @@ const Home: NextPage = () => {
                     <li className="flex pb-[20px] max-w-[500px]">
                       <img
                         src="/assets/images/dot-item.png"
-                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] md:hidden"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] dark:hidden"
                       />
                       <img
                         src="/assets/images/dot-item-dark.png"
