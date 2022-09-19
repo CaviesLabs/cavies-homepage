@@ -80,13 +80,23 @@
   }
 }
 
+
 [data-theme="dark"] {
   .mobile-nav {
     .menu-container {
       background: #20242D;
-      .mobile-mennu {
+      .mobile-menu {
         li {
-          color: #96A1B5;
+          p {
+            color: #96A1B5;
+          }
+          :global {
+            .active {
+              p {
+                color: #FFFFFF;
+              }
+            }
+          }
         }
       }
     }

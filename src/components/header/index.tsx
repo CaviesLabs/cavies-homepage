@@ -277,9 +277,9 @@ const Header: FC = () => {
                 >
                   <div className="hidden-layer"></div>
                   <button className="shown-layer">
-                    <h3 className="uppercase text-[14px] md:text-[32px]">
+                    <p className="uppercase text-[14px] md:text-[32px]">
                       {item.title}
-                    </h3>
+                    </p>
                   </button>
                 </a>
               </li>
