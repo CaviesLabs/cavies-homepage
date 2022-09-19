@@ -5,6 +5,8 @@ import skrolltop from "skrolltop";
 import classnames from "classnames";
 import styles from "./index.module.scss";
 
+let themeChange = false;
+
 interface MenuItem {
   title: string;
   slug: string;
@@ -118,6 +120,10 @@ const Header: FC = () => {
        * It will be updated automatically following computer's theme change
        */
       setInterval(() => {
+        if (themeChange === true) {
+          clearInterval(this);
+          return;
+        }
         const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
         if (darkThemeMq.matches) {
           setTheme("dark");
@@ -170,7 +176,10 @@ const Header: FC = () => {
             type="checkbox"
             className="theme-checkbox"
             id="theme-checkbox"
-            onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onChange={() => {
+              themeChange = true;
+              setTheme(theme === "dark" ? "light" : "dark");
+            }}
           />
           <label htmlFor="theme-checkbox" className="theme-label">
             <div className="theme-ball flex items-center">
