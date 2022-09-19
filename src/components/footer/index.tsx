@@ -122,7 +122,7 @@ const Footer: FC = () => {
           </ul>
         </div>
         <div className="pt-[20px]">
-          <p className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer normal-text text-center">
+          <p className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] cursor-pointer normal-text text-center">
             © 2022 Cavies, Ltd.
           </p>
         </div>
