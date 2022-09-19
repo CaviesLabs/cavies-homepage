@@ -73,8 +73,24 @@
         font-size: 16px;
         line-height: 28px;
         text-align: center;
-        color: #000000;
         margin-top: 30px;
+        :global {
+          a {
+            p {
+              color: #5F6C87;
+            }
+            &:hover {
+              p {
+                color: #20242D;
+              }
+            }
+            &.active {
+              p {
+                color: #735CF7;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -92,6 +108,11 @@
           }
           :global {
             .active {
+              p {
+                color: #B998FB;
+              }
+            }
+            a:hover {
               p {
                 color: #FFFFFF;
               }

@@ -263,12 +263,9 @@ const Header: FC = () => {
             {menuData.map((item: any, index: number) => (
               <li key={`mobile-menu-${index}`}>
                 <a
-                  className={classnames(
-                    "mennu-anim-button mt-[30px] md:mt-[60px]",
-                    {
-                      active: item.slug === curSlug,
-                    }
-                  )}
+                  className={classnames("mt-[30px] md:mt-[60px]", {
+                    active: item.slug === curSlug,
+                  })}
                   href={item.slug}
                   onClick={() => {
                     window.location.href = item.slug;
@@ -277,7 +274,7 @@ const Header: FC = () => {
                 >
                   <div className="hidden-layer"></div>
                   <button className="shown-layer">
-                    <p className="uppercase text-[14px] md:text-[32px]">
+                    <p className="uppercase text-[14px] md:text-[32px] bold-text">
                       {item.title}
                     </p>
                   </button>
