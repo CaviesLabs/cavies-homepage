@@ -134,7 +134,7 @@
     }
   }
 
-  &:hover{
+  &:hover, &.active{
     .hidden-layer{
       background: $purple;
       transform: rotate(7deg);

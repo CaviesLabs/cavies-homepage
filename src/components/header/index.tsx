@@ -145,7 +145,12 @@ const Header: FC = () => {
             {menuData.map((item: any, index: number) => (
               <li key={`mobile-menu-${index}`}>
                 <a
-                  className="mennu-anim-button mt-[30px] md:mt-[60px]"
+                  className={classnames(
+                    "mennu-anim-button mt-[30px] md:mt-[60px]",
+                    {
+                      active: item.slug === curSlug,
+                    }
+                  )}
                   href={item.slug}
                   onClick={() => {
                     window.location.href = item.slug;
