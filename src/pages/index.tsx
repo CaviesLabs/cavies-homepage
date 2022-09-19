@@ -47,7 +47,7 @@ const Home: NextPage = () => {
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
               <Fade duration={600} direction="up">
-                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-[#2B2B2B]">
+                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-[#2B2B2B] leading-[68px]">
                   Unorthodox <span className="text-green">Web3</span> <br />{" "}
                   Gaming Infrastructure
                 </h1>
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
                 <div className="hidden-layer"></div>
                 <div className="shown-layer">
                   <p className="text-[14px] md:text-[20px] text-white bold-text">
-                    Contact Us
+                    Contact us
                   </p>
                 </div>
               </button>
@@ -125,7 +125,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-[#9D9EA0] text-[13px] md:text-[16px] regular-text">
+                        <p className="text-[#4D4D4D] text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -136,7 +136,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="hamsterbox mt-[50px]" id="hamsterbox">
+        <div className="hamsterbox mt-[200px]" id="hamsterbox">
           <Fade duration={600} direction="up">
             <div className="t-c justify-center items-center flex">
               <img
@@ -171,7 +171,7 @@ const Home: NextPage = () => {
               <Fade duration={600} direction="up">
                 <div className="float-left">
                   <img
-                    src="/assets/images/cry-hamster.png"
+                    src="/assets/images/electric-hamster.png"
                     className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
                   />
                 </div>
@@ -179,10 +179,10 @@ const Home: NextPage = () => {
             </div>
             <div className="float-left flex">
               <Fade duration={600} direction="up">
-                <div className="float-left">
+                <div className="float-left relative w-[133px] h-[133px] md:w-[271px] md:h-[271px]">
                   <img
-                    src="/assets/images/sleep-hamster.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
+                    src="/assets/images/c-box.png"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px]"
                   />
                 </div>
               </Fade>
@@ -206,19 +206,23 @@ const Home: NextPage = () => {
         >
           <div className="md:float-left relative">
             <div className="block md:hidden absolute right-[-5px] xs:right-0 bottom-[50px]">
-              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h2>
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] text-[#2B2B2B]">
+                FOR
+              </h2>
               <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
                 <h2 className="text-[28px] md:text-[48px] text-white">GAMES</h2>
               </div>
             </div>
             <img
-              src="/assets/images/hamster-sleep-email-arrow.png"
-              className="w-[215px] h-[auto] lg:w-[550px] lg:h-[auto] relative"
+              src="/assets/images/hamster-computer-email.png"
+              className="w-[215px] h-[auto] lg:w-[625px] lg:h-[auto] relative"
             />
           </div>
           <div className="md:float-right relative md:pl-[200px]">
             <div className="hidden md:block">
-              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-[#2B2B2B]">
+                FOR
+              </h3>
               <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
                 <h3 className="text-[28px] md:text-[48px] text-white">GAMES</h3>
               </div>
@@ -240,7 +244,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-[#9D9EA0] text-[13px] md:text-[16px] regular-text">
+                        <p className="text-[#4D4D4D] text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -252,11 +256,13 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div
-          className="for-games-2 mt-[150px] md:inline-flex relative"
+          className="for-games-2 mt-[250px] md:mt-[150px] md:inline-flex relative"
           id="#forgamers"
         >
           <div className="md:float-right relative">
-            <h3 className="text-[48px] md:text-[70px] rotate-[-5deg]">FOR</h3>
+            <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-[#2B2B2B]">
+              FOR
+            </h3>
             <div className="inline-flex bg-purple rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
               <h3 className="text-[28px] md:text-[48px] text-white">GAMERS</h3>
             </div>
@@ -277,7 +283,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-[#9D9EA0] text-[13px] md:text-[16px] regular-text">
+                        <p className="text-[#4D4D4D] text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -288,7 +294,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-left relative md:pl-[300px]">
-            <h3 className="text-[90px] lg:text-[232px] text-hamserText absolute leading-[1] rotate-[-5deg] uppercase top-[-650px] md:top-0 left-[-30px] md:left-[20px]">
+            <h3 className="text-[90px] lg:text-[232px] text-[#735CF7] md:text-hamserText absolute leading-[1] rotate-[-5deg] uppercase top-[-580px] md:top-0 left-[-30px] md:left-[20px]">
               ham <br /> ser
             </h3>
             <img
@@ -296,12 +302,12 @@ const Home: NextPage = () => {
               className="w-[auto] h-[auto] lg:w-[775px] lg:h-[auto] absolute right-[-350px] lg:right-[-550px] hidden md:block"
             />
             <img
-              src="/assets/images/older-hamster-2.png"
-              className="w-[auto] h-[auto] lg:w-[550px] lg:h-[auto] relative hidden md:block"
+              src="/assets/images/hamster-play-game.png"
+              className="w-[auto] h-[auto] lg:w-[653px] lg:h-[auto] relative hidden md:block"
             />
           </div>
           <img
-            src="/assets/images/older-hamster-2-mobile.png"
+            src="/assets/images/hamster-play-game-mobile.png"
             className="block md:hidden w-[210px] h-[auto] absolute right-[-30px] top-[-100px]"
           />
         </div>
@@ -312,12 +318,14 @@ const Home: NextPage = () => {
           className="absolute w-full right-0 left-0 top-0 h-[630px] hidden md:block"
         />
         <div className="relative mx-[20px] lg:mx-[130px]">
-          <h1 className="uppercase text-[40px] lg:text-[50px] xl:text-[69px] leading-[1]">
+          <h1 className="uppercase text-[40px] lg:text-[50px] xl:text-[69px] leading-[1] text-[#2B2B2B]">
             Transform the future of <br />{" "}
             <span className="md:text-[90px] text-green">WEB3</span>{" "}
           </h1>
           <div className="game-with-wrapper block lg:hidden">
-            <h3 className="text-[40px] leading-[1] uppercase">Gaming with</h3>
+            <h3 className="text-[40px] leading-[1] uppercase text-[#2B2B2B]">
+              Gaming with
+            </h3>
             <h3 className="text-purple text-[71px] leading-[1] uppercase">
               Hamster
               <br /> box
@@ -371,7 +379,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="game-with-wrapper hidden lg:block">
-              <h3 className="text-[40px] lg:text-[58px] leading-[1] uppercase">
+              <h3 className="text-[40px] lg:text-[58px] leading-[1] uppercase text-[#2B2B2B]">
                 Gaming with
               </h3>
               <h3 className="text-purple text-[70px] lg:text-[90px] xl:text-[130px] leading-[1] uppercase">

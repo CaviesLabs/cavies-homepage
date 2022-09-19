@@ -38,7 +38,10 @@ export const SeoComponent: FC = () => {
         content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
       />
       <meta property="og:url" content="https://cavies.xyz" />
-      <meta property="og:image" content="<banner-link>" />
+      <meta
+        property="og:image"
+        content="https://cavies.xyz/assets/images/org-banner.jpg"
+      />
       <meta
         property="og:image:alt"
         content="Cavies Labs | Building towards the future of Web3 Gaming"
@@ -72,14 +75,13 @@ export const SeoComponent: FC = () => {
       <meta name="twitter:card" content="summary" />
       <meta property="twitter:url" content="https://cavies.xyz/" />
       <meta
-        name="twitter:title"
-        content="Cavies Labs | Building towards the future of Web3 Gaming"
-      />
-      <meta
         name="twitter:description"
         content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
       />
-      <meta name="twitter:image" content="<banner-link>" />
+      <meta
+        name="twitter:image"
+        content="https://cavies.xyz/assets/images/twitter-banner.png"
+      />
       <meta
         name="twitter:image:alt"
         content="Cavies Labs | Building towards the future of Web3 Gaming"
