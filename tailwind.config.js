@@ -4,7 +4,17 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/layouts/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
+  purge: {
+    enabled: true,
+    content: ["./src/**/*.tsx"],
+    options: {
+      safelist: ["dark"], //specific classes
+    },
+  },
   theme: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    typography: (theme) => ({}),
     screes: {
       xs: "380px",
       md: "768px",

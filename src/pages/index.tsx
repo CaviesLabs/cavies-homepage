@@ -1,36 +1,26 @@
 import type { NextPage } from "next";
-import { useMemo } from "react";
 import MainLayout from "@/src/layouts/main";
 import { Fade } from "react-awesome-reveal";
 
+const objectiveItems = [
+  "One-stop portal to the metaverse for both the ~3.5b Web2 and ~1.5m Web3 gamers",
+  "Seamless integration and scalable gaming experience for games",
+  "Hassle-free gaming assets management and trading, powered and secured by blockchain magic",
+];
+
+const forGameItems = [
+  "Secure authentication, which also opens the door to all users on Hamsterbox",
+  "Assets creation, trading and management (on-chain or in-game)",
+  "Powerful Logical Functions, including those that utilize game assets under Hamsterbox's management",
+];
+
+const forGameItems2 = [
+  "Choose between our safe and friendly Web2 or Web3 authentication flow",
+  "Deposit game assets into our custodial service for an undisturbed gaming experience",
+  "Access to all Hamsterbox-integrated games using a single account",
+];
+
 const Home: NextPage = () => {
-  const objectiveItems = useMemo<string[]>(
-    () => [
-      "One-stop portal to the metaverse for both the ~3.5b Web2 and ~1.5m Web3 gamers",
-      "Seamless integration and scalable gaming experience for games",
-      "Hassle-free gaming assets management and trading, powered and secured by blockchain magic",
-    ],
-    []
-  );
-
-  const forGameItems = useMemo<string[]>(
-    () => [
-      "Secure authentication, which also opens the door to all users on Hamsterbox",
-      "Assets creation, trading and management (on-chain or in-game)",
-      "Powerful Logical Functions, including those that utilize game assets under Hamsterbox's management",
-    ],
-    []
-  );
-
-  const forGameItems2 = useMemo<string[]>(
-    () => [
-      "Choose between our safe and friendly Web2 or Web3 authentication flow",
-      "Deposit game assets into our custodial service for an undisturbed gaming experience",
-      "Access to all Hamsterbox-integrated games using a single account",
-    ],
-    []
-  );
-
   const handleContactUs = () => {
     window.open(
       "mailto:contact@cavies.xyz?subject=Hello Cavies Labs",

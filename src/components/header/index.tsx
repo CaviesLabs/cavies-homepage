@@ -1,5 +1,6 @@
 import { FC, useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 import skrolltop from "skrolltop";
 import classnames from "classnames";
 import styles from "./index.module.scss";
@@ -10,6 +11,7 @@ interface MenuItem {
 }
 
 const Header: FC = () => {
+  const { theme, setTheme } = useTheme();
   const [curSlug, setCurSlug] = useState<string>("#about-us");
   const router = useRouter();
   const menuData = useMemo<MenuItem[]>(
@@ -67,12 +69,21 @@ const Header: FC = () => {
     });
   }, []);
 
+  /**
+   * @description
+   * This function set current selected section based on the location user are in
+   */
   useEffect(() => {
     if (router.asPath.includes("#")) {
       setCurSlug(`#${router.asPath.split("#")[1]}`);
     }
   }, []);
 
+  /**
+   * @description
+   * This function will focus on header menu item when user scroll into the view
+   * which menu-item present for
+   */
   useEffect(() => {
     const header = document.getElementById("app-header");
     const className = "scrolled-header";
@@ -92,17 +103,84 @@ const Header: FC = () => {
     };
   }, []);
 
+  /**
+   * @description
+   * Handle toggle app theme
+   */
+  useEffect(() => {
+    const themeToggle = document.getElementById("theme-checkbox");
+    if (theme === "dark") {
+      (themeToggle as any).checked = true;
+    }
+  }, []);
+
+  /**
+   * @description
+   * Pure theme configuration to tailwind config
+   */
+  useEffect(() => {
+    const classList = document.documentElement.classList;
+    if (theme === "dark") {
+      !classList.contains("dark") &&
+        document.documentElement.classList.add("dark");
+    } else {
+      classList.contains("dark") &&
+        document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   return (
     <div
       className="app-header py-[25px] px-[40px] flow-root border-solid-black border-b-[1px]"
       id="app-header"
     >
-      <div className="float-left logo-wrapper">
-        <img src="/assets/images/logo.png" className="w-[95px] md:w-[149px]" />
+      <div className="float-left logo-wrapper md:mt-0 mt-[5px]">
+        <a href="/">
+          <img
+            src="/assets/images/logo.png"
+            className="w-[95px] md:w-[149px]"
+          />
+        </a>
       </div>
-      <div className="hidden md:block float-right memu-wrapper">
+      <div className="relative flex items-center float-right">
+        <div className="float-right relative">
+          <input
+            type="checkbox"
+            className="theme-checkbox"
+            id="theme-checkbox"
+            onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+          />
+          <label htmlFor="theme-checkbox" className="theme-label">
+            <div className="theme-ball flex items-center">
+              <img
+                src="/assets/images/light-icon.svg"
+                className="w-[14px] h-[14px] mx-auto dark:hidden"
+              />
+              <img
+                src="/assets/images/dark-icon.svg"
+                className="w-[14px] h-[14px] mx-auto hidden dark:block"
+              />
+            </div>
+          </label>
+        </div>
+        <div className="flex items-center float-right">
+          <div
+            className={classnames(
+              styles["toggle-button"],
+              "block md:hidden ml-[20px]"
+            )}
+            id="mobile-toggle"
+            onClick={() => handleClickMobileMenu()}
+          >
+            <span className={classnames(styles.bar, styles.top)}></span>
+            <span className={classnames(styles.bar, styles.middle)}></span>
+            <span className={classnames(styles.bar, styles.bottom)}></span>
+          </div>
+        </div>
+      </div>
+      <div className="hidden md:flex float-right memu-wrapper flex items-center">
         {
-          <ul className="menu-container">
+          <ul className="menu-container float-left">
             {menuData.map((item, index) => (
               <li
                 key={`desktop-menu-item-${index}`}
@@ -126,15 +204,6 @@ const Header: FC = () => {
             ))}
           </ul>
         }
-      </div>
-      <div
-        className={classnames(styles["toggle-button"], "block md:hidden")}
-        id="mobile-toggle"
-        onClick={() => handleClickMobileMenu()}
-      >
-        <span className={classnames(styles.bar, styles.top)}></span>
-        <span className={classnames(styles.bar, styles.middle)}></span>
-        <span className={classnames(styles.bar, styles.bottom)}></span>
       </div>
       <div className={classnames(styles["mobile-nav"])}>
         <div
