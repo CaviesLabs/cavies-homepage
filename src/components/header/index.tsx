@@ -112,6 +112,11 @@ const Header: FC = () => {
     if (theme === "dark") {
       (themeToggle as any).checked = true;
     } else if (theme === "system") {
+      /**
+       * @description
+       * If user have not custom changing the theme
+       * It will be updated automatically following computer's theme change
+       */
       setInterval(() => {
         const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
         if (darkThemeMq.matches) {
