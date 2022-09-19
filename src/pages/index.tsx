@@ -53,7 +53,7 @@ const Home: NextPage = () => {
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
               <Fade duration={600} direction="up">
-                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-strongTitle dark:text-strongTitleDark leading-[68px]">
+                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-strongTitle dark:text-strongTitleDark leading-[32px] md:leading-[68px]">
                   Unorthodox <span className="text-green">Web3</span> <br />{" "}
                   Gaming Infrastructure
                 </h1>
@@ -211,7 +211,11 @@ const Home: NextPage = () => {
             </div>
             <img
               src="/assets/images/hamster-computer-email.png"
-              className="w-[215px] h-[auto] lg:w-[625px] lg:h-[auto] relative"
+              className="w-[215px] h-[auto] lg:w-[625px] lg:h-[auto] relative dark:hidden"
+            />
+            <img
+              src="/assets/images/hamster-computer-email-dark.png"
+              className="w-[215px] h-[auto] lg:w-[625px] lg:h-[auto] relative hidden dark:block"
             />
           </div>
           <div className="md:float-right relative md:pl-[200px]">
