@@ -17,22 +17,29 @@
     .shown-layer {
       position: relative;
       background: #3CBF7C;
-      box-shadow: -2px 5px 0px #000000;
       transform: rotate(-5deg);
       font-size: 28px;
       padding: 1px 25px;
       color: #ffffff;
-      -webkit-text-stroke: 2px rgb(0, 0, 0);
       border: 1px solid #000;
+      p {
+      -webkit-text-stroke: 1px rgb(0, 0, 0);
+      }
       @media screen and (max-width: 768px) {
         font-size: 18px;
+      }
+      @media screen and (min-width: 768px) {
+        box-shadow: -2px 5px 0px #000000;
       }
     }
   
     &:hover{
       .hidden-layer{
         transform: rotate(3deg);
-        box-shadow: -2px 5px 0px #000000;
+        border: 1px solid #000;
+        @media screen and (min-width: 768px) {
+          box-shadow: -2px 5px 0px #000000;
+        }
       }
   
       .shown-layer {

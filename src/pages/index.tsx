@@ -347,7 +347,12 @@ const Home: NextPage = () => {
                 >
                   <div className="hidden-layer"></div>
                   <div className="shown-layer">
-                    <p className="uppercase bold-text">Contact Us</p>
+                    <p className="uppercase bold-text">
+                      Contact{" "}
+                      <span className="hidden md:block float-right ml-[10px]">
+                        Us
+                      </span>
+                    </p>
                   </div>
                 </button>
                 <div className="utils-wrapper">
