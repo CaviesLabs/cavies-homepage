@@ -294,7 +294,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-left relative md:pl-[300px]">
-            <h3 className="text-[90px] lg:text-[232px] text-[#735CF7] md:text-hamserText absolute leading-[1] rotate-[-5deg] uppercase top-[-580px] md:top-0 left-[-30px] md:left-[20px]">
+            <h3 className="text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText absolute leading-[1] rotate-[-5deg] uppercase top-[-580px] md:top-0 left-[-30px] md:left-[20px]">
               ham <br /> ser
             </h3>
             <img
