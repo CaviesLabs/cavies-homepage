@@ -37,13 +37,13 @@ const Home: NextPage = () => {
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
               <Fade duration={600} direction="up">
-                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-[#2B2B2B] leading-[68px]">
+                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-strongTitle dark:text-strongTitleDark leading-[68px]">
                   Unorthodox <span className="text-green">Web3</span> <br />{" "}
                   Gaming Infrastructure
                 </h1>
               </Fade>
               <Fade duration={600} direction="up">
-                <p className="text-[#6E6E6E] text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
+                <p className="text-contentColor dark:text-contentColorDark text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
                   Building towards mass adoption of blockchain-enabled games -
                   the friendly way
                 </p>
@@ -54,7 +54,7 @@ const Home: NextPage = () => {
               >
                 <div className="hidden-layer"></div>
                 <div className="shown-layer">
-                  <p className="text-[14px] md:text-[20px] text-white bold-text">
+                  <p className="text-[14px] md:text-[20px] text-white dark:text-strongTitle medium-text">
                     Contact us
                   </p>
                 </div>
@@ -91,8 +91,8 @@ const Home: NextPage = () => {
           <div className="md:float-right relative md:pl-[200px]">
             <div className="relative">
               <h2 className="text-[48px] md:text-[70px] rotate-[-5deg]">OUR</h2>
-              <div className="inline-flex bg-green rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
-                <h2 className="text-[28px] md:text-[48px] text-white">
+              <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
+                <h2 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
                   Objectives
                 </h2>
               </div>
@@ -115,7 +115,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-[#4D4D4D] text-[13px] md:text-[16px] regular-text">
+                        <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -133,14 +133,14 @@ const Home: NextPage = () => {
                 src="/assets/images/hamster-head.png"
                 className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
               />
-              <h2 className="text-center text-[32px] md:text-[60px] text-purple uppercase">
+              <h2 className="text-center text-[32px] md:text-[60px] text-purple dark:text-white uppercase">
                 Hamsterbox
               </h2>
               <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]" />
             </div>
           </Fade>
           <Fade duration={600} direction="up">
-            <p className="mx-auto max-w-[600px] text-center text-[#6E6E6E] text-[13px] md:text-[16px] mt-[20px] bold-text">
+            <p className="mx-auto max-w-[600px] text-center text-contentColor dark:text-white text-[13px] md:text-[16px] mt-[20px] medium-text">
               A powerful toolbox for game studios and gamers to easily get
               started on their web3 gaming journey.
             </p>
@@ -149,10 +149,10 @@ const Home: NextPage = () => {
             <div className="float-left flex">
               <Fade duration={600} direction="up">
                 <div className="float-left md:pr-[50px]">
-                  <p className="text-blurPurple text-[100px] md:text-[200px] leading-[1] bold-text">
+                  <p className="text-purple dark:text-purpleDark text-[100px] md:text-[200px] leading-[1] bold-text">
                     01.
                   </p>
-                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-[#4D4D4D] regular-text">
+                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
                     Effortless plug-and-play solution for users and game studios
                     where Hamsterbox is integrated
                   </h3>
@@ -178,10 +178,10 @@ const Home: NextPage = () => {
               </Fade>
               <Fade duration={600} direction="up">
                 <div className="float-left md:pl-[50px]">
-                  <p className="text-blurGreen text-[100px] md:text-[200px] leading-[1] bold-text">
+                  <p className="text-green dark:text-greenDark text-[100px] md:text-[200px] leading-[1] bold-text">
                     02.
                   </p>
-                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-[#4D4D4D] regular-text">
+                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
                     Secure asset management, trading and profiling for all
                     Hamsterbox-ready games at one place
                   </h3>
@@ -196,11 +196,13 @@ const Home: NextPage = () => {
         >
           <div className="md:float-left relative">
             <div className="block md:hidden absolute right-[-5px] xs:right-0 bottom-[50px]">
-              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] text-[#2B2B2B]">
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark">
                 FOR
               </h2>
-              <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-                <h2 className="text-[28px] md:text-[48px] text-white">GAMES</h2>
+              <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
+                <h2 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
+                  GAMES
+                </h2>
               </div>
             </div>
             <img
@@ -210,15 +212,17 @@ const Home: NextPage = () => {
           </div>
           <div className="md:float-right relative md:pl-[200px]">
             <div className="hidden md:block">
-              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-[#2B2B2B]">
+              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark">
                 FOR
               </h3>
-              <div className="inline-flex bg-green rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-                <h3 className="text-[28px] md:text-[48px] text-white">GAMES</h3>
+              <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
+                <h3 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
+                  GAMES
+                </h3>
               </div>
             </div>
             <div className="mt-[50px]">
-              <h3 className="text-[16px] md:text-[20px] text-[#2B2B2B]">
+              <h3 className="text-[16px] md:text-[20px] text-strongTitle dark:text-strongTitleDark">
                 Integrate our pioneering Hamsterbox SDK for:
               </h3>
               <ul className="mt-[30px]">
@@ -234,7 +238,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-[#4D4D4D] text-[13px] md:text-[16px] regular-text">
+                        <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -250,14 +254,16 @@ const Home: NextPage = () => {
           id="#forgamers"
         >
           <div className="md:float-right relative">
-            <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-[#2B2B2B]">
+            <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark">
               FOR
             </h3>
-            <div className="inline-flex bg-purple rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-              <h3 className="text-[28px] md:text-[48px] text-white">GAMERS</h3>
+            <div className="inline-flex bg-purple dark:bg-purpleDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
+              <h3 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
+                GAMERS
+              </h3>
             </div>
             <div className="mt-[50px]">
-              <h3 className="text-[16px] md:text-[20px] text-[#2B2B2B]">
+              <h3 className="text-[16px] md:text-[20px] text-strongTitle dark:text-strongTitleDark">
                 Enter Web3 gaming via Hamsterbox portal (app):
               </h3>
               <ul className="mt-[30px]">
@@ -273,7 +279,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-[#4D4D4D] text-[13px] md:text-[16px] regular-text">
+                        <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -284,7 +290,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-left relative md:pl-[300px]">
-            <h3 className="text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText absolute leading-[1] rotate-[-5deg] uppercase top-[-580px] md:top-0 left-[-30px] md:left-[20px]">
+            <h3 className="text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:md:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-580px] md:top-0 left-[-30px] md:left-[180px]">
               ham <br /> ser
             </h3>
             <img
@@ -305,18 +311,20 @@ const Home: NextPage = () => {
       <div className="contact-s relative mt-[200px] md:min-h-[630px] pt-[30px] md:pt-[80px]">
         <img
           src="/assets/images/purple-b.png"
-          className="absolute w-full right-0 left-0 top-0 h-[630px] hidden md:block"
+          className="absolute w-full right-0 left-0 top-0 h-[630px] hidden md:block dark:hidden"
         />
         <div className="relative mx-[20px] lg:mx-[130px]">
-          <h1 className="uppercase text-[40px] lg:text-[50px] xl:text-[69px] leading-[1] text-[#2B2B2B]">
+          <h1 className="uppercase text-[40px] lg:text-[50px] xl:text-[69px] leading-[1] text-strongTitle dark:text-strongTitleDark">
             Transform the future of <br />{" "}
-            <span className="md:text-[90px] text-green">WEB3</span>{" "}
+            <span className="md:text-[90px] text-green dark:text-greenDark">
+              WEB3
+            </span>{" "}
           </h1>
           <div className="game-with-wrapper block lg:hidden">
-            <h3 className="text-[40px] leading-[1] uppercase text-[#2B2B2B]">
+            <h3 className="text-[40px] leading-[1] uppercase text-green dark:text-greenDark">
               Gaming with
             </h3>
-            <h3 className="text-purple text-[71px] leading-[1] uppercase">
+            <h3 className="text-purple dark:text-purpleDark text-[71px] leading-[1] uppercase">
               Hamster
               <br /> box
             </h3>
@@ -374,10 +382,10 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="game-with-wrapper hidden lg:block">
-              <h3 className="text-[40px] lg:text-[58px] leading-[1] uppercase text-[#2B2B2B]">
+              <h3 className="text-[40px] lg:text-[58px] leading-[1] uppercase text-green dark:text-greenDark">
                 Gaming with
               </h3>
-              <h3 className="text-purple text-[70px] lg:text-[90px] xl:text-[130px] leading-[1] uppercase">
+              <h3 className="text-purple dark:text-purpleDark text-[70px] lg:text-[90px] xl:text-[130px] leading-[1] uppercase">
                 Hamster
                 <br /> box
               </h3>

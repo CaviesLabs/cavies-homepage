@@ -120,6 +120,7 @@ const Header: FC = () => {
    */
   useEffect(() => {
     const classList = document.documentElement.classList;
+    document.documentElement.setAttribute("data-theme", theme as string);
     if (theme === "dark") {
       !classList.contains("dark") &&
         document.documentElement.classList.add("dark");
@@ -131,14 +132,18 @@ const Header: FC = () => {
 
   return (
     <div
-      className="app-header py-[25px] px-[40px] flow-root border-solid-black border-b-[1px]"
+      className="app-header py-[25px] px-[40px] flow-root border-b-[1px] border-borderColor dark:border-borderColorDark"
       id="app-header"
     >
       <div className="float-left logo-wrapper md:mt-0 mt-[5px]">
         <a href="/">
           <img
             src="/assets/images/logo.png"
-            className="w-[95px] md:w-[149px]"
+            className="w-[95px] md:w-[149px] dark:hidden"
+          />
+          <img
+            src="/assets/images/logo-dark.png"
+            className="w-[95px] md:w-[149px] hidden dark:block"
           />
         </a>
       </div>
@@ -172,9 +177,27 @@ const Header: FC = () => {
             id="mobile-toggle"
             onClick={() => handleClickMobileMenu()}
           >
-            <span className={classnames(styles.bar, styles.top)}></span>
-            <span className={classnames(styles.bar, styles.middle)}></span>
-            <span className={classnames(styles.bar, styles.bottom)}></span>
+            <span
+              className={classnames(
+                styles.bar,
+                styles.top,
+                "bg-strongTitle dark:bg-strongTitleDark"
+              )}
+            ></span>
+            <span
+              className={classnames(
+                styles.bar,
+                styles.middle,
+                "bg-strongTitle dark:bg-strongTitleDark"
+              )}
+            ></span>
+            <span
+              className={classnames(
+                styles.bar,
+                styles.bottom,
+                "bg-strongTitle dark:bg-strongTitleDark"
+              )}
+            ></span>
           </div>
         </div>
       </div>
@@ -189,14 +212,14 @@ const Header: FC = () => {
               >
                 <a
                   href={item.slug}
-                  className={classnames(
-                    "font-[16px] uppercase",
-                    {
-                      "text-[#20242D]": item.slug === curSlug,
-                      "text-[#5F6C87]": item.slug !== curSlug,
-                    },
-                    "hover:text-menuPurple"
-                  )}
+                  className={classnames("font-[16px] uppercase", {
+                    "text-menuItemSelected": item.slug === curSlug,
+                    "text-menuItem": item.slug !== curSlug,
+                    "dark:text-menuItemSelectedDark": item.slug === curSlug,
+                    "dark:text-menuItemDark": item.slug !== curSlug,
+                    "hover:text-menuItemHover": theme === "light",
+                    // "hover:text-menuItemHover": theme === "dark",
+                  })}
                 >
                   {item.title}
                 </a>
