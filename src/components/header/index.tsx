@@ -111,6 +111,18 @@ const Header: FC = () => {
     const themeToggle = document.getElementById("theme-checkbox");
     if (theme === "dark") {
       (themeToggle as any).checked = true;
+    } else if (theme === "system") {
+      setInterval(() => {
+        const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+        if (darkThemeMq.matches) {
+          setTheme("dark");
+          (themeToggle as any).checked = true;
+        } else {
+          // Theme set to light.
+          setTheme("light");
+          (themeToggle as any).checked = false;
+        }
+      }, 500);
     }
   }, []);
 

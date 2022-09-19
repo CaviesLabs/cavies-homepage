@@ -62,7 +62,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-right relative md:pl-[80px] md:pt-0 pt-[30px] order-0 md:order-1">
-            <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-150px] left-[260px]" />
+            <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-170px] left-[260px]" />
             <div className="circle-purple absolute w-[31px] h-[31px] bottom-[100px] left-[-30px]" />
             <div className="circle-green absolute top-[30px] left-[0px] w-[21px] h-[21px]" />
             <div className="circle-green absolute top-[40px] right-[-10px] w-[43px] h-[43px]" />
@@ -112,7 +112,11 @@ const Home: NextPage = () => {
                     <li className="flex pb-[20px] max-w-[500px]">
                       <img
                         src="/assets/images/dot-item.png"
-                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/dot-item-dark.png"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] hidden dark:block"
                       />
                       <div className="float-right pl-[20px]">
                         <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
@@ -235,7 +239,11 @@ const Home: NextPage = () => {
                     <li className="flex pb-[20px] max-w-[500px]">
                       <img
                         src="/assets/images/dot-item.png"
-                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/dot-item-dark.png"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] hidden dark:block"
                       />
                       <div className="float-right pl-[20px]">
                         <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
@@ -276,7 +284,11 @@ const Home: NextPage = () => {
                     <li className="flex pb-[20px] max-w-[500px]">
                       <img
                         src="/assets/images/dot-item.png"
-                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px]"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] md:hidden"
+                      />
+                      <img
+                        src="/assets/images/dot-item-dark.png"
+                        className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] hidden dark:block"
                       />
                       <div className="float-right pl-[20px]">
                         <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">

@@ -88,3 +88,10 @@ p {
   border-radius: 50%;
   background-color: rgba(104, 213, 157, 0.1);
 }
+
+[data-theme="dark"] .circle-purple {
+  background-color: #B998FB;
+}
+[data-theme="dark"] .circle-green {
+  background-color: #69FFB2;
+}
