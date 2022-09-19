@@ -19,7 +19,7 @@ module.exports = {
         green: "#3CBF7C",
         purple: "#7B64FF",
         grey: "#9D9EA0",
-        dividerColor: "#D9D9D9",
+        dividerColor: "#D2D7DF",
         blurPurple: "rgba(185, 152, 251, 0.8)",
         blurGreen: "rgba(60, 191, 124, 0.8)",
         hamserText: "rgba(149, 131, 255, 0.3)",
