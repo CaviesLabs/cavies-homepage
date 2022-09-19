@@ -82,7 +82,7 @@ const Footer: FC = () => {
           </a>
         </div>
         <div className="float-right menu-wrapper w-[100%] md:pt-0 pt-[20px]">
-          <ul className="footer-menu w-[100%] flex justify-center flex-wrap">
+          <ul className="footer-menu w-[100%] flex justify-center flex-wrap md:justify-end">
             {footers.map((item, index) => (
               <li
                 key={`footer-item-${index}`}
