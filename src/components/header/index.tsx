@@ -155,7 +155,7 @@ const Header: FC = () => {
 
   return (
     <div
-      className="app-header py-[25px] px-[40px] lg:px-[130px] flow-root border-b-[1px] border-borderColor dark:border-borderColorDark"
+      className="app-header py-[25px] px-[20px] md:px-[40px] lg:px-[130px] flow-root border-b-[1px] border-borderColor dark:border-borderColorDark"
       id="app-header"
     >
       <div className="float-left logo-wrapper md:mt-0 mt-[9px]">

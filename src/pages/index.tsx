@@ -30,7 +30,7 @@ const Home: NextPage = () => {
 
   return (
     <MainLayout>
-      <div className=" px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px] pt-[50px] md:pt-[180px]">
+      <div className="px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px] pt-[50px] md:pt-[180px]">
         <div className="top-inf md:inline-flex grid" id="about-us">
           <div className="md:float-left relative md:pl-[80px] md:pt-0 pt-[30px] order-0 md:order-1">
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-170px] left-[260px]" />
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
               <Fade duration={600} direction="up">
                 <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-strongTitle dark:text-strongTitleDark leading-[32px] md:leading-[68px]">
                   Unorthodox{" "}
-                  <span className="text-green dark:text-greenDark">Web3</span>{" "}
+                  <span className="text-green dark:text-greenDark">Web3</span>
                   <br /> Gaming Infrastructure
                 </h1>
               </Fade>
