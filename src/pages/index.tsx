@@ -54,12 +54,13 @@ const Home: NextPage = () => {
             <div>
               <Fade duration={600} direction="up">
                 <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-strongTitle dark:text-strongTitleDark leading-[32px] md:leading-[68px]">
-                  Unorthodox <span className="text-green">Web3</span> <br />{" "}
-                  Gaming Infrastructure
+                  Unorthodox{" "}
+                  <span className="text-green dark:text-greenDark">Web3</span>{" "}
+                  <br /> Gaming Infrastructure
                 </h1>
               </Fade>
               <Fade duration={600} direction="up">
-                <p className="text-contentColor dark:text-contentColorDark text-[14px] md:text-[18px] md:text-normal mt-[20px] max-w-[530px]">
+                <p className="text-contentColor dark:text-contentColorDark text-[14px] md:text-[20px] md:text-normal mt-[20px] max-w-[530px]">
                   Building towards mass adoption of blockchain-enabled games -
                   the friendly way
                 </p>
@@ -68,8 +69,8 @@ const Home: NextPage = () => {
                 className="anim-button mt-[30px] md:mt-[60px]"
                 onClick={handleContactUs}
               >
-                <div className="hidden-layer"></div>
-                <div className="shown-layer">
+                <div className="hidden-layer bg-purple dark:bg-purpleDark"></div>
+                <div className="shown-layer bg-green dark:bg-greenDark">
                   <p className="text-[14px] md:text-[20px] text-white dark:text-strongTitle medium-text">
                     Contact us
                   </p>
@@ -85,8 +86,14 @@ const Home: NextPage = () => {
           <div className="md:float-left relative">
             <img
               src="/assets/images/older-hamster.png"
-              className="w-[279px] h-[auto] md:w-[auto] md:h-[auto] lg:w-[550px] lg:h-[auto] hidden md:block"
+              className="w-[279px] h-[auto] md:w-[auto] md:h-[auto] lg:w-[550px] lg:h-[auto] hidden md:block dark:hidden"
             />
+            <div className="md:block hidden">
+              <img
+                src="/assets/images/older-hamster-dark.png"
+                className="w-[279px] h-[auto] md:w-[auto] md:h-[auto] lg:w-[550px] lg:h-[auto] hidden dark:block"
+              />
+            </div>
           </div>
           <div className="md:float-right relative md:pl-[200px]">
             <div className="relative">
@@ -98,8 +105,14 @@ const Home: NextPage = () => {
               </div>
               <img
                 src="/assets/images/older-hamster-mobile.png"
-                className="w-[279px] h-[auto] block md:hidden absolute right-[-20px] top-[-210px]"
+                className="w-[279px] h-[auto] block md:hidden absolute right-[-20px] top-[-210px] dark:hidden"
               />
+              <div className="block md:hidden">
+                <img
+                  src="/assets/images/older-hamster-mobile-dark.png"
+                  className="w-[279px] h-[auto] absolute right-[-20px] top-[-210px] hidden dark:block"
+                />
+              </div>
             </div>
             <div className="mt-[50px]">
               <ul>
@@ -119,7 +132,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] hidden dark:block"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
+                        <p className="text-strongTitle dark:text-strongTitleDark text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -137,14 +150,14 @@ const Home: NextPage = () => {
                 src="/assets/images/hamster-head.png"
                 className="w-[45px] h-[37px] md:w-[69px] md:h-[57px] ml-[-20px] mr-[20px]"
               />
-              <h2 className="text-center text-[32px] md:text-[60px] text-purple dark:text-white uppercase">
+              <h2 className="text-center text-[32px] md:text-[60px] text-purple dark:text-purpleDark uppercase">
                 Hamsterbox
               </h2>
-              <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green ml-[15px] md:ml-[20px]" />
+              <div className="rounded-[50%] w-[15px] h-[15px] md:w-[25px] md:h-[25px] bg-green dark:bg-greenDark ml-[15px] md:ml-[20px]" />
             </div>
           </Fade>
           <Fade duration={600} direction="up">
-            <p className="mx-auto max-w-[600px] text-center text-contentColor dark:text-white text-[13px] md:text-[16px] mt-[20px] medium-text">
+            <p className="mx-auto max-w-[600px] text-center text-contentColor dark:text-white text-[14px] md:text-[16px] mt-[20px] medium-text">
               A powerful toolbox for game studios and gamers to easily get
               started on their web3 gaming journey.
             </p>
@@ -156,7 +169,7 @@ const Home: NextPage = () => {
                   <p className="text-purple dark:text-purpleDark text-[100px] md:text-[200px] leading-[1] bold-text">
                     01.
                   </p>
-                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
+                  <h3 className="md:max-w-[250px] max-w-[200px] text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
                     Effortless plug-and-play solution for users and game studios
                     where Hamsterbox is integrated
                   </h3>
@@ -166,7 +179,7 @@ const Home: NextPage = () => {
                 <div className="float-left">
                   <img
                     src="/assets/images/electric-hamster.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] xl:ml-[60px]"
                   />
                 </div>
               </Fade>
@@ -176,7 +189,7 @@ const Home: NextPage = () => {
                 <div className="float-left relative w-[133px] h-[133px] md:w-[271px] md:h-[271px]">
                   <img
                     src="/assets/images/c-box.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px]"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px] lg:ml-[-60px]"
                   />
                 </div>
               </Fade>
@@ -185,7 +198,7 @@ const Home: NextPage = () => {
                   <p className="text-green dark:text-greenDark text-[100px] md:text-[200px] leading-[1] bold-text">
                     02.
                   </p>
-                  <h3 className="md:max-w-[250px] max-w-[200px] text-[13px] md:text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
+                  <h3 className="md:max-w-[250px] max-w-[200px] text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
                     Secure asset management, trading and profiling for all
                     Hamsterbox-ready games at one place
                   </h3>
@@ -230,7 +243,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="mt-[50px]">
-              <h3 className="text-[16px] md:text-[20px] text-strongTitle dark:text-strongTitleDark">
+              <h3 className="text-[20px] text-strongTitle dark:text-strongTitleDark">
                 Integrate our pioneering Hamsterbox SDK for:
               </h3>
               <ul className="mt-[30px]">
@@ -250,7 +263,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] hidden dark:block"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
+                        <p className="text-strongTitle dark:text-strongTitleDark text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -275,7 +288,7 @@ const Home: NextPage = () => {
               </h3>
             </div>
             <div className="mt-[50px]">
-              <h3 className="text-[16px] md:text-[20px] text-strongTitle dark:text-strongTitleDark">
+              <h3 className="text-[20px] md:text-[20px] text-strongTitle dark:text-strongTitleDark">
                 Enter Web3 gaming via Hamsterbox portal (app):
               </h3>
               <ul className="mt-[30px]">
@@ -295,7 +308,7 @@ const Home: NextPage = () => {
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] hidden dark:block"
                       />
                       <div className="float-right pl-[20px]">
-                        <p className="text-strongTitle dark:text-strongTitleDark text-[13px] md:text-[16px] regular-text">
+                        <p className="text-strongTitle dark:text-strongTitleDark text-[16px] md:text-[16px] regular-text">
                           {item}
                         </p>
                       </div>
@@ -306,13 +319,19 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-left relative md:pl-[300px]">
-            <h3 className="text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:md:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-580px] md:top-0 left-[-30px] md:left-[180px]">
+            <h3 className="text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:md:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-720px] md:top-0 left-[-30px] md:left-[180px]">
               ham <br /> ser
             </h3>
             <img
               src="/assets/images/purple-tt.svg"
-              className="w-[auto] h-[auto] lg:w-[775px] lg:h-[auto] absolute right-[-350px] lg:right-[-550px] hidden md:block"
+              className="w-[auto] h-[auto] lg:w-[775px] lg:h-[auto] absolute right-[-350px] lg:right-[-550px] hidden md:block dark:hidden"
             />
+            <div className="hidden md:block">
+              <img
+                src="/assets/images/purple-tt-dark.svg"
+                className="w-[auto] h-[auto] lg:w-[775px] lg:h-[auto] absolute right-[-350px] lg:right-[-550px] hidden dark:block"
+              />
+            </div>
             <img
               src="/assets/images/hamster-play-game.png"
               className="w-[auto] h-[auto] lg:w-[653px] lg:h-[auto] relative hidden md:block"
@@ -320,8 +339,14 @@ const Home: NextPage = () => {
           </div>
           <img
             src="/assets/images/hamster-play-game-mobile.png"
-            className="block md:hidden w-[210px] h-[auto] absolute right-[-30px] top-[-100px]"
+            className="block md:hidden w-[210px] h-[auto] absolute right-[-30px] top-[-100px] dark:hidden"
           />
+          <div className="block md:hidden">
+            <img
+              src="/assets/images/hamster-play-game-mobile-dark.png"
+              className="hidden dark:block w-[210px] h-[auto] absolute right-[-30px] top-[-100px]"
+            />
+          </div>
         </div>
       </div>
       <div className="contact-s relative mt-[200px] md:min-h-[630px] pt-[30px] md:pt-[80px]">

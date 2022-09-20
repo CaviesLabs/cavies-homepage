@@ -118,7 +118,6 @@
   position: relative;
   display: initial;
   .hidden-layer {
-    background: $purple;
     transform: rotate(3deg);
     position: absolute;
     right: 0;
@@ -130,10 +129,8 @@
   .shown-layer {
     position: relative;
     transform: rotate(-5deg);
-    background: $green;
     font-size: 32px;
     padding: 5px 28px;
-    color: #ffffff;
     @media screen and (max-width: 768px) {
       font-size: 24px;
     }
@@ -145,7 +142,6 @@
     }
 
     .shown-layer {
-      background: $green;
       transform: rotate(3deg);
     }
   }

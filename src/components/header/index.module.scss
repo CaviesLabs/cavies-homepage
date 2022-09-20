@@ -81,12 +81,12 @@
             }
             &:hover {
               p {
-                color: #20242D;
+                color: #735CF7;
               }
             }
             &.active {
               p {
-                color: #735CF7;
+                color: #20242D;
               }
             }
           }
@@ -109,12 +109,12 @@
           :global {
             .active {
               p {
-                color: #B998FB;
+                color: #FFFFFF
               }
             }
             a:hover {
               p {
-                color: #FFFFFF;
+                color: #B998FB;
               }
             }
           }
