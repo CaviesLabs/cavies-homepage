@@ -155,10 +155,10 @@ const Header: FC = () => {
 
   return (
     <div
-      className="app-header py-[25px] px-[40px] flow-root border-b-[1px] border-borderColor dark:border-borderColorDark"
+      className="app-header py-[25px] px-[40px] lg:px-[130px] flow-root border-b-[1px] border-borderColor dark:border-borderColorDark"
       id="app-header"
     >
-      <div className="float-left logo-wrapper md:mt-0 mt-[5px]">
+      <div className="float-left logo-wrapper md:mt-0 mt-[9px]">
         <a href="/">
           <img
             src="/assets/images/logo.png"
@@ -170,7 +170,7 @@ const Header: FC = () => {
           />
         </a>
       </div>
-      <div className="relative flex items-center float-right">
+      <div className="relative flex items-center float-right  lg:absolute right-[28px]">
         <div className="float-right relative">
           <input
             type="checkbox"
@@ -227,13 +227,13 @@ const Header: FC = () => {
           </div>
         </div>
       </div>
-      <div className="hidden md:flex float-right memu-wrapper flex items-center">
+      <div className="hidden md:flex float-right memu-wrapper flex items-center md:pr-[40px]">
         {
           <ul className="menu-container float-left">
             {menuData.map((item, index) => (
               <li
                 key={`desktop-menu-item-${index}`}
-                className="float-left md:mr-[80px] lg:mr-[108px]"
+                className="float-left md:mr-[40px] lg:mr-[40px]"
                 onClick={() => handleOnClickMenu(item.slug)}
               >
                 <a
@@ -244,7 +244,7 @@ const Header: FC = () => {
                     "dark:text-menuItemSelectedDark": item.slug === curSlug,
                     "dark:text-menuItemDark": item.slug !== curSlug,
                     "hover:text-menuItemHover": theme === "light",
-                    // "hover:text-menuItemHover": theme === "dark",
+                    "dark:hover:text-menuItemHoverDark": theme === "dark",
                   })}
                 >
                   {item.title}

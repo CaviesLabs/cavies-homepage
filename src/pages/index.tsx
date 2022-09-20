@@ -179,7 +179,7 @@ const Home: NextPage = () => {
                 <div className="float-left">
                   <img
                     src="/assets/images/electric-hamster.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] xl:ml-[60px]"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
                   />
                 </div>
               </Fade>
@@ -189,7 +189,7 @@ const Home: NextPage = () => {
                 <div className="float-left relative w-[133px] h-[133px] md:w-[271px] md:h-[271px]">
                   <img
                     src="/assets/images/c-box.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px] lg:ml-[-60px]"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px]"
                   />
                 </div>
               </Fade>
@@ -350,12 +350,8 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="contact-s relative mt-[200px] md:min-h-[630px] pt-[30px] md:pt-[80px]">
-        <img
-          src="/assets/images/purple-b.png"
-          className="absolute w-full right-0 left-0 top-0 h-[630px] hidden md:block dark:hidden"
-        />
         <div className="relative mx-[20px] lg:mx-[130px]">
-          <h1 className="uppercase text-[40px] lg:text-[50px] xl:text-[69px] leading-[1] text-strongTitle dark:text-strongTitleDark">
+          <h1 className="uppercase text-[36px] lg:text-[50px] xl:text-[69px] leading-[1] text-strongTitle dark:text-strongTitleDark">
             Transform the future of <br />{" "}
             <span className="md:text-[90px] text-green dark:text-greenDark">
               WEB3
@@ -365,7 +361,7 @@ const Home: NextPage = () => {
             <h3 className="text-[40px] leading-[1] uppercase text-green dark:text-greenDark">
               Gaming with
             </h3>
-            <h3 className="text-purple dark:text-purpleDark text-[71px] leading-[1] uppercase">
+            <h3 className="text-purple dark:text-purpleDark text-[66px] md:text-[71px] leading-[1] uppercase">
               Hamster
               <br /> box
             </h3>
@@ -377,7 +373,7 @@ const Home: NextPage = () => {
                 className="w-[314px] md:w-[490px] lg:w-[530px] h-[auto] relative right-[-30px] lg:right-[-100px] top-[-80px] lg:top-[-100px] mvup"
               />
               <div
-                className="contact-right-wrapper absolute top-[50px] md:top-[200px] left-[-50px] md:left-[20px]"
+                className="contact-right-wrapper absolute top-[50px] md:top-[200px] lg:top-[100px] left-[-50px] md:left-[20px]"
                 onClick={handleContactUs}
               >
                 <button
@@ -386,12 +382,7 @@ const Home: NextPage = () => {
                 >
                   <div className="hidden-layer"></div>
                   <div className="shown-layer">
-                    <p className="uppercase bold-text">
-                      Contact{" "}
-                      <span className="hidden md:block float-right ml-[10px]">
-                        Us
-                      </span>
-                    </p>
+                    <p className="uppercase bold-text">Contact Us</p>
                   </div>
                 </button>
                 <div className="utils-wrapper">
@@ -422,7 +413,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="game-with-wrapper hidden lg:block">
+            <div className="game-with-wrapper hidden lg:block mt-[-69px]">
               <h3 className="text-[40px] lg:text-[58px] leading-[1] uppercase text-green dark:text-greenDark">
                 Gaming with
               </h3>
@@ -433,7 +424,7 @@ const Home: NextPage = () => {
             </div>
             <img
               src="/assets/images/circle-astronaunt-hamster.png"
-              className="absolute right-[30px] top-[30px] md:right-[20px] md:top-[120px] w-[58px] h-[58px] md:w-[70.7px] md:h-[70.7px] spin-el"
+              className="absolute right-[30px] top-[30px] lg:left-[20px] lg:top-[230px] w-[58px] h-[58px] md:w-[70.7px] md:h-[70.7px] spin-el"
             />
             <img
               src="/assets/images/circle-astronaunt-hamster.png"
@@ -441,7 +432,7 @@ const Home: NextPage = () => {
             />
             <img
               src="/assets/images/circle-astronaunt-hamster.png"
-              className="absolute right-0 bottom-[160px] md:right-[150px] md:bottom-[-40px] lg:bottom-[120px] w-[40px] md:w-[70px] md:h-[70px] spin-el"
+              className="absolute right-0 bottom-[160px] md:right-[290px] md:bottom-[-200px] lg:bottom-[120px] w-[40px] md:w-[70px] md:h-[70px] spin-el"
             />
           </div>
         </div>

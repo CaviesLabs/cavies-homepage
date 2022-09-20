@@ -76,16 +76,16 @@ export const CookieConnsentComponent: FC = () => {
           />
           <p className="text-center text-[14px] regular-text text-strongTitle dark:text-strongTitleDark">
             We use{" "}
-            <a href="/privacy" className="text-purple">
+            <a href="/privacy" className="text-purple dark:text-purpleDark">
               third-party cookies
             </a>{" "}
             in order to personalize your site experience.
           </p>
           <button
             onClick={handleAccept}
-            className="rounded-[8px] w-full mt-[20px] py-[7px] bg-purple"
+            className="rounded-[8px] w-full mt-[20px] py-[7px] bg-purple dark:bg-purpleDark h-[44px]"
           >
-            <p className="text-white text-center text-[14px] md:text-[14px] regular-text">
+            <p className="text-white dark:text-strongTitle text-center text-[14px] normal-text">
               Accept
             </p>
           </button>
