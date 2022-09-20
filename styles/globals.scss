@@ -1,5 +1,31 @@
 @import "./utilities/variables.scss";
 
+[data-theme="dark"] { 
+  body {
+    background-color: #20242D;
+  }
+
+  #__next {
+    background: url(../public/assets/images/c-background-dark.png), url(../public/assets/images/c-background-dark-rotate.png);
+    background-repeat: no-repeat, no-repeat;
+    background-size: 70%, 70%;
+    background-position-x: 750px, -330px;
+    background-position-y: 800px, 3500px;
+    padding-bottom: 20px;
+    overflow-x: hidden;
+    transform: none, rotate(30deg);
+  }
+
+
+  @media screen and (max-width: 768px) {
+    #__next  {
+      background-position-x: 120px, -200px;
+      background-size: 100%, 120%;
+      background-position-y: 1000px, 3700px;
+    }
+  }
+}
+
 .contact-right-wrapper {
   .contact-bottom-container {
     position: relative;
@@ -62,14 +88,30 @@
 }
 
 .contact-s {
+  background-image: url('../public/assets/images/purple-b.png');
+  background-size: con;
   @media screen and (max-width: 768px) {
     background-image: url('../public/assets/images/purple-b.png');
     background-size: 100%;
     background-position: 0 0 0;
   }
-
+  
   @media screen and (min-width: 1980px) {
     padding: 0 200px;
+  }
+}
+
+[data-theme="dark"] {
+  .contact-s {
+    background: none;
+  }
+
+  .contact-right-wrapper  {
+    .contact-bottom-container {
+      .shown-layer {
+        background: #69FFB2;
+      }
+    }
   }
 }
 
@@ -78,7 +120,6 @@
   position: relative;
   display: initial;
   .hidden-layer {
-    background: $purple;
     transform: rotate(3deg);
     position: absolute;
     right: 0;
@@ -90,10 +131,8 @@
   .shown-layer {
     position: relative;
     transform: rotate(-5deg);
-    background: $green;
     font-size: 32px;
     padding: 5px 28px;
-    color: #ffffff;
     @media screen and (max-width: 768px) {
       font-size: 24px;
     }
@@ -105,7 +144,6 @@
     }
 
     .shown-layer {
-      background: $green;
       transform: rotate(3deg);
     }
   }
@@ -134,7 +172,7 @@
     }
   }
 
-  &:hover, &.active{
+  &:hover, &.active {
     .hidden-layer{
       background: $purple;
       transform: rotate(7deg);
@@ -168,6 +206,15 @@
   width: 100%;
   background: #ffff;
   z-index: 53;
+}
+
+[data-theme="dark"] {
+  .scrolled-header {
+    position: fixed;
+    width: 100%;
+    background: #20242D;
+    z-index: 53;
+  }
 }
 
 
@@ -282,4 +329,46 @@
     animation-name: animate-hidden;
     animation-timing-function: cubic-bezier(.26, .53, .74, 1.48);
   }
+}
+
+.theme-checkbox {
+  opacity: 0;
+  position: absolute;
+  &:focus, &:focus-visible {
+    outline: 0
+  }
+}
+
+.theme-label {
+  width: 50px;
+  height: 28px;
+  background-color:#F0F2F4;
+  display: flex;
+  border-radius:50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  transform: scale(1.5);
+}
+
+.theme-ball {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+/*  target the elemenent after the label*/
+.theme-checkbox:checked + .theme-label .theme-ball{
+  transform: translateX(24px);
+  background-color: #20242D;
+}
+
+.theme-checkbox:checked + .theme-label {
+  background-color: #4A5469;
 }

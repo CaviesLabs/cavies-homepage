@@ -47,7 +47,7 @@ const Footer: FC = () => {
 
   return (
     <div className="footer pt-[80px]">
-      <div className="w-full divide-y-2 divide-dividerColor">
+      <div className="w-full divide-y-2 divide-borderColor dark:divide-borderColorDark">
         <div></div>
         <div></div>
       </div>
@@ -55,7 +55,11 @@ const Footer: FC = () => {
         <div className="md:float-left logo-wrapper w-[100%] md:w-[60%] lg:w-[70%]">
           <img
             src="/assets/images/logo.png"
-            className="w-[75px] md:w-[79.62px] mx-auto md:mx-0"
+            className="w-[75px] md:w-[79.62px] mx-auto md:mx-0 dark:hidden"
+          />
+          <img
+            src="/assets/images/logo-dark.png"
+            className="w-[75px] md:w-[79.62px] mx-auto md:mx-0 hidden dark:block"
           />
         </div>
         <div className="md:float-right menu-wrapper py-[20px] w-[100%] hidden md:block">
@@ -77,7 +81,7 @@ const Footer: FC = () => {
       </div>
       <div className="flex md:px-[7%] px-[40px]">
         <div className="bottom-menu-wrapper float-left w-[60%] md:w-[60%] lg:w-[70%] hidden md:block">
-          <a className="text-grey text-[12px] md:text-[14px] mr-[20px] cursor-pointer normal-text">
+          <a className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer normal-text">
             © 2022 Cavies, Ltd.
           </a>
         </div>
@@ -91,7 +95,7 @@ const Footer: FC = () => {
                 <a
                   target="_blank"
                   href={item.uri}
-                  className="text-[14px] md:text-[14px] normal-text text-[#5F6C87] regular-text"
+                  className="text-[14px] md:text-[14px] normal-text text-footerItemColor dark:text-footerItemColorDark regular-text"
                 >
                   {item.name}
                 </a>
@@ -118,7 +122,7 @@ const Footer: FC = () => {
           </ul>
         </div>
         <div className="pt-[20px]">
-          <p className="text-grey text-[12px] md:text-[14px] mr-[20px] cursor-pointer normal-text text-center">
+          <p className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] cursor-pointer normal-text text-center">
             © 2022 Cavies, Ltd.
           </p>
         </div>
