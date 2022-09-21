@@ -46,10 +46,10 @@
       transform: rotate(-5deg);
       font-size: 28px;
       padding: 1px 25px;
-      color: #ffffff;
-      border: 1px solid #000;
+      color: #FFFFFF;
       p {
-      -webkit-text-stroke: 1px rgb(0, 0, 0);
+        -webkit-text-stroke: 1px rgb(0, 0, 0);
+        font-family: poppins-bold;
       }
       @media screen and (max-width: 768px) {
         font-size: 18px;
@@ -110,6 +110,34 @@
     .contact-bottom-container {
       .shown-layer {
         background: #69FFB2;
+        color: #202020;
+        box-shadow: 3px 3px 4px #FFFFFF;
+        -webkit-text-stroke: 1px rgb(0, 0, 0);
+        p {
+          font-family: poppins-medium;
+        }
+        @media screen and (max-width: 768px) {
+          font-size: 18px;
+        }
+        @media screen and (min-width: 768px) {
+          box-shadow: 3px 3px 4px #FFFFFF;
+        }
+      }
+
+      &:hover {
+        .shown-layer {
+          background: #B998FB;
+          color: #FFFFFF;
+        }
+        .hidden-layer {
+          background: #69FFB2;
+        }
+      }
+    }
+
+    .contact-bottom-container:hover + .utils-wrapper {
+      .green-dark {
+        display: block;
       }
     }
   }

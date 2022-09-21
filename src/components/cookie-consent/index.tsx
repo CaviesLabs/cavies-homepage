@@ -74,12 +74,13 @@ export const CookieConnsentComponent: FC = () => {
             src="/assets/images/hamster-cookie.png"
             className="mx-auto w-[120px] md:w-[167px]"
           />
-          <p className="text-center text-[14px] regular-text text-strongTitle dark:text-strongTitleDark">
-            We use{" "}
+          <p className="text-center text-[16px] regular-text text-strongTitle dark:text-strongTitleDark">
+            We use third-party cookies in order to personalize your site
+            experience. You can learn more about cookie used in our{" "}
             <a href="/privacy" className="text-purple dark:text-purpleDark">
-              third-party cookies
+              Privacy Notice
             </a>{" "}
-            in order to personalize your site experience.
+            .
           </p>
           <button
             onClick={handleAccept}

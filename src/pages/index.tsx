@@ -53,7 +53,7 @@ const Home: NextPage = () => {
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
               <Fade duration={600} direction="up">
-                <h1 className="text-[26px] md:text-[48px] uppercase font-bold text-strongTitle dark:text-strongTitleDark leading-[32px] md:leading-[68px]">
+                <h1 className="text-[28px] md:text-[48px] uppercase font-bold text-strongTitle dark:text-strongTitleDark leading-[32px] md:leading-[68px]">
                   Unorthodox{" "}
                   <span className="text-green dark:text-greenDark">Web3</span>
                   <br /> Gaming Infrastructure
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
               >
                 <div className="hidden-layer bg-purple dark:bg-purpleDark"></div>
                 <div className="shown-layer bg-green dark:bg-greenDark">
-                  <p className="text-[14px] md:text-[20px] text-white dark:text-strongTitle medium-text">
+                  <p className="text-[16px] md:text-[20px] text-white dark:text-strongTitle medium-text">
                     Contact us
                   </p>
                 </div>
@@ -319,7 +319,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-left relative md:pl-[300px]">
-            <h3 className="text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:md:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-720px] md:top-0 left-[-30px] md:left-[180px]">
+            <h3 className="text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-720px] md:top-0 left-[-30px] md:left-[180px]">
               ham <br /> ser
             </h3>
             <img
@@ -358,7 +358,7 @@ const Home: NextPage = () => {
             </span>{" "}
           </h1>
           <div className="game-with-wrapper block lg:hidden">
-            <h3 className="text-[40px] leading-[1] uppercase text-green dark:text-greenDark">
+            <h3 className="text-[36px] leading-[1] uppercase text-green dark:text-greenDark">
               Gaming with
             </h3>
             <h3 className="text-purple dark:text-purpleDark text-[66px] md:text-[71px] leading-[1] uppercase">
@@ -382,7 +382,7 @@ const Home: NextPage = () => {
                 >
                   <div className="hidden-layer"></div>
                   <div className="shown-layer">
-                    <p className="uppercase bold-text">Contact Us</p>
+                    <p className="uppercase">Contact Us</p>
                   </div>
                 </button>
                 <div className="utils-wrapper">
@@ -390,23 +390,39 @@ const Home: NextPage = () => {
                     <div className="relative">
                       <img
                         src="/assets/images/mouse-ar-purple.png"
-                        className="purple w-[91px] h-[91px] md:w-[150px] md:h-[150px]"
+                        className="purple w-[91px] h-[91px] md:w-[150px] md:h-[150px] dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/mouse-ar-purple-dark.png"
+                        className="purple w-[91px] h-[91px] md:w-[150px] md:h-[150px] hidden dark:block"
                       />
                       <img
                         src="/assets/images/mouse-ar-green.png"
                         className="green w-[91px] h-[91px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
+                      />
+                      <img
+                        src="/assets/images/mouse-ar-green-dark.png"
+                        className="green-dark w-[91px] h-[91px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
                       />
                     </div>
                   </div>
                   <div className="rau-container absolute top-[-20px] left-[-80px]">
                     <div className="relative">
                       <img
-                        src="/assets/images/rau-purple.svg"
-                        className="purple w-[115px] h-[59px]"
+                        src="/assets/images/rau-purple.png"
+                        className="purple w-[115px] h-[59px] dark:hidden"
                       />
                       <img
-                        src="/assets/images/rau-green.svg"
-                        className="green w-[115px] h-[59px] absolute top-0"
+                        src="/assets/images/rau-purple-dark.png"
+                        className="purple w-[115px] h-[59px] hidden dark:block"
+                      />
+                      <img
+                        src="/assets/images/rau-green.png"
+                        className="green w-[115px] h-[59px] absolute top-0 dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/rau-green-dark.png"
+                        className="green-dark w-[115px] h-[59px] absolute top-0 hidden"
                       />
                     </div>
                   </div>
