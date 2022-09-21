@@ -165,7 +165,7 @@ const Home: NextPage = () => {
           <div className="md:items-center grid lg:flex md:justify-center mt-[30px] items-center">
             <div className="float-left flex">
               <Fade duration={600} direction="up">
-                <div className="float-left md:pr-[50px]">
+                <div className="float-left md:pr-[50px] xl:pr-[100px]">
                   <p className="text-purple dark:text-purpleDark text-[100px] md:text-[200px] leading-[1] bold-text">
                     01.
                   </p>
@@ -189,7 +189,7 @@ const Home: NextPage = () => {
                 <div className="float-left relative w-[133px] h-[133px] md:w-[271px] md:h-[271px]">
                   <img
                     src="/assets/images/c-box.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px]"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px] xl:ml-[-50px]"
                   />
                 </div>
               </Fade>
