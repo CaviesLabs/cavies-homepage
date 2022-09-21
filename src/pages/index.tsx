@@ -31,8 +31,8 @@ const Home: NextPage = () => {
   return (
     <MainLayout>
       <div className="px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px] pt-[50px] md:pt-[180px]">
-        <div className="top-inf md:inline-flex grid" id="about-us">
-          <div className="md:float-left relative md:pl-[80px] md:pt-0 pt-[30px] order-0 md:order-1">
+        <div className="top-inf md:flow-root grid" id="about-us">
+          <div className="md:float-right relative md:pl-[80px] md:pt-0 pt-[30px] order-0 md:order-1">
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-170px] left-[260px]" />
             <div className="circle-purple absolute w-[31px] h-[31px] bottom-[100px] left-[-30px]" />
             <div className="circle-green absolute top-[30px] left-[0px] w-[21px] h-[21px]" />
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
               className="top-circle-astronaunt-hamster spin-el"
             />
           </div>
-          <div className="md:float-right md:order-0 relative pt-[100px] md:pt-0">
+          <div className="md:float-left md:order-0 relative pt-[100px] md:pt-0">
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-70px]" />
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
