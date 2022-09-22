@@ -76,10 +76,10 @@ export const CookieConnsentComponent: FC = () => {
           />
           <p className="text-center text-[16px] regular-text text-strongTitle dark:text-strongTitleDark">
             We use third-party cookies in order to personalize your site
-            experience. You can learn more about cookie used in our{" "}
+            experience. You can learn more about the cookies used in our{" "}
             <a href="/privacy" className="text-purple dark:text-purpleDark">
               Privacy Notice
-            </a>{" "}
+            </a>
             .
           </p>
           <button

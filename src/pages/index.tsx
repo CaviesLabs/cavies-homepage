@@ -163,10 +163,10 @@ const Home: NextPage = () => {
             </p>
           </Fade>
           <div className="md:items-center grid lg:flex md:justify-center mt-[30px] items-center">
-            <div className="float-left flex">
+            <div className="float-left flex mx-auto md:mx-0">
               <Fade duration={600} direction="up">
-                <div className="float-left md:pr-[50px] xl:pr-[100px]">
-                  <p className="text-purple dark:text-purpleDark text-[100px] md:text-[200px] leading-[1] bold-text">
+                <div className="float-left md:pr-[50px] lg:pr-[90px] xl:pr-[100px]">
+                  <p className="text-purple dark:text-purpleDark text-[100px] md:text-[200px] lg:text-[100px] xl:text-[200px] leading-[1] bold-text">
                     01.
                   </p>
                   <h3 className="md:max-w-[250px] max-w-[200px] text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
@@ -179,23 +179,23 @@ const Home: NextPage = () => {
                 <div className="float-left">
                   <img
                     src="/assets/images/electric-hamster.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px]"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] lg:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px]"
                   />
                 </div>
               </Fade>
             </div>
-            <div className="float-left flex">
+            <div className="float-left flex mx-auto md:mx-0 pt-[20px] md:pt-0">
               <Fade duration={600} direction="up">
                 <div className="float-left relative w-[133px] h-[133px] md:w-[271px] md:h-[271px]">
                   <img
                     src="/assets/images/c-box.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] md:absolute md:bottom-[-82px] xl:ml-[-50px]"
+                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] lg:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px] md:absolute md:bottom-[-82px] lg:bottom-[-20px] xl:bottom-[-82px] lg:ml-[-40px] xl:ml-[-50px]"
                   />
                 </div>
               </Fade>
               <Fade duration={600} direction="up">
                 <div className="float-left md:pl-[50px]">
-                  <p className="text-green dark:text-greenDark text-[100px] md:text-[200px] leading-[1] bold-text">
+                  <p className="text-green dark:text-greenDark text-[100px] md:text-[200px] lg:text-[100px] xl:text-[200px] leading-[1] bold-text">
                     02.
                   </p>
                   <h3 className="md:max-w-[250px] max-w-[200px] text-[16px] text-strongTitle dark:text-strongTitleDark regular-text">
