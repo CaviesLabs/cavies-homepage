@@ -238,14 +238,16 @@ const Header: FC = () => {
               >
                 <a
                   href={item.slug}
-                  className={classnames("font-[16px] uppercase", {
-                    "text-menuItemSelected": item.slug === curSlug,
-                    "text-menuItem": item.slug !== curSlug,
-                    "dark:text-menuItemSelectedDark": item.slug === curSlug,
-                    "dark:text-menuItemDark": item.slug !== curSlug,
-                    "hover:text-menuItemHover": theme === "light",
-                    "dark:hover:text-menuItemHoverDark": theme === "dark",
-                  })}
+                  className={classnames(
+                    "font-[16px] uppercase",
+                    styles["desktop-menu-text"],
+                    {
+                      "text-menuItemSelected": item.slug === curSlug,
+                      "text-menuItem": item.slug !== curSlug,
+                      "dark:text-menuItemSelectedDark": item.slug === curSlug,
+                      "dark:text-menuItemDark": item.slug !== curSlug,
+                    }
+                  )}
                 >
                   {item.title}
                 </a>
