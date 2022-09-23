@@ -1,11 +1,5 @@
 @import "./utilities/variables.scss";
 
-[app-bg="none"]  {
-  #__next {
-    background-image: none;
-  }
-}
-
 [data-theme="dark"] { 
   body {
     background-color: #20242D;
@@ -31,6 +25,14 @@
     }
   }
 }
+
+
+[app-bg="none"]  {
+  #__next {
+    background-image: none;
+  }
+}
+
 
 .contact-right-wrapper {
   .contact-bottom-container {

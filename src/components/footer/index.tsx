@@ -26,7 +26,7 @@ const Footer: FC = () => {
         uri: "https://cavies.notion.site/Job-Board-320ac7987dc64a53b0d3d3e7c52c5ce7",
       },
       { name: "Term", uri: "#" },
-      { name: "Privacy", uri: "#" },
+      { name: "Privacy", uri: "/legal/privacy-notice" },
       {
         name: "Media Kit",
         uri: "https://cavies.notion.site/59aa5e24fdb146359cdd3cb9336aef45?v=83eedde046594e689d7fabf8932a7284",
