@@ -259,7 +259,7 @@ export const LegalNoticeComponent: ReactNode = (
         accessing or using any Third-Party Content.
       </span>
     </p>
-    <h1 className="c7" id="h.17dp8vu">
+    <h1 className="c7" id="applicable-law-and-disputes-resolution">
       <span className="c8">Applicable Law And Disputes Resolution</span>
     </h1>
     <p className="c0">
