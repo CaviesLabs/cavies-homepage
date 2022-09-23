@@ -55,6 +55,7 @@ module.exports = {
         strongTitle: "#20242D",
         contentColor: "#5F6C87",
         footerItemColor: "#5F6C87",
+        navy: "#5F6C87",
 
         /** Dark mode */
         menuItemSelectedDark: "#FFFFFF",
@@ -66,6 +67,8 @@ module.exports = {
         greenDark: "#69FFB2",
         purpleDark: "#B998FB",
         footerItemColorDark: "#B4BCCA",
+        navyDark: "#96A1B5",
+        backgroundDark: "#20242D",
       },
       boxShadow: {
         xl: "0px 4px 4px rgba(0, 0, 0, 0.25);",

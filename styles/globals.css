@@ -95,3 +95,12 @@ p {
 [data-theme="dark"] .circle-green {
   background-color: #69FFB2;
 }
+
+
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}
+
+.ReactCollapse--content {}
+
+.header_Dropdown {}

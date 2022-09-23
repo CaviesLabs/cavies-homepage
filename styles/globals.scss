@@ -1,5 +1,11 @@
 @import "./utilities/variables.scss";
 
+[app-bg="none"]  {
+  #__next {
+    background-image: none;
+  }
+}
+
 [data-theme="dark"] { 
   body {
     background-color: #20242D;
