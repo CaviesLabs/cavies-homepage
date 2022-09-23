@@ -630,10 +630,7 @@ export const LegalNoticeComponent: ReactNode = (
       <span className="c3">Website</span>
       <span className="c4">&rdquo; means Cavies website available at </span>
       <span className="c2 c5">
-        <a
-          className="c9"
-          href="https://www.google.com/url?q=https://cavies.xyz&amp;sa=D&amp;source=editors&amp;ust=1663839327683718&amp;usg=AOvVaw1bVTfIGMmHi3-BUPoF1lVZ"
-        >
+        <a className="c9" href="https://cavies.xyz/">
           https://cavies.xyz
         </a>
       </span>
