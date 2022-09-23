@@ -94,6 +94,7 @@ const Home: NextPage = () => {
                 className="w-[279px] h-[auto] md:w-[auto] md:h-[auto] lg:w-[550px] lg:h-[auto] hidden dark:block"
               />
             </div>
+            <div className="circle-purple absolute w-[59px] h-[59px] top-[-50px] left-[360px]" />
           </div>
           <div className="md:float-right relative md:pl-[200px]">
             <div className="relative">
@@ -282,7 +283,7 @@ const Home: NextPage = () => {
           id="#forgamers"
         >
           <div className="md:float-right relative">
-            <h3 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-[35px] xs:leading-[60px] md:leading-[90px] ml-[-20px] xs:ml-0">
+            <h3 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-[35px] xs:leading-[90px] md:leading-[90px] ml-[-20px] xs:ml-0">
               FOR
             </h3>
             <div className="inline-flex bg-purple dark:bg-purpleDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase xs:px-[40px] z-2 xs:z-1 relative ml-[-20px] xs:ml-0">
@@ -322,7 +323,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="md:float-left relative md:pl-[300px]">
-            <h3 className="text-[50px] xs:text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-800px] xs:top-[-720px] md:top-0 left-[-30px] md:left-[180px]">
+            <h3 className="text-[50px] xs:text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-800px] xs:top-[-660px] md:top-0 left-[-30px] md:left-[180px]">
               ham <br /> ser
             </h3>
             <img
@@ -342,8 +343,9 @@ const Home: NextPage = () => {
           </div>
           <img
             src="/assets/images/hamster-play-game-mobile.png"
-            className="block md:hidden w-[190px] w-[210px] h-[auto] absolute right-[-30px] top-[-100px] dark:hidden"
+            className="block md:hidden w-[190px] xs:w-[210px] h-[auto] absolute right-[-30px] top-[-100px] dark:hidden"
           />
+          <div className="circle-green absolute w-[59px] h-[59px] top-[-50px] left-[360px]" />
           <div className="block md:hidden">
             <img
               src="/assets/images/hamster-play-game-mobile-dark.png"
