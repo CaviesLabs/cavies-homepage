@@ -173,7 +173,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
       >
         <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px]">
           <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[75px]">
-            <p className="text-[16px] text-white dark:text-strongTitle regular-text uppercase">
+            <p className="text-[16px] text-white dark:text-strongTitle regular-text uppercase max-w-[80%]">
               {childSlugSelected.replaceAll("-", " ")}
             </p>
             <button
@@ -190,7 +190,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           {mobileMenuOpen && (
             <Collapse isOpened={mobileMenuOpen}>
               <div
-                className="block md:hidden fixed top-[128px] left-0 right-0 bottom-0 pt-[50px] bg-white dark:bg-strongTitle"
+                className="block md:hidden fixed top-[128px] left-0 right-0 bottom-0 pt-[50px] bg-white dark:bg-strongTitle pl-[20px]"
                 style={{ zIndex: 39 }}
               >
                 {menuComponent}
