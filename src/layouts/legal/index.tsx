@@ -25,6 +25,13 @@ const LegalLayout: FC<Props> = ({ slug }) => {
   const [menuOpen, setMenuOpen] = useState<string>("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  /**
+   * @param title
+   * @returns slug
+   * @description
+   * Because title of section is formated following normal text
+   * So it need to be covert into slug location fomated with *-*
+   */
   const convertToHref = (title: string | undefined) =>
     title ? title.toLowerCase().replaceAll(" ", "-") : "";
 
@@ -53,7 +60,10 @@ const LegalLayout: FC<Props> = ({ slug }) => {
 
         setLayoutContent(chaper?.content);
 
-        /** @description Change location href */
+        /**
+         * @description
+         * Change location without refresh page
+         * */
         history.pushState(
           {},
           "",
@@ -61,6 +71,11 @@ const LegalLayout: FC<Props> = ({ slug }) => {
         );
       } else {
         setChildSlugSelected(convertToHref(availablePart?.title));
+
+        /**
+         * @description
+         * Change location without refresh page
+         * */
         history.pushState(
           {},
           "",
@@ -87,6 +102,15 @@ const LegalLayout: FC<Props> = ({ slug }) => {
     );
   }, [childSlugSelected]);
 
+  /**
+   * @description
+   * Step 1: Find section user want to read based on slug, then render the matched layout
+   * Step 2: Find part of section
+   *         * If available href ID it will focus on the menu item present for and scroll to the view
+   *         * If not available, it will render the first part in section
+   * Others:
+   * Set collapsed menu to open or not based on slug user're in
+   */
   useEffect(() => {
     if (!slug.length) {
       return;

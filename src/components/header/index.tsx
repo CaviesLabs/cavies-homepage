@@ -18,7 +18,7 @@ const Header: FC = () => {
   const router = useRouter();
   const menuData = useMemo<MenuItem[]>(
     () => [
-      { title: "About Us", slug: "#about-us" },
+      { title: "Home", slug: "#about-us" },
       { title: "Objectives", slug: "#objectives" },
       { title: "Hamsterbox", slug: "#hamsterbox" },
     ],
@@ -42,6 +42,23 @@ const Header: FC = () => {
         duration: 800,
       });
   };
+
+  /**
+   * @description
+   * This function is used for checking if current page is home page or not
+   * if home page it will automatically focus on fist nav menu
+   * else it will be ignore
+   */
+  const isHomePage = useMemo(
+    () => () => {
+      const { asPath } = router;
+      if (asPath === "/" || asPath.startsWith("/#")) {
+        return true;
+      }
+      return false;
+    },
+    [router]
+  );
 
   /**
    * @description
@@ -237,15 +254,18 @@ const Header: FC = () => {
                 onClick={() => handleOnClickMenu(item.slug)}
               >
                 <a
-                  href={item.slug}
+                  href={"/" + item.slug}
                   className={classnames(
                     "font-[16px] uppercase",
                     styles["desktop-menu-text"],
                     {
-                      "text-menuItemSelected": item.slug === curSlug,
-                      "text-menuItem": item.slug !== curSlug,
-                      "dark:text-menuItemSelectedDark": item.slug === curSlug,
-                      "dark:text-menuItemDark": item.slug !== curSlug,
+                      "text-menuItemSelected":
+                        item.slug === curSlug && isHomePage(),
+                      "dark:text-menuItemSelectedDark":
+                        item.slug === curSlug && isHomePage(),
+                      "text-menuItem": item.slug !== curSlug || !isHomePage(),
+                      "dark:text-menuItemDark":
+                        item.slug !== curSlug || !isHomePage(),
                     }
                   )}
                 >
