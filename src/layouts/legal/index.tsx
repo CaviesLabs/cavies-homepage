@@ -90,6 +90,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
   useEffect(() => {
     const el = document.getElementById(childSlugSelected);
     if (!el) return;
+    if (!window.location.href.includes("#")) return;
     setTimeout(
       () =>
         // Scroll certain amounts from current position
@@ -191,12 +192,12 @@ const LegalLayout: FC<Props> = ({ slug }) => {
     <MainLayout>
       <div
         className={classnames(
-          "px-[20px] md:px-[40px] lg:px-[130px] mx-auto w-full lg:max-w-[1550px] md:pt-[70px] md:inline-flex bg-white dark:bg-backgroundDark",
+          "px-[20px] md:mx-[40px] lg:mx-auto w-full lg:max-w-[1550px] pt-[50px]  bg-white dark:bg-backgroundDark",
           styles["legal-content"]
         )}
       >
         <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px]">
-          <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[75px]">
+          <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[55px]">
             <p className="text-[16px] text-white dark:text-strongTitle regular-text uppercase max-w-[80%]">
               {childSlugSelected.replaceAll("-", " ")}
             </p>
@@ -214,7 +215,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           {mobileMenuOpen && (
             <Collapse isOpened={mobileMenuOpen}>
               <div
-                className="block md:hidden fixed top-[128px] left-0 right-0 bottom-0 pt-[50px] bg-white dark:bg-strongTitle pl-[20px]"
+                className="block md:hidden fixed top-[108px] left-0 right-0 bottom-0 pt-[50px] bg-white dark:bg-strongTitle pl-[20px]"
                 style={{ zIndex: 39 }}
               >
                 {menuComponent}
@@ -223,7 +224,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           )}
           <div className="hidden md:block">{menuComponent}</div>
         </div>
-        <div className="content md:pl-[300px] pt-[100px] md:pt-0">
+        <div className="content md:pl-[300px] md:pt-0 md:pr-[20px]">
           {layoutContent}
         </div>
       </div>
