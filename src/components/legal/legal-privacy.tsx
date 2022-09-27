@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 export const LegalPrivacyNotice: ReactNode = () => (
   <div>
     <p className="c6">
-      <p className="c14">Privacy Notice</p>
+      <h1 className="c14">Privacy Notice</h1>
       <span className="c3 date">Last Updated:</span>
       <span className="c4 date">&nbsp;</span>
       <span className="c1 date">September 21, 2022</span>
@@ -48,7 +48,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
       <p className="c1">
         <span className="c22 bold-text">Email:</span>
         <span className="c1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span className="c9">legal@cavies.xyz </span>
+        <span className="c9">
+          <a href="mailto:legal@cavies.xyz">legal@cavies.xyz</a>
+        </span>
       </p>
     </p>
     <div id="what-information-we-collect">
@@ -82,9 +84,12 @@ export const LegalPrivacyNotice: ReactNode = () => (
         understanding, IP address means an “online address” of a device, which
         allows Google to identify your approximate location (e.g, country, city
         or region). The IP addresses are expressed as a set of numbers, for
-        example: 194.150.2.33. Please note that according to Google Analytics
-        documentation, the IP address is anonymised (masked), so neither we nor
-        Google can identify the IP address of a particular visitor.
+        example: 194.150.2.33. Please note that according to{" "}
+        <a href="https://support.google.com/analytics/answer/2763052?hl=en">
+          Google Analytics documentation
+        </a>
+        , the IP address is anonymised (masked), so neither we nor Google can
+        identify the IP address of a particular visitor.
       </p>
       <p className="c1">
         In addition to the above, with Google Analytics we collect certain
@@ -124,7 +129,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         <span className="pl-[20px]">
           Analytical solution providers, e.g.{" "}
           <a href="https://marketingplatform.google.com/about/analytics/">
-            Google Analytics;
+            Google Analytics
           </a>
         </span>
       </p>
@@ -149,7 +154,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         necessary to comply with a legal obligation, or another entity if we
         sell or otherwise transfer the Website or its part.
       </p>
-      <ol className="c14 lst-kix_list_4-0" start={2}>
+      <ol className="lst-kix_list_4-0" start={2}>
         <li className="c6 li-bullet-0">
           <h3 className="c6">B. Analytical Data:</h3>
         </li>
@@ -240,7 +245,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
         <span className="c1">.</span>
       </p>
-      <ol className="c14 lst-kix_list_4-0" start={3}>
+      <ol className="lst-kix_list_4-0" start={3}>
         <li className="c6 li-bullet-0">
           <h3 className="c6">C. Contact Data:</h3>
         </li>
@@ -255,7 +260,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
     </div>
     <div id="how-long-we-process-your-data">
       <h3 className="c8">How long we process your data</h3>
-      <p className="c6">General</p>
+      <p className="c6">A. General</p>
       <p className="c1">
         <span>
           As a general rule, we keep the data as long as it is necessary for the
@@ -264,9 +269,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
           process the data longer than outlined below.
         </span>
       </p>
-      <ol className="c14 lst-kix_list_1-0" start={2}>
+      <ol className="lst-kix_list_1-0" start={2}>
         <li className="c6 li-bullet-0">
-          <span className="c7">Analytical Data</span>
+          <span className="c7">B. Analytical Data</span>
         </li>
       </ol>
       <p className="c1">
@@ -284,9 +289,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
         <span className="c1">.</span>
       </p>
-      <ol className="c14 lst-kix_list_1-0" start={3}>
+      <ol className="lst-kix_list_1-0" start={3}>
         <li className="c6 li-bullet-0">
-          <span className="c6">Contact Data</span>
+          <span className="c6">C. Contact Data</span>
         </li>
       </ol>
       <p className="c1">
@@ -332,8 +337,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
         the following rights:
       </p>
       <p className="c14 lst-kix_list_3-0 start c1">
-        <li className="c1 li-bullet-3">
-          <span className="c1">Request </span>
+        <li className="c1 li-bullet-3 pl-[20px]">
+          <span className="c1">{"a) "}&nbsp;&nbsp;&nbsp;Request </span>
           <span className="normal-text">access</span>
           <span className="c1">
             &nbsp;to your personal data (commonly known as a &ldquo;data subject
@@ -344,8 +349,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
             lawfully processing it;
           </span>
         </li>
-        <li className="c1 li-bullet-3">
-          <span className="c1">Request </span>
+        <li className="c1 li-bullet-3 pl-[20px]">
+          <span className="c1">{"b) "}&nbsp;&nbsp;&nbsp;Request </span>
           <span className="normal-text">correction</span>
           <span className="c1">
             &nbsp;of the personal data that we hold about you. This enables you
@@ -354,8 +359,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
             you provide to us;
           </span>
         </li>
-        <li className="c1 li-bullet-3">
-          <span className="c1">Request </span>
+        <li className="c1 li-bullet-3 pl-[20px]">
+          <span className="c1">{"c) "}&nbsp;&nbsp;&nbsp;Request </span>
           <span className="normal-text">erasure</span>
           <span className="c1">&nbsp;of your personal data </span>
           <span>
@@ -374,8 +379,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
             the time of your request;
           </span>
         </li>
-        <li className="c1 li-bullet-3">
-          <span className="c12 c11">Object</span>
+        <li className="c1 li-bullet-3 pl-[20px]">
+          <span className="c12 c11">{"d) "}&nbsp;&nbsp;&nbsp;Object</span>
           <span className="c1">
             &nbsp;to processing of your personal data where we are relying on a
             legitimate interest and there is something about your particular
@@ -387,8 +392,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
             your information which override your rights and freedoms;
           </span>
         </li>
-        <li className="c1 li-bullet-4">
-          <span className="c1">Request </span>
+        <li className="c1 li-bullet-4 pl-[20px]">
+          <span className="c1">{"e) "}&nbsp;&nbsp;&nbsp;Request </span>
           <span className="normal-text">restriction</span>
           <span className="c1">
             &nbsp;of processing of your personal data. This enables you to ask
@@ -402,8 +407,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
             to use it;
           </span>
         </li>
-        <li className="c1  li-bullet-5">
-          <span className="c1">Request the </span>
+        <li className="c1  li-bullet-5 pl-[20px]">
+          <span className="c1">{"f) "}&nbsp;&nbsp;&nbsp;Request the </span>
           <span className="normal-text">transfer</span>
           <span className="c1">
             &nbsp;of your personal data to you or to a third party
@@ -419,7 +424,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
             the information to perform a contract with you;
           </span>
         </li>
-        <li className="c1 li-bullet-4">
+        <li className="c1 li-bullet-4 pl-[20px]">
+          {"g) "}&nbsp;&nbsp;&nbsp;{" "}
           <span className="normal-text">Withdraw consent</span>
           <span className="c1">
             &nbsp;at any time where we are relying on consent to process your
@@ -427,8 +433,10 @@ export const LegalPrivacyNotice: ReactNode = () => (
             processing carried out before you withdraw your consent;
           </span>
         </li>
-        <li className="c1 li-bullet-4">
-          <span className="c1">Not to be subject to a </span>
+        <li className="c1 li-bullet-4 pl-[20px]">
+          <span className="c1">
+            {"h) "}&nbsp;&nbsp;&nbsp;Not to be subject to a{" "}
+          </span>
           <span className="normal-text">decision based</span>
           <span className="c1">&nbsp;solely </span>
           <span className="normal-text">on automated processing of data</span>
@@ -437,8 +445,10 @@ export const LegalPrivacyNotice: ReactNode = () => (
             or similarly significantly affecting you; and
           </span>
         </li>
-        <li className="c1 li-bullet-3">
-          <span className="normal-text">File a complaint</span>
+        <li className="c1 li-bullet-3 pl-[20px]">
+          <span className="normal-text">
+            {"i) "}&nbsp;&nbsp;&nbsp;File a complaint
+          </span>
           <span className="c1">
             &nbsp;with a relevant supervisory authority in case we violate your
             rights or obligations imposed on us under the applicable data

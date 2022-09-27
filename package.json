@@ -15,6 +15,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "babel-preset-next": "^1.4.0",
+    "bs58": "^5.0.0",
     "classnames": "^2.3.1",
     "husky": "^8.0.1",
     "js-cookie": "^3.0.1",

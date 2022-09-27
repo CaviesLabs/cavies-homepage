@@ -9,6 +9,7 @@ import {
 import { useRouter } from "next/router";
 import { legalMenus } from "@/src/models/entities/legal.entity";
 import { Collapse } from "react-collapse";
+import { utilsProvider } from "@/src/utils/utils.provider";
 import MainLayout from "@/src/layouts/main";
 import classnames from "classnames";
 import styles from "./index.module.scss";
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const LegalLayout: FC<Props> = ({ slug }) => {
+  let scrolled = false;
   const router = useRouter();
   const [layoutContent, setLayoutContent] = useState<ReactNode>();
   const [slugSelected, setSlugSelected] = useState<string>();
@@ -35,6 +37,33 @@ const LegalLayout: FC<Props> = ({ slug }) => {
   const convertToHref = (title: string | undefined) =>
     title ? title.toLowerCase().replaceAll(" ", "-") : "";
 
+  /**
+   * @descrition
+   * Scroll into current element
+   */
+  const handleScroll = useCallback(
+    (query?: string) => {
+      utilsProvider.withTimeout(() => {
+        const el = document.getElementById(query || childSlugSelected);
+        if (!el) return;
+        if (!window.location.href.includes("#")) return;
+
+        scrolled = true;
+
+        // Scroll certain amounts from current position
+        window.scrollBy({
+          top: el.getBoundingClientRect().top - 450, // could be negative value
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 100);
+    },
+    [childSlugSelected, scrolled]
+  );
+
+  /**
+   * @description
+   */
   const onChangePart = useCallback(
     (query: string) => {
       const availableSlug = legalMenus.find(
@@ -56,6 +85,8 @@ const LegalLayout: FC<Props> = ({ slug }) => {
 
         setChildSlugSelected(convertToHref(availablePart?.title));
 
+        handleScroll(convertToHref(availablePart?.title));
+
         setMenuOpen(chaper?.slug || "");
 
         setLayoutContent(chaper?.content);
@@ -72,6 +103,8 @@ const LegalLayout: FC<Props> = ({ slug }) => {
       } else {
         setChildSlugSelected(convertToHref(availablePart?.title));
 
+        handleScroll(convertToHref(availablePart?.title));
+
         /**
          * @description
          * Change location without refresh page
@@ -87,21 +120,46 @@ const LegalLayout: FC<Props> = ({ slug }) => {
     [slug, router.asPath, slugSelected, childSlugSelected]
   );
 
-  useEffect(() => {
-    const el = document.getElementById(childSlugSelected);
-    if (!el) return;
-    if (!window.location.href.includes("#")) return;
-    setTimeout(
-      () =>
-        // Scroll certain amounts from current position
-        window.scrollBy({
-          top: el.getBoundingClientRect().top, // could be negative value
-          left: 0,
-          behavior: "smooth",
-        }),
-      100
-    );
-  }, [childSlugSelected]);
+  /**
+   * @description
+   * This function will automatically make bold on menu item when user scroll
+   * into the view that item present for
+   */
+  const handleOnScroll = () => {
+    if (scrolled) {
+      utilsProvider.withTimeout(() => (scrolled = false), 4000);
+      return;
+    }
+    const id1 = legalMenus[0].children.map((item) => convertToHref(item.title));
+    const id2 = legalMenus[1].children.map((item) => convertToHref(item.title));
+    const ids = id1.concat(id2);
+    const items = ids.map((id) => document.getElementById(id));
+    // const fromTop = window.scrollY;
+    items.map((item, index: number) => {
+      // if (
+      //   item?.offsetTop &&
+      //   item?.scrollHeight &&
+      //   item?.offsetTop <= fromTop &&
+      //   item?.offsetTop + item?.offsetHeight > fromTop
+      // ) {
+      //   setChildSlugSelected(ids[index]);
+      // }
+      if (
+        item?.offsetTop !== undefined &&
+        pageYOffset >= item?.offsetTop - 450
+      ) {
+        setChildSlugSelected(ids[index]);
+      }
+
+      if (
+        index === items.length - 1 &&
+        item?.offsetTop !== undefined &&
+        pageYOffset + item?.offsetHeight >= item?.offsetTop
+      ) {
+        setChildSlugSelected(ids[index]);
+      }
+    });
+  };
 
   /**
    * @description
@@ -128,11 +186,27 @@ const LegalLayout: FC<Props> = ({ slug }) => {
     const partId = document.location.href.split("#")?.[1];
     if (!partId) {
       setChildSlugSelected(convertToHref(availableSlug.children[0].title));
+
+      handleScroll(partId);
     } else {
       setChildSlugSelected(convertToHref(partId));
-      setTimeout(() => document.getElementById(partId)?.scrollIntoView(), 500);
+
+      handleScroll(partId);
+
+      utilsProvider.withTimeout(
+        () => document.getElementById(partId)?.scrollIntoView(),
+        500
+      );
     }
   }, [slug, router.asPath]);
+
+  /**
+   * @description
+   * Listener window on scroll
+   */
+  useEffect(() => {
+    window.addEventListener("scroll", handleOnScroll.bind(this));
+  }, []);
 
   const menuComponent = useMemo(
     () => (
@@ -196,9 +270,9 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           styles["legal-content"]
         )}
       >
-        <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px]">
+        <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px] pt-[50px]">
           <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[55px]">
-            <p className="text-[16px] text-white dark:text-strongTitle regular-text uppercase max-w-[80%]">
+            <p className="text-[14px] md:text-[16px] text-white dark:text-strongTitle normal-text uppercase max-w-[100%]">
               {childSlugSelected.replaceAll("-", " ")}
             </p>
             <button

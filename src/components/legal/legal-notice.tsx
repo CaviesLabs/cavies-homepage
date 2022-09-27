@@ -3,16 +3,13 @@ import { ReactNode } from "react";
 export const LegalNoticeComponent: ReactNode = (
   <div>
     <p className="c6">
-      <span className="c14">Legal Notice</span>
-      <span className="c4">
-        <br />
-      </span>
+      <h1 className="c14">Legal Notice</h1>
       <span className="c3 date">Last Updated:</span>
       <span className="c4 date">&nbsp;</span>
       <span className="c1 date">September 21, 2022</span>
     </p>
     <h1 className="c7" id="application-and-scope">
-      <span className="c8">Application and Scope</span>
+      <p className="c8">Application and Scope</p>
     </h1>
     <p className="c0">
       <span className="c1">
@@ -38,14 +35,14 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">
+      <span className="c1">
         Any Materials shall be subject to this Legal Notice. Please read this
         Legal Notice carefully before using, referring to, or relying upon any
         Materials.
       </span>
     </p>
     <h1 className="c7" id="licence">
-      <span className="c8">Licence</span>
+      <p className="c8">Licence</p>
     </h1>
     <h3 className="c0" id="h.1fob9te">
       <span className="c1">
@@ -59,7 +56,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </h3>
     <h1 className="c7" id="proprietary-rights">
-      <span className="c8">Proprietary Rights</span>
+      <p className="c8">Proprietary Rights</p>
     </h1>
     <p className="c0">
       <span className="c1">
@@ -83,10 +80,10 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="important-disclaimers">
-      <span className="c8">Important Disclaimers</span>
+      <p className="c8">Important Disclaimers</p>
     </h1>
     <p className="c0">
-      <span className="c2">Information on the Website</span>
+      <span className="c1 underline">Information on the Website</span>
       <span className="c1">
         . Materials are provided for informational purposes only and nothing
         contained in the Materials constitutes a promise, warranty, or
@@ -100,7 +97,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c2">No warranty</span>
+      <span className="c1 underline">No warranty</span>
       <span className="c1">
         . The Website and any Materials are provided on an &ldquo;as is&rdquo;
         and &ldquo;as available&rdquo; basis. Your use of the Website and any
@@ -120,7 +117,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h3 className="c0" id="no-liability">
-      <span className="c2 c13">No liability</span>
+      <span className="c1 underline">No liability</span>
       <span className="c1">
         . To the maximum extent permitted under the applicable law, in no event
         shall the Cavies Parties be liable or responsible for any direct,
@@ -139,7 +136,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </h3>
     <p className="c0">
-      <span className="c2">Waiver</span>
+      <span className="c1 underline">Waiver</span>
       <span className="c1">
         . You shall not, and to the maximum extent permitted under the
         applicable law hereby waive any right to, seek to recover the damages
@@ -152,7 +149,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="no-offer-or-solicitation">
-      <span className="c8">No Offer Or Solicitation</span>
+      <p className="c8">No Offer Or Solicitation</p>
     </h1>
     <p className="c0">
       <span className="c1">
@@ -180,7 +177,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="forward-looking-statements">
-      <span className="c8">Forward-Looking Statements</span>
+      <p className="c8">Forward-Looking Statements</p>
     </h1>
     <p className="c0">
       <span className="c1">
@@ -214,7 +211,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="no-advice">
-      <span className="c8">No Advice</span>
+      <p className="c8">No Advice</p>
     </h1>
     <p className="c0">
       <span className="c1">
@@ -238,7 +235,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="third-party-content">
-      <span className="c8">Third-Party Content </span>
+      <p className="c8">Third-Party Content </p>
     </h1>
     <p className="c0">
       <span className="c1">
@@ -260,10 +257,10 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="applicable-law-and-disputes-resolution">
-      <span className="c8">Applicable Law And Disputes Resolution</span>
+      <p className="c8">Applicable Law And Disputes Resolution</p>
     </h1>
     <p className="c0">
-      <span className="c2">Applicable Law.</span>
+      <span className="c1 underline">Applicable Law.</span>
       <span className="c1">
         &nbsp;This Legal Notice, as well as any and all relationship between you
         and us relating to the Website and any Materials shall be governed by,
@@ -273,8 +270,8 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c2">Informal Dispute Resolution</span>
-      <span className="c4">
+      <span className="c1 underline">Informal Dispute Resolution</span>
+      <span className="c1">
         . For any Dispute that you have against us or relating in any way to
         this Legal Notice, the Website and any Materials you shall first contact
         us and attempt to resolve the Dispute informally by sending the Notice
@@ -288,7 +285,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c2">Binding Arbitration.</span>
+      <span className="c1 underline">Binding Arbitration.</span>
       <span className="c1">
         &nbsp;Except for any Disputes in which either, Cavies or you, seeks
         injunctive or other equitable relief for the alleged unlawful use of the
@@ -327,7 +324,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c2">
+      <span className="c1 underline">
         No Class Arbitrations, Jury Trial and Court Proceedings.
       </span>
       <span className="c1">
@@ -340,7 +337,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c2">Statutes of Limitation</span>
+      <span className="c1 underline">Statutes of Limitation</span>
       <span className="c1">
         . To the maximum extent permitted under the law, you and we hereby agree
         that any claim arising out of or related to this Legal Notice, the
@@ -352,28 +349,25 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="communication">
-      <span className="c8">Communication</span>
+      <p className="c8">Communication</p>
     </h1>
     <p className="c0">
-      <span className="c4">
+      <span className="c1">
         You agree and consent to receive electronically all Communications that
         we provide in connection with this Legal Notice, the Website, or
         Materials. You agree that we may provide Communications to you by
         posting them on the Website, in our{" "}
       </span>
-      <span className="c2 c5">
-        <a
-          className="c9"
-          href="https://www.google.com/url?q=https://twitter.com/CaviesLabs&amp;sa=D&amp;source=editors&amp;ust=1663839327679784&amp;usg=AOvVaw1u9eU7p18MBin5eRpMaw2X"
-        >
+      <span className="c1">
+        <a className="c9" href="https://twitter.com/CaviesLabs">
           Twitter account
         </a>
       </span>
-      <span className="c4">, in </span>
-      <span className="c2 c5">
+      <span className="c1">, in </span>
+      <span className="c1">
         <a
           className="c9"
-          href="https://www.google.com/url?q=https://cavies.notion.site/b4ff0745a92144aaaccf5b052d92b540?v%3D7891d7724e1349a5943c8a101174af5c&amp;sa=D&amp;source=editors&amp;ust=1663839327680165&amp;usg=AOvVaw3rI5CGZieso7bXWMsNdN5F"
+          href="https://cavies.notion.site/b4ff0745a92144aaaccf5b052d92b540?v=7891d7724e1349a5943c8a101174af5c"
         >
           our blog
         </a>
@@ -392,34 +386,33 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">
+      <span className="c1">
         You may electronically communicate with us by sending Communications to
         the following email address{" "}
       </span>
-      <span className="c2 c5">contact@cavies.xyz</span>
+      <span className="c1">
+        <a className="c9" href="mailto:contact@cavies.xyz">
+          contact@cavies.xyz
+        </a>
+      </span>
       <span className="c1">
         . We may require you to provide additional data or documents that will
         allow us to identify you.
       </span>
     </p>
     <h1 className="c7" id="miscellaneous">
-      <span className="c8">Miscellaneous</span>
+      <p className="c8">Miscellaneous</p>
     </h1>
     <p className="c0">
-      <span className="c2">Personal Data</span>
-      <span className="c4">
+      <span className="c1 underline">Personal Data</span>
+      <span className="c1">
         . Please learn more about how we process your personal data in our{" "}
       </span>
-      <span className="c2 c15">Privacy Notice</span>
-      <sup>
-        <a href="#cmnt1" id="cmnt_ref1">
-          [a]
-        </a>
-      </sup>
+      <span className="c1 underline">Privacy Notice</span>
       <span className="c1">.</span>
     </p>
     <p className="c0">
-      <span className="c2">Survival</span>
+      <span className="c1 underline">Survival</span>
       <span className="c1">
         . All terms and conditions of this Legal Notice, except for Section
         &ldquo;Licence&rdquo;, shall survive any expiration or termination of
@@ -428,7 +421,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c2">Language.</span>
+      <span className="c1 underline">Language.</span>
       <span className="c1">
         &nbsp;Currently, only the English version of the Website interface and
         any Communications is considered official. The English version shall
@@ -437,7 +430,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c2">Assignment.</span>
+      <span className="c1 underline">Assignment.</span>
       <span className="c1">
         &nbsp;You shall not have the right to assign or transfer any rights or
         obligations under this Legal Notice without our prior written consent.
@@ -447,7 +440,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0 c10">
-      <span className="c2">Entire Agreement</span>
+      <span className="c1 underline">Entire Agreement</span>
       <span className="c1">
         . This Legal Notice, together with any documents incorporated herein by
         reference, contain the entire agreement between you and us concerning
@@ -461,7 +454,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0 c10">
-      <span className="c2">Severability</span>
+      <span className="c1 underline">Severability</span>
       <span className="c1">
         . The invalidity or unenforceability of any provision or part-provision
         of this Legal Notice shall not affect the validity or enforceability of
@@ -470,7 +463,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0 c10">
-      <span className="c2">Modification</span>
+      <span className="c1 underline">Modification</span>
       <span className="c1">
         . You acknowledge and agree that we may modify, supplement or update
         this Legal Notice from time to time at our sole and absolute discretion,
@@ -487,7 +480,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h1 className="c7" id="definitions">
-      <span className="c8">Definitions</span>
+      <p className="c8">Definitions</p>
     </h1>
     <p className="c0">
       <span className="c1">
@@ -576,7 +569,7 @@ export const LegalNoticeComponent: ReactNode = (
     <h3 className="c0" id="h.35nkun2">
       <span className="c13 c4">&ldquo;</span>
       <span className="c3 c13">Licence</span>
-      <span className="c13 c4">
+      <span className="c1">
         &rdquo; means limited, temporary, non-transferable, non-exclusive,
         revocable, non-sublicensable licence (right) to access and use the
         Website for its intended purposes on the terms set forth herein.
