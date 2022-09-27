@@ -31,7 +31,7 @@ const Home: NextPage = () => {
   return (
     <MainLayout>
       <div className="px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px] pt-[50px] md:pt-[180px]">
-        <div className="top-inf lg:inline-flex xl:flow-root" id="about-us">
+        <div className="top-inf md:inline-flex xl:flow-root" id="about-us">
           <div className="lg:float-right relative md:pl-[80px] md:pt-0 pt-[30px] order-0 md:order-1">
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-170px] left-[260px]" />
             <div className="circle-purple absolute w-[31px] h-[31px] bottom-[100px] left-[-30px]" />
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
             <div className="circle-purple absolute bottom-[40px] right-[-50px] w-[27px] h-[27px]" />
             <img
               src="/assets/images/hamster-top-c.png"
-              className="w-[442px] h-auto md:mt-[-100px] mx-auto"
+              className="w-[442px] h-auto md:mt-[-100px] md:mx-auto"
             />
             <img
               src="/assets/images/circle-astronaunt-hamster.png"
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
             </div>
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-50px] left-[360px]" />
           </div>
-          <div className="md:float-right relative md:pl-[200px]">
+          <div className="md:float-right relative md:pl-[30px] lg:pl-[200px]">
             <div className="relative">
               <h2 className="text-[48px] md:text-[70px] rotate-[-5deg]">OUR</h2>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
@@ -180,7 +180,7 @@ const Home: NextPage = () => {
                 <div className="float-left">
                   <img
                     src="/assets/images/electric-hamster.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] lg:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px]"
+                    className="w-[133px] h-[auto] md:w-[271px] md:h-[271px] lg:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px] mt-[30px] xs:mt-[20px] md:mt-0"
                   />
                 </div>
               </Fade>
@@ -190,7 +190,7 @@ const Home: NextPage = () => {
                 <div className="float-left relative w-[133px] h-[133px] md:w-[271px] md:h-[271px]">
                   <img
                     src="/assets/images/c-box.png"
-                    className="w-[133px] h-[133px] md:w-[271px] md:h-[271px] lg:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px] md:absolute md:bottom-[-82px] lg:bottom-[-20px] xl:bottom-[-82px] lg:ml-[-40px] xl:ml-[-50px]"
+                    className="w-[133px] h-[auto] md:w-[271px] md:h-[271px] lg:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px] md:absolute md:bottom-[-82px] lg:bottom-[-20px] xl:bottom-[-82px] lg:ml-[-40px] xl:ml-[-50px]  mt-[30px] xs:mt-[20px] md:mt-0"
                   />
                 </div>
               </Fade>
@@ -212,12 +212,12 @@ const Home: NextPage = () => {
           className="for-games mt-[100px] md:inline-flex md:items-center"
           id="#forgames"
         >
-          <div className="md:float-left relative">
+          <div className="md:float-left relative md:w-[50%] lg:w-auto">
             <div
               className="block md:hidden absolute right-[-20px] xs:right-[-5px] xs:right-[-20px] bottom-[50px]"
               // style={{ zIndex: 2 }}
             >
-              <h2 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark leading-[25px] xs:leading-[60px]">
+              <h2 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark leading-[25px] xs:leading-[65px]">
                 FOR
               </h2>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[0px] xs:mt-[-12px] px-[20px] uppercase xs:px-[40px]">
@@ -228,16 +228,16 @@ const Home: NextPage = () => {
             </div>
             <img
               src="/assets/images/hamster-computer-email.png"
-              className="w-[190px] xs:w-[215px] h-[auto] lg:w-[625px] lg:h-[auto] relative dark:hidden"
+              className="w-[190px] xs:w-[215px] md:w-full h-[auto] lg:w-[625px] lg:h-[auto] relative dark:hidden"
             />
             <img
               src="/assets/images/hamster-computer-email-dark.png"
-              className="w-[190px] xs:w-[215px] h-[auto] lg:w-[625px] lg:h-[auto] relative hidden dark:block"
+              className="w-[190px] xs:w-[215px] md:w-full h-[auto] lg:w-[625px] lg:h-[auto] relative hidden dark:block"
             />
           </div>
-          <div className="md:float-right relative md:pl-[200px]">
+          <div className="md:float-right relative md:pl-[30px] lg:pl-[200px]">
             <div className="hidden md:block">
-              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark leading-[90px]">
+              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark leading-[105px]">
                 FOR
               </h3>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
@@ -257,7 +257,7 @@ const Home: NextPage = () => {
                     direction="up"
                     key={`for-games-item-${index}`}
                   >
-                    <li className="flex pb-[20px] max-w-[500px]">
+                    <li className="flex pb-[20px] max-w-[500px] items-center">
                       <img
                         src="/assets/images/dot-item.png"
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] dark:hidden"
@@ -283,7 +283,7 @@ const Home: NextPage = () => {
           id="#forgamers"
         >
           <div className="md:float-right relative">
-            <h3 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-[35px] xs:leading-[70px] md:leading-[90px] ml-[-20px] xs:ml-0">
+            <h3 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-[45px] xs:leading-[80px] md:leading-[100px] ml-[-20px] xs:ml-0">
               FOR
             </h3>
             <div className="inline-flex bg-purple dark:bg-purpleDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase xs:px-[40px] z-2 xs:z-1 relative ml-[-20px] xs:ml-0">
@@ -302,7 +302,7 @@ const Home: NextPage = () => {
                     direction="up"
                     key={`for-gamers-item-2-${index}`}
                   >
-                    <li className="flex pb-[20px] max-w-[500px]">
+                    <li className="flex pb-[20px] max-w-[500px] items-center">
                       <img
                         src="/assets/images/dot-item.png"
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] dark:hidden"
@@ -322,13 +322,13 @@ const Home: NextPage = () => {
               </ul>
             </div>
           </div>
-          <div className="md:float-left relative md:pl-[300px]">
-            <h3 className="text-[50px] xs:text-[90px] lg:text-[232px] text-hamserTextMobile md:text-hamserText dark:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-800px] xs:top-[-690px] md:top-0 left-[-30px] md:left-[180px]">
+          <div className="md:float-left relative md:pl-[30px] lg:pl-[300px]">
+            <h3 className="text-[75px] xs:text-[90px] lg:text-[150px] xl:text-[232px] text-hamserTextMobile md:text-hamserText dark:text-purpleDark absolute leading-[1] rotate-[-5deg] uppercase top-[-830px] s:top-[-690px] md:top-0 left-[-30px] md:left-[80px] lg:left-[180px]">
               ham <br /> ser
             </h3>
             <img
               src="/assets/images/purple-tt.svg"
-              className="w-[auto] h-[auto] lg:w-[775px] lg:h-[auto] absolute right-[-350px] lg:right-[-550px] hidden md:block dark:hidden"
+              className="w-[auto] h-[auto] lg:w-[775px] lg:h-[auto] absolute right-[-350px] md:right-[-250px] lg:right-[-550px] hidden md:block dark:hidden"
             />
             <div className="hidden md:block">
               <img
@@ -355,7 +355,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="contact-s relative mt-[200px] md:min-h-[630px] pt-[30px] md:pt-[80px]">
-        <div className="relative mx-[20px] lg:mx-[130px]">
+        <div className="relative px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px]">
           <h1 className="uppercase text-[30px] xs:text-[36px] lg:text-[50px] xl:text-[69px] leading-[1] text-strongTitle dark:text-strongTitleDark">
             Transform the future of <br />{" "}
             <span className="md:text-[90px] text-green dark:text-greenDark">
@@ -395,39 +395,39 @@ const Home: NextPage = () => {
                     <div className="relative">
                       <img
                         src="/assets/images/mouse-ar-purple.png"
-                        className="purple w-[91px] h-[91px] md:w-[150px] md:h-[150px] dark:hidden"
+                        className="purple w-[68px] h-[68px] md:w-[150px] md:h-[150px] dark:hidden"
                       />
                       <img
                         src="/assets/images/mouse-ar-purple-dark.png"
-                        className="purple w-[91px] h-[91px] md:w-[150px] md:h-[150px] hidden dark:block"
+                        className="purple w-[68px] h-[68px] md:w-[150px] md:h-[150px] hidden dark:block"
                       />
                       <img
                         src="/assets/images/mouse-ar-green.png"
-                        className="green w-[91px] h-[91px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
+                        className="green w-[68px] h-[68px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
                       />
                       <img
                         src="/assets/images/mouse-ar-green-dark.png"
-                        className="green-dark w-[91px] h-[91px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
+                        className="green-dark w-[68px] h-[68px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
                       />
                     </div>
                   </div>
-                  <div className="rau-container absolute top-[-20px] left-[-80px]">
+                  <div className="rau-container absolute top-[-15px] left-[-49px] md:top-[-80px] md:left-[-90px]">
                     <div className="relative">
                       <img
                         src="/assets/images/rau-purple.png"
-                        className="purple w-[115px] h-[59px] dark:hidden"
+                        className="purple md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] dark:hidden"
                       />
                       <img
                         src="/assets/images/rau-purple-dark.png"
-                        className="purple w-[115px] h-[59px] hidden dark:block"
-                      />
-                      <img
-                        src="/assets/images/rau-green.png"
-                        className="green w-[115px] h-[59px] absolute top-0 dark:hidden"
+                        className="purple md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] hidden dark:block"
                       />
                       <img
                         src="/assets/images/rau-green-dark.png"
-                        className="green-dark w-[115px] h-[59px] absolute top-0 hidden"
+                        className="green md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] absolute top-0 dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/rau-green.png"
+                        className="green-dark md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] absolute top-0 hidden"
                       />
                     </div>
                   </div>
@@ -458,6 +458,10 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
+      <img
+        src="/assets/images/scroll-arrow-down.svg"
+        className="scroll-down-btn mvup"
+      />
     </MainLayout>
   );
 };

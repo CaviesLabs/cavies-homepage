@@ -105,19 +105,36 @@ const Header: FC = () => {
    */
   useEffect(() => {
     const header = document.getElementById("app-header");
+    const scrollDownBtn = document.querySelector(".scroll-down-btn");
     const className = "scrolled-header";
     window.onscroll = () => {
       if (
         document.body.scrollTop > 120 ||
         document.documentElement.scrollTop > 120
       ) {
-        if (!header?.classList.contains(className)) {
+        !header?.classList.contains(className) &&
           header?.classList.add("scrolled-header");
-        }
+
+        /**
+         * @dev
+         * Check whether hide middle scroll down button
+         */
+        scrollDownBtn &&
+        (getComputedStyle(scrollDownBtn) as any)?.display == "block"
+          ? ((scrollDownBtn as any).style.display = "none")
+          : null;
       } else {
-        if (header?.classList.contains(className)) {
+        header?.classList.contains(className) &&
           header?.classList.remove("scrolled-header");
-        }
+
+        /**
+         * @dev
+         * Check whether display middle scroll down button
+         */
+        scrollDownBtn &&
+        (getComputedStyle(scrollDownBtn) as any)?.display == "none"
+          ? ((scrollDownBtn as any).style.display = "block")
+          : null;
       }
     };
   }, []);
@@ -172,138 +189,140 @@ const Header: FC = () => {
 
   return (
     <div
-      className="app-header py-[25px] px-[20px] md:px-[40px] lg:px-[130px] flow-root border-b-[1px] border-borderColor dark:border-borderColorDark"
+      className="app-header border-borderColor dark:border-borderColorDark border-b-[0.5px]"
       id="app-header"
     >
-      <div className="float-left logo-wrapper md:mt-0 mt-[9px]">
-        <a href="/">
-          <img
-            src="/assets/images/logo.png"
-            className="w-[95px] md:w-[149px] dark:hidden"
-          />
-          <img
-            src="/assets/images/logo-dark.png"
-            className="w-[95px] md:w-[149px] hidden dark:block"
-          />
-        </a>
-      </div>
-      <div className="relative flex items-center float-right  lg:absolute right-[28px]">
-        <div className="float-right relative">
-          <input
-            type="checkbox"
-            className="theme-checkbox"
-            id="theme-checkbox"
-            onChange={() => {
-              themeChange = true;
-              setTheme(theme === "dark" ? "light" : "dark");
-            }}
-          />
-          <label htmlFor="theme-checkbox" className="theme-label">
-            <div className="theme-ball flex items-center">
-              <img
-                src="/assets/images/light-icon.svg"
-                className="w-[14px] h-[14px] mx-auto dark:hidden"
-              />
-              <img
-                src="/assets/images/dark-icon.svg"
-                className="w-[14px] h-[14px] mx-auto hidden dark:block"
-              />
-            </div>
-          </label>
+      <div className="py-[18px] md:py-[25px] pl-[20px] pr-0 md:px-[40px] lg:max-w-[1550px] lg:mx-auto flow-root">
+        <div className="float-left logo-wrapper md:mt-0 mt-[0px]">
+          <a href="/">
+            <img
+              src="/assets/images/logo.png"
+              className="w-[95px] md:w-[149px] dark:hidden"
+            />
+            <img
+              src="/assets/images/logo-dark.png"
+              className="w-[95px] md:w-[149px] hidden dark:block"
+            />
+          </a>
         </div>
-        <div className="flex items-center float-right">
-          <div
-            className={classnames(
-              styles["toggle-button"],
-              "block md:hidden ml-[20px]"
-            )}
-            id="mobile-toggle"
-            onClick={() => handleClickMobileMenu()}
-          >
-            <span
+        <div className="relative flex items-center float-right  lg:absolute right-[16px]">
+          <div className="float-right relative">
+            <input
+              type="checkbox"
+              className="theme-checkbox"
+              id="theme-checkbox"
+              onChange={() => {
+                themeChange = true;
+                setTheme(theme === "dark" ? "light" : "dark");
+              }}
+            />
+            <label htmlFor="theme-checkbox" className="theme-label">
+              <div className="theme-ball flex items-center">
+                <img
+                  src="/assets/images/light-icon.svg"
+                  className="w-[9px] h-[9px] mx-auto dark:hidden"
+                />
+                <img
+                  src="/assets/images/dark-icon.svg"
+                  className="w-[9px] h-[9px] mx-auto hidden dark:block"
+                />
+              </div>
+            </label>
+          </div>
+          <div className="flex items-center float-right">
+            <div
               className={classnames(
-                styles.bar,
-                styles.top,
-                "bg-strongTitle dark:bg-strongTitleDark"
+                styles["toggle-button"],
+                "block md:hidden ml-[20px]"
               )}
-            ></span>
-            <span
-              className={classnames(
-                styles.bar,
-                styles.middle,
-                "bg-strongTitle dark:bg-strongTitleDark"
-              )}
-            ></span>
-            <span
-              className={classnames(
-                styles.bar,
-                styles.bottom,
-                "bg-strongTitle dark:bg-strongTitleDark"
-              )}
-            ></span>
+              id="mobile-toggle"
+              onClick={() => handleClickMobileMenu()}
+            >
+              <span
+                className={classnames(
+                  styles.bar,
+                  styles.top,
+                  "bg-strongTitle dark:bg-strongTitleDark"
+                )}
+              ></span>
+              <span
+                className={classnames(
+                  styles.bar,
+                  styles.middle,
+                  "bg-strongTitle dark:bg-strongTitleDark"
+                )}
+              ></span>
+              <span
+                className={classnames(
+                  styles.bar,
+                  styles.bottom,
+                  "bg-strongTitle dark:bg-strongTitleDark"
+                )}
+              ></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="hidden md:flex float-right memu-wrapper flex items-center md:pr-[40px]">
-        {
-          <ul className="menu-container float-left">
-            {menuData.map((item, index) => (
-              <li
-                key={`desktop-menu-item-${index}`}
-                className="float-left md:mr-[40px] lg:mr-[40px]"
-                onClick={() => handleOnClickMenu(item.slug)}
-              >
-                <a
-                  href={"/" + item.slug}
-                  className={classnames(
-                    "font-[16px] uppercase",
-                    styles["desktop-menu-text"],
-                    {
-                      "text-menuItemSelected":
-                        item.slug === curSlug && isHomePage(),
-                      "dark:text-menuItemSelectedDark":
-                        item.slug === curSlug && isHomePage(),
-                      "text-menuItem": item.slug !== curSlug || !isHomePage(),
-                      "dark:text-menuItemDark":
-                        item.slug !== curSlug || !isHomePage(),
-                    }
-                  )}
+        <div className="hidden md:flex float-right memu-wrapper flex items-center md:pr-[40px]">
+          {
+            <ul className="menu-container float-left">
+              {menuData.map((item, index) => (
+                <li
+                  key={`desktop-menu-item-${index}`}
+                  className="float-left md:mr-[40px] lg:mr-[40px]"
+                  onClick={() => handleOnClickMenu(item.slug)}
                 >
-                  {item.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        }
-      </div>
-      <div className={classnames(styles["mobile-nav"])}>
-        <div
-          className={classnames(styles["menu-container"], "pt-10")}
-          id="mobile-menu"
-        >
-          <ul className={styles["mobile-menu"]}>
-            {menuData.map((item: any, index: number) => (
-              <li key={`mobile-menu-${index}`}>
-                <a
-                  className={classnames("mt-[30px] md:mt-[60px]", {
-                    active: item.slug === curSlug,
-                  })}
-                  href={item.slug}
-                  onClick={() => {
-                    window.location.href = item.slug;
-                    handleClickMobileMenu();
-                  }}
-                >
-                  <div className="hidden-layer"></div>
-                  <button className="shown-layer">
-                    <p className="uppercase text-[14px] md:text-[32px] bold-text">
-                      {item.title}
-                    </p>
-                  </button>
-                </a>
-              </li>
-            ))}
-          </ul>
+                  <a
+                    href={"/" + item.slug}
+                    className={classnames(
+                      "font-[16px] uppercase",
+                      styles["desktop-menu-text"],
+                      {
+                        "text-menuItemSelected":
+                          item.slug === curSlug && isHomePage(),
+                        "dark:text-menuItemSelectedDark":
+                          item.slug === curSlug && isHomePage(),
+                        "text-menuItem": item.slug !== curSlug || !isHomePage(),
+                        "dark:text-menuItemDark":
+                          item.slug !== curSlug || !isHomePage(),
+                      }
+                    )}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          }
+        </div>
+        <div className={classnames(styles["mobile-nav"])}>
+          <div
+            className={classnames(styles["menu-container"], "pt-10")}
+            id="mobile-menu"
+          >
+            <ul className={styles["mobile-menu"]}>
+              {menuData.map((item: any, index: number) => (
+                <li key={`mobile-menu-${index}`}>
+                  <a
+                    className={classnames("mt-[30px] md:mt-[60px]", {
+                      active: item.slug === curSlug,
+                    })}
+                    href={item.slug}
+                    onClick={() => {
+                      window.location.href = item.slug;
+                      handleClickMobileMenu();
+                    }}
+                  >
+                    <div className="hidden-layer"></div>
+                    <button className="shown-layer">
+                      <p className="uppercase text-[16px] md:text-[32px] bold-text">
+                        {item.title}
+                      </p>
+                    </button>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

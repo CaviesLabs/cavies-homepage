@@ -67,7 +67,15 @@ export const CookieConnsentComponent: FC = () => {
           onClick={handleClose}
           className="absolute right-[30px] md:top-0 top-[20px]"
         >
-          <i className="bx bx-x text-strongTitle dark:text-strongTitleDark text-[30px]"></i>
+          {/* <i className="bx bx-x text-strongTitle dark:text-strongTitleDark text-[30px]"></i> */}
+          <img
+            src="/assets/images/close-btn.svg"
+            className="w-[11px] h-[11px] dark:hidden"
+          />
+          <img
+            src="/assets/images/close-btn-dark.svg"
+            className="w-[11px] h-[11px] hidden dark:block"
+          />
         </button>
         <div className="md:pt-0 pt-[30px] text-center">
           <img

@@ -52,18 +52,6 @@ export const SeoComponent: FC = () => {
       {/* For OpenGraph/Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://cavies.xyz/" />
-      <meta
-        property="og:title"
-        content="Cavies Labs | Building towards the future of Web3 Gaming"
-      />
-      <meta
-        property="og:description"
-        content="We build a friendly way toward mass adoption of blockchain-enabled games - an unorthodox Web3 gaming infrastructure"
-      />
-      <meta
-        property="og:image:alt"
-        content="Cavies Labs | Transform the future of Web3 Gaming"
-      />
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="en_GB" />
 
