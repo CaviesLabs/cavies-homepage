@@ -298,7 +298,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           )}
           <div className="hidden md:block">{menuComponent}</div>
         </div>
-        <div className="content md:pl-[300px] md:pt-0 md:pr-[20px]">
+        <div className="content md:pl-[260px] md:pt-0 md:pr-[20px]">
           {layoutContent}
         </div>
       </div>

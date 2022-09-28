@@ -14,8 +14,8 @@ const Footer: FC = () => {
   const footers = useMemo<FooterItem[]>(
     () => [
       {
-        name: "About Us",
-        uri: "https://cavies.notion.site/About-Cavies-72e60c00426b450e8e57ca3ea5acb0d0",
+        name: "Home",
+        uri: "/",
       },
       {
         name: "Blog",
@@ -25,8 +25,8 @@ const Footer: FC = () => {
         name: "Careers",
         uri: "https://cavies.notion.site/Job-Board-320ac7987dc64a53b0d3d3e7c52c5ce7",
       },
-      { name: "Term", uri: "#" },
-      { name: "Privacy", uri: "/legal/privacy-notice" },
+      { name: "Legal Notice", uri: "/legal/legal-notice" },
+      { name: "Privacy Notice", uri: "/legal/privacy-notice" },
       {
         name: "Media Kit",
         uri: "https://cavies.notion.site/59aa5e24fdb146359cdd3cb9336aef45?v=83eedde046594e689d7fabf8932a7284",
@@ -78,7 +78,7 @@ const Footer: FC = () => {
             </div>
           </div>
           <div className="flex">
-            <div className="bottom-menu-wrapper float-left w-[60%] md:w-[60%] lg:w-[70%] hidden md:block">
+            <div className="bottom-menu-wrapper float-left w-[60%] md:w-[40%] lg:w-[70%] hidden md:block">
               <a className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer regular-text">
                 © 2022 Cavies, Ltd.
               </a>
@@ -88,7 +88,7 @@ const Footer: FC = () => {
                 {footers.map((item, index) => (
                   <li
                     key={`footer-item-${index}`}
-                    className="md:float-right ml-[20px] md:ml-[30px] cursor-pointer float-left text-center leading-[35px]"
+                    className="md:float-right mx-[10px] md:mx-0 md:ml-[30px] cursor-pointer float-left text-center leading-[35px]"
                   >
                     <a
                       target="_blank"

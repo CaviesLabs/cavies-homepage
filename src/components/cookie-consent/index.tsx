@@ -70,11 +70,11 @@ export const CookieConnsentComponent: FC = () => {
           {/* <i className="bx bx-x text-strongTitle dark:text-strongTitleDark text-[30px]"></i> */}
           <img
             src="/assets/images/close-btn.svg"
-            className="w-[11px] h-[11px] dark:hidden"
+            className="w-[16px] h-[16px] dark:hidden"
           />
           <img
             src="/assets/images/close-btn-dark.svg"
-            className="w-[11px] h-[11px] hidden dark:block"
+            className="w-[16px] h-[16px] hidden dark:block"
           />
         </button>
         <div className="md:pt-0 pt-[30px] text-center">

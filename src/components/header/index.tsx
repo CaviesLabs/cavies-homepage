@@ -205,7 +205,7 @@ const Header: FC = () => {
             />
           </a>
         </div>
-        <div className="relative flex items-center float-right  lg:absolute right-[16px]">
+        <div className="relative flex items-center float-right right-[16px]">
           <div className="float-right relative">
             <input
               type="checkbox"
@@ -216,7 +216,10 @@ const Header: FC = () => {
                 setTheme(theme === "dark" ? "light" : "dark");
               }}
             />
-            <label htmlFor="theme-checkbox" className="theme-label">
+            <label
+              htmlFor="theme-checkbox"
+              className="theme-label cursor-pointer"
+            >
               <div className="theme-ball flex items-center">
                 <img
                   src="/assets/images/light-icon.svg"

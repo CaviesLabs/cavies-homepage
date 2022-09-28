@@ -6,7 +6,7 @@ export const LegalNoticeComponent: ReactNode = (
       <h1 className="c14">Legal Notice</h1>
       <span className="c3 date">Last Updated:</span>
       <span className="c4 date">&nbsp;</span>
-      <span className="c1 date">September 21, 2022</span>
+      <span className="c3 date">September 21, 2022</span>
     </p>
     <h1 className="c7" id="application-and-scope">
       <p className="c8">Application and Scope</p>
@@ -408,7 +408,9 @@ export const LegalNoticeComponent: ReactNode = (
       <span className="c1">
         . Please learn more about how we process your personal data in our{" "}
       </span>
-      <span className="c1 underline">Privacy Notice</span>
+      <a href="/legal/privacy-notice/" target="_blank">
+        Privacy Notice
+      </a>
       <span className="c1">.</span>
     </p>
     <p className="c0">
@@ -489,7 +491,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Affiliate</span>
       <span className="c1">
         &rdquo; means a person controlling, controlled by, or under the same
@@ -497,15 +499,15 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Cavies</span>
-      <span className="c4">&rdquo;, &ldquo;</span>
+      <span className="c1">&rdquo;, &ldquo;</span>
       <span className="c3">we</span>
-      <span className="c4">&rdquo;, &ldquo;</span>
+      <span className="c1">&rdquo;, &ldquo;</span>
       <span className="c3">our</span>
-      <span className="c4">&rdquo;, or &ldquo;</span>
+      <span className="c1">&rdquo;, or &ldquo;</span>
       <span className="c3">us</span>
-      <span className="c4">&rdquo; means </span>
+      <span className="c1">&rdquo; means </span>
       <span className="c3">Cavies Ltd</span>
       <span className="c1">
         , a BVI business company having company number 2105006 and address at
@@ -514,7 +516,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Cavies Parties</span>
       <span className="c1">
         &rdquo; means Cavies, Affiliates, their respective shareholders,
@@ -523,7 +525,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Dispute</span>
       <span className="c1">
         &rdquo; means any dispute, claim, suit, action, causes of action,
@@ -531,7 +533,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Information</span>
       <span className="c1">
         &rdquo; means any information, statements and announcements, provided on
@@ -542,7 +544,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Intellectual Property</span>
       <span className="c1">
         &rdquo; means any names of services and products, logos, trademarks and
@@ -552,14 +554,14 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">LCIA</span>
       <span className="c1">
         &rdquo; means London Court of International Arbitration.
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Legal Notice</span>
       <span className="c1">
         &rdquo; means this Cavies Legal Notice as may be updated from time to
@@ -567,7 +569,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <h3 className="c0" id="h.35nkun2">
-      <span className="c13 c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3 c13">Licence</span>
       <span className="c1">
         &rdquo; means limited, temporary, non-transferable, non-exclusive,
@@ -576,7 +578,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </h3>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Materials</span>
       <span className="c1">
         &rdquo; means Information and any data, content, and materials contained
@@ -585,7 +587,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Notice</span>
       <span className="c1">
         &rdquo; means a written notice of your claim to any of the Cavies
@@ -595,7 +597,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Project</span>
       <span className="c1">
         &rdquo; means the &ldquo;Hamsterbox&rdquo; project, which essentially is
@@ -608,7 +610,7 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Third-Party Content</span>
       <span className="c1">
         &rdquo; means any content, information, materials and items provided by
@@ -619,9 +621,9 @@ export const LegalNoticeComponent: ReactNode = (
       </span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">Website</span>
-      <span className="c4">&rdquo; means Cavies website available at </span>
+      <span className="c1">&rdquo; means Cavies website available at </span>
       <span className="c2 c5">
         <a className="c9" href="https://cavies.xyz/">
           https://cavies.xyz
@@ -630,9 +632,9 @@ export const LegalNoticeComponent: ReactNode = (
       <span className="c1">, including any of its subdomains.</span>
     </p>
     <p className="c0">
-      <span className="c4">&ldquo;</span>
+      <span className="c1">&ldquo;</span>
       <span className="c3">you</span>
-      <span className="c4">&rdquo;, &ldquo;</span>
+      <span className="c1">&rdquo;, &ldquo;</span>
       <span className="c3">your</span>
       <span className="c1">&rdquo; means you as a user of the Website.</span>
     </p>

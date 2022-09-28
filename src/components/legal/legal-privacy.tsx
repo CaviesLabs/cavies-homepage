@@ -6,15 +6,18 @@ export const LegalPrivacyNotice: ReactNode = () => (
       <h1 className="c14">Privacy Notice</h1>
       <span className="c3 date">Last Updated:</span>
       <span className="c4 date">&nbsp;</span>
-      <span className="c1 date">September 21, 2022</span>
+      <span className="c3 date">September 21, 2022</span>
     </p>
     <p className="c1">
       The Cavies website available at{" "}
       <a href="https://cavies.xyz">https://cavies.xyz</a>, including any of its
-      subdomains (the “Website”) is provided by Cavies Ltd (“we”, “our”, “us”,
-      or “Cavies”). With respect to personal data collected on the Website, we
-      act as a data controller, meaning that we determine the purposes and means
-      of processing your personal data.
+      subdomains (the “<span className="normal-text">Website</span>”) is
+      provided by Cavies Ltd (“<span className="normal-text">we</span>”, “
+      <span className="normal-text">our</span>”, “
+      <span className="normal-text">us</span>”, or “
+      <span className="normal-text">Cavies</span>”). With respect to personal
+      data collected on the Website, we act as a data controller, meaning that
+      we determine the purposes and means of processing your personal data.
     </p>
     <p className="c1">
       In this Privacy Notice we explain how we collect and process your personal
@@ -28,7 +31,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
       you have any questions regarding processing of your personal data, do not
       hesitate to contact us via the contact details provided below.
     </p>
-    <h3 className="c8">Contact details</h3>
+    <h3 className="c6 mb-[10px]">Contact details</h3>
     <p>
       <p className="c1">
         <span className="bold-text">Name:</span>
@@ -300,12 +303,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
           contacted us regarding the same matter. We set this retention period
           during the statutes of limitations established in our{" "}
         </span>
-        <span className="c36">Legal Notice</span>
-        <sup>
-          <a href="#cmnt1" id="cmnt_ref1">
-            [a]
-          </a>
-        </sup>
+        <a href="/legal/legal-notice" target="_blank">
+          Legal Notice
+        </a>
         <span className="c1">
           . In case of pending legal actions, we may process Contact Data longer
           than prescribed herein.
@@ -380,7 +380,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
           </span>
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
-          <span className="c12 c11">{"d) "}&nbsp;&nbsp;&nbsp;Object</span>
+          <span className="normal-text">{"d) "}&nbsp;&nbsp;&nbsp;Object</span>
           <span className="c1">
             &nbsp;to processing of your personal data where we are relying on a
             legitimate interest and there is something about your particular

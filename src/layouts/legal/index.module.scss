@@ -13,16 +13,25 @@
 
     .c8 {
       font-size: 20px;
-      font-family: poppins-medium;
+      font-family: poppins-bold;
       text-align: center;
       color: #735CF7;
       margin-top: 24px;  
       margin-bottom: 14px;  
     }
+
+    .c88 {
+      font-size: 20px;
+      font-family: poppins-medium;
+      color: #20242D;
+      margin-top: 24px;  
+      margin-bottom: 14px;  
+    }
+
     .c6 {
       color: #20242D;
       font-size: 16px;
-      font-family: poppins-medium;
+      font-family: poppins-bold;
       margin-top: 8px;
     }
 
@@ -38,6 +47,7 @@
       color: #5F6C87;
       font-size: 16px;
       line-height: 74px;
+      font-family: poppins-medium;
     }
 
     .c1 {
@@ -45,6 +55,7 @@
       font-size: 16px;
       font-family: poppins-regular;
       margin-bottom: 16px;
+      text-align: justify;
     }
 
     .menu-active {
@@ -53,6 +64,7 @@
 
     a {
       color: #735CF7;
+      text-decoration: underline;
     }
 
     @media screen and (max-width: 768px) {
@@ -72,7 +84,7 @@
 [data-theme="dark"] {
   .legal-content {
     :global {
-      .c14, .c1, .c6 {
+      .c14, .c1, .c6, c88 {
         color: #FFFFFF;
       }
       .c8 {
