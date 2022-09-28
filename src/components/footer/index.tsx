@@ -83,7 +83,7 @@ const Footer: FC = () => {
           </div>
           <div className="flex">
             <div className="bottom-menu-wrapper float-left w-[60%] md:w-[60%] lg:w-[70%] hidden md:block">
-              <a className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer normal-text">
+              <a className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer regular-text">
                 © 2022 Cavies, Ltd.
               </a>
             </div>
