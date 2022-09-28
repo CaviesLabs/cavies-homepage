@@ -47,10 +47,6 @@ const Footer: FC = () => {
 
   return (
     <div className="footer pt-[80px]">
-      {/* <div className="w-full divide-y-[2px] divide-borderColor dark:divide-borderColorDark">
-        <div></div>
-        <div></div>
-      </div> */}
       <div className="border-t-[#D2D7DF] dark:border-t-borderColorDark border-t-[1px]">
         <div className="md:px-[40px] px-[20px] lg:max-w-[1180px] lg:mx-auto">
           <div className="flex items-center pt-[20px]">
@@ -84,7 +80,7 @@ const Footer: FC = () => {
           <div className="flex">
             <div className="bottom-menu-wrapper float-left w-[60%] md:w-[60%] lg:w-[70%] hidden md:block">
               <a className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer regular-text">
-                {/* © 2022 Cavies, Ltd. */}
+                © 2022 Cavies, Ltd.
               </a>
             </div>
             <div className="float-right menu-wrapper w-[100%] md:pt-0 pt-[20px]">
