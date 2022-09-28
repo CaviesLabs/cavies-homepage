@@ -50,8 +50,6 @@ export const SeoComponent: FC = () => {
       <meta property="og:image:height" content="630" />
 
       {/* For OpenGraph/Facebook */}
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://cavies.xyz/" />
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="en_GB" />
 

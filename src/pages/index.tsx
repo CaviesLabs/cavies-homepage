@@ -98,7 +98,7 @@ const Home: NextPage = () => {
           </div>
           <div className="md:float-right relative md:pl-[30px] lg:pl-[200px]">
             <div className="relative">
-              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg]">OUR</h2>
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] mb-[5px]">OUR</h2>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
                 <h2 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
                   Objectives
@@ -123,7 +123,7 @@ const Home: NextPage = () => {
                     direction="up"
                     key={`objective-item-${index}`}
                   >
-                    <li className="flex pb-[20px] max-w-[500px]">
+                    <li className="flex pb-[20px] max-w-[500px] items-center">
                       <img
                         src="/assets/images/dot-item.png"
                         className="float-left w-[25px] h-[25px] md:w-[31px] md:h-[31px] dark:hidden"

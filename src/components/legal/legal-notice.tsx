@@ -277,7 +277,7 @@ export const LegalNoticeComponent: ReactNode = (
         us and attempt to resolve the Dispute informally by sending the Notice
         via the following email{" "}
       </span>
-      <span className="c2 c16">legal@cavies.xyz</span>
+      <a href="mailto:legal@cavies.xyz">legal@cavies.xyz</a>
       <span className="c1">
         . If we and you cannot reach an agreement to resolve the Dispute within
         thirty (30) days after the Notice is received, then either, Cavies or
