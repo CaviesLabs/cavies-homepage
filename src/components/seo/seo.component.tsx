@@ -49,11 +49,9 @@ export const SeoComponent: FC = () => {
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
 
-      {/* For OpenGraph/Facebook */}
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="en_GB" />
 
-      {/* For Twitter */}
       <meta name="twitter:card" content="summary" />
       <meta property="twitter:url" content="https://cavies.xyz/" />
       <meta
