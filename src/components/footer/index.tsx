@@ -78,7 +78,7 @@ const Footer: FC = () => {
             </div>
           </div>
           <div className="flex">
-            <div className="bottom-menu-wrapper float-left w-[60%] md:w-[40%] lg:w-[70%] hidden md:block">
+            <div className="bottom-menu-wrapper float-left w-[60%] md:w-[27%%] lg:w-[60%] hidden md:block">
               <a className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer regular-text">
                 © 2022 Cavies, Ltd.
               </a>
@@ -88,7 +88,7 @@ const Footer: FC = () => {
                 {footers.map((item, index) => (
                   <li
                     key={`footer-item-${index}`}
-                    className="md:float-right mx-[10px] md:mx-0 md:ml-[30px] cursor-pointer float-left text-center leading-[35px]"
+                    className="md:float-right mx-[10px] md:mx-0 md:ml-[30px] cursor-pointer float-left text-center leading-[35px] md:leading-0"
                   >
                     <a
                       target="_blank"
