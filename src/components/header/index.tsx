@@ -192,7 +192,7 @@ const Header: FC = () => {
       className="app-header border-borderColor dark:border-borderColorDark border-b-[0.5px]"
       id="app-header"
     >
-      <div className="py-[18px] md:py-[25px] pl-[20px] pr-0 md:px-[40px] lg:px-[40px] lg:max-w-[1550px] lg:mx-auto flow-root">
+      <div className="py-[18px] md:py-[25px] pl-[20px] pr-0 md:px-[40px] lg:px-[40px] lg:max-w-[1180px] lg:mx-auto flow-root">
         <div className="float-left logo-wrapper md:mt-0 mt-[0px]">
           <a href="/">
             <img

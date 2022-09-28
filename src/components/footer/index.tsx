@@ -52,7 +52,7 @@ const Footer: FC = () => {
         <div></div>
       </div> */}
       <div className="border-t-[#D2D7DF] dark:border-t-borderColorDark border-t-[1px]">
-        <div className="md:px-[40px] px-[20px] lg:max-w-[1550px] lg:mx-auto">
+        <div className="md:px-[40px] px-[20px] lg:max-w-[1180px] lg:mx-auto">
           <div className="flex items-center pt-[20px]">
             <div className="md:float-left logo-wrapper w-[100%] md:w-[60%] lg:w-[70%]">
               <img

@@ -30,7 +30,7 @@ const Home: NextPage = () => {
 
   return (
     <MainLayout>
-      <div className="px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px] pt-[50px] md:pt-[180px]">
+      <div className="px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1180px] pt-[50px] md:pt-[180px]">
         <div className="top-inf md:inline-flex xl:flow-root" id="about-us">
           <div className="lg:float-right relative md:pl-[80px] md:pt-0 pt-[30px] order-0 md:order-1">
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-170px] left-[260px]" />
@@ -98,7 +98,9 @@ const Home: NextPage = () => {
           </div>
           <div className="md:float-right relative md:pl-[30px] lg:pl-[200px]">
             <div className="relative">
-              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] mb-[5px]">OUR</h2>
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] mb-[5px]">
+                OUR
+              </h2>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-18px] px-[20px] uppercase">
                 <h2 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
                   Objectives
@@ -355,7 +357,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="contact-s relative mt-[200px] md:min-h-[630px] pt-[30px] md:pt-[80px]">
-        <div className="relative px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1550px]">
+        <div className="relative px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1180px]">
           <h1 className="uppercase text-[30px] xs:text-[36px] lg:text-[50px] xl:text-[69px] leading-[1] text-strongTitle dark:text-strongTitleDark">
             Transform the future of <br />{" "}
             <span className="md:text-[90px] text-green dark:text-greenDark">

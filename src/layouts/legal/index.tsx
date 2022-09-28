@@ -266,7 +266,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
     <MainLayout>
       <div
         className={classnames(
-          "px-[20px] md:mx-[40px] lg:mx-auto w-full lg:max-w-[1550px] pt-[50px]  bg-white dark:bg-backgroundDark",
+          "px-[20px] md:mx-[40px] lg:mx-auto w-full lg:max-w-[1180px] pt-[50px]  bg-white dark:bg-backgroundDark",
           styles["legal-content"]
         )}
       >
