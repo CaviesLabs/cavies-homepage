@@ -191,7 +191,7 @@ const Home: NextPage = () => {
                 <div className="float-left">
                   <img
                     src="/assets/images/electric-hamster.png"
-                    className="w-[133px] h-[auto] md:w-[271px] lg:h-[271px] md:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px] mt-[30px] xs:mt-[20px] md:mt-0 lg:ml-[50px] xs:ml-0"
+                    className="w-[133px] h-[auto] md:w-[271px] lg:h-[auto] md:w-[220px] lg:h-[auto] xl:w-[271px] xl:h-[271px] mt-[30px] xs:mt-[20px] md:mt-0 lg:ml-[50px] xs:ml-0"
                   />
                 </div>
               </Fade>
