@@ -14,13 +14,13 @@ export const LegalPrivacyNotice: ReactNode = () => (
         https://cavies.xyz
       </a>
       , including any of its subdomains (the “
-      <span className="normal-text">Website</span>”) is provided by Cavies Ltd
-      (“<span className="normal-text">we</span>”, “
-      <span className="normal-text">our</span>”, “
-      <span className="normal-text">us</span>”, or “
-      <span className="normal-text">Cavies</span>”). With respect to personal
-      data collected on the Website, we act as a data controller, meaning that
-      we determine the purposes and means of processing your personal data.
+      <span className="bold-text">Website</span>”) is provided by Cavies Ltd (“
+      <span className="bold-text">we</span>”, “
+      <span className="bold-text">our</span>”, “
+      <span className="bold-text">us</span>”, or “
+      <span className="bold-text">Cavies</span>”). With respect to personal data
+      collected on the Website, we act as a data controller, meaning that we
+      determine the purposes and means of processing your personal data.
     </p>
     <p className="c1">
       In this Privacy Notice we explain how we collect and process your personal
@@ -206,7 +206,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
           Barrow Street, Dublin 4, Ireland, and its affiliates including Google
           LLC, 1600, Amphitheatre Parkway, Mountain View, CA, 94043, USA
           (&ldquo;
-          <span className="c19 normal-text">Google</span>
+          <span className="c19 bold-text">Google</span>
           <span className="c1">&rdquo;).</span>
         </p>
       </p>
@@ -363,7 +363,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
       <p className="c14 lst-kix_list_3-0 start c1">
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"a) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="normal-text">access</span>
+          <span className="bold-text">access</span>
           <span className="c1">
             &nbsp;to your personal data (commonly known as a &ldquo;data subject
             access request&rdquo;). This enables you to ask us whether we
@@ -375,7 +375,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"b) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="normal-text">correction</span>
+          <span className="bold-text">correction</span>
           <span className="c1">
             &nbsp;of the personal data that we hold about you. This enables you
             to have any incomplete or inaccurate data we hold about you
@@ -385,7 +385,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"c) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="normal-text">erasure</span>
+          <span className="bold-text">erasure</span>
           <span className="c1">&nbsp;of your personal data </span>
           <span>
             (commonly known as the &ldquo;right to be forgotten&rdquo;)
@@ -404,7 +404,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
           </span>
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
-          <span className="normal-text">{"d) "}&nbsp;&nbsp;&nbsp;Object</span>
+          <span className="c1">{"d) "}</span>
+          <span className="bold-text">&nbsp;&nbsp;&nbsp;Object</span>
           <span className="c1">
             &nbsp;to processing of your personal data where we are relying on a
             legitimate interest and there is something about your particular
@@ -418,7 +419,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-4 pl-[20px]">
           <span className="c1">{"e) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="normal-text">restriction</span>
+          <span className="bold-text">restriction</span>
           <span className="c1">
             &nbsp;of processing of your personal data. This enables you to ask
             us to suspend the processing of your personal data in the following
@@ -433,9 +434,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1  li-bullet-5 pl-[20px]">
           <span className="c1">{"f) "}&nbsp;&nbsp;&nbsp;Request the </span>
-          <span className="normal-text">transfer</span>
+          <span className="bold-text">transfer</span>
           <span className="c1">
-            &nbsp;of your personal data to you or to a third party
+            &nbsp;of your personal data to you or to a third party&nbsp;
           </span>
           <span>
             (commonly known as the &ldquo;right to the data portability&rdquo;)
@@ -450,7 +451,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-4 pl-[20px]">
           {"g) "}&nbsp;&nbsp;&nbsp;{" "}
-          <span className="normal-text">Withdraw consent</span>
+          <span className="bold-text">Withdraw consent</span>
           <span className="c1">
             &nbsp;at any time where we are relying on consent to process your
             personal data. However, this will not affect the lawfulness of any
@@ -461,9 +462,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
           <span className="c1">
             {"h) "}&nbsp;&nbsp;&nbsp;Not to be subject to a{" "}
           </span>
-          <span className="normal-text">decision based</span>
+          <span className="bold-text">decision based</span>
           <span className="c1">&nbsp;solely </span>
-          <span className="normal-text">on automated processing of data</span>
+          <span className="bold-text">on automated processing of data</span>
           <span className="c1">
             , including profiling, which produces legal effects concerning you
             or similarly significantly affecting you; and
@@ -471,9 +472,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"i) "}</span>
-          <span className="normal-text">
-            &nbsp;&nbsp;&nbsp;File a complaint
-          </span>
+          <span className="bold-text">&nbsp;&nbsp;&nbsp;File a complaint</span>
           <span className="c1">
             &nbsp;with a relevant supervisory authority in case we violate your
             rights or obligations imposed on us under the applicable data
