@@ -72,7 +72,7 @@ export const SeoComponent: FC = () => {
       />
 
       {/* TODO: remove this metatag once we go live */}
-      <meta name="robots" content="noindex" />
+      {/* <meta name="robots" content="noindex" /> */}
 
       {/*  Icon stuffs */}
       <link
