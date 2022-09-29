@@ -293,7 +293,7 @@ const Header: FC = () => {
         </div>
         <div className={classnames(styles["mobile-nav"])}>
           <div
-            className={classnames(styles["menu-container"], "pt-10")}
+            className={classnames(styles["menu-container"], "pt-[20%]")}
             id="mobile-menu"
           >
             <ul className={styles["mobile-menu"]}>

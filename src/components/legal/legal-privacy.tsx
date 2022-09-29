@@ -14,13 +14,14 @@ export const LegalPrivacyNotice: ReactNode = () => (
         https://cavies.xyz
       </a>
       , including any of its subdomains (the “
-      <span className="bold-text">Website</span>”) is provided by Cavies Ltd (“
-      <span className="bold-text">we</span>”, “
-      <span className="bold-text">our</span>”, “
-      <span className="bold-text">us</span>”, or “
-      <span className="bold-text">Cavies</span>”). With respect to personal data
-      collected on the Website, we act as a data controller, meaning that we
-      determine the purposes and means of processing your personal data.
+      <span className="semi-bold-text">Website</span>”) is provided by Cavies
+      Ltd (“
+      <span className="semi-bold-text">we</span>”, “
+      <span className="semi-bold-text">our</span>”, “
+      <span className="semi-bold-text">us</span>”, or “
+      <span className="semi-bold-text">Cavies</span>”). With respect to personal
+      data collected on the Website, we act as a data controller, meaning that
+      we determine the purposes and means of processing your personal data.
     </p>
     <p className="c1">
       In this Privacy Notice we explain how we collect and process your personal
@@ -37,14 +38,14 @@ export const LegalPrivacyNotice: ReactNode = () => (
     <h3 className="c6 mb-[10px]">Contact details</h3>
     <p>
       <p className="c1">
-        <span className="bold-text">Name:</span>
+        <span className="semi-bold-text">Name:</span>
         <span className="c1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>Cavies Ltd, </span>
         <span>a British Virgin Islands</span>
         <span className="c4">&nbsp;business company</span>
       </p>
       <p className="c1">
-        <span className="c22 bold-text">Address:</span>
+        <span className="c22 semi-bold-text">Address:</span>
         <span className="c1">&nbsp;</span>
         <span>
           Intershore Chambers, PO Box 4342, Road Town, Tortola, VG1110 British
@@ -52,7 +53,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
       </p>
       <p className="c1">
-        <span className="c22 bold-text">Email:</span>
+        <span className="c22 semi-bold-text">Email:</span>
         <span className="c1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span className="c9">
           <a href="mailto:legal@cavies.xyz">legal@cavies.xyz</a>
@@ -206,7 +207,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
           Barrow Street, Dublin 4, Ireland, and its affiliates including Google
           LLC, 1600, Amphitheatre Parkway, Mountain View, CA, 94043, USA
           (&ldquo;
-          <span className="c19 bold-text">Google</span>
+          <span className="c19 semi-bold-text">Google</span>
           <span className="c1">&rdquo;).</span>
         </p>
       </p>
@@ -363,7 +364,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
       <p className="c14 lst-kix_list_3-0 start c1">
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"a) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="bold-text">access</span>
+          <span className="semi-bold-text">access</span>
           <span className="c1">
             &nbsp;to your personal data (commonly known as a &ldquo;data subject
             access request&rdquo;). This enables you to ask us whether we
@@ -375,7 +376,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"b) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="bold-text">correction</span>
+          <span className="semi-bold-text">correction</span>
           <span className="c1">
             &nbsp;of the personal data that we hold about you. This enables you
             to have any incomplete or inaccurate data we hold about you
@@ -385,7 +386,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"c) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="bold-text">erasure</span>
+          <span className="semi-bold-text">erasure</span>
           <span className="c1">&nbsp;of your personal data </span>
           <span>
             (commonly known as the &ldquo;right to be forgotten&rdquo;)
@@ -405,7 +406,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"d) "}</span>
-          <span className="bold-text">&nbsp;&nbsp;&nbsp;Object</span>
+          <span className="semi-bold-text">&nbsp;&nbsp;&nbsp;Object</span>
           <span className="c1">
             &nbsp;to processing of your personal data where we are relying on a
             legitimate interest and there is something about your particular
@@ -419,7 +420,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-4 pl-[20px]">
           <span className="c1">{"e) "}&nbsp;&nbsp;&nbsp;Request </span>
-          <span className="bold-text">restriction</span>
+          <span className="semi-bold-text">restriction</span>
           <span className="c1">
             &nbsp;of processing of your personal data. This enables you to ask
             us to suspend the processing of your personal data in the following
@@ -434,7 +435,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1  li-bullet-5 pl-[20px]">
           <span className="c1">{"f) "}&nbsp;&nbsp;&nbsp;Request the </span>
-          <span className="bold-text">transfer</span>
+          <span className="semi-bold-text">transfer</span>
           <span className="c1">
             &nbsp;of your personal data to you or to a third party&nbsp;
           </span>
@@ -451,7 +452,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-4 pl-[20px]">
           {"g) "}&nbsp;&nbsp;&nbsp;{" "}
-          <span className="bold-text">Withdraw consent</span>
+          <span className="semi-bold-text">Withdraw consent</span>
           <span className="c1">
             &nbsp;at any time where we are relying on consent to process your
             personal data. However, this will not affect the lawfulness of any
@@ -462,9 +463,11 @@ export const LegalPrivacyNotice: ReactNode = () => (
           <span className="c1">
             {"h) "}&nbsp;&nbsp;&nbsp;Not to be subject to a{" "}
           </span>
-          <span className="bold-text">decision based</span>
+          <span className="semi-bold-text">decision based</span>
           <span className="c1">&nbsp;solely </span>
-          <span className="bold-text">on automated processing of data</span>
+          <span className="semi-bold-text">
+            on automated processing of data
+          </span>
           <span className="c1">
             , including profiling, which produces legal effects concerning you
             or similarly significantly affecting you; and
@@ -472,7 +475,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
           <span className="c1">{"i) "}</span>
-          <span className="bold-text">&nbsp;&nbsp;&nbsp;File a complaint</span>
+          <span className="semi-bold-text">
+            &nbsp;&nbsp;&nbsp;File a complaint
+          </span>
           <span className="c1">
             &nbsp;with a relevant supervisory authority in case we violate your
             rights or obligations imposed on us under the applicable data

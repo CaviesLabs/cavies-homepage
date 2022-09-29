@@ -12,7 +12,7 @@ const LegalPage: NextPage = () => {
         <meta property="og:title" content={`Cavies Labs | Legal Notice`} />
         <meta property="og:description" content={`Legal Notice Disclosure`} />
       </Head>
-      <LegalLayout slug={["privacy-notice"]} />
+      <LegalLayout slug={["legal-notice"]} />
     </>
   );
 };

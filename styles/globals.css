@@ -8,6 +8,11 @@
 }
 
 @font-face {
+  font-family: semi-poppins-bold;
+  src: url(../public/assets/fonts/poppins/Poppins-SemiBold.otf);
+}
+
+@font-face {
   font-family: poppins-medium;
   src: url(../public/assets/fonts/poppins/Poppins-Medium.otf);
 }
@@ -77,6 +82,10 @@ p {
 
 .bold-text {
   font-family: poppins-bold; 
+}
+
+.semi-bold-text {
+  font-family: semi-poppins-bold;
 }
 
 .circle-purple {

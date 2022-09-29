@@ -164,6 +164,26 @@ const LegalLayout: FC<Props> = ({ slug }) => {
   }, [slugSelected]);
 
   /**
+   * @dev
+   * @returns number of text
+   * It will auto detect which number of text to display
+   * in table of contents tab on mobile device
+   * based on the width of its device
+   */
+  const handleRenderMenuTableTitleLength = () => {
+    try {
+      const screenWidth = window.innerWidth;
+      if (screenWidth > 400) {
+        return 8;
+      }
+      if (screenWidth < 300) {
+        return 3;
+      }
+    } catch {}
+    return 6;
+  };
+
+  /**
    * @description
    * Step 1: Find section user want to read based on slug, then render the matched layout
    * Step 2: Find part of section
@@ -238,7 +258,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
                 {item.title}
               </span>
             </p>
-            <ul className="chilren-legal-menu pl-[25px] pb-[20px]">
+            <ul className="chilren-legal-menu pl-[25px] pb-[20px] md:pr-0 pr-[32px]">
               <Collapse isOpened={menuOpen === item.slug}>
                 {item.children.map((item, index) => (
                   <li
@@ -286,7 +306,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
             <p className="text-[16px] md:text-[16px] text-white dark:text-strongTitle normal-text uppercase max-w-[100%]">
               {utilsProvider.makeShort(
                 childSlugSelected.replaceAll("-", " "),
-                4
+                handleRenderMenuTableTitleLength()
               )}
             </p>
             <button
