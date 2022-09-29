@@ -31,6 +31,9 @@ module.exports = {
       md: "768px",
       lg: "976px",
       xl: "1440px",
+      gand: { raw: "(min-height: 800px)" },
+      tall: { raw: "(min-height: 700px)" },
+      small: { raw: "(min-height: 600px)" },
     },
     extend: {
       colors: {

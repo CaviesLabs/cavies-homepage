@@ -270,8 +270,8 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           styles["legal-content"]
         )}
       >
-        <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px] pt-[50px]">
-          <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[55px]">
+        <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px] pt-[50px] h-[100%]">
+          <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[55px] h-[100%]">
             <p className="text-[14px] md:text-[16px] text-white dark:text-strongTitle normal-text uppercase max-w-[100%]">
               {childSlugSelected.replaceAll("-", " ")}
             </p>
@@ -296,7 +296,9 @@ const LegalLayout: FC<Props> = ({ slug }) => {
               </div>
             </Collapse>
           )}
-          <div className="hidden md:block">{menuComponent}</div>
+          <div className="hidden md:block h-[35%] small:h-[60%] overflow-y-auto">
+            {menuComponent}
+          </div>
         </div>
         <div className="content md:pl-[260px] md:pt-0 md:pr-[20px]">
           {layoutContent}
