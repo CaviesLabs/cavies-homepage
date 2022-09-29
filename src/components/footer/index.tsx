@@ -79,9 +79,9 @@ const Footer: FC = () => {
           </div>
           <div className="flex">
             <div className="bottom-menu-wrapper float-left w-[60%] md:w-[27%] lg:w-[60%] hidden md:block">
-              <a className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] cursor-pointer regular-text">
-                © 2022 Cavies, Ltd.
-              </a>
+              <p className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] mr-[20px] regular-text">
+                © 2022 Cavies Ltd.
+              </p>
             </div>
             <div className="float-right menu-wrapper w-[100%] md:pt-0 pt-[20px]">
               <ul className="footer-menu w-[100%] flex justify-center flex-wrap md:justify-end">
@@ -121,7 +121,7 @@ const Footer: FC = () => {
             </div>
             <div className="pt-[20px]">
               <p className="text-footerItemColor dark:text-footerItemColorDark text-[12px] md:text-[14px] cursor-pointer normal-text text-center">
-                © 2022 Cavies, Ltd.
+                © 2022 Cavies Ltd.
               </p>
             </div>
           </div>

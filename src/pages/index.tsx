@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import MainLayout from "@/src/layouts/main";
 import { Fade } from "react-awesome-reveal";
+import { useEffect, useState, useCallback } from "react";
 
 const objectiveItems = [
   "One-stop portal to the metaverse for both the ~3.5b Web2 and ~1.5m Web3 gamers",
@@ -21,12 +22,51 @@ const forGameItems2 = [
 ];
 
 const Home: NextPage = () => {
+  const [isSafari, setIsSafari] = useState(true);
+
   const handleContactUs = () => {
     window.open(
       "mailto:contact@cavies.xyz?subject=Hello Cavies Labs",
       "_blank"
     );
   };
+
+  const handleRenderCircleHamster = useCallback(() => {
+    console.log("is", isSafari);
+    if (isSafari) {
+      return (
+        <>
+          <img
+            src="/assets/images/hamster-top-c.png"
+            className="w-[100%] h-auto md:mt-[-100px] md:mx-auto"
+          ></img>
+          <img
+            src="/assets/images/circle-astronaunt-hamster.png"
+            className="top-circle-astronaunt-hamster spin-el"
+          />
+        </>
+      );
+    }
+
+    return (
+      <video width="100%" height="auto" autoPlay muted loop>
+        <source src="/videos/hamser.webm" type="video/webm" />
+        {/* <source src="movie.ogg" type="video/ogg" /> */}
+        Your browser does not support the video tag.
+      </video>
+    );
+  }, [isSafari]);
+
+  useEffect(() => {
+    // const userAgent = navigator.userAgent;
+    console.log(navigator.userAgent);
+    console.log(navigator.userAgent.indexOf("Safari") != -1);
+    if (navigator.userAgent.indexOf("Safari") != -1) {
+      setIsSafari(true);
+    } else {
+      setIsSafari(false);
+    }
+  }, []);
 
   return (
     <MainLayout>
@@ -43,14 +83,7 @@ const Home: NextPage = () => {
             <div className="circle-green absolute w-[69px] h-[59px] bottom-[-50px] left-[260px]" />
             <div className="circle-purple absolute bottom-[40px] right-[-50px] w-[27px] h-[27px]" />
             <div className="w-[90%] h-auto md:mt-[-100px] md:mx-auto text-center relative">
-              <img
-                src="/assets/images/hamster-top-c.png"
-                className="w-[100%] h-auto md:mt-[-100px] md:mx-auto"
-              ></img>
-              <img
-                src="/assets/images/circle-astronaunt-hamster.png"
-                className="top-circle-astronaunt-hamster spin-el"
-              />
+              {handleRenderCircleHamster()}
             </div>
           </div>
           <div className="lg:float-left md:order-0 relative pt-[100px] md:pt-0 md:w-[60%]">
