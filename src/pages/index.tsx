@@ -174,7 +174,7 @@ const Home: NextPage = () => {
               started on their web3 gaming journey.
             </p>
           </Fade>
-          <div className="md:items-center grid lg:flex md:justify-center mt-[30px] items-center">
+          <div className="md:items-center grid lg:flex justify-center mt-[30px] items-center">
             <div className="float-left flex mx-auto md:mx-0 w-[100%] lg:w-[50%]">
               <Fade duration={600} direction="up">
                 <div className="float-left ">
