@@ -32,6 +32,11 @@ const Header: FC = () => {
   };
 
   const handleOnClickMenu = (slug: string, spacing?: number) => {
+    const url: string = router.asPath;
+    if (url && url !== "/" && !url.startsWith("/#")) {
+      return router.push(`/${slug}`);
+    }
+
     setCurSlug(slug);
     const el = document.getElementById(slug?.split("#")[1]);
     if (!el) return;

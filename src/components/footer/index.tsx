@@ -108,7 +108,7 @@ const Footer: FC = () => {
                 {socialItems.map((item, index) => (
                   <li
                     key={`footer-item-${index}`}
-                    className="ml-[20px] md:ml-[30px] cursor-pointer"
+                    className="mx-[20px] md:ml-[30px] cursor-pointer"
                     onClick={() => window.open(item.uri)}
                   >
                     <img
