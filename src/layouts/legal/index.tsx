@@ -140,13 +140,21 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           .find((item) => item.slug === slugSelected)
           ?.children.map((item) => convertToHref(item.title)) || [];
       const items = ids.map((id) => document.getElementById(id));
-      items.map((item, index: number) => {
+      items.every((item, index: number) => {
         if (
           item?.getBoundingClientRect().top !== undefined &&
-          pageYOffset >= item?.getBoundingClientRect().top - 200
+          item?.getBoundingClientRect().top <= 0
         ) {
-          setChildSlugSelected(ids[index]);
+          return true;
         }
+        setChildSlugSelected(ids[index]);
+        return false;
+        // if (
+        //   item?.getBoundingClientRect().top !== undefined &&
+        //   pageYOffset >= item?.getBoundingClientRect().top + 200
+        // ) {
+        //   setChildSlugSelected(ids[index]);
+        // }
       });
     }, 55);
   }, [slugSelected]);
