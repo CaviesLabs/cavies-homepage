@@ -1,7 +1,6 @@
 import { FC, useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
-import skrolltop from "skrolltop";
 import classnames from "classnames";
 import styles from "./index.module.scss";
 
@@ -25,22 +24,25 @@ const Header: FC = () => {
     []
   );
 
-  const handleClickMobileMenu = () => {
+  const handleToggleMobileMenu = () => {
     const toggleButton = document.getElementById("mobile-toggle");
     const mobileMemu = document.getElementById("mobile-menu");
     toggleButton?.classList?.toggle(styles.active);
     mobileMemu?.classList?.toggle(styles.active);
   };
 
-  const handleOnClickMenu = (slug: string) => {
+  const handleOnClickMenu = (slug: string, spacing?: number) => {
     setCurSlug(slug);
-    const element = document.getElementById(slug.split("#")[1]);
-    element !== null &&
-      skrolltop.scrollTo({
-        element: element,
-        to: 800,
-        duration: 800,
-      });
+    const el = document.getElementById(slug?.split("#")[1]);
+    if (!el) return;
+    if (!window.location.href.includes("#")) return;
+
+    // Scroll certain amounts from current position
+    window.scrollBy({
+      top: el.getBoundingClientRect().top - (spacing || 200),
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   /**
@@ -105,7 +107,6 @@ const Header: FC = () => {
    */
   useEffect(() => {
     const header = document.getElementById("app-header");
-    const scrollDownBtn = document.querySelector(".scroll-down-btn");
     const className = "scrolled-header";
     window.onscroll = () => {
       if (
@@ -114,27 +115,9 @@ const Header: FC = () => {
       ) {
         !header?.classList.contains(className) &&
           header?.classList.add("scrolled-header");
-
-        /**
-         * @dev
-         * Check whether hide middle scroll down button
-         */
-        scrollDownBtn &&
-        (getComputedStyle(scrollDownBtn) as any)?.display == "block"
-          ? ((scrollDownBtn as any).style.display = "none")
-          : null;
       } else {
         header?.classList.contains(className) &&
           header?.classList.remove("scrolled-header");
-
-        /**
-         * @dev
-         * Check whether display middle scroll down button
-         */
-        scrollDownBtn &&
-        (getComputedStyle(scrollDownBtn) as any)?.display == "none"
-          ? ((scrollDownBtn as any).style.display = "block")
-          : null;
       }
     };
   }, []);
@@ -239,7 +222,7 @@ const Header: FC = () => {
                 "block md:hidden ml-[20px]"
               )}
               id="mobile-toggle"
-              onClick={() => handleClickMobileMenu()}
+              onClick={handleToggleMobileMenu.bind(this)}
             >
               <span
                 className={classnames(
@@ -275,9 +258,8 @@ const Header: FC = () => {
                   onClick={() => handleOnClickMenu(item.slug)}
                 >
                   <a
-                    href={"/" + item.slug}
                     className={classnames(
-                      "font-[16px] uppercase",
+                      "font-[16px] uppercase cursor-pointer",
                       styles["desktop-menu-text"],
                       {
                         "text-menuItemSelected":
@@ -309,10 +291,9 @@ const Header: FC = () => {
                     className={classnames("mt-[30px] md:mt-[60px]", {
                       active: item.slug === curSlug,
                     })}
-                    href={item.slug}
                     onClick={() => {
-                      window.location.href = item.slug;
-                      handleClickMobileMenu();
+                      handleOnClickMenu(item.slug, 200);
+                      handleToggleMobileMenu();
                     }}
                   >
                     <div className="hidden-layer"></div>

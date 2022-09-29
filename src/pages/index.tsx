@@ -85,11 +85,11 @@ const Home: NextPage = () => {
           </div>
           <img
             src="/assets/images/scroll-arrow-down.svg"
-            className="scroll-down-btn mvup"
+            className="scroll-down-btn mvup hidden md:block"
           />
         </div>
         <div
-          className="objectives mt-[250px] md:mt-[150px] md:inline-flex"
+          className="objectives mt-[350px] md:mt-[150px] md:inline-flex"
           id="objectives"
         >
           <div className="md:float-left relative">
