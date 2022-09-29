@@ -452,8 +452,9 @@ export const LegalPrivacyNotice: ReactNode = () => (
           </span>
         </li>
         <li className="c1 li-bullet-3 pl-[20px]">
+          <span className="c1">{"i) "}</span>
           <span className="normal-text">
-            {"i) "}&nbsp;&nbsp;&nbsp;File a complaint
+            &nbsp;&nbsp;&nbsp;File a complaint
           </span>
           <span className="c1">
             &nbsp;with a relevant supervisory authority in case we violate your

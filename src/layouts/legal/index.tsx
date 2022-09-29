@@ -135,7 +135,6 @@ const LegalLayout: FC<Props> = ({ slug }) => {
         setTimeout(() => (scrolled = false), 3000);
         return;
       }
-      console.log(scrolled);
       const ids =
         legalMenus
           .find((item) => item.slug === slugSelected)
