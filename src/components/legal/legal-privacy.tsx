@@ -10,9 +10,12 @@ export const LegalPrivacyNotice: ReactNode = () => (
     </p>
     <p className="c1">
       The Cavies website available at{" "}
-      <a href="https://cavies.xyz">https://cavies.xyz</a>, including any of its
-      subdomains (the “<span className="normal-text">Website</span>”) is
-      provided by Cavies Ltd (“<span className="normal-text">we</span>”, “
+      <a target="_blank" href="https://cavies.xyz">
+        https://cavies.xyz
+      </a>
+      , including any of its subdomains (the “
+      <span className="normal-text">Website</span>”) is provided by Cavies Ltd
+      (“<span className="normal-text">we</span>”, “
       <span className="normal-text">our</span>”, “
       <span className="normal-text">us</span>”, or “
       <span className="normal-text">Cavies</span>”). With respect to personal
@@ -75,7 +78,12 @@ export const LegalPrivacyNotice: ReactNode = () => (
         When you access and use the Website, certain data may be collected
         automatically via the Google Analytics solution. More information
         regarding Google Analytics is available{" "}
-        <a href="https://marketingplatform.google.com/about/analytics/">here</a>
+        <a
+          href="https://marketingplatform.google.com/about/analytics/"
+          target="_blank"
+        >
+          here
+        </a>
         .
       </p>
       <p className="c1">
@@ -90,7 +98,10 @@ export const LegalPrivacyNotice: ReactNode = () => (
         allows Google to identify your approximate location (e.g, country, city
         or region). The IP addresses are expressed as a set of numbers, for
         example: 194.150.2.33. Please note that according to{" "}
-        <a href="https://support.google.com/analytics/answer/2763052?hl=en">
+        <a
+          href="https://support.google.com/analytics/answer/2763052?hl=en"
+          target="_blank"
+        >
           Google Analytics documentation
         </a>
         , the IP address is anonymised (masked), so neither we nor Google can
@@ -135,7 +146,10 @@ export const LegalPrivacyNotice: ReactNode = () => (
         {"(b)"}{" "}
         <span className="pl-[20px]">
           Analytical solution providers, e.g.{" "}
-          <a href="https://marketingplatform.google.com/about/analytics/">
+          <a
+            href="https://marketingplatform.google.com/about/analytics/"
+            target="_blank"
+          >
             Google Analytics
           </a>
         </span>
@@ -205,6 +219,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
           <span className="c17">
             <a
               className="c9"
+              target="_blank"
               href="https://www.google.com/url?q=https://policies.google.com/privacy&amp;sa=D&amp;source=editors&amp;ust=1663866684288563&amp;usg=AOvVaw2mVfX5_RAYaDUydvPBUkHf"
             >
               Google&rsquo;s privacy policy
@@ -228,6 +243,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         <span className="c17">
           <a
             className="c9"
+            target="_blank"
             href="https://www.google.com/url?q=https://marketingplatform.google.com/about/analytics/&amp;sa=D&amp;source=editors&amp;ust=1663866684289040&amp;usg=AOvVaw2BocF_cpQBUZ46igQ9Ap4h"
           >
             here
@@ -245,6 +261,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         <span className="c29">
           <a
             className="c9"
+            target="_blank"
             href="https://www.google.com/url?q=https://tools.google.com/dlpage/gaoptout&amp;sa=D&amp;source=editors&amp;ust=1663866684289469&amp;usg=AOvVaw0XqQ0whY5dc0kDm8geaXEH"
           >
             browser add-on from Google
@@ -291,6 +308,7 @@ export const LegalPrivacyNotice: ReactNode = () => (
         <span className="c17">
           <a
             className="c9"
+            target="_blank"
             href="https://www.google.com/url?q=https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage&amp;sa=D&amp;source=editors&amp;ust=1663866684290878&amp;usg=AOvVaw12dDD3Q4ihw_04T4TanEa6"
           >
             here

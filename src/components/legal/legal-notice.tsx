@@ -359,7 +359,7 @@ export const LegalNoticeComponent: ReactNode = (
         posting them on the Website, in our{" "}
       </span>
       <span className="c1">
-        <a className="c9" href="https://twitter.com/CaviesLabs">
+        <a className="c9" href="https://twitter.com/CaviesLabs" target="_blank">
           Twitter account
         </a>
       </span>
@@ -367,6 +367,7 @@ export const LegalNoticeComponent: ReactNode = (
       <span className="c1">
         <a
           className="c9"
+          target="_blank"
           href="https://cavies.notion.site/b4ff0745a92144aaaccf5b052d92b540?v=7891d7724e1349a5943c8a101174af5c"
         >
           our blog
@@ -625,7 +626,7 @@ export const LegalNoticeComponent: ReactNode = (
       <span className="c3">Website</span>
       <span className="c1">&rdquo; means Cavies website available at </span>
       <span className="c2 c5">
-        <a className="c9" href="https://cavies.xyz/">
+        <a className="c9" href="https://cavies.xyz/" target="_blank">
           https://cavies.xyz
         </a>
       </span>
