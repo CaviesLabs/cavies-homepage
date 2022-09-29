@@ -9,6 +9,7 @@ $cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
   cursor: pointer;
   z-index: 6;
   padding-right: 0;
+  z-index: 77;
 
   .bar {
     display: block;
@@ -75,7 +76,7 @@ $cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
       opacity: 1;
       visibility: visible;
       height: 100%;
-      z-index: 5;
+      z-index: 45;
     }
 
     .mobile-menu {

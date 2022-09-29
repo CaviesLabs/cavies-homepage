@@ -18,8 +18,10 @@ interface Props {
   slug: string[];
 }
 
+let isScrolling: any;
+let scrolled = false;
+
 const LegalLayout: FC<Props> = ({ slug }) => {
-  let scrolled = false;
   const router = useRouter();
   const [layoutContent, setLayoutContent] = useState<ReactNode>();
   const [slugSelected, setSlugSelected] = useState<string>();
@@ -48,17 +50,19 @@ const LegalLayout: FC<Props> = ({ slug }) => {
         if (!el) return;
         if (!window.location.href.includes("#")) return;
 
+        typeof isScrolling === "function" && clearTimeout(isScrolling);
+
         scrolled = true;
 
         // Scroll certain amounts from current position
         window.scrollBy({
-          top: el.getBoundingClientRect().top - 450, // could be negative value
+          top: el.getBoundingClientRect().top - 200, // could be negative value
           left: 0,
           behavior: "smooth",
         });
       }, 100);
     },
-    [childSlugSelected, scrolled]
+    [childSlugSelected]
   );
 
   /**
@@ -125,41 +129,28 @@ const LegalLayout: FC<Props> = ({ slug }) => {
    * This function will automatically make bold on menu item when user scroll
    * into the view that item present for
    */
-  const handleOnScroll = () => {
-    if (scrolled) {
-      utilsProvider.withTimeout(() => (scrolled = false), 4000);
-      return;
-    }
-    const id1 = legalMenus[0].children.map((item) => convertToHref(item.title));
-    const id2 = legalMenus[1].children.map((item) => convertToHref(item.title));
-    const ids = id1.concat(id2);
-    const items = ids.map((id) => document.getElementById(id));
-    // const fromTop = window.scrollY;
-    items.map((item, index: number) => {
-      // if (
-      //   item?.offsetTop &&
-      //   item?.scrollHeight &&
-      //   item?.offsetTop <= fromTop &&
-      //   item?.offsetTop + item?.offsetHeight > fromTop
-      // ) {
-      //   setChildSlugSelected(ids[index]);
-      // }
-      if (
-        item?.offsetTop !== undefined &&
-        pageYOffset >= item?.offsetTop - 450
-      ) {
-        setChildSlugSelected(ids[index]);
+  const refreshScrolling = useCallback(() => {
+    isScrolling = setTimeout(() => {
+      if (scrolled) {
+        setTimeout(() => (scrolled = false), 3000);
+        return;
       }
-
-      if (
-        index === items.length - 1 &&
-        item?.offsetTop !== undefined &&
-        pageYOffset + item?.offsetHeight >= item?.offsetTop
-      ) {
-        setChildSlugSelected(ids[index]);
-      }
-    });
-  };
+      console.log(scrolled);
+      const ids =
+        legalMenus
+          .find((item) => item.slug === slugSelected)
+          ?.children.map((item) => convertToHref(item.title)) || [];
+      const items = ids.map((id) => document.getElementById(id));
+      items.map((item, index: number) => {
+        if (
+          item?.getBoundingClientRect().top !== undefined &&
+          pageYOffset >= item?.getBoundingClientRect().top - 200
+        ) {
+          setChildSlugSelected(ids[index]);
+        }
+      });
+    }, 55);
+  }, [slugSelected]);
 
   /**
    * @description
@@ -205,14 +196,21 @@ const LegalLayout: FC<Props> = ({ slug }) => {
    * Listener window on scroll
    */
   useEffect(() => {
-    window.addEventListener("scroll", handleOnScroll.bind(this));
-  }, []);
+    window.addEventListener(
+      "scroll",
+      () => {
+        typeof isScrolling === "function" && clearTimeout(isScrolling);
+        refreshScrolling();
+      },
+      false
+    );
+  }, [slugSelected]);
 
   const menuComponent = useMemo(
     () => (
       <ul className="legal-menu pt-[0px] md:pt-0">
         {legalMenus.map((item, index) => (
-          <li className="" key={`legal-parent-${index}`}>
+          <li className="pb-[48px] md:pb-0" key={`legal-parent-${index}`}>
             <p className="cursor-pointer text-[16px] text-strongTitle dark:text-strongTitleDark">
               <span onClick={() => setMenuOpen(item.slug)}>
                 {menuOpen !== item.slug ? (
@@ -234,7 +232,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
                   <li
                     key={`children-legal-menu-item-${index}`}
                     className={classnames(
-                      "text-navy dark:text-navyDark pt-[10px] text-[16px] regular-text",
+                      "text-navy dark:text-navyDark pt-[32px] md:pt-[10px] text-[16px] regular-text",
                       {
                         "menu-active":
                           convertToHref(item.title) === childSlugSelected,
@@ -270,10 +268,13 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           styles["legal-content"]
         )}
       >
-        <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px] pt-[50px] h-[100%]">
-          <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[55px] h-[100%]">
-            <p className="text-[14px] md:text-[16px] text-white dark:text-strongTitle normal-text uppercase max-w-[100%]">
-              {childSlugSelected.replaceAll("-", " ")}
+        <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px] pt-[50px] md:h-[100%]">
+          <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[55px]">
+            <p className="text-[16px] md:text-[16px] text-white dark:text-strongTitle normal-text uppercase max-w-[100%]">
+              {utilsProvider.makeShort(
+                childSlugSelected.replaceAll("-", " "),
+                4
+              )}
             </p>
             <button
               className="absolute right-[20px] bottom-[13px]"
@@ -289,7 +290,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           {mobileMenuOpen && (
             <Collapse isOpened={mobileMenuOpen}>
               <div
-                className="block md:hidden fixed top-[108px] left-0 right-0 bottom-0 pt-[50px] bg-white dark:bg-strongTitle pl-[20px]"
+                className="block md:hidden fixed top-[109px] left-0 right-0 bottom-0 pt-[50px] bg-white dark:bg-strongTitle pl-[20px]  overflow-y-scroll"
                 style={{ zIndex: 39 }}
               >
                 {menuComponent}

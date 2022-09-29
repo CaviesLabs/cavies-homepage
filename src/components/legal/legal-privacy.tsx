@@ -56,8 +56,10 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
       </p>
     </p>
-    <div id="what-information-we-collect">
-      <h3 className="c8">What information we collect</h3>
+    <div>
+      <h3 id="what-information-we-collect" className="c8">
+        What information we collect
+      </h3>
       <p className="c1">
         We always strive to comply with the data minimisation principle, meaning
         that we endeavour to process as little personal data as possible.
@@ -110,8 +112,10 @@ export const LegalPrivacyNotice: ReactNode = () => (
         by us or data that you choose to provide us with.
       </p>
     </div>
-    <div id="how-we-use-and-share-the-information">
-      <h3 className="c8">How we use and share the information</h3>
+    <div>
+      <h3 id="how-we-use-and-share-the-information" className="c8">
+        How we use and share the information
+      </h3>
       <h3 className="c6">A. General</h3>
       <p className="c1">
         We do not sell or rent out your personal data. However, we may pass your
@@ -261,8 +265,10 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
       </p>
     </div>
-    <div id="how-long-we-process-your-data">
-      <h3 className="c8">How long we process your data</h3>
+    <div>
+      <h3 id="how-long-we-process-your-data" className="c8">
+        How long we process your data
+      </h3>
       <p className="c6">A. General</p>
       <p className="c1">
         <span>
@@ -312,8 +318,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
       </p>
     </div>
-    <div id="third-party-links">
-      <h1 className="c8">
+    <div>
+      <h1 id="third-party-links" className="c8">
         <span className="c10">Third-party links</span>
       </h1>
       <p className="c1">
@@ -328,8 +334,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
       </p>
     </div>
-    <div id="your-rights">
-      <h1 className="c8">
+    <div>
+      <h1 id="your-rights" className="c8">
         <span className="c10">Your rights</span>
       </h1>
       <p className="c1">
@@ -465,8 +471,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
       </p>
     </div>
-    <div id="children-personal-data">
-      <h1 className="c8">
+    <div>
+      <h1 id="children-personal-data" className="c8">
         <span className="c10">Children personal data</span>
       </h1>
       <p className="c1">
@@ -488,8 +494,8 @@ export const LegalPrivacyNotice: ReactNode = () => (
         </span>
       </p>
     </div>
-    <div id="changes-to-this-privacy-notice">
-      <h1 className="c8">
+    <div>
+      <h1 id="changes-to-this-privacy-notice" className="c8">
         <span className="c31">Changes to this Privacy Notice</span>
       </h1>
       <p className="c1">

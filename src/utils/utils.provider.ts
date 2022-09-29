@@ -146,6 +146,19 @@ class UtilsProvider {
       }
     });
   }
+
+  /**
+   * @description Short text
+   * @param value
+   * @param size
+   */
+  public makeShort(value: string, size: number) {
+    const arr = value.split(" ");
+    if (arr.length > size) {
+      return arr.splice(0, size).join(" ") + " ...";
+    }
+    return arr.splice(0, size).join(" ");
+  }
 }
 
 export default UtilsProvider;
