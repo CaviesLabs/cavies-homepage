@@ -14,8 +14,8 @@ const Footer: FC = () => {
   const footers = useMemo<FooterItem[]>(
     () => [
       {
-        name: "Home",
-        uri: "/",
+        name: "About Us",
+        uri: "https://www.notion.so/cavies/About-Cavies-72e60c00426b450e8e57ca3ea5acb0d0",
       },
       {
         name: "Blog",

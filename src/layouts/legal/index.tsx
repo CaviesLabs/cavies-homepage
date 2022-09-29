@@ -6,6 +6,7 @@ import {
   useMemo,
   FC,
 } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { legalMenus } from "@/src/models/entities/legal.entity";
 import { Collapse } from "react-collapse";
@@ -24,6 +25,7 @@ let scrolled = false;
 const LegalLayout: FC<Props> = ({ slug }) => {
   const router = useRouter();
   const [layoutContent, setLayoutContent] = useState<ReactNode>();
+  const [docTitle, setDocTitle] = useState<string | null>();
   const [slugSelected, setSlugSelected] = useState<string>();
   const [childSlugSelected, setChildSlugSelected] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState<string>("");
@@ -84,6 +86,8 @@ const LegalLayout: FC<Props> = ({ slug }) => {
         );
 
         availablePart = chaper?.children.find((item) => item.title === query);
+
+        setDocTitle(chaper?.title);
 
         setSlugSelected(chaper?.slug);
 
@@ -178,6 +182,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
     if (!availableSlug) {
       return;
     }
+    setDocTitle(availableSlug?.title);
     setSlugSelected(availableSlug.slug);
     setLayoutContent(availableSlug.content);
     setMenuOpen(availableSlug.slug);
@@ -269,6 +274,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
 
   return (
     <MainLayout>
+      <Head>{docTitle && <title>{`Cavies Labs | ${docTitle}`}</title>}</Head>
       <div
         className={classnames(
           "px-[20px] md:mx-[40px] lg:mx-auto w-full lg:max-w-[1180px] pt-[50px]  bg-white dark:bg-backgroundDark",

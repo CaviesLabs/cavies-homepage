@@ -32,7 +32,6 @@ const Home: NextPage = () => {
   };
 
   const handleRenderCircleHamster = useCallback(() => {
-    console.log("is", isSafari);
     if (isSafari) {
       return (
         <>
@@ -58,14 +57,13 @@ const Home: NextPage = () => {
   }, [isSafari]);
 
   useEffect(() => {
-    // const userAgent = navigator.userAgent;
-    console.log(navigator.userAgent);
-    console.log(navigator.userAgent.indexOf("Safari") != -1);
-    if (navigator.userAgent.indexOf("Safari") != -1) {
-      setIsSafari(true);
-    } else {
-      setIsSafari(false);
+    const userAgent = navigator.userAgent;
+    if (userAgent.match(/chrome|chromium|crios/i)) {
+    } else if (userAgent.match(/firefox|fxios/i)) {
+    } else if (userAgent.match(/safari/i)) {
+      return;
     }
+    return setIsSafari(false);
   }, []);
 
   return (
@@ -82,7 +80,7 @@ const Home: NextPage = () => {
             <div className="circle-green absolute top-[50px] right-[-10px] w-[43px] h-[43px]" />
             <div className="circle-green absolute w-[69px] h-[59px] bottom-[-50px] left-[260px]" />
             <div className="circle-purple absolute bottom-[40px] right-[-50px] w-[27px] h-[27px]" />
-            <div className="w-[90%] h-auto md:mt-[-100px] md:mx-auto text-center relative">
+            <div className="w-[90%] h-auto md:mt-[-40px] md:mx-auto text-center relative">
               {handleRenderCircleHamster()}
             </div>
           </div>
