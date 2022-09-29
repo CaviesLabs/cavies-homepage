@@ -167,6 +167,14 @@ export const SeoComponent: FC = () => {
         src="https://www.googletagmanager.com/gtag/js?id=G-RL35P8RT0R"
       />
       <script src="https://cavies.xyz/assets/js/ga.js" />
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-T379FWM"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
+        ></iframe>
+      </noscript>
     </>
   );
 };

@@ -76,7 +76,7 @@ const Home: NextPage = () => {
               >
                 <div className="hidden-layer bg-purple dark:bg-purpleDark"></div>
                 <div className="shown-layer bg-green dark:bg-greenDark">
-                  <p className="text-[16px] md:text-[20px] text-white dark:text-strongTitle medium-text">
+                  <p className="text-[16px] md:text-[20px] text-white dark:text-strongTitle medium-text contact_us">
                     Contact us
                   </p>
                 </div>
@@ -398,7 +398,7 @@ const Home: NextPage = () => {
                 >
                   <div className="hidden-layer"></div>
                   <div className="shown-layer">
-                    <p className="uppercase">Contact Us</p>
+                    <p className="uppercase contact_us">Contact Us</p>
                   </div>
                 </button>
                 <div className="utils-wrapper">
