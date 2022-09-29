@@ -132,7 +132,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
   const refreshScrolling = useCallback(() => {
     isScrolling = setTimeout(() => {
       if (scrolled) {
-        setTimeout(() => (scrolled = false), 3000);
+        setTimeout(() => (scrolled = false), 5000);
         return;
       }
       const ids =

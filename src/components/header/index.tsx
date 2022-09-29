@@ -35,6 +35,13 @@ const Header: FC = () => {
     setCurSlug(slug);
     const el = document.getElementById(slug?.split("#")[1]);
     if (!el) return;
+
+    /**
+     * @description
+     * Change location without refresh page
+     * */
+    history.pushState({}, "", `/${slug}`);
+
     if (!window.location.href.includes("#")) return;
 
     // Scroll certain amounts from current position
