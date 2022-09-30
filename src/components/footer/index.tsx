@@ -3,6 +3,7 @@ import { FC, useMemo } from "react";
 interface FooterItem {
   name: string;
   uri: string;
+  newWindow?: boolean | true;
 }
 
 interface SocialItem {
@@ -25,8 +26,12 @@ const Footer: FC = () => {
         name: "Careers",
         uri: "https://cavies.notion.site/Job-Board-320ac7987dc64a53b0d3d3e7c52c5ce7",
       },
-      { name: "Legal Notice", uri: "/legal/legal-notice" },
-      { name: "Privacy Notice", uri: "/legal/privacy-notice" },
+      { name: "Legal Notice", uri: "/legal/legal-notice", newWindow: false },
+      {
+        name: "Privacy Notice",
+        uri: "/legal/privacy-notice",
+        newWindow: false,
+      },
       {
         name: "Media Kit",
         uri: "https://cavies.notion.site/59aa5e24fdb146359cdd3cb9336aef45?v=83eedde046594e689d7fabf8932a7284",
@@ -91,7 +96,7 @@ const Footer: FC = () => {
                     className="md:float-right mx-[10px] md:mx-0 md:ml-[30px] cursor-pointer float-left text-center leading-[35px] md:leading-[25px]"
                   >
                     <a
-                      target="_blank"
+                      target={item.newWindow ? "_blank" : ""}
                       href={item.uri}
                       className="text-[14px] md:text-[14px] normal-text text-footerItemColor dark:text-footerItemColorDark normal-text"
                     >
