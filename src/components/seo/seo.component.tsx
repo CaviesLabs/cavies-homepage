@@ -4,7 +4,6 @@ export const SeoComponent: FC = () => {
   return (
     <>
       {/* Primary meta tags*/}
-      <title>Cavies Labs | Building towards the future of Web3 Gaming</title>
       <meta
         httpEquiv="Cache-Control"
         content="no-cache, no-store, must-revalidate"
@@ -12,31 +11,14 @@ export const SeoComponent: FC = () => {
       <meta httpEquiv="Pragma" content="no-cache" />
       <meta httpEquiv="Expires" content="0" />
       <meta name="language" content="EN" />
-
-      <meta
-        name="title"
-        content="Cavies Labs | Building towards the future of Web3 Gaming"
-      />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta
-        name="description"
-        content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
-      />
       <meta
         name="keywords"
         content="cavies,hamsterbox,web3,gaming,game,gamer,gamefi,crypto,nft,metaverse,unorthodox,infrastructure,multichain,btc,eth,solana,polygon,unorthodox infrastructure,blockchain,web3 gaming"
       />
 
       {/**  */}
-      <meta
-        property="og:title"
-        content="Cavies Labs | Building towards the future of Web3 Gaming"
-      />
       <meta property="og:type" content="website" />
-      <meta
-        property="og:description"
-        content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
-      />
       <meta property="og:url" content="https://cavies.xyz" />
       <meta
         property="og:image"
@@ -54,14 +36,6 @@ export const SeoComponent: FC = () => {
 
       <meta name="twitter:card" content="summary" />
       <meta property="twitter:url" content="https://cavies.xyz/" />
-      <meta
-        name="twitter:description"
-        content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
-      />
-      <meta
-        name="twitter:title"
-        content="Cavies Labs | Building towards the future of Web3 Gaming"
-      />
       <meta
         name="twitter:image"
         content="https://cavies.xyz/assets/images/twitter-banner.jpg"

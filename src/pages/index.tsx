@@ -1,7 +1,8 @@
-import type { NextPage } from "next";
-import MainLayout from "@/src/layouts/main";
-import { Fade } from "react-awesome-reveal";
 import { useEffect, useState, useCallback } from "react";
+import type { NextPage } from "next";
+import { Fade } from "react-awesome-reveal";
+import Head from "next/head";
+import MainLayout from "@/src/layouts/main";
 
 const objectiveItems = [
   "One-stop portal to the metaverse for both the ~3.5b Web2 and ~1.5m Web3 gamers",
@@ -68,6 +69,33 @@ const Home: NextPage = () => {
 
   return (
     <MainLayout>
+      <Head>
+        <title>Cavies Labs | Building towards the future of Web3 Gaming</title>
+        <meta
+          name="title"
+          content="Cavies Labs | Building towards the future of Web3 Gaming"
+        />
+        <meta
+          name="description"
+          content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
+        />
+        <meta
+          property="og:title"
+          content="Cavies Labs | Building towards the future of Web3 Gaming"
+        />
+        <meta
+          property="og:description"
+          content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
+        />
+        <meta
+          name="twitter:description"
+          content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
+        />
+        <meta
+          name="twitter:title"
+          content="Cavies Labs | Building towards the future of Web3 Gaming"
+        />
+      </Head>
       <div className="px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1180px] pt-[50px] md:pt-[180px]">
         <div
           className="relative top-inf md:inline-flex xl:flow-root"
