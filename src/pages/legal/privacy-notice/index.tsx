@@ -11,6 +11,11 @@ const LegalPage: NextPage = () => {
         <meta name="description" content={`Privacy Notice Disclosure`} />
         <meta property="og:title" content={`Cavies Labs | Privacy Notice`} />
         <meta property="og:description" content={`Privacy Notice Disclosure`} />
+        <meta
+          name="twitter:description"
+          content={`Privacy Notice Disclosure`}
+        />
+        <meta name="twitter:title" content={`Cavies Labs | Privacy Notice`} />
       </Head>
       <LegalLayout slug={["privacy-notice"]} />
     </>

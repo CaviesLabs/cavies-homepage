@@ -59,15 +59,15 @@ export const SeoComponent: FC = () => {
         content="We build and contribute to the Web3 gaming landscape using unorthodox and friendly solutions"
       />
       <meta
+        name="twitter:title"
+        content="Cavies Labs | Building towards the future of Web3 Gaming"
+      />
+      <meta
         name="twitter:image"
         content="https://cavies.xyz/assets/images/twitter-banner.jpg"
       />
       <meta
         name="twitter:image:alt"
-        content="Cavies Labs | Building towards the future of Web3 Gaming"
-      />
-      <meta
-        name="twitter:title"
         content="Cavies Labs | Building towards the future of Web3 Gaming"
       />
 
