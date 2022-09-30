@@ -492,3 +492,14 @@
     filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(240deg) brightness(114%) contrast(101%)
   }
 }
+
+.min-scroll {
+  &::-webkit-scrollbar {
+  width: 2px;
+  }
+  
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
+}

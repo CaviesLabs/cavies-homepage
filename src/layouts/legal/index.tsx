@@ -301,7 +301,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           styles["legal-content"]
         )}
       >
-        <div className="side-bar md:min-w-[200px] md:fixed md:w-[200px] pt-[50px] md:h-[100%]">
+        <div className="side-bar md:min-w-[200px] md:fixed md:w-[256px] pt-[50px] md:h-[100%]">
           <div className="block md:hidden fixed bg-purple dark:bg-purpleDark right-0 left-0 py-[15px] px-[20px] top-[55px]">
             <p className="text-[16px] md:text-[16px] text-white dark:text-strongTitle normal-text uppercase max-w-[100%]">
               {utilsProvider.makeShort(
@@ -330,11 +330,11 @@ const LegalLayout: FC<Props> = ({ slug }) => {
               </div>
             </Collapse>
           )}
-          <div className="hidden md:block h-[35%] small:h-[60%] overflow-y-auto">
+          <div className="hidden md:block h-[35%] small:h-[70%] overflow-y-auto min-scroll">
             {menuComponent}
           </div>
         </div>
-        <div className="content md:pl-[260px] md:pt-0 md:pr-[20px]">
+        <div className="content md:pl-[380px] md:pt-0 md:pr-[20px]">
           {layoutContent}
         </div>
       </div>
