@@ -16,7 +16,7 @@ const Footer: FC = () => {
     () => [
       {
         name: "About Us",
-        uri: "https://www.notion.so/cavies/About-Cavies-72e60c00426b450e8e57ca3ea5acb0d0",
+        uri: "https://cavies.notion.site/About-Cavies-72e60c00426b450e8e57ca3ea5acb0d0",
       },
       {
         name: "Blog",
@@ -96,7 +96,7 @@ const Footer: FC = () => {
                     className="md:float-right mx-[10px] md:mx-0 md:ml-[30px] cursor-pointer float-left text-center leading-[35px] md:leading-[25px]"
                   >
                     <a
-                      target={item.newWindow ? "_blank" : ""}
+                      target={item.newWindow === false ? "" : "_blank"}
                       href={item.uri}
                       className="text-[14px] md:text-[14px] normal-text text-footerItemColor dark:text-footerItemColorDark normal-text"
                     >

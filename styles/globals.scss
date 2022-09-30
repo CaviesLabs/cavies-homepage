@@ -497,9 +497,16 @@
   &::-webkit-scrollbar {
   width: 2px;
   }
-  
-  
   &::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
+    background-color: #F0F2F4;
+  }
+}
+
+
+[data-theme="dark"] {
+  .min-scroll {
+    &::-webkit-scrollbar-thumb {
+      background-color: #353C4B;
+    }
   }
 }

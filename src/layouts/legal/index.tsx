@@ -330,7 +330,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
               </div>
             </Collapse>
           )}
-          <div className="hidden md:block h-[35%] small:h-[70%] overflow-y-auto min-scroll">
+          <div className="hidden md:block h-[50%] small:h-[70%] overflow-y-auto min-scroll">
             {menuComponent}
           </div>
         </div>
