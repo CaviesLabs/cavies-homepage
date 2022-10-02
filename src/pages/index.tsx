@@ -106,14 +106,14 @@ const Home: NextPage = () => {
             <div className="circle-purple absolute w-[31px] h-[31px] bottom-[100px] md:bottom-[50px] left-[-30px]" />
             {/* <div className="circle-green absolute top-[-50px] left-[-30px] w-[21px] h-[21px]" /> */}
             <div className="circle-green absolute top-[50px] right-[-10px] w-[43px] h-[43px]" />
-            <div className="circle-green absolute w-[69px] h-[59px] bottom-[-50px] left-[260px]" />
+            <div className="circle-green absolute w-[59px] h-[59px] bottom-[-50px] left-[260px]" />
             <div className="circle-purple absolute bottom-[40px] right-[-50px] w-[27px] h-[27px]" />
             <div className="w-[90%] h-auto md:mt-[-40px] md:mx-auto text-center relative">
               {handleRenderCircleHamster()}
             </div>
           </div>
           <div className="lg:float-left md:order-0 relative pt-[100px] md:pt-0 md:w-[60%]">
-            <div className="circle-purple absolute w-[30px] h-[30px] s:w-[59px] s:h-[59px] top-[-20px] s:top-[-70px]" />
+            <div className="circle-purple absolute w-[30px] h-[30px] s:w-[59px] s:h-[59px] top-[-20px] s:top-[-40px]" />
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
               <Fade duration={600} direction="up">
