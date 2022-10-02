@@ -162,21 +162,8 @@ const Header: FC = () => {
           setTheme("light");
           (themeToggle as any).checked = false;
         }
-      }, 1000);
+      }, 500);
     }
-
-    /**
-     * @description
-     * Detect whether theme settings has changed to toggle data theme swticher
-     */
-    utilsProvider.withInterval(() => {
-      const theme = document.documentElement.getAttribute("data-theme");
-      if (theme === "dark") {
-        (themeToggle as any).checked = true;
-      } else {
-        (themeToggle as any).checked = false;
-      }
-    }, 500);
   }, []);
 
   /**
