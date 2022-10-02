@@ -1,3 +1,4 @@
+import { utilsProvider } from "@/src/utils/utils.provider";
 import { FC, useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
@@ -148,7 +149,7 @@ const Header: FC = () => {
        * If user have not custom changing the theme
        * It will be updated automatically following computer's theme change
        */
-      setInterval(() => {
+      utilsProvider.withInterval(() => {
         if (themeChange === true) {
           clearInterval(this);
           return;
@@ -158,12 +159,24 @@ const Header: FC = () => {
           setTheme("dark");
           (themeToggle as any).checked = true;
         } else {
-          // Theme set to light.
           setTheme("light");
           (themeToggle as any).checked = false;
         }
-      }, 500);
+      }, 1000);
     }
+
+    /**
+     * @description
+     * Detect whether theme settings has changed to toggle data theme swticher
+     */
+    utilsProvider.withInterval(() => {
+      const theme = document.documentElement.getAttribute("data-theme");
+      if (theme === "dark") {
+        (themeToggle as any).checked = true;
+      } else {
+        (themeToggle as any).checked = false;
+      }
+    }, 500);
   }, []);
 
   /**
