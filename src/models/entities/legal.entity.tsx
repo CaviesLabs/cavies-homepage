@@ -108,4 +108,4 @@ export const privacyNotice: LegalMenuItem = {
   ],
 };
 
-export const legalMenus = [privacyNotice, legalNotice];
+export const legalMenus = [legalNotice, privacyNotice];
