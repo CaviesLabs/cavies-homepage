@@ -28,8 +28,11 @@ export const SeoComponent: FC = () => {
         property="og:image:alt"
         content="Cavies Labs | Building towards the future of Web3 Gaming"
       />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/jpg" />
+      <meta property="og:image:height" content="1080" />
+      <meta property="og:image:width" content="1920" />
+      {/* <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" /> */}
 
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="en_GB" />

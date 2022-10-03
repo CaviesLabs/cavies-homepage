@@ -47,7 +47,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
    */
   const handleScroll = useCallback(
     (query?: string) => {
-      utilsProvider.withTimeout(() => {
+      setTimeout(() => {
         const el = document.getElementById(query || childSlugSelected);
         if (!el) return;
         if (!window.location.href.includes("#")) return;
@@ -62,7 +62,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           left: 0,
           behavior: "smooth",
         });
-      }, 100);
+      }, 200);
     },
     [childSlugSelected]
   );
@@ -145,20 +145,12 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           ?.children.map((item) => convertToHref(item.title)) || [];
       const items = ids.map((id) => document.getElementById(id));
       items.every((item, index: number) => {
-        if (
-          item?.getBoundingClientRect().top !== undefined &&
-          item?.getBoundingClientRect().top <= 0
-        ) {
-          return true;
+        const top = item?.getBoundingClientRect().top;
+        if (top && top >= 0 && top <= window.innerHeight) {
+          setChildSlugSelected(ids[index]);
+          return false;
         }
-        setChildSlugSelected(ids[index]);
-        return false;
-        // if (
-        //   item?.getBoundingClientRect().top !== undefined &&
-        //   pageYOffset >= item?.getBoundingClientRect().top + 200
-        // ) {
-        //   setChildSlugSelected(ids[index]);
-        // }
+        return true;
       });
     }, 55);
   }, [slugSelected]);
