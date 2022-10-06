@@ -126,11 +126,10 @@ export const SeoComponent: FC = () => {
         href="https://cavies.xyz/favicon.ico"
         type="image/x-icon"
       />
-      <link rel="manifest" href="https://cavies.xyz/manifest.json" />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
-      ></link>
+
+      {/** Manifest config for PWA  */}
+      <link rel="manifest" href="/manifest.json" />
+
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta
         name="msapplication-TileImage"
@@ -143,15 +142,27 @@ export const SeoComponent: FC = () => {
         async={true}
         src="https://www.googletagmanager.com/gtag/js?id=G-RL35P8RT0R"
       />
-      <script src="https://cavies.xyz/assets/js/ga.js" />
-      <noscript>
+      {/* <script src="https://cavies.xyz/assets/js/ga.js" /> */}
+      {/* <noscript>
         <iframe
           src="https://www.googletagmanager.com/ns.html?id=GTM-T379FWM"
           height="0"
           width="0"
           style={{ display: "none", visibility: "hidden" }}
         ></iframe>
-      </noscript>
+      </noscript> */}
+      {/** Bootstrap */}
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+        crossOrigin="anonymous"
+      />
+      {/** Boxicons */}
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+      />
     </>
   );
 };
