@@ -393,6 +393,7 @@
 
 .cookie-consent {
   border: 1px solid #EFF0F6;
+  background: #ffffff;
   @keyframes animate-pop {
     0% {
       opacity: 0;
@@ -430,7 +431,8 @@
 
 [data-theme="dark"] {
   .cookie-consent {
-    border: 1px solid rgba(53, 60, 75, 1)
+    border: 1px solid rgba(53, 60, 75, 1);
+    background: #20242D;
   }
 }
 
@@ -509,4 +511,8 @@
       background-color: #353C4B;
     }
   }
+}
+
+button:focus {
+  outline: 0;
 }

@@ -55,17 +55,17 @@ export const CookieConnsentComponent: FC = () => {
   return (
     <section
       className={classnames(
-        "fixed bottom-0 md:bottom-[20px] md:right-[20px] md:py-2 w-[100%] md:w-[416px] md:h-[388px] md:bg-white dark:md:bg-[#20242D] shadow-lg md:shadow-xl rounded-[8px] md:pt-[24px] md:dark:border-[#353C4B] md:dark:border-[1px] cookie-consent",
+        "fixed bottom-0 md:mb-[20px] md:right-[20px] w-[100%] md:w-[416px] md:h-[388px] shadow-lg md:shadow-xl rounded-[8px]  md:dark:border-[#353C4B] md:dark:border-[1px] cookie-consent",
         {
           "shown-block": !cookieConsent,
           hidden: cookieConsent,
         }
       )}
     >
-      <div className="relative px-[50px] mx-[0px] md:mx-[0] flex items-center h-full bg-white dark:bg-[#20242D] dark:md:bg-[#20242D] shadow-lg md:shadow-none pb-[20px] pt-[24px] md:pt-0 md:pb-0 rounded-tr-[8px] md:shadow-none pb-[20px] pt-[24px] md:pt-0 md:pb-0 rounded-tl-[8px] border-t-borderGrey border-t-[0.25px] md:border-t-none md:border-t-0">
+      <div className="relative px-[50px] mx-[0px] md:mx-[0] flex items-center h-full  shadow-lg md:shadow-none pb-[20px] pt-[24px] md:pt-0 md:pb-0 rounded-tr-[8px] md:shadow-none pb-[20px] pt-[24px] md:pt-0 md:pb-0 rounded-tl-[8px] border-t-borderGrey border-t-[0.25px] md:border-t-none md:border-t-0">
         <button
           onClick={handleClose}
-          className="absolute right-[30px] md:top-0 top-[20px]"
+          className="absolute right-[30px] md:top-[20px] top-[20px]"
         >
           {/* <i className="bx bx-x text-strongTitle dark:text-strongTitleDark text-[30px]"></i> */}
           <img
@@ -102,7 +102,7 @@ export const CookieConnsentComponent: FC = () => {
             </p>
           </button>
           <button onClick={handleDecline} className="mt-[20px] mx-auto">
-            <p className="text-center text-[14px] md:text-[14px] underline regular-text">
+            <p className="text-center text-[14px] md:text-[14px] underline regular-text text-strongTitle dark:text-white">
               Decline
             </p>
           </button>

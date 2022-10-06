@@ -289,7 +289,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
       <Head>{docTitle && <title>{`Cavies Labs | ${docTitle}`}</title>}</Head>
       <div
         className={classnames(
-          "px-[20px] md:mx-[40px] lg:mx-auto w-full lg:max-w-[1180px] pt-[50px]  bg-white dark:bg-backgroundDark",
+          "px-[20px] md:mx-[40px] lg:mx-auto w-full lg:max-w-[1180px] pt-[50px]",
           styles["legal-content"]
         )}
       >
@@ -315,7 +315,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
           {mobileMenuOpen && (
             <Collapse isOpened={mobileMenuOpen}>
               <div
-                className="block md:hidden fixed top-[109px] left-0 right-0 bottom-0 pt-[50px] bg-white dark:bg-strongTitle pl-[20px]  overflow-y-scroll"
+                className="block md:hidden fixed top-[109px] left-0 right-0 bottom-0 pt-[50px] bg-twhite dark:bg-strongTitle pl-[20px]  overflow-y-scroll"
                 style={{ zIndex: 39 }}
               >
                 {menuComponent}

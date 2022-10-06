@@ -97,11 +97,8 @@ const Home: NextPage = () => {
         />
       </Head>
       <div className="px-[20px] md:px-[60px] mx-auto w-full lg:max-w-[1180px] pt-[50px] md:pt-[180px]">
-        <div
-          className="relative top-inf md:inline-flex xl:flow-root"
-          id="about-us"
-        >
-          <div className="lg:float-right relative md:w-[40%] md:pl-[20px] md:pt-0 pt-[30px] order-0 md:order-1">
+        <div className="relative top-inf md:flow-root" id="about-us">
+          <div className="md:float-right relative md:w-[40%] md:pl-[20px] md:pt-0 pt-[30px] order-0 md:order-1">
             <div className="circle-purple absolute w-[59px] h-[59px] top-[-30px] md:top-[-170px] left-[260px]" />
             <div className="circle-purple absolute w-[31px] h-[31px] bottom-[100px] md:bottom-[50px] left-[-30px]" />
             {/* <div className="circle-green absolute top-[-50px] left-[-30px] w-[21px] h-[21px]" /> */}
@@ -112,7 +109,7 @@ const Home: NextPage = () => {
               {handleRenderCircleHamster()}
             </div>
           </div>
-          <div className="lg:float-left md:order-0 relative pt-[100px] md:pt-0 md:w-[60%]">
+          <div className="md:float-left md:order-0 relative pt-[100px] md:pt-0 md:w-[60%]">
             <div className="circle-purple absolute w-[30px] h-[30px] s:w-[59px] s:h-[59px] top-[-20px] s:top-[-40px]" />
             <div className="circle-green absolute top-[-30px] left-[100px] w-[21px] h-[21px]" />
             <div>
@@ -135,7 +132,7 @@ const Home: NextPage = () => {
               >
                 <div className="hidden-layer bg-purple dark:bg-purpleDark"></div>
                 <div className="shown-layer bg-green dark:bg-greenDark">
-                  <p className="text-[16px] md:text-[20px] text-white dark:text-strongTitle medium-text contact_us">
+                  <p className="text-[16px] md:text-[20px] text-twhite dark:text-strongTitle medium-text contact_us">
                     Contact us
                   </p>
                 </div>
@@ -166,11 +163,11 @@ const Home: NextPage = () => {
           </div>
           <div className="md:float-right relative md:pl-[30px] lg:pl-[200px]">
             <div className="relative">
-              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] leading-1 mb-[5px] xxs:mb-[15px] md:mb-[5px]">
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] leading-1 mb-[5px] xxs:mb-[15px] md:mb-[5px] text-strongTitle dark:text-strongTitleDark">
                 OUR
               </h2>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg]  mt-0 md:mt-[-18px] px-[20px] uppercase">
-                <h2 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
+                <h2 className="text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
                   Objectives
                 </h2>
               </div>
@@ -228,7 +225,7 @@ const Home: NextPage = () => {
             </div>
           </Fade>
           <Fade duration={600} direction="up">
-            <p className="mx-auto max-w-[600px] text-center text-contentColor dark:text-white text-[14px] md:text-[16px] mt-[20px] medium-text">
+            <p className="mx-auto max-w-[600px] text-center text-[#5F6C87] dark:text-strongTitleDark text-[14px] md:text-[16px] mt-[20px] medium-text">
               A powerful toolbox for game studios and gamers to easily get
               started on their web3 gaming journey.
             </p>
@@ -291,7 +288,7 @@ const Home: NextPage = () => {
                 FOR
               </h2>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-10px] xs:mt-[-12px] px-[20px] uppercase xs:px-[40px]">
-                <h2 className="text-[18px] xs:text-[28px] md:text-[48px] text-white dark:text-strongTitle">
+                <h2 className="text-[18px] xs:text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
                   GAMES
                 </h2>
               </div>
@@ -311,7 +308,7 @@ const Home: NextPage = () => {
                 FOR
               </h3>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-                <h3 className="text-[28px] md:text-[48px] text-white dark:text-strongTitle">
+                <h3 className="text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
                   GAMES
                 </h3>
               </div>
@@ -357,7 +354,7 @@ const Home: NextPage = () => {
               FOR
             </h3>
             <div className="inline-flex bg-purple dark:bg-purpleDark rotate-[-5deg] mt-0 md:mt-[-12px] px-[20px] uppercase xs:px-[40px] z-2 xs:z-1 relative ml-[-20px] xs:ml-0">
-              <h3 className="text-[18px] xs:text-[28px] md:text-[48px] text-white dark:text-strongTitle">
+              <h3 className="text-[18px] xs:text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
                 GAMERS
               </h3>
             </div>

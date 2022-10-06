@@ -58,11 +58,11 @@ const Footer: FC = () => {
             <div className="md:float-left logo-wrapper w-[100%] md:w-[60%] lg:w-[70%]">
               <img
                 src="/assets/images/logo.png"
-                className="w-[75px] md:w-[79.62px] mx-auto md:mx-0 dark:hidden"
+                className="w-[75px] md:w-[79.62px] ml-auto mr-auto md:ml-[0px] dark:hidden"
               />
               <img
                 src="/assets/images/logo-dark.png"
-                className="w-[75px] md:w-[79.62px] mx-auto md:mx-0 hidden dark:block"
+                className="w-[75px] md:w-[79.62px] ml-auto mr-auto md:ml-[0px] hidden dark:block"
               />
             </div>
             <div className="md:float-right menu-wrapper py-[20px] w-[100%] hidden md:block">

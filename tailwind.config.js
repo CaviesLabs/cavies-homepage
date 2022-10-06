@@ -74,6 +74,7 @@ module.exports = {
         footerItemColorDark: "#B4BCCA",
         navyDark: "#96A1B5",
         backgroundDark: "#20242D",
+        twhite: "#FFFFFF",
       },
       boxShadow: {
         xl: "0px 4px 4px rgba(0, 0, 0, 0.25);",
