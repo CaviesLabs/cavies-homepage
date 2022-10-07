@@ -61,8 +61,13 @@ const Home: NextPage = () => {
     const userAgent = navigator.userAgent;
     if (userAgent.match(/chrome|chromium|crios/i)) {
     } else if (userAgent.match(/firefox|fxios/i)) {
-    } else if (userAgent.match(/safari/i)) {
+    } else if (userAgent.match(/safari/i) || userAgent.match("CriOS")) {
       return;
+    }
+    if (/iphone|ipod|ipad/i.test(userAgent)) {
+      if (userAgent.match(/chrome|chromium|crios/i)) {
+        return;
+      }
     }
     return setIsSafari(false);
   }, []);
