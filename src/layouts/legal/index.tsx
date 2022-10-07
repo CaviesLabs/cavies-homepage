@@ -28,7 +28,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
   const [docTitle, setDocTitle] = useState<string | null>();
   const [slugSelected, setSlugSelected] = useState<string>();
   const [childSlugSelected, setChildSlugSelected] = useState<string>("");
-  const [menuOpen, setMenuOpen] = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState<string[]>([""]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   /**
@@ -95,7 +95,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
 
         handleScroll(convertToHref(availablePart?.title));
 
-        setMenuOpen(chaper?.slug || "");
+        setMenuOpen((prev) => [...prev, chaper?.slug || ""]);
 
         setLayoutContent(chaper?.content);
 
@@ -176,6 +176,22 @@ const LegalLayout: FC<Props> = ({ slug }) => {
   };
 
   /**
+   * @dev Toggle collapse side bar menu
+   */
+  const toggleMenu = useCallback(
+    (query: string) => {
+      setMenuOpen((prev) => {
+        const tmp = prev.filter((item) => item !== query);
+        if (prev.indexOf(query) === -1) {
+          tmp.push(query);
+        }
+        return tmp;
+      });
+    },
+    [menuOpen]
+  );
+
+  /**
    * @description
    * Step 1: Find section user want to read based on slug, then render the matched layout
    * Step 2: Find part of section
@@ -197,7 +213,7 @@ const LegalLayout: FC<Props> = ({ slug }) => {
     setDocTitle(availableSlug?.title);
     setSlugSelected(availableSlug.slug);
     setLayoutContent(availableSlug.content);
-    setMenuOpen(availableSlug.slug);
+    setMenuOpen((prev) => [...prev, availableSlug.slug]);
     const partId = document.location.href.split("#")?.[1];
     if (!partId) {
       setChildSlugSelected(convertToHref(availableSlug.children[0].title));
@@ -236,22 +252,22 @@ const LegalLayout: FC<Props> = ({ slug }) => {
         {legalMenus.map((item, index) => (
           <li className="pb-[48px] md:pb-0" key={`legal-parent-${index}`}>
             <p className="cursor-pointer text-[16px] text-strongTitle dark:text-strongTitleDark">
-              <span onClick={() => setMenuOpen(item.slug)}>
-                {menuOpen !== item.slug ? (
+              <span onClick={() => toggleMenu(item.slug)}>
+                {menuOpen.indexOf(item.slug) === -1 ? (
                   <i className="bx bxs-right-arrow text-navy dark:text-navyDark mr-[10px]"></i>
                 ) : (
                   <i className="bx bxs-down-arrow text-purple dark:text-purpleDark mr-[10px]"></i>
                 )}
               </span>
               <span
-                onClick={() => setMenuOpen(item.slug)}
+                onClick={() => toggleMenu(item.slug)}
                 className="medium-text text-strongTitle dark:text-strongTitleDark text-[16px] cursor-pointer"
               >
                 {item.title}
               </span>
             </p>
             <ul className="chilren-legal-menu pl-[25px] pb-[20px] md:pr-0 pr-[32px]">
-              <Collapse isOpened={menuOpen === item.slug}>
+              <Collapse isOpened={menuOpen.indexOf(item.slug) >= 0}>
                 {item.children.map((item, index) => (
                   <li
                     key={`children-legal-menu-item-${index}`}
