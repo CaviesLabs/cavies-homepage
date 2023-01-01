@@ -1,8 +1,12 @@
-import { useEffect, useState, useCallback } from "react";
+import { FC, useEffect, useState, useCallback } from "react";
 import type { NextPage } from "next";
 import { Fade } from "react-awesome-reveal";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Controller, Navigation, Pagination } from "swiper";
 import Head from "next/head";
 import MainLayout from "@/src/layouts/main";
+import classnames from "classnames";
+import "swiper/css";
 
 const objectiveItems = [
   "One-stop portal to the metaverse for both the ~3.5b Web2 and ~1.5m Web3 gamers",
@@ -11,9 +15,9 @@ const objectiveItems = [
 ];
 
 const forGameItems = [
-  "Secure authentication, which also opens the door to all users on Hamsterbox",
-  "Assets creation, trading and management (on-chain or in-game)",
-  "Powerful Logical Functions, including those that utilize game assets under Hamsterbox's management",
+  "Swap NFTs of different collections, even if they are on different chains",
+  "Swap NFTs for off-chain digital assets, such as in-game skins and hats",
+  "Swap NFTs for a mix of various NFTs and other digital assets, on or off-chain",
 ];
 
 const forGameItems2 = [
@@ -22,8 +26,31 @@ const forGameItems2 = [
   "Access to all Hamsterbox-integrated games using a single account",
 ];
 
+const SlideBottom: FC<{ curIndex: number }> = ({ curIndex }) => {
+  const swiper = useSwiper();
+  return (
+    <div className="flex justify-center">
+      {[0, 1, 2].map((index) => {
+        return (
+          <div
+            key={`slide-dot-${index}`}
+            className={classnames(
+              "w-[10px] h-[10px] bg-[#D9D9D9] mx-[5px] float-left rounded-[50%] cursor-pointer",
+              {
+                "!bg-purple": curIndex === index,
+              }
+            )}
+            onClick={() => swiper.slideTo(index)}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
 const Home: NextPage = () => {
   const [isSafari, setIsSafari] = useState(true);
+  const [hamsterSwapSlideIndex, setHamsterSwapIndex] = useState(0);
 
   const handleContactUs = () => {
     window.open(
@@ -298,29 +325,79 @@ const Home: NextPage = () => {
                 </h2>
               </div>
             </div>
-            <img
+            {/* <img
               src="/assets/images/hamster-computer-email.png"
               className="w-[190px] xs:w-[215px] md:w-full h-[auto] lg:w-[625px] lg:h-[auto] relative dark:hidden"
             />
             <img
               src="/assets/images/hamster-computer-email-dark.png"
               className="w-[190px] xs:w-[215px] md:w-full h-[auto] lg:w-[625px] lg:h-[auto] relative hidden dark:block"
-            />
+            /> */}
+            <div className="w-[160px] xs:w-[195px] md:w-full h-[auto] lg:w-[450px] lg:h-[auto]">
+              <Swiper
+                spaceBetween={50}
+                slidesPerView={1}
+                onSlideChange={(slide) =>
+                  setHamsterSwapIndex(slide.activeIndex)
+                }
+                onSwiper={(swiper) => console.log(swiper)}
+                defaultValue={1}
+                modules={[Navigation, Pagination, Controller]}
+              >
+                <SwiperSlide>
+                  <div>
+                    <img
+                      src="/assets/images/hamster-swap/slide-1.png"
+                      className="w-full h-[auto] relative dark:hidden"
+                    />
+                    <img
+                      src="/assets/images/hamster-swap/slide-1-dark.png"
+                      className="w-full h-[auto] relative hidden dark:block"
+                    />
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div>
+                    <img
+                      src="/assets/images/hamster-swap/slide-2.png"
+                      className="w-full h-[auto] relative dark:hidden"
+                    />
+                    <img
+                      src="/assets/images/hamster-swap/slide-2-dark.png"
+                      className="w-full h-[auto] relative hidden dark:block"
+                    />
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div>
+                    <img
+                      src="/assets/images/hamster-swap/slide-3.png"
+                      className="w-full h-[auto] relative dark:hidden"
+                    />
+                    <img
+                      src="/assets/images/hamster-swap/slide-3-dark.png"
+                      className="w-full h-[auto] relative hidden dark:block"
+                    />
+                  </div>
+                </SwiperSlide>
+                <SlideBottom curIndex={hamsterSwapSlideIndex} />
+              </Swiper>
+            </div>
           </div>
-          <div className="md:float-right relative md:pl-[30px] lg:pl-[200px]">
+          <div className="md:float-right relative md:pl-[30px] lg:pl-[200px] ">
             <div className="hidden md:block">
               <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-1 mb-[5px] xxs:mb-[15px] md:mb-[5px]">
-                FOR
+                HAMSTER
               </h3>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
                 <h3 className="text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
-                  GAMES
+                  SWAP
                 </h3>
               </div>
             </div>
-            <div className="mt-[50px]">
+            <div className="mt-[50px] relative">
               <h3 className="text-[20px] text-strongTitle dark:text-strongTitleDark">
-                Integrate our pioneering Hamsterbox SDK for:
+                Users can use Hamsterswap to:
               </h3>
               <ul className="mt-[30px]">
                 {forGameItems.map((item, index) => (
@@ -347,11 +424,67 @@ const Home: NextPage = () => {
                   </Fade>
                 ))}
               </ul>
+              <div
+                className="contact-right-wrapper relative top-[10px] md:top-[200px] lg:top-[100px] left-[20px] md:left-[20px]"
+                onClick={() => window.open("https://p2p.hamsterbox.xyz/")}
+              >
+                <button
+                  className="contact-bottom-container"
+                  onClick={() => window.open("https://p2p.hamsterbox.xyz/")}
+                >
+                  <div className="hidden-layer"></div>
+                  <div className="shown-layer">
+                    <p className="uppercase contact_us">try it today</p>
+                  </div>
+                </button>
+                <div className="utils-wrapper">
+                  <div className="mouse-container absolute left-[20px] md:top-[50px]">
+                    <div className="relative">
+                      <img
+                        src="/assets/images/mouse-ar-purple.png"
+                        className="purple w-[68px] h-[68px] md:w-[150px] md:h-[150px] dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/mouse-ar-purple-dark.png"
+                        className="purple w-[68px] h-[68px] md:w-[150px] md:h-[150px] hidden dark:block"
+                      />
+                      <img
+                        src="/assets/images/mouse-ar-green.png"
+                        className="green w-[68px] h-[68px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
+                      />
+                      <img
+                        src="/assets/images/mouse-ar-green-dark.png"
+                        className="green-dark w-[68px] h-[68px] md:w-[150px] md:h-[150px] absolute top-0 hidden"
+                      />
+                    </div>
+                  </div>
+                  <div className="rau-container absolute top-[-15px] left-[-49px] md:top-[-80px] md:left-[-90px]">
+                    <div className="relative">
+                      <img
+                        src="/assets/images/rau-purple.png"
+                        className="purple md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/rau-purple-dark.png"
+                        className="purple md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] hidden dark:block"
+                      />
+                      <img
+                        src="/assets/images/rau-green-dark.png"
+                        className="green md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] absolute top-0 dark:hidden"
+                      />
+                      <img
+                        src="/assets/images/rau-green.png"
+                        className="green-dark md:w-[136px] md:h-[137px] w-[68.28px] h-[34.87px] absolute top-0 hidden"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div
-          className="for-games-2 mt-[250px] md:mt-[150px] md:inline-flex relative"
+          className="for-games-2 mt-[350px] md:mt-[150px] md:inline-flex relative"
           id="#forgamers"
         >
           <div className="md:float-right relative">
