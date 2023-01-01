@@ -12,7 +12,7 @@
     "pre-commit": "npm run lint",
     "prepare": "husky install",
     "export": "next export",
-    "preexport": "yarn build"
+    "preexport": "npm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
