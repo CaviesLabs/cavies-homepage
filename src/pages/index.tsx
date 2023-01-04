@@ -338,7 +338,7 @@ const Home: NextPage = () => {
                 defaultValue={1}
                 modules={[Navigation, Pagination, Controller, Autoplay]}
                 autoplay={{
-                  delay: 1500,
+                  delay: 2000,
                   pauseOnMouseEnter: true,
                   disableOnInteraction: false,
                 }}
