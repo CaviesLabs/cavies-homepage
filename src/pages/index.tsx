@@ -316,7 +316,7 @@ const Home: NextPage = () => {
           <div className="md:float-left relative md:w-[50%] lg:w-auto">
             <div
               className="block md:hidden relative md:absolute right-[-20px] xs:right-[-5px] xs:right-[-20px] bottom-[50px]"
-            // style={{ zIndex: 2 }}
+              // style={{ zIndex: 2 }}
             >
               <h2 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-1 mb-[5px] xxs:mb-[15px] md:mb-[5px]">
                 HAMSTER
