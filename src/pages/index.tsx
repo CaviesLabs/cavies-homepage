@@ -2,11 +2,13 @@ import { FC, useEffect, useState, useCallback } from "react";
 import type { NextPage } from "next";
 import { Fade } from "react-awesome-reveal";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Controller, Navigation, Pagination } from "swiper";
+import { Controller, Navigation, Pagination, Autoplay } from "swiper";
 import Head from "next/head";
 import MainLayout from "@/src/layouts/main";
 import classnames from "classnames";
 import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
 
 const objectiveItems = [
   "One-stop portal to the metaverse for both the ~3.5b Web2 and ~1.5m Web3 gamers",
@@ -313,36 +315,34 @@ const Home: NextPage = () => {
         >
           <div className="md:float-left relative md:w-[50%] lg:w-auto">
             <div
-              className="block md:hidden absolute right-[-20px] xs:right-[-5px] xs:right-[-20px] bottom-[50px]"
-              // style={{ zIndex: 2 }}
+              className="block md:hidden relative md:absolute right-[-20px] xs:right-[-5px] xs:right-[-20px] bottom-[50px]"
+            // style={{ zIndex: 2 }}
             >
               <h2 className="text-[30px] xs:text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-1 mb-[5px] xxs:mb-[15px] md:mb-[5px]">
-                FOR
+                HAMSTER
               </h2>
               <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-10px] xs:mt-[-12px] px-[20px] uppercase xs:px-[40px]">
                 <h2 className="text-[18px] xs:text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
-                  GAMES
+                  SWAP
                 </h2>
               </div>
             </div>
-            {/* <img
-              src="/assets/images/hamster-computer-email.png"
-              className="w-[190px] xs:w-[215px] md:w-full h-[auto] lg:w-[625px] lg:h-[auto] relative dark:hidden"
-            />
-            <img
-              src="/assets/images/hamster-computer-email-dark.png"
-              className="w-[190px] xs:w-[215px] md:w-full h-[auto] lg:w-[625px] lg:h-[auto] relative hidden dark:block"
-            /> */}
-            <div className="w-[160px] xs:w-[195px] md:w-full h-[auto] lg:w-[450px] lg:h-[auto]">
+            <div className="md:w-full h-[auto] lg:w-[450px] lg:h-[auto]">
               <Swiper
                 spaceBetween={50}
                 slidesPerView={1}
-                onSlideChange={(slide) =>
-                  setHamsterSwapIndex(slide.activeIndex)
-                }
-                onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={(slide) => {
+                  console.log("on slide change", slide.activeIndex % 3);
+                  setHamsterSwapIndex(slide.activeIndex % 3);
+                }}
                 defaultValue={1}
-                modules={[Navigation, Pagination, Controller]}
+                modules={[Navigation, Pagination, Controller, Autoplay]}
+                autoplay={{
+                  delay: 1500,
+                  pauseOnMouseEnter: true,
+                  disableOnInteraction: false,
+                }}
+                loop
               >
                 <SwiperSlide>
                   <div>
@@ -386,13 +386,13 @@ const Home: NextPage = () => {
           </div>
           <div className="md:float-right relative md:pl-[30px] lg:pl-[200px] ">
             <div className="hidden md:block">
-              <h3 className="text-[48px] md:text-[70px] rotate-[-5deg] text-strongTitle dark:text-strongTitleDark  leading-1 mb-[5px] xxs:mb-[15px] md:mb-[5px]">
+              <h2 className="text-[48px] md:text-[70px] rotate-[-5deg] leading-1 mb-[5px] xxs:mb-[15px] md:mb-[5px] text-strongTitle dark:text-strongTitleDark">
                 HAMSTER
-              </h3>
-              <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg] mt-[-12px] px-[20px] uppercase px-[40px]">
-                <h3 className="text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
+              </h2>
+              <div className="inline-flex bg-green dark:bg-greenDark rotate-[-5deg]  mt-0 md:mt-[-18px] px-[20px] uppercase">
+                <h2 className="text-[28px] md:text-[48px] text-twhite dark:text-strongTitle">
                   SWAP
-                </h3>
+                </h2>
               </div>
             </div>
             <div className="mt-[50px] relative">
@@ -431,6 +431,7 @@ const Home: NextPage = () => {
                 <button
                   className="contact-bottom-container"
                   onClick={() => window.open("https://p2p.hamsterbox.xyz/")}
+                  style={{ width: "300px" }}
                 >
                   <div className="hidden-layer"></div>
                   <div className="shown-layer">
