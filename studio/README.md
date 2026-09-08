@@ -22,7 +22,7 @@ npm run build
 
 ## Content
 
-- `lib/projects.ts` owns the portfolio descriptions, screenshots, project galleries, and contact destinations.
+- `lib/projects.ts` and `lib/additional-projects.ts` own the portfolio descriptions, screenshots, galleries, collaboration credits, ordering, and contact destinations. Counts and case-study navigation are derived from those collections.
 - `app/page.tsx` owns the homepage, services, process, and FAQs.
 - `app/globals.css` owns the responsive visual system.
 - `public/work/` contains optimized, locally hosted original artwork and product captures. See `docs/portfolio-sources.md` for provenance.

@@ -1,10 +1,16 @@
+import { additionalProjects, collaborations } from "./additional-projects";
+export { collaborations } from "./additional-projects";
+
 export type Project = {
+  kind?: "product" | "collaboration";
   slug: string;
   name: string;
   category: string;
   headline: string;
   description: string;
   image: string;
+  imageWidth?: number;
+  imageHeight?: number;
   color: string;
   tags: string[];
   role: string;
@@ -13,10 +19,10 @@ export type Project = {
   details: string[];
   url?: string;
   imageNote: string;
-  gallery?: { src: string; caption: string }[];
+  gallery?: { src: string; caption: string; width?: number; height?: number }[];
 };
 
-export const projects: Project[] = [
+const existingProjects: Project[] = [
   {
     slug: "seitrace",
     name: "Seitrace",
@@ -24,6 +30,8 @@ export const projects: Project[] = [
     headline: "Complex data. A clearer picture.",
     description: "A readable, searchable interface to the Sei ecosystem.",
     image: "/work/seitrace.webp",
+    imageWidth: 1250,
+    imageHeight: 640,
     color: "#e5ebee",
     tags: ["Data-rich interfaces", "Frontend"],
     role: "Cavies Labs product development",
@@ -54,6 +62,8 @@ export const projects: Project[] = [
     description:
       "A character-led interface for an onchain corporate-ladder game.",
     image: "/work/captable.webp",
+    imageWidth: 1250,
+    imageHeight: 640,
     color: "#e8eddf",
     tags: ["Product interface", "Design engineering"],
     role: "From our product portfolio",
@@ -75,6 +85,8 @@ export const projects: Project[] = [
     headline: "Bold identity. Clear decisions.",
     description: "A distinctive interface for an onchain expiry market.",
     image: "/work/0dte.webp",
+    imageWidth: 1250,
+    imageHeight: 640,
     color: "#fae8bc",
     tags: ["Visual identity", "Frontend"],
     role: "From our product portfolio",
@@ -103,6 +115,8 @@ export const projects: Project[] = [
     headline: "Make a complex habit feel simple.",
     description: "An approachable interface for recurring crypto purchases.",
     image: "/work/pocket.webp",
+    imageWidth: 1200,
+    imageHeight: 630,
     color: "#e9e4f5",
     tags: ["Product design", "Web3 integration"],
     role: "Cavies Labs product development",
@@ -118,28 +132,6 @@ export const projects: Project[] = [
     imageNote: "Original product brand artwork",
   },
   {
-    slug: "seispace",
-    name: "SeiSpace",
-    category: "Interactive analytics",
-    headline: "See the connections.",
-    description:
-      "An interactive map of token holders, transfers, and wallet relationships.",
-    image: "/work/seispace.webp",
-    color: "#dde8f7",
-    tags: ["Data visualization", "Frontend"],
-    role: "Cavies Labs product development",
-    context:
-      "A table of addresses can hide the relationships between them. SeiSpace makes connected token and wallet data explorable through an interactive visual map.",
-    approach:
-      "Bubble maps, token search, and detail panels let people move from a network overview into individual relationships. A separate mobile tree view adapts the exploration to smaller screens.",
-    details: [
-      "Interactive network visualization",
-      "Token search and detail panels",
-      "Mobile tree exploration",
-    ],
-    imageNote: "Original product brand artwork",
-  },
-  {
     slug: "launchreceipt",
     name: "LaunchReceipt",
     category: "Developer tools",
@@ -147,6 +139,8 @@ export const projects: Project[] = [
     description:
       "Token-launch provenance and protocol evidence, made readable.",
     image: "/work/launchreceipt.webp",
+    imageWidth: 1265,
+    imageHeight: 712,
     color: "#f1e4df",
     tags: ["Developer experience", "Product UI"],
     role: "From our product portfolio",
@@ -175,6 +169,8 @@ export const projects: Project[] = [
     description:
       "Strategy details and wallet-connected actions in a focused vault interface.",
     image: "/work/pit.webp",
+    imageWidth: 1265,
+    imageHeight: 712,
     color: "#dce5f1",
     tags: ["Dashboard", "Frontend integration"],
     role: "Cavies Labs product development",
@@ -197,6 +193,8 @@ export const projects: Project[] = [
     description:
       "A travel-deals experience built around a clearer sense of value.",
     image: "/work/detourist.webp",
+    imageWidth: 1265,
+    imageHeight: 712,
     color: "#dee7dc",
     tags: ["Consumer UX", "Product design"],
     role: "From our product portfolio",
@@ -219,6 +217,19 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+const leadProjects = existingProjects.filter((p) =>
+  ["seitrace", "captable", "0dte", "pit"].includes(p.slug),
+);
+const otherProjects = existingProjects.filter((p) => !leadProjects.includes(p));
+export const projects: Project[] = [
+  ...additionalProjects,
+  ...leadProjects,
+  ...otherProjects,
+];
+export const allProjects: Project[] = [...projects, ...collaborations];
+export const projectNumber = (index: number) =>
+  String(index + 1).padStart(2, "0");
 
 export const emailHref =
   "mailto:tin@cavies.xyz?subject=Let%27s%20build%20something%20with%20Cavies";

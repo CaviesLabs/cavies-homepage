@@ -12,7 +12,13 @@ import {
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
-import { emailHref, projects } from "@/lib/projects";
+import { ProjectIndex } from "@/components/project-index";
+import {
+  emailHref,
+  projects,
+  collaborations,
+  allProjects,
+} from "@/lib/projects";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -80,7 +86,7 @@ const faqs = [
 export default function Home() {
   return (
     <>
-      <Navigation />
+      <Navigation workCount={allProjects.length} />
       <main id="main">
         <section className="hero section-shell" aria-labelledby="hero-title">
           <div className="hero-topline">
@@ -99,12 +105,12 @@ export default function Home() {
             <em>Exceptional interfaces.</em>
           </h1>
           <div className="hero-bottom">
-            <Link className="text-link" href="#work">
+            <a className="text-link" href="#work">
               <span className="round-icon">
                 <ArrowDown size={19} />
               </span>
               Explore our work
-            </Link>
+            </a>
             <p>
               We design and build the part of your product
               <br className="desktop-break" /> people fall in love with. From
@@ -117,64 +123,64 @@ export default function Home() {
           <div className="showreel-grid" aria-hidden="true" />
           <span className="reel-note">A FEW THINGS WE’VE DESIGNED & BUILT</span>
           <Link
-            href="/work/0dte"
+            href="/work/schlong"
             className="reel-panel reel-left"
-            aria-label="Explore the 0DTE project"
+            aria-label="Explore the Schlong project"
           >
             <div className="browser-bar">
               <i />
               <i />
               <i />
-              <span>0DTE</span>
+              <span>Schlong — A world of its own</span>
               <ArrowUpRight size={12} />
             </div>
             <Image
-              src="/work/0dte.webp"
-              width={1440}
-              height={960}
-              alt="0DTE expiry-market homepage"
+              src="/work/schlong.webp"
+              width={1600}
+              height={1000}
+              alt="Schlong pixel-art game, shown on its public testnet"
               priority
               sizes="(max-width: 700px) 60vw, 42vw"
             />
           </Link>
           <Link
-            href="/work/seitrace"
+            href="/work/heavendash"
             className="reel-panel reel-center"
-            aria-label="Explore the Seitrace project"
+            aria-label="Explore the HeavenDash project"
           >
             <div className="browser-bar">
               <i />
               <i />
               <i />
-              <span>Seitrace — Explore what’s happening</span>
+              <span>HeavenDash — A clearer view of the data</span>
               <ArrowUpRight size={12} />
             </div>
             <Image
-              src="/work/seitrace.webp"
-              width={1440}
-              height={960}
-              alt="Seitrace blockchain explorer"
+              src="/work/heavendash.webp"
+              width={1600}
+              height={1000}
+              alt="HeavenDash rankings and fee dashboard with labeled sample data"
               priority
               sizes="(max-width: 700px) 82vw, 51vw"
             />
           </Link>
           <Link
-            href="/work/captable"
+            href="/work/claimhq"
             className="reel-panel reel-right"
-            aria-label="Explore the Cap Table project"
+            aria-label="Explore the ClaimHQ project"
           >
             <div className="browser-bar">
               <i />
               <i />
               <i />
-              <span>Cap Table</span>
+              <span>ClaimHQ — From eligible to claimed</span>
               <ArrowUpRight size={12} />
             </div>
             <Image
-              src="/work/captable.webp"
+              src="/work/claimhq.webp"
               width={1440}
-              height={960}
-              alt="Cap Table strategy-game homepage"
+              height={870}
+              alt="ClaimHQ airdrop and reward-distribution frontend"
               priority
               sizes="(max-width: 700px) 60vw, 42vw"
             />
@@ -195,11 +201,12 @@ export default function Home() {
         >
           <p>Good company along the way.</p>
           <div className="collaborator-names">
-            <span className="ancient-name">Ancient8</span>
-            <span className="cyball-name">CyBall</span>
-            <span className="solscan-name">
+            <Link href="/work/ancient8" className="ancient-name">
+              Ancient8
+            </Link>
+            <Link href="/work/solscan" className="solscan-name">
               <span aria-hidden="true">▰</span> SOLSCAN
-            </span>
+            </Link>
           </div>
           <span className="collaborator-note">
             Past product advisory
@@ -223,9 +230,37 @@ export default function Home() {
             </p>
           </div>
           <div className="project-grid">
-            {projects.map((project, index) => (
+            {projects.slice(0, 8).map((project, index) => (
               <ProjectCard key={project.slug} project={project} index={index} />
             ))}
+          </div>
+          {projects.length > 8 && (
+            <div className="more-work">
+              <span className="eyebrow">MORE FROM OUR PRODUCT PORTFOLIO</span>
+              <ProjectIndex projects={projects.slice(8)} offset={8} />
+            </div>
+          )}
+          <div id="collaborations" className="collaboration-section">
+            <div className="section-heading">
+              <div>
+                <span className="eyebrow">PAST ADVISORY & COLLABORATION</span>
+                <h2>
+                  Good teams.
+                  <br />
+                  <em>Shared experience.</em>
+                </h2>
+              </div>
+              <p>
+                Our team has also worked alongside Ancient8 and Solscan as
+                product advisors and collaborators. Current websites shown for
+                context.
+              </p>
+            </div>
+            <div className="project-grid">
+              {collaborations.map((project) => (
+                <ProjectCard project={project} key={project.slug} />
+              ))}
+            </div>
           </div>
           <div className="work-footnote">
             <span>

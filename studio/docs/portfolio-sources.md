@@ -1,29 +1,39 @@
 # Portfolio provenance
 
-Prepared 8 September 2026 from the repositories the owner authorized for this portfolio. Images are served locally. Private source code, credentials, and private user/account data are not included in the public website.
+Updated 8 September 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
 
-| Project       | Source                            | Basis of presentation                                                                                                                                                                                                  |
-| ------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Seitrace      | CaviesLabs/seitrace-frontend      | Cavies-built explorer. `ui/pages/AboutUs.tsx` explicitly credits the Cavies team. Interface supports EVM/native transactions, accounts, contracts, and developer tools.                                                |
-| Cap Table     | meowttt7/captable                 | Founder product portfolio. The repository defines an onchain corporate-ladder strategy game. Screenshot captured from the original local frontend; visibly pre-launch.                                                 |
-| 0DTE          | meowttt7/0DTE                     | Founder product portfolio. An expiry-market interface with selection and settlement flows. Homepage and market-board screenshots captured from the original local frontend; pre-launch placeholders remain identified. |
-| Pocket        | CaviesLabs/hamsterpocket-frontend | Cavies product. Recurring strategy creation and management are evidenced in create-pocket and dashboard components. Original `public/assets/images/banner_seo.png` artwork.                                            |
-| SeiSpace      | CaviesLabs/seispace-frontend      | Cavies product. Interactive wallet/token relationships, D3 visualization, detail panels, and mobile tree exploration. Original brand asset identified as artwork rather than a UI screenshot.                          |
-| LaunchReceipt | meowttt7/launchreceipt            | Founder product portfolio. Read-only launch research, receipts, protocol evidence, and creator preflight. Public captures from https://launchreceipt.vercel.app. No claim of complete historical data coverage.        |
-| Pit Finance   | CaviesLabs/pit-app                | Cavies product. Vault list, overview, deposit and withdrawal interfaces. Public vault capture from https://pit.finance/vaults/0x821A366145dd54c11Dab879abABc8907A084216C without a connected wallet.                   |
-| Detourist     | meowttt7/Detourist                | Founder product portfolio. Public launch and sample-deal captures from https://detourist.vercel.app. No commercial outcome or booking-volume claims.                                                                   |
+| Project       | Source                                                   | Basis of presentation                                                                                                                                                                                                                                           |
+| ------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ClaimHQ       | CaviesLabs/claimhq                                       | Original marketing frontend and reward-claim/distribution walkthroughs rendered locally. Public origin was unavailable. Source marketing metrics are not repeated as project outcomes.                                                                          |
+| Schlong       | meowttt7/schlong; https://testnet.schlong.xyz            | Actual public-testnet game scene and collectible shop, with wallet disconnected. Testnet status is explicit; no mainnet-availability claims.                                                                                                                    |
+| HeavenDash    | CaviesLabs/heavendash                                    | Original dashboard and analytics components rendered locally with synthetic fixtures because public deployments were unavailable. Sample-data banners are embedded in captures and repeated in captions. Values are illustrative, not project results.          |
+| brrr          | CaviesLabs/brrr                                          | Original frontend rendered locally. Protocol selection, swap/bridge navigation, and token utility flows. The Trade route requires an unavailable backend, so captures focus on unauthenticated utility surfaces. No backend secrets or wallet connections used. |
+| Seitrace      | CaviesLabs/seitrace-frontend                             | Cavies-built explorer; AboutUs explicitly credits Cavies. Original Insights and search interfaces rendered locally.                                                                                                                                             |
+| Cap Table     | meowttt7/captable                                        | Founder product portfolio: corporate-ladder strategy game. Original pre-launch frontend capture.                                                                                                                                                                |
+| 0DTE          | meowttt7/0DTE                                            | Founder product portfolio: expiry-market frontend. Original pre-launch homepage and board captures, with placeholder states identified.                                                                                                                         |
+| Pit Finance   | CaviesLabs/pit-app; https://pit.finance                  | Public, logged-out vault overview. No displayed historical figures are claimed as current performance.                                                                                                                                                          |
+| Pocket        | CaviesLabs/hamsterpocket-frontend                        | Recurring purchase/strategy frontend. Original banner_seo.png product artwork, labeled as artwork.                                                                                                                                                              |
+| LaunchReceipt | meowttt7/launchreceipt; https://launchreceipt.vercel.app | Public scanner/report captures. Read-only research interface; no assertion of complete historical data coverage.                                                                                                                                                |
+| Detourist     | meowttt7/Detourist; https://detourist.vercel.app         | Public launch and sample-deal captures. Sample offers are labeled.                                                                                                                                                                                              |
 
-## Advisory relationships
+## Past advisory and collaboration
 
-Ancient8, CyBall, and Solscan are owner-confirmed past product advisory and collaboration relationships. The website does not attribute their entire products, frontends, or fundraising results to Cavies. Their names are typeset references rather than copied endorsements.
+Ancient8 and Solscan are owner-confirmed past product advisory and collaboration relationships. These have their own section and case-study role labels. Screenshots of the current public websites give context to those organizations; they do not claim Cavies designed or built the current sites.
 
-## Brand and asset usage
+- Ancient8: https://ancient8.gg/ — current homepage and games directory, captured 8 September 2026 after the owner manually accepted the website's terms dialog.
+- Solscan: https://solscan.io/ — current public dashboard, captured 8 September 2026 without signing in.
 
-- Cavies mark and sleeping-cavy illustration: existing `cavies-homepage/public/assets/images` assets.
-- Product artwork and screenshots: authorized by the owner's request to reuse the frontend and branding in the supplied repositories.
-- Font licenses are included in the installed Fontsource packages (Manrope and DM Serif Display).
-- Icons: Lucide React.
-- No invented customer quotes, conversion metrics, user counts, awards, or client relationships.
-- Screenshots describe historical/source interface work; product availability and sample values are not represented as current operational claims.
+No fundraising attribution, growth metrics, customer testimonials, or endorsements are invented.
 
-The original repository history, detailed research clones, and raw screenshots are retained locally outside the new website app. They are not deployment inputs.
+## Removed examples
+
+- SeiSpace was removed at the owner's request because the available logo-only visual did not demonstrate interface work. Its former case-study URL redirects to the work section.
+- CyBall was removed after a bounded archive search: cyball.com led to a blank lander, the documentation origin was unavailable during the direct check, and the strongest archived portfolio candidate returned 404. Search snippets alone were not used as a visual case study.
+
+## Asset handling
+
+- Cavies mark and cavy illustration: original cavies-homepage assets.
+- Product images: authorized screenshots/original artwork, optimized as WebP without changing the depicted UI.
+- HeavenDash's temporary sample adapters and dependency-only fixes for local research remain outside the published repository.
+- Manrope and DM Serif Display fonts use the Fontsource packages and their bundled licenses; interface icons use Lucide React.
+- Source clones, raw screenshots, exact capture notes, and research findings remain in the local research directory, outside deployment inputs.
