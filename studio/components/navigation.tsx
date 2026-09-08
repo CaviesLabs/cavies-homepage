@@ -36,6 +36,7 @@ export function Navigation({ workCount }: { workCount: number }) {
             Work <span>{String(workCount).padStart(2, "0")}</span>
           </Link>
           <Link href="/#expertise">Expertise</Link>
+          <Link href="/#pricing">Pricing</Link>
           <Link href="/#studio">The studio</Link>
         </nav>
         <a href={emailHref} className="button button-small header-contact">
@@ -61,6 +62,9 @@ export function Navigation({ workCount }: { workCount: number }) {
             </Link>
             <Link onClick={() => setOpen(false)} href="/#expertise">
               Expertise <ArrowUpRight />
+            </Link>
+            <Link onClick={() => setOpen(false)} href="/#pricing">
+              Pricing <ArrowUpRight />
             </Link>
             <Link onClick={() => setOpen(false)} href="/#studio">
               The studio <ArrowUpRight />

@@ -25,6 +25,8 @@ npm run build
 - `lib/projects.ts` and `lib/additional-projects.ts` own the portfolio descriptions, screenshots, galleries, collaboration credits, ordering, and contact destinations. Counts and case-study navigation are derived from those collections.
 - `app/page.tsx` owns the homepage, services, process, and FAQs.
 - `app/globals.css` owns the responsive visual system.
+- `components/pricing.tsx` owns the public monthly plans: Design $7,500, Design engineering $15,000, and Security audit $15,000 (USD). Web-application and smart-contract audits are scoped separately.
+- `components/reflective-mark.tsx` progressively enhances the hero with a reflective C. Its scene loads on demand, stops rendering when idle or offscreen, and uses a static fallback for reduced motion or unavailable WebGL. See `docs/hero-motion.md`.
 - `public/work/` contains optimized, locally hosted original artwork and product captures. See `docs/portfolio-sources.md` for provenance.
 - Contact: `tin@cavies.xyz` and `https://t.me/tincavies`.
 

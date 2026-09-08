@@ -13,6 +13,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectIndex } from "@/components/project-index";
+import { Pricing } from "@/components/pricing";
+import { ReflectiveMark } from "@/components/reflective-mark";
 import {
   emailHref,
   projects,
@@ -75,7 +77,15 @@ const faqs = [
   ],
   [
     "How do engagements and pricing work?",
-    "We scope the work around your product, priorities, and existing codebase. A focused interface project and an ongoing design-engineering partnership need different plans. Send us a short brief and we’ll work out a proposal together.",
+    "Design is $7,500 per month. Design engineering with integration is $15,000 per month, and Security audit is $15,000 per month. All prices are in USD. We agree on the scope, monthly capacity, and priorities before starting.",
+  ],
+  [
+    "What is included in Design, compared with Design engineering?",
+    "Design gives your team the interface and frontend UI code, including responsive components, interactive states, and motion. Your engineers handle application logic, production engineering, and integration. Design engineering adds that frontend engineering and integration work inside your existing application.",
+  ],
+  [
+    "Do you audit web applications and smart contracts?",
+    "Yes. Web-application and smart-contract audits are scoped separately. We agree on the code, assets, testing depth, and deliverables for each scope before kickoff. The engagement includes prioritized findings, remediation guidance, and fix verification within the agreed scope.",
   ],
   [
     "What should we bring to the first conversation?",
@@ -99,24 +109,35 @@ export default function Home() {
               Built to work with your team.
             </span>
           </div>
-          <h1 id="hero-title">
-            Ambitious products.
-            <br />
-            <em>Exceptional interfaces.</em>
-          </h1>
-          <div className="hero-bottom">
-            <a className="text-link" href="#work">
-              <span className="round-icon">
-                <ArrowDown size={19} />
+          <div className="hero-main">
+            <div className="hero-copy">
+              <h1 id="hero-title">
+                Ambitious products.
+                <br />
+                <em>Exceptional interfaces.</em>
+              </h1>
+              <p className="hero-intro">
+                We design and build the part of your product people fall in love
+                with. From first idea to frontend, beautifully connected.
+              </p>
+              <div className="hero-actions">
+                <a className="text-link" href="#work">
+                  <span className="round-icon">
+                    <ArrowDown size={19} />
+                  </span>
+                  Explore our work
+                </a>
+                <a className="hero-pricing-link" href="#pricing">
+                  Plans from $7,500 / month <ArrowUpRight size={15} />
+                </a>
+              </div>
+            </div>
+            <div className="hero-art">
+              <ReflectiveMark />
+              <span className="hero-art-caption" aria-hidden="true">
+                A DIFFERENT PERSPECTIVE.
               </span>
-              Explore our work
-            </a>
-            <p>
-              We design and build the part of your product
-              <br className="desktop-break" /> people fall in love with. From
-              first idea to
-              <br className="desktop-break" /> frontend, beautifully connected.
-            </p>
+            </div>
           </div>
         </section>
         <section className="showreel" aria-label="Featured product interfaces">
@@ -213,6 +234,7 @@ export default function Home() {
             <br />& collaboration
           </span>
         </section>
+        <Pricing />
         <section id="work" className="work-section section-shell">
           <div className="section-heading">
             <div>
@@ -383,8 +405,8 @@ export default function Home() {
               ],
               [
                 "03",
-                "Build it into your product",
-                "We implement, integrate, and check the details in your application, working closely with your engineers.",
+                "Deliver your interface",
+                "Design ends with UI code for your team. With Design engineering, we also integrate and verify the frontend in your application.",
               ],
             ].map(([n, title, body]) => (
               <article className="process-step" key={n}>
