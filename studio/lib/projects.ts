@@ -29,32 +29,23 @@ const existingProjects: Project[] = [
     category: "Blockchain explorer",
     headline: "Complex data. A clearer picture.",
     description: "A readable, searchable interface to the Sei ecosystem.",
-    image: "/work/seitrace.webp",
-    imageWidth: 1250,
-    imageHeight: 640,
+    image: "/work/seitrace-homepage.webp",
+    imageWidth: 1600,
+    imageHeight: 1330,
     color: "#e5ebee",
     tags: ["Data-rich interfaces", "Frontend"],
     role: "Cavies Labs product development",
     context:
       "An explorer has to make an entire network understandable, from a first transaction lookup to a detailed investigation of an address or contract.",
     approach:
-      "The frontend brings search, transaction details, token information, and developer-facing tools into one consistent interface. Dense data gets a clear hierarchy and familiar navigation.",
+      "Search, network statistics, activity charts, and recent blocks and transactions in one explorer interface.",
     details: [
       "Transaction and address exploration",
       "Search and structured data views",
       "Reusable interface components",
     ],
     url: "https://seitrace.com",
-    imageNote:
-      "Insights developer-tools page, captured from the original frontend",
-    gallery: [
-      {
-        src: "/work/seitrace-header.webp",
-        caption: "Explorer navigation and search · Original frontend",
-        width: 1250,
-        height: 324,
-      },
-    ],
+    imageNote: "Explorer homepage · Sample data",
   },
   {
     slug: "captable",
@@ -78,7 +69,7 @@ const existingProjects: Project[] = [
       "Brand expressed in the interface",
       "Responsive web implementation",
     ],
-    imageNote: "Pre-launch homepage, captured from the original frontend",
+    imageNote: "Pre-launch interface",
   },
   {
     slug: "0dte",
@@ -101,12 +92,11 @@ const existingProjects: Project[] = [
       "Market selection and settlement flows",
       "Responsive frontend architecture",
     ],
-    imageNote: "Pre-launch homepage, captured from the original frontend",
+    imageNote: "Pre-launch interface",
     gallery: [
       {
         src: "/work/0dte-board.webp",
-        caption:
-          "Market selection and bond-ticket interface · Pre-launch frontend with placeholder states",
+        caption: "Market board · Pre-launch",
         width: 1250,
         height: 640,
       },
@@ -133,7 +123,7 @@ const existingProjects: Project[] = [
       "Wallet-connected frontend",
       "Friendly product branding",
     ],
-    imageNote: "Original product brand artwork",
+    imageNote: "Product artwork",
   },
   {
     slug: "launchreceipt",
@@ -161,7 +151,7 @@ const existingProjects: Project[] = [
     gallery: [
       {
         src: "/work/launchreceipt-home.webp",
-        caption: "The scanner entry point · Public product interface",
+        caption: "Launch scanner",
         width: 1265,
         height: 712,
       },
@@ -189,7 +179,7 @@ const existingProjects: Project[] = [
       "Deposit and withdrawal interfaces",
       "Reusable dashboard components",
     ],
-    imageNote: "Public vault interface, shown without a connected wallet",
+    imageNote: "Vault interface",
   },
   {
     slug: "detourist",
@@ -213,12 +203,11 @@ const existingProjects: Project[] = [
       "Preference-based onboarding",
       "Responsive landing and product pages",
     ],
-    imageNote: "Public launch landing page",
+    imageNote: "Product website",
     gallery: [
       {
         src: "/work/detourist-deals.webp",
-        caption:
-          "Deal discovery and value comparison · Sample offers shown in the product",
+        caption: "Deal discovery · Sample offers",
         width: 1265,
         height: 712,
       },
@@ -254,7 +243,3 @@ export const projects: Project[] = [
 export const allProjects: Project[] = [...projects, ...collaborations];
 export const projectNumber = (index: number) =>
   String(index + 1).padStart(2, "0");
-
-export const emailHref =
-  "mailto:tin@cavies.xyz?subject=Let%27s%20build%20something%20with%20Cavies";
-export const telegramHref = "https://t.me/tincavies";
