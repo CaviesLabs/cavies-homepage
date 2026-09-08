@@ -289,9 +289,6 @@ svg {
   gap: 8px;
   align-items: center;
 }
-.solscan-name > span {
-  font-size: 27px;
-}
 .collaborator-note {
   font-size: 11px;
   line-height: 1.5;
@@ -1010,9 +1007,6 @@ details[open] .faq-plus:after {
   .collaborator-names .solscan-name {
     font-size: 16px;
     gap: 4px;
-  }
-  .solscan-name > span {
-    font-size: 23px;
   }
   .collaborator-note {
     font-size: 9px;

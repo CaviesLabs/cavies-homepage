@@ -172,7 +172,7 @@ export default function Home() {
               Ancient8
             </Link>
             <Link href="/work/solscan" className="solscan-name">
-              <span aria-hidden="true">▰</span> SOLSCAN
+              SOLSCAN
             </Link>
           </div>
           <span className="collaborator-note">
