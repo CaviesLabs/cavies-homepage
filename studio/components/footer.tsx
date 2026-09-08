@@ -1,37 +1,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { emailHref, telegramHref } from "@/lib/projects";
+import { contactEmail, emailHref, telegramHref } from "@/lib/contact";
 
 export function Footer() {
   return (
     <footer id="contact" className="footer">
-      <div className="footer-top">
-        <span className="eyebrow">
-          <span className="status-dot" /> A GOOD PLACE TO START
-        </span>
-        <span className="footer-note">Tell us what you’re building.</span>
-      </div>
       <div className="footer-title">
         <h2>
-          Let’s make
-          <br />
-          something <em>click.</em>
+          Let’s <em>talk.</em>
         </h2>
-        <a
-          href={emailHref}
-          className="contact-orb"
-          aria-label="Email Tin to start a project"
-        >
+        <a href={emailHref} className="contact-orb" aria-label="Email us">
           <ArrowUpRight strokeWidth={1.2} />
         </a>
       </div>
       <div className="contact-links">
         <a href={emailHref}>
-          tin@cavies.xyz <ArrowUpRight size={18} />
+          {contactEmail} <ArrowUpRight size={18} />
         </a>
         <a href={telegramHref} target="_blank" rel="noopener noreferrer">
-          Say hello on Telegram <ArrowUpRight size={18} />
+          Telegram <ArrowUpRight size={18} />
         </a>
       </div>
       <div className="footer-bottom">
@@ -41,7 +29,6 @@ export function Footer() {
             cavies<span className="wordmark-studio">studio</span>
           </span>
         </Link>
-        <span>Independent minds. Thoughtful interfaces.</span>
         <div>
           <a
             href="https://github.com/CaviesLabs"

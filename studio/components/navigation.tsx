@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { emailHref } from "@/lib/projects";
+import { emailHref } from "@/lib/contact";
 
 export function Navigation({ workCount }: { workCount: number }) {
   const [open, setOpen] = useState(false);
@@ -35,12 +35,10 @@ export function Navigation({ workCount }: { workCount: number }) {
           <Link href="/#work">
             Work <span>{String(workCount).padStart(2, "0")}</span>
           </Link>
-          <Link href="/#expertise">Expertise</Link>
           <Link href="/#pricing">Pricing</Link>
-          <Link href="/#studio">The studio</Link>
         </nav>
         <a href={emailHref} className="button button-small header-contact">
-          Let’s talk <ArrowUpRight size={17} />
+          Email us <ArrowUpRight size={17} />
         </a>
         <button
           className="menu-toggle"
@@ -60,17 +58,11 @@ export function Navigation({ workCount }: { workCount: number }) {
             <Link onClick={() => setOpen(false)} href="/#work">
               Work <ArrowUpRight />
             </Link>
-            <Link onClick={() => setOpen(false)} href="/#expertise">
-              Expertise <ArrowUpRight />
-            </Link>
             <Link onClick={() => setOpen(false)} href="/#pricing">
               Pricing <ArrowUpRight />
             </Link>
-            <Link onClick={() => setOpen(false)} href="/#studio">
-              The studio <ArrowUpRight />
-            </Link>
             <a href={emailHref}>
-              Let’s talk <ArrowUpRight />
+              Email us <ArrowUpRight />
             </a>
           </nav>
         )}

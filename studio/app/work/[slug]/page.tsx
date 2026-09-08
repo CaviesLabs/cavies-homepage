@@ -51,31 +51,24 @@ export default async function ProjectPage({
             <ArrowLeft size={16} /> All selected work
           </Link>
           <div className="case-topline">
-            <span className="eyebrow">
-              {project.name} / {project.category}
-            </span>
+            <span className="eyebrow">{project.category}</span>
             <span>
               {projectNumber(index)} —{" "}
               {String(allProjects.length).padStart(2, "0")}
             </span>
           </div>
-          <h1>{project.headline}</h1>
+          <h1>{project.name}</h1>
           <div className="case-summary">
             <p>{project.description}</p>
-            <div className="case-tags">
-              {project.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
+            {!isCollaboration && (
+              <div className="case-tags">
+                {project.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+            )}
           </div>
         </section>
-        {isCollaboration && (
-          <div className="case-role-note section-shell">
-            <span>OUR ROLE</span>
-            <p>Product advisory & collaboration</p>
-            <span>Current public website shown for context</span>
-          </div>
-        )}
         <div className="case-showcase" style={{ background: project.color }}>
           <a
             href={project.image}
@@ -101,47 +94,41 @@ export default async function ProjectPage({
             View full-size screenshot <ArrowUpRight size={14} />
           </a>
         </p>
-        <section className="case-body section-shell">
-          <aside className="case-sidebar">
-            <div>
-              <span>PROJECT</span>
-              <p>{project.name}</p>
-              <p>{project.role}</p>
+        {!isCollaboration && (
+          <section className="case-body section-shell">
+            <aside className="case-sidebar">
+              <div>
+                <span>ROLE</span>
+                <p>{project.role}</p>
+              </div>
+              <div>
+                <span>INTERFACE FOCUS</span>
+                <ul>
+                  {project.details.map((detail) => (
+                    <li key={detail}>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+            <div className="case-story">
+              <h2>The interface.</h2>
+              <p>{project.approach}</p>
             </div>
-            <div>
-              <span>
-                {isCollaboration ? "OUR INVOLVEMENT" : "INTERFACE FOCUS"}
-              </span>
-              <ul>
-                {project.details.map((detail) => (
-                  <li key={detail}>{detail}</li>
-                ))}
-              </ul>
-            </div>
-          </aside>
-          <div className="case-story">
-            <h2>
-              {isCollaboration ? "The collaboration." : "The product context."}
-            </h2>
-            <p>{project.context}</p>
-            <h2>
-              {isCollaboration
-                ? "The product today."
-                : "A closer look at the interface."}
-            </h2>
-            <p>{project.approach}</p>
-            {isCollaboration && project.url && (
-              <a
-                className="text-link case-visit"
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Visit {project.name} <ArrowUpRight size={18} />
-              </a>
-            )}
-          </div>
-        </section>
+          </section>
+        )}
+        {isCollaboration && project.url && (
+          <p className="case-collaboration-link section-shell">
+            <a
+              className="text-link"
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit {project.name}
+              <ArrowUpRight size={18} />
+            </a>
+          </p>
+        )}
         {project.gallery && (
           <section
             className="case-gallery section-shell"

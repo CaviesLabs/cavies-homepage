@@ -23,18 +23,17 @@ export const additionalProjects: Project[] = [
       "Reward-claim and distribution flows",
       "Product branding and motion",
     ],
-    imageNote: "Original frontend, rendered locally",
+    imageNote: "Product website",
     gallery: [
       {
         src: "/work/claimhq-distribution.webp",
-        caption:
-          "Bulk distribution service and process walkthrough · Original frontend",
+        caption: "Bulk distribution workflow",
         width: 1430,
         height: 1092,
       },
       {
         src: "/work/claimhq-claim-flow.webp",
-        caption: "Reward-claiming service and user journey · Original frontend",
+        caption: "Reward-claiming workflow",
         width: 1430,
         height: 1092,
       },
@@ -62,11 +61,11 @@ export const additionalProjects: Project[] = [
       "Collectible shop and progression",
       "Wallet-aware resource panels",
     ],
-    imageNote: "Public testnet interface · Wallet disconnected",
+    imageNote: "Public testnet",
     gallery: [
       {
         src: "/work/schlong-shop.webp",
-        caption: "Collectible shop and progression states · Public testnet",
+        caption: "Collectible shop · Testnet",
         width: 1600,
         height: 1000,
       },
@@ -88,18 +87,17 @@ export const additionalProjects: Project[] = [
     context:
       "HeavenDash brings the Heaven ecosystem’s pool data into one place. Token prices, fees, volume, liquidity, and creator economics need a common structure before they become easy to compare.",
     approach:
-      "A ranking table puts category filters and sorting next to the data. Fee-breakdown panels give context to individual values, while volume, liquidity, and distribution charts make the wider protocol easier to read. The original interface is shown here with clearly labeled sample data.",
+      "Filterable token rankings, fee breakdowns, and charts for volume, liquidity, and pool activity.",
     details: [
       "Filterable token rankings",
       "Fee and liquidity dashboards",
       "Protocol charts and distributions",
     ],
-    imageNote: "Original interface, rendered locally with sample data",
+    imageNote: "Dashboard · Sample data",
     gallery: [
       {
         src: "/work/heavendash-analytics.webp",
-        caption:
-          "Protocol volume and fee-distribution charts · Original interface with sample data",
+        caption: "Protocol analytics · Sample data",
         width: 1592,
         height: 995,
       },
@@ -126,12 +124,11 @@ export const additionalProjects: Project[] = [
       "Token migration workflows",
       "Wallet-aware interactions",
     ],
-    imageNote: "Original bridge frontend · Wallet disconnected",
+    imageNote: "Bridge interface",
     gallery: [
       {
         src: "/work/brrr-migration.webp",
-        caption:
-          "Three-stage USDC migration workflow · Original frontend detail",
+        caption: "USDC migration workflow",
         width: 540,
         height: 660,
       },
@@ -160,11 +157,11 @@ export const collaborations: Project[] = [
       "Ancient8’s current website presents its gaming ecosystem, infrastructure, and developer resources. These screenshots show the organization today, providing context for our past advisory and collaboration work.",
     details: ["Product advisory", "Product collaboration"],
     url: "https://ancient8.gg/",
-    imageNote: "Current public website · Shown for collaboration context",
+    imageNote: "Current website",
     gallery: [
       {
         src: "/work/ancient8-games.webp",
-        caption: "Current Ancient8 games directory · Collaboration context",
+        caption: "Current games directory",
         width: 1600,
         height: 838,
       },
@@ -190,6 +187,6 @@ export const collaborations: Project[] = [
       "The current Solscan website brings together Solana network activity, transaction and account search, and explorer data. These screenshots show the organization today, providing context for our past advisory and collaboration work.",
     details: ["Product advisory", "Product collaboration"],
     url: "https://solscan.io/",
-    imageNote: "Current public explorer · Shown for collaboration context",
+    imageNote: "Current website",
   },
 ];
