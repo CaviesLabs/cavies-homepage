@@ -1,0 +1,73 @@
+.mark {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  isolation: isolate;
+  pointer-events: none;
+  user-select: none;
+  contain: layout paint;
+}
+
+.mark canvas,
+.fallback {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mark canvas {
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.fallback {
+  opacity: 1;
+  transition: opacity 350ms ease;
+}
+
+.mark[data-ready="true"] canvas {
+  opacity: 1;
+}
+
+.mark[data-ready="true"] .fallback {
+  opacity: 0;
+}
+
+.halo {
+  position: absolute;
+  inset: 12% 8% 13%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgb(226 228 216 / 52%),
+    rgb(241 242 233 / 12%) 57%,
+    transparent 72%
+  );
+}
+
+.shadow {
+  position: absolute;
+  width: 53%;
+  height: 7%;
+  bottom: 6%;
+  left: 22%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgb(56 45 49 / 16%),
+    rgb(56 45 49 / 4%) 47%,
+    transparent 72%
+  );
+  filter: blur(5px);
+  transform: rotate(-5deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark canvas,
+  .fallback {
+    transition: none;
+  }
+}
