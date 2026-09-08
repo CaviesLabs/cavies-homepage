@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { emailHref } from "@/lib/projects";
 
-export function Navigation() {
+export function Navigation({ workCount }: { workCount: number }) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -33,7 +33,7 @@ export function Navigation() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/#work">
-            Work <span>08</span>
+            Work <span>{String(workCount).padStart(2, "0")}</span>
           </Link>
           <Link href="/#expertise">Expertise</Link>
           <Link href="/#studio">The studio</Link>

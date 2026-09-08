@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { allProjects } from "@/lib/projects";
 export default function NotFound() {
   return (
     <>
-      <Navigation />
+      <Navigation workCount={allProjects.length} />
       <main id="main" className="not-found section-shell">
         <span className="eyebrow">404 / A WRONG TURN</span>
         <h1>
