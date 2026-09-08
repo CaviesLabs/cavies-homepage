@@ -77,17 +77,29 @@ export default async function ProjectPage({
           </div>
         )}
         <div className="case-showcase" style={{ background: project.color }}>
-          <Image
-            src={project.image}
-            width={project.imageWidth ?? 1440}
-            height={project.imageHeight ?? 960}
-            sizes="90vw"
-            alt={`${project.name} — ${project.imageNote.toLowerCase()}`}
-            priority
-          />
+          <a
+            href={project.image}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open full-size ${project.name} screenshot`}
+          >
+            <Image
+              src={project.image}
+              width={project.imageWidth ?? 1440}
+              height={project.imageHeight ?? 960}
+              sizes="90vw"
+              alt={`${project.name} — ${project.imageNote.toLowerCase()}`}
+              priority
+            />
+          </a>
         </div>
         <p className="case-image-note section-shell">
-          {project.name} · {project.imageNote}
+          <span>
+            {project.name} · {project.imageNote}
+          </span>
+          <a href={project.image} target="_blank" rel="noopener noreferrer">
+            View full-size screenshot <ArrowUpRight size={14} />
+          </a>
         </p>
         <section className="case-body section-shell">
           <aside className="case-sidebar">
@@ -144,14 +156,26 @@ export default async function ProjectPage({
                     : undefined
                 }
               >
-                <Image
-                  src={item.src}
-                  width={item.width ?? 1440}
-                  height={item.height ?? 900}
-                  sizes="90vw"
-                  alt={item.caption}
-                />
-                <figcaption>{item.caption}</figcaption>
+                <a
+                  href={item.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open full-size image: ${item.caption}`}
+                >
+                  <Image
+                    src={item.src}
+                    width={item.width ?? 1440}
+                    height={item.height ?? 900}
+                    sizes="90vw"
+                    alt={item.caption}
+                  />
+                </a>
+                <figcaption>
+                  <span>{item.caption}</span>
+                  <a href={item.src} target="_blank" rel="noopener noreferrer">
+                    View full size <ArrowUpRight size={14} />
+                  </a>
+                </figcaption>
               </figure>
             ))}
           </section>

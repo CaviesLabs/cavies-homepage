@@ -16,10 +16,6 @@ export function ProjectCard({
       className={`project-card project-${project.slug} ${project.kind === "collaboration" ? "collaboration-card" : ""}`}
     >
       <div className="project-visual" style={{ background: project.color }}>
-        <div className="visual-topline">
-          <span>{project.name}</span>
-          <span className="project-kind">{project.category}</span>
-        </div>
         <div className="project-image-wrap">
           <Image
             src={project.image}
@@ -30,9 +26,6 @@ export function ProjectCard({
             className="project-image"
           />
         </div>
-        <span className="project-open">
-          <ArrowUpRight size={22} />
-        </span>
       </div>
       <div className="project-caption">
         <div>
@@ -43,6 +36,9 @@ export function ProjectCard({
           <span className="project-description">{project.description}</span>
         </div>
         <span className="project-category">{project.tags[0]}</span>
+        <span className="project-open" aria-hidden="true">
+          <ArrowUpRight size={20} />
+        </span>
       </div>
     </Link>
   );
