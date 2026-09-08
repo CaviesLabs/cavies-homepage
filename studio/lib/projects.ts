@@ -51,6 +51,8 @@ const existingProjects: Project[] = [
       {
         src: "/work/seitrace-header.webp",
         caption: "Explorer navigation and search · Original frontend",
+        width: 1250,
+        height: 324,
       },
     ],
   },
@@ -105,6 +107,8 @@ const existingProjects: Project[] = [
         src: "/work/0dte-board.webp",
         caption:
           "Market selection and bond-ticket interface · Pre-launch frontend with placeholder states",
+        width: 1250,
+        height: 640,
       },
     ],
   },
@@ -158,6 +162,8 @@ const existingProjects: Project[] = [
       {
         src: "/work/launchreceipt-home.webp",
         caption: "The scanner entry point · Public product interface",
+        width: 1265,
+        height: 712,
       },
     ],
   },
@@ -213,19 +219,37 @@ const existingProjects: Project[] = [
         src: "/work/detourist-deals.webp",
         caption:
           "Deal discovery and value comparison · Sample offers shown in the product",
+        width: 1265,
+        height: 712,
       },
     ],
   },
 ];
 
-const leadProjects = existingProjects.filter((p) =>
-  ["seitrace", "captable", "0dte", "pit"].includes(p.slug),
-);
-const otherProjects = existingProjects.filter((p) => !leadProjects.includes(p));
+const catalog = [...additionalProjects, ...existingProjects];
+const findProject = (slug: string): Project => {
+  const project = catalog.find((candidate) => candidate.slug === slug);
+  if (!project) throw new Error(`Unknown portfolio project: ${slug}`);
+  return project;
+};
+
+export const showcaseProjects = [
+  "seitrace",
+  "heavendash",
+  "claimhq",
+  "0dte",
+].map(findProject);
 export const projects: Project[] = [
-  ...additionalProjects,
-  ...leadProjects,
-  ...otherProjects,
+  ...showcaseProjects,
+  ...[
+    "brrr",
+    "captable",
+    "pit",
+    "detourist",
+    "pocket",
+    "launchreceipt",
+    "schlong",
+  ].map(findProject),
 ];
 export const allProjects: Project[] = [...projects, ...collaborations];
 export const projectNumber = (index: number) =>

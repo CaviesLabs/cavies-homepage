@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowDown,
-  ArrowDownRight,
   ArrowUpRight,
   Braces,
   Layers2,
@@ -13,6 +12,7 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectIndex } from "@/components/project-index";
+import { ProjectShowcase } from "@/components/project-showcase";
 import { Pricing } from "@/components/pricing";
 import { ReflectiveMark } from "@/components/reflective-mark";
 import {
@@ -20,6 +20,7 @@ import {
   projects,
   collaborations,
   allProjects,
+  showcaseProjects,
 } from "@/lib/projects";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
@@ -140,82 +141,27 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="showreel" aria-label="Featured product interfaces">
-          <div className="showreel-grid" aria-hidden="true" />
-          <span className="reel-note">A FEW THINGS WE’VE DESIGNED & BUILT</span>
-          <Link
-            href="/work/schlong"
-            className="reel-panel reel-left"
-            aria-label="Explore the Schlong project"
-          >
-            <div className="browser-bar">
-              <i />
-              <i />
-              <i />
-              <span>Schlong — A world of its own</span>
-              <ArrowUpRight size={12} />
-            </div>
-            <Image
-              src="/work/schlong.webp"
-              width={1600}
-              height={1000}
-              alt="Schlong pixel-art game, shown on its public testnet"
-              priority
-              sizes="(max-width: 700px) 60vw, 42vw"
-            />
-          </Link>
-          <Link
-            href="/work/heavendash"
-            className="reel-panel reel-center"
-            aria-label="Explore the HeavenDash project"
-          >
-            <div className="browser-bar">
-              <i />
-              <i />
-              <i />
-              <span>HeavenDash — A clearer view of the data</span>
-              <ArrowUpRight size={12} />
-            </div>
-            <Image
-              src="/work/heavendash.webp"
-              width={1600}
-              height={1000}
-              alt="HeavenDash rankings and fee dashboard with labeled sample data"
-              priority
-              sizes="(max-width: 700px) 82vw, 51vw"
-            />
-          </Link>
-          <Link
-            href="/work/claimhq"
-            className="reel-panel reel-right"
-            aria-label="Explore the ClaimHQ project"
-          >
-            <div className="browser-bar">
-              <i />
-              <i />
-              <i />
-              <span>ClaimHQ — From eligible to claimed</span>
-              <ArrowUpRight size={12} />
-            </div>
-            <Image
-              src="/work/claimhq.webp"
-              width={1440}
-              height={870}
-              alt="ClaimHQ airdrop and reward-distribution frontend"
-              priority
-              sizes="(max-width: 700px) 60vw, 42vw"
-            />
-          </Link>
-          <span className="reel-sticker">
-            Made to work.
-            <br />
-            <em>Built to feel.</em>
-            <ArrowDownRight size={24} />
-          </span>
-          <span className="reel-bottom">
-            PRODUCT THINKING. PIXEL-LEVEL CARE.
-          </span>
-        </section>
+        <ProjectShowcase
+          projects={showcaseProjects.map(
+            ({
+              slug,
+              name,
+              category,
+              image,
+              imageWidth,
+              imageHeight,
+              imageNote,
+            }) => ({
+              slug,
+              name,
+              category,
+              image,
+              imageWidth,
+              imageHeight,
+              imageNote,
+            }),
+          )}
+        />
         <section
           className="collaborators section-shell"
           aria-label="Past advisory and collaboration work"
