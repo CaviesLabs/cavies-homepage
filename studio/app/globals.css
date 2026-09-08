@@ -204,12 +204,6 @@ svg {
 .desktop-nav a:hover {
   color: #ad4b66;
 }
-.desktop-nav a span {
-  font-size: 10px;
-  position: absolute;
-  right: -14px;
-  top: -4px;
-}
 .menu-toggle {
   display: none;
   border: 0;
@@ -504,11 +498,6 @@ details[open] .faq-plus:after {
   display: flex;
   gap: 24px;
   align-items: center;
-}
-.footer-bottom a:not(.wordmark) {
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 .case-header {
   padding-block: 50px 60px;

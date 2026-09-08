@@ -30,13 +30,6 @@ export function Footer() {
           </span>
         </Link>
         <div>
-          <a
-            href="https://github.com/CaviesLabs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub <ArrowUpRight size={13} />
-          </a>
           <span>© {new Date().getFullYear()} Cavies</span>
         </div>
       </div>
