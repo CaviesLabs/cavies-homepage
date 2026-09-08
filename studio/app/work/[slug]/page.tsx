@@ -44,7 +44,7 @@ export default async function ProjectPage({
   const isCollaboration = project.kind === "collaboration";
   return (
     <>
-      <Navigation workCount={allProjects.length} />
+      <Navigation />
       <main id="main">
         <section className="case-header section-shell">
           <Link href="/#work" className="case-back">

@@ -12,7 +12,6 @@ import { ReflectiveMark } from "@/components/reflective-mark";
 import {
   projects,
   collaborations,
-  allProjects,
   showcaseProjects,
 } from "@/lib/projects";
 
@@ -36,7 +35,7 @@ const faqs = [
 export default function Home() {
   return (
     <>
-      <Navigation workCount={allProjects.length} />
+      <Navigation />
       <main id="main">
         <section className="hero section-shell" aria-labelledby="hero-title">
           <div className="hero-topline">
