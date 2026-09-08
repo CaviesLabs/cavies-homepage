@@ -1,4 +1,10 @@
-## Getting Started
+# Cavies website
+
+The new Cavies Studio website lives in [`studio/`](studio/README.md), with a dedicated Vercel project at [cavies-studio.vercel.app](https://cavies-studio.vercel.app).
+
+The original Cavies Labs app below is retained during the transition. See the Studio README for current development, validation, content, and deployment instructions.
+
+## Original site — getting started
 
 First, run the development server:
 
