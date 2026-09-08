@@ -5,7 +5,7 @@ on:
       - 'studio/**'
       - '.github/workflows/studio-check.yml'
   push:
-    branches: ['codex/cavies-studio']
+    branches: ['main', 'codex/cavies-studio']
     paths:
       - 'studio/**'
       - '.github/workflows/studio-check.yml'

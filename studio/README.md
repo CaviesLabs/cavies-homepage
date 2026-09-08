@@ -1,6 +1,6 @@
 # Cavies Studio
 
-The new Cavies product design and frontend engineering website. This app lives in `studio/` so the original Cavies Labs website and its deployment remain available during review.
+The Cavies product design and frontend engineering website. This app lives in `studio/`; the original Cavies Labs website remains at the repository root as a legacy reference.
 
 ## Development
 
@@ -32,16 +32,12 @@ Project and advisory work are attributed separately. No funding totals, impact m
 
 ## Deployment
 
-The Vercel project is `cavies/cavies-studio`. Deploy this directory with the Vercel CLI:
+The Vercel project is `cavies/cavies-studio`, connected to `CaviesLabs/cavies-homepage` on GitHub. Its Root Directory is `studio`, and its production branch is `main`. Keep these project settings in Vercel: building the repository root would build the separate legacy site.
 
-```sh
-cd studio
-vercel link --project cavies-studio --scope cavies
-vercel deploy --scope cavies
-```
+Push changes through a pull request. Vercel creates preview deployments for feature branches and production deployments when changes merge into `main`. The `Check Cavies Studio` GitHub workflow runs lint and a production build for relevant pull requests and pushes to `main` or `codex/cavies-studio`.
 
-Use `--prod` only when publishing the approved version. Before enabling Git-based deployments, select `studio` as the Vercel Root Directory and merge the app into the connected production branch. The old repository root app is a separate legacy site.
+The production domain and canonical URL are `https://cavies.xyz`; `https://cavies-studio.vercel.app` also serves the Vercel project. DNS is managed in Cloudflare. Manage domain attachments in Vercel, use the DNS targets shown in the Vercel domain settings, and preserve existing mail and unrelated DNS records when changing web traffic routing.
 
-The page metadata and sitemap use the intended canonical domain, `https://cavies.xyz`. Domain attachment and DNS cutover are separate from the review deployment. Preserve any existing mail records when configuring the domain.
+The legacy GitHub Pages workflow is manual-only and is retained as a historical rollback reference. Its deprecated Actions must be updated before reuse. Production releases use Vercel; the old root app and legacy hosting configuration do not deploy the Studio app.
 
 No application environment variables, database, analytics, tracking cookies, or contact-form backend are required. Inquiry links open the visitor's mail application or Telegram.
