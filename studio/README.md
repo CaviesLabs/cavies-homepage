@@ -39,10 +39,10 @@ Project and advisory work are attributed separately. No funding totals, impact m
 
 The Vercel project is `cavies/cavies-studio`, connected to `CaviesLabs/cavies-homepage` on GitHub. Its Root Directory is `studio`, and its production branch is `main`. Keep these project settings in Vercel: building the repository root would build the separate legacy site.
 
-Push changes through a pull request. Vercel creates preview deployments for feature branches and production deployments when changes merge into `main`. The `Check Cavies Studio` GitHub workflow runs lint and a production build for relevant pull requests and pushes to `main` or `codex/cavies-studio`.
+Push changes through a pull request. Vercel creates preview deployments for feature branches and production deployments when changes merge into `main`. Run `npm run lint` and `npm run build` locally before merging. GitHub Actions is disabled for this repository, and no Actions workflows are maintained.
 
 The production domain and canonical URL are `https://cavies.xyz`; `https://cavies-studio.vercel.app` also serves the Vercel project. DNS is managed in Cloudflare. Manage domain attachments in Vercel, use the DNS targets shown in the Vercel domain settings, and preserve existing mail and unrelated DNS records when changing web traffic routing.
 
-The legacy GitHub Pages workflow is manual-only and is retained as a historical rollback reference. Its deprecated Actions must be updated before reuse. Production releases use Vercel; the old root app and legacy hosting configuration do not deploy the Studio app.
+Production releases use Vercel. The old root app and legacy hosting configuration do not deploy the Studio app; the former GitHub Pages workflow is available only in Git history.
 
 No application environment variables, database, analytics, tracking cookies, or contact-form backend are required. Inquiry links open the visitor's mail application or Telegram.
