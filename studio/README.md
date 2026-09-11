@@ -27,6 +27,7 @@ npm run build
 - `app/globals.css` owns the responsive visual system.
 - `components/project-showcase.tsx` displays the four curated projects from `showcaseProjects` as selectable, full-width screenshots. Keep Seitrace, HeavenDash, ClaimHQ, and 0DTE in this showcase; Schlong belongs only in the secondary portfolio list.
 - Portfolio screenshots preserve the entire captured view and original aspect ratio. Avoid cover cropping, overlapping panels, fixed-height clipping, or image tilt/zoom that hides UI. Case studies and the showcase provide links to full-resolution images.
+- `lib/project-galleries.ts` adds detail-page images to the existing project galleries. Prefer distinct product screens, complete workflow panels, and original artwork; keep sample, prototype, and current-site context labels.
 - `components/pricing.tsx` owns the public monthly plans: Design $7,500, Design engineering $15,000, and Security audit $15,000 (USD).
 - `components/reflective-mark.tsx` progressively enhances the hero with a reflective C. Its scene loads on demand, stops rendering when idle or offscreen, and uses a static fallback for reduced motion or unavailable WebGL. See `docs/hero-motion.md`.
 - `public/work/` contains optimized, locally hosted original artwork and product captures. See `docs/portfolio-sources.md` for provenance.

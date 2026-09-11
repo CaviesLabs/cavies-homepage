@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { allProjects, projectNumber } from "@/lib/projects";
+import { projectGalleries } from "@/lib/project-galleries";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 
@@ -42,6 +43,10 @@ export default async function ProjectPage({
   const project = allProjects[index];
   const nextProject = allProjects[(index + 1) % allProjects.length];
   const isCollaboration = project.kind === "collaboration";
+  const gallery = [
+    ...(project.gallery ?? []),
+    ...(projectGalleries[project.slug] ?? []),
+  ];
   return (
     <>
       <Navigation />
@@ -129,12 +134,12 @@ export default async function ProjectPage({
             </a>
           </p>
         )}
-        {project.gallery && (
+        {gallery.length > 0 && (
           <section
             className="case-gallery section-shell"
             aria-label="More interface details"
           >
-            {project.gallery.map((item) => (
+            {gallery.map((item) => (
               <figure
                 key={item.src}
                 className={
@@ -154,7 +159,7 @@ export default async function ProjectPage({
                     width={item.width ?? 1440}
                     height={item.height ?? 900}
                     sizes="90vw"
-                    alt={item.caption}
+                    alt={`${project.name} — ${item.caption}`}
                   />
                 </a>
                 <figcaption>
