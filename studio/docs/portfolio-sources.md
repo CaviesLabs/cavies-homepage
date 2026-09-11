@@ -1,6 +1,6 @@
 # Portfolio provenance
 
-Updated 9 September 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
+Updated 11 September 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
 
 | Project       | Source                                                   | Basis of presentation                                                                                                                                                                                                                                           |
 | ------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -24,6 +24,28 @@ Ancient8 and Solscan are owner-confirmed past product advisory and collaboration
 - Solscan: https://solscan.io/ — current public dashboard, captured 8 September 2026 without signing in.
 
 No fundraising attribution, growth metrics, customer testimonials, or endorsements are invented.
+
+## Expanded case-study galleries — 11 September 2026
+
+Additional images are registered in `lib/project-galleries.ts`. They supplement the original hero and gallery images without changing homepage selections. Each image retains its native aspect ratio and links to the full-resolution file. Narrow details show complete self-contained panels, not partial desktop screenshots.
+
+| Project | Additional visuals | Capture basis |
+| --- | --- | --- |
+| Seitrace | Block details, transaction details, API overview | Original `BlockDetails`, `TxDetails`, and `Insights` components rendered in the original app shell, with labeled local fixtures. The offline capture harness avoids the unavailable legacy route metadata service. Account-dependent API pricing was outside the captured overview. |
+| ClaimHQ | Feature illustration grid | Complete original marketing section rendered locally. |
+| HeavenDash | Creator leaderboard and creator portfolio | Original components with labeled synthetic creator and pool fixtures; no private account information. |
+| brrr | Single-recipient and batch-transfer setup | Complete original logged-out forms. No wallet connection, transfer, or transaction submitted. |
+| 0DTE | Round/settlement timeline and editorial interface | Original pre-launch frontend. Pending auction and empty account screens were omitted. |
+| Cap Table | Coinflip terminal and upgrade flow | Original pre-launch frontend with disconnected wallet. Unconfigured hiring screen was omitted. |
+| Schlong | Collectible artwork | Original `apps/web/public/dongle-assets/collection/11/item/5.png`. The public testnet is now unavailable; existing earlier testnet captures are retained. Repetitive room artwork and empty account views were omitted. |
+| Pit Finance | Product homepage, complete vault detail, strategy configuration panel | Public logged-out site at `pit.finance`, including the WETH vault and Core Mode configuration. The adjacent unavailable optimizer is outside the standalone panel capture. Values are point-in-time site content, not Cavies outcomes. |
+| Pocket | Product homepage, token-pair selection, daily scheduling | Original frontend rendered locally with labeled synthetic statistics and token fixtures because the public origin no longer resolves. No wallet, private history, or deposit flow was used. |
+| LaunchReceipt | Creator preflight and API reference | Original frontend rendered locally because the public deployment was paused. Preflight inputs are labeled examples and were not submitted. |
+| Detourist | Complete preference onboarding and value-score explanation | Public prototype and illustrative marketing example. Empty live deal feed was omitted. |
+| Ancient8 | App directory, ecosystem map, community section | Current public site; context for past advisory work only. Existing Chrome session retained the owner's prior terms acceptance. Community images do not imply Cavies attended those events. |
+| Solscan | Token leaderboard, token chart, DeFi analytics | Current public site; context for past advisory work only. All twenty displayed leaderboard rows and the complete selected chart are preserved. |
+
+Raw captures, exact routes, and per-image notes are stored in the local `research/screenshots/*-gallery-manifest.json` files outside the deployment. Original capture sources were inspected before WebP optimization. Shorter galleries are intentional when further available images are repetitive or incomplete.
 
 ## Removed examples
 
