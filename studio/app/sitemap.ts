@@ -1,11 +1,17 @@
 import type { MetadataRoute } from "next";
 import { allProjects } from "@/lib/projects";
+import { projectGalleries } from "@/lib/project-galleries";
+import { absoluteUrl } from "@/lib/seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: "https://cavies.xyz", priority: 1 },
+    { url: absoluteUrl("/") },
     ...allProjects.map((project) => ({
-      url: `https://cavies.xyz/work/${project.slug}`,
-      priority: 0.7,
+      url: absoluteUrl(`/work/${project.slug}`),
+      images: [
+        project.image,
+        ...(project.gallery ?? []).map((image) => image.src),
+        ...(projectGalleries[project.slug] ?? []).map((image) => image.src),
+      ].map(absoluteUrl),
     })),
   ];
 }

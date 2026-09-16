@@ -3,37 +3,34 @@ import { inquiryHref } from "@/lib/contact";
 
 const plans = [
   {
-    name: "Design",
-    price: "$7,500",
+    name: "Websites",
     icon: Layers2,
     description:
-      "Interface design and frontend UI code. Your team handles integration.",
+      "Business websites, landing pages, and redesigns, with a focused monthly scope.",
     items: [
-      "Responsive UI components",
-      "Interactive states & motion",
-      "Frontend code handoff",
+      "Responsive website design",
+      "Frontend build & launch",
+      "Ongoing improvements",
     ],
-    action: "Discuss design",
-    subject: "Design — $7,500/month",
+    action: "Discuss your website",
+    subject: "Website monthly plan",
   },
   {
-    name: "Design engineering",
-    price: "$15,000",
+    name: "Product interfaces",
     icon: Braces,
     description:
-      "Design and production frontend code, integrated into your app.",
+      "Design and frontend development for apps, dashboards, and customer portals.",
     items: [
-      "Everything in Design",
+      "UI design or full implementation",
       "API & authentication integration",
       "QA, refinement & release support",
     ],
     action: "Discuss your product",
-    subject: "Design engineering — $15,000/month",
+    subject: "Product interface monthly plan",
     featured: true,
   },
   {
     name: "Security audit",
-    price: "$15,000",
     icon: ShieldCheck,
     description:
       "Security review with prioritized findings and remediation guidance.",
@@ -43,7 +40,7 @@ const plans = [
       "Fix verification",
     ],
     action: "Scope an audit",
-    subject: "Security audit — $15,000/month",
+    subject: "Security audit monthly plan",
   },
 ];
 
@@ -72,8 +69,8 @@ export function Pricing() {
               <plan.icon size={26} strokeWidth={1.3} />
             </div>
             <div className="plan-price">
-              <span>{plan.price}</span>
-              <span>USD / month</span>
+              <span>Monthly</span>
+              <span>Tailored quote</span>
             </div>
             <p className="plan-description">{plan.description}</p>
             <span className="plan-divider" />
@@ -93,7 +90,7 @@ export function Pricing() {
         ))}
       </div>
       <div className="pricing-footnote">
-        <p>Scope and monthly capacity agreed before kickoff.</p>
+        <p>Scope, monthly fee, and delivery capacity agreed before kickoff.</p>
       </div>
     </section>
   );

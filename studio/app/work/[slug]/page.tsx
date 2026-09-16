@@ -7,6 +7,12 @@ import { allProjects, projectNumber } from "@/lib/projects";
 import { projectGalleries } from "@/lib/project-galleries";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { StructuredData } from "@/components/structured-data";
+import { caseStructuredData } from "@/lib/structured-data";
+import { projectSeo } from "@/lib/project-seo";
+import { pageMetadata } from "@/lib/seo";
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return allProjects.map(({ slug }) => ({ slug }));
@@ -18,18 +24,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = allProjects.find((p) => p.slug === slug);
-  return project
-    ? {
-        title: project.name,
-        description: project.description,
-        alternates: { canonical: `/work/${slug}` },
-        openGraph: {
-          title: `${project.name} — Cavies Studio`,
-          description: project.description,
-          images: [{ url: project.image }],
-        },
-      }
-    : {};
+  if (!project) notFound();
+  const seo = projectSeo[slug];
+  return pageMetadata({
+    title: seo?.title ?? `${project.name}: ${project.category}`,
+    description: seo?.description ?? project.description,
+    path: `/work/${slug}`,
+    image: {
+      url: project.image,
+      width: project.imageWidth ?? 1440,
+      height: project.imageHeight ?? 960,
+      alt: `${project.name} — ${project.imageNote}`,
+    },
+  });
 }
 
 export default async function ProjectPage({
@@ -49,6 +56,13 @@ export default async function ProjectPage({
   ];
   return (
     <>
+      <StructuredData
+        data={caseStructuredData(
+          project,
+          projectSeo[slug]?.description ?? project.description,
+          gallery,
+        )}
+      />
       <Navigation />
       <main id="main">
         <section className="case-header section-shell">

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Navigation } from "@/components/navigation";
@@ -9,15 +8,33 @@ import { ProjectIndex } from "@/components/project-index";
 import { ProjectShowcase } from "@/components/project-showcase";
 import { Pricing } from "@/components/pricing";
 import { ReflectiveMark } from "@/components/reflective-mark";
+import { StructuredData } from "@/components/structured-data";
+import { homeStructuredData } from "@/lib/structured-data";
+import { homeDescription, homeTitle, pageMetadata } from "@/lib/seo";
 import {
   projects,
   collaborations,
+  allProjects,
   showcaseProjects,
 } from "@/lib/projects";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export const metadata = {
+  ...pageMetadata({
+    title: homeTitle,
+    description: homeDescription,
+    path: "/",
+    isHome: true,
+  }),
+  verification: {
+    google: "z5ygDnWRxRBTzWfwCkcrMsUliX8UO6nf_04bVVOgJlQ",
+  },
+};
 
 const faqs = [
+  [
+    "Can you work with a smaller budget?",
+    "We can scope a focused website, landing page, or set of improvements. Share your priorities and budget so we can suggest a manageable monthly scope.",
+  ],
   [
     "Can you work with our existing product?",
     "Yes. We can refine your current interface or build a new one in your existing codebase.",
@@ -35,6 +52,7 @@ const faqs = [
 export default function Home() {
   return (
     <>
+      <StructuredData data={homeStructuredData(allProjects)} />
       <Navigation />
       <main id="main">
         <section className="hero section-shell" aria-labelledby="hero-title">
@@ -46,12 +64,13 @@ export default function Home() {
           <div className="hero-main">
             <div className="hero-copy">
               <h1 id="hero-title">
-                Ambitious products.
+                Website design.
                 <br />
-                <em>Exceptional interfaces.</em>
+                <em>Frontend engineering.</em>
               </h1>
               <p className="hero-intro">
-                Product design, frontend code, and integration for startups.
+                Websites and product interfaces for startups and businesses in
+                Australia and worldwide.
               </p>
               <div className="hero-actions">
                 <a className="text-link" href="#work">
@@ -61,7 +80,7 @@ export default function Home() {
                   Explore our work
                 </a>
                 <a className="hero-pricing-link" href="#pricing">
-                  Plans from $7,500 / month <ArrowUpRight size={15} />
+                  Explore monthly plans <ArrowUpRight size={15} />
                 </a>
               </div>
             </div>

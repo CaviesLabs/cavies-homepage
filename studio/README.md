@@ -28,7 +28,7 @@ npm run build
 - `components/project-showcase.tsx` displays the four curated projects from `showcaseProjects` as selectable, full-width screenshots. Keep Seitrace, HeavenDash, ClaimHQ, and 0DTE in this showcase; Schlong belongs only in the secondary portfolio list.
 - Portfolio screenshots preserve the entire captured view and original aspect ratio. Avoid cover cropping, overlapping panels, fixed-height clipping, or image tilt/zoom that hides UI. Case studies and the showcase provide links to full-resolution images.
 - `lib/project-galleries.ts` adds detail-page images to the existing project galleries. Prefer distinct product screens, complete workflow panels, and original artwork; keep sample, prototype, and current-site context labels.
-- `components/pricing.tsx` owns the public monthly plans: Design $7,500, Design engineering $15,000, and Security audit $15,000 (USD).
+- `components/pricing.tsx` owns the monthly plans: Websites, Product interfaces, and Security audit. Each is quoted to an agreed scope and delivery capacity; no fixed public rate or unverified case-study price is advertised.
 - `components/reflective-mark.tsx` progressively enhances the hero with a reflective C. Its scene loads on demand, stops rendering when idle or offscreen, and uses a static fallback for reduced motion or unavailable WebGL. See `docs/hero-motion.md`.
 - `public/work/` contains optimized, locally hosted original artwork and product captures. See `docs/portfolio-sources.md` for provenance.
 - `lib/contact.ts` is the single source for the contact address and email links.
@@ -42,8 +42,12 @@ The Vercel project is `cavies/cavies-studio`, connected to `CaviesLabs/cavies-ho
 
 Push changes through a pull request. Vercel creates preview deployments for feature branches and production deployments when changes merge into `main`. Run `npm run lint` and `npm run build` locally before merging. GitHub Actions is disabled for this repository, and no Actions workflows are maintained.
 
-The production domain and canonical URL are `https://cavies.xyz`; `https://cavies-studio.vercel.app` also serves the Vercel project. DNS is managed in Cloudflare. Manage domain attachments in Vercel, use the DNS targets shown in the Vercel domain settings, and preserve existing mail and unrelated DNS records when changing web traffic routing.
+The production domain and canonical URL are `https://cavies.xyz`. The `www` hostname and `cavies-studio.vercel.app` redirect permanently to the canonical domain, preserving paths and queries. Preview deployments remain available for review and are marked noindex. DNS is managed in Cloudflare. Preserve existing mail and unrelated DNS records when changing web traffic routing.
 
 Production releases use Vercel. The old root app and legacy hosting configuration do not deploy the Studio app; the former GitHub Pages workflow is available only in Git history.
 
 No application environment variables, database, analytics, tracking cookies, or contact-form backend are required. Inquiry links open the visitor's mail application or Telegram.
+
+## Search metadata
+
+`lib/seo.ts` owns the canonical origin, company profile, homepage metadata, and shared social metadata. `lib/project-seo.ts` provides a distinct title and description for each case study. `lib/structured-data.ts` describes the company, website, portfolio, and case-study breadcrumbs; it preserves the distinction between product work and past advisory relationships. See `docs/seo.md` for indexing and maintenance notes.
