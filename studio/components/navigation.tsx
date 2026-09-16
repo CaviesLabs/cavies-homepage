@@ -33,7 +33,7 @@ export function Navigation() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/#work">Work</Link>
-          <Link href="/#pricing">Pricing</Link>
+          <Link href="/#pricing">Plans</Link>
         </nav>
         <a href={emailHref} className="button button-small header-contact">
           Email us <ArrowUpRight size={17} />
@@ -57,7 +57,7 @@ export function Navigation() {
               Work <ArrowUpRight />
             </Link>
             <Link onClick={() => setOpen(false)} href="/#pricing">
-              Pricing <ArrowUpRight />
+              Plans <ArrowUpRight />
             </Link>
             <a href={emailHref}>
               Email us <ArrowUpRight />
