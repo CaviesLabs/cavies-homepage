@@ -25,7 +25,7 @@ npm run build
 - `lib/projects.ts` and `lib/additional-projects.ts` own the portfolio descriptions, screenshots, galleries, collaboration credits, and ordering. Counts and case-study navigation are derived from those collections.
 - `app/page.tsx` owns the homepage and concise FAQ.
 - `app/globals.css` owns the responsive visual system.
-- `components/project-showcase.tsx` displays the four curated projects from `showcaseProjects` as selectable, full-width screenshots. Keep Seitrace, HeavenDash, ClaimHQ, and 0DTE in this showcase; Schlong belongs only in the secondary portfolio list.
+- `components/project-showcase.tsx` displays the four curated projects from `showcaseProjects` as selectable, full-width screenshots: Seitrace, HeavenDash, Beigman Engineering, and 0DTE. Beigman is third; ClaimHQ remains in the wider portfolio. Schlong belongs only in the secondary portfolio list.
 - Portfolio screenshots preserve the entire captured view and original aspect ratio. Avoid cover cropping, overlapping panels, fixed-height clipping, or image tilt/zoom that hides UI. Case studies and the showcase provide links to full-resolution images.
 - `lib/project-galleries.ts` adds detail-page images to the existing project galleries. Prefer distinct product screens, complete workflow panels, and original artwork; keep sample, prototype, and current-site context labels.
 - `components/pricing.tsx` owns the monthly plans: Websites, Product interfaces, and Security audit. Each is quoted to an agreed scope and delivery capacity; no fixed public rate or unverified case-study price is advertised.

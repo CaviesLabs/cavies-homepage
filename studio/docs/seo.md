@@ -6,9 +6,9 @@ The primary positioning is website design and frontend engineering for startups 
 
 - Canonicals, Open Graph URLs, and the sitemap use `https://cavies.xyz`.
 - `www.cavies.xyz` and the stable production Vercel alias redirect with HTTP 308. Preview URLs remain usable and have noindex metadata.
-- All 14 public pages have unique search titles/descriptions and matching Open Graph/Twitter metadata. The homepage sharing image is `public/brand/social-card.png`; case studies use their own uncropped source images.
+- All public pages have unique search titles/descriptions and matching Open Graph/Twitter metadata. The homepage sharing image is `public/brand/social-card.png`; case studies use their own uncropped source images.
 - Organization and WebSite JSON-LD identify Cavies Studio, its logo, contact address, and owner-confirmed LinkedIn profile. Case pages provide BreadcrumbList and WebPage data. Advisory screenshots do not assert Cavies designed the current Ancient8 or Solscan websites.
-- The sitemap is generated from the portfolio data and includes all 51 case-study images. No automatically refreshed last-modified timestamps are invented.
+- The sitemap is generated from the portfolio data and includes every case-study hero and gallery image. No automatically refreshed last-modified timestamps are invented.
 - Missing routes return real 404 responses with noindex, without a competing global index directive.
 - Structured data is serialized with HTML-safe escaping. No fabricated reviews, ratings, funding totals, addresses, or claims of rich-result eligibility are added.
 

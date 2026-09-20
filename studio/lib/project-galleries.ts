@@ -3,6 +3,46 @@ import type { Project } from "./projects";
 type GalleryImage = NonNullable<Project["gallery"]>[number];
 
 export const projectGalleries: Record<string, GalleryImage[]> = {
+  "beigman-engineering": [
+    {
+      src: "/work/beigman-engineering-projects.webp",
+      caption: "Project portfolio",
+      width: 1600,
+      height: 1320,
+    },
+    {
+      src: "/work/beigman-engineering-roadmap.webp",
+      caption: "Interactive engineering roadmap",
+      width: 1600,
+      height: 1320,
+    },
+    {
+      src: "/work/beigman-engineering-solutions.webp",
+      caption: "Performance-solutions explorer",
+      width: 1600,
+      height: 1320,
+    },
+  ],
+  "reply-guy": [
+    {
+      src: "/work/replyguy-stats.webp",
+      caption: "Activity analytics · Sample data",
+      width: 1585,
+      height: 1293,
+    },
+    {
+      src: "/work/replyguy-leaderboard.webp",
+      caption: "Community leaderboard · Sample data",
+      width: 1585,
+      height: 1207,
+    },
+    {
+      src: "/work/replyguy-cash-flow.webp",
+      caption: "Reward-flow explanation · Sample data",
+      width: 1600,
+      height: 1140,
+    },
+  ],
   seitrace: [
     {
       src: "/work/seitrace-gallery-block.webp",
