@@ -2,6 +2,55 @@ import type { Project } from "./projects";
 
 export const additionalProjects: Project[] = [
   {
+    slug: "beigman-engineering",
+    name: "Beigman Engineering",
+    category: "Business website",
+    headline: "Technical expertise, clearly presented.",
+    description:
+      "A service-led website for a Melbourne fire engineering consultancy.",
+    image: "/work/beigman-engineering-home.webp",
+    imageWidth: 1585,
+    imageHeight: 1050,
+    color: "#e9e1d6",
+    tags: ["Website design", "Frontend development"],
+    role: "Website design & frontend development",
+    context:
+      "Beigman Engineering helps architects, developers, and building surveyors understand fire engineering requirements. Its website brings services, project experience, and enquiries together.",
+    approach:
+      "Architectural imagery, interactive service diagrams, and a sector-based project browser make technical expertise easier to explore. A visual roadmap explains the process from concept to construction.",
+    details: [
+      "Service and project discovery",
+      "Interactive roadmap and diagrams",
+      "Responsive website implementation",
+    ],
+    url: "https://beigman.com.au/",
+    imageNote: "Business website",
+  },
+  {
+    slug: "reply-guy",
+    name: "Reply Guy",
+    category: "Community rewards",
+    headline: "A community around conversation.",
+    description:
+      "Reply rounds, community rankings, and reward reporting in one interface.",
+    image: "/work/replyguy-home.webp",
+    imageWidth: 1585,
+    imageHeight: 849,
+    color: "#dfeaa9",
+    tags: ["Product interface", "Data visualization"],
+    role: "From our product portfolio",
+    context:
+      "Reply Guy connects community submissions, voting, and reward reporting. These captures preserve the original product interface from its repository history.",
+    approach:
+      "A playful identity connects the arena, community leaderboard, activity charts, and reward-flow explanation. The original Reply Guy frontend is shown here with labeled sample data.",
+    details: [
+      "Round discovery and participation",
+      "Leaderboards and activity reporting",
+      "Reward-flow visualization",
+    ],
+    imageNote: "Original interface · Sample data",
+  },
+  {
     slug: "claimhq",
     name: "ClaimHQ",
     category: "Airdrop & rewards",

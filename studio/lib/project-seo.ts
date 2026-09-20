@@ -4,6 +4,16 @@ export type ProjectSeoMetadata = {
 };
 
 export const projectSeo: Record<string, ProjectSeoMetadata> = {
+  "beigman-engineering": {
+    title: "Beigman Engineering: Website Design",
+    description:
+      "Explore Beigman Engineering's business website by Cavies, with interactive service diagrams, project browsing, and a visual engineering roadmap.",
+  },
+  "reply-guy": {
+    title: "Reply Guy: Community Rewards Interface",
+    description:
+      "Explore Reply Guy's original community rewards interface, including activity charts, rankings, and reward-flow visuals with labeled sample data.",
+  },
   seitrace: {
     title: "Seitrace: Blockchain Explorer Design",
     description:

@@ -1,6 +1,6 @@
 # Portfolio provenance
 
-Updated 11 September 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
+Updated 21 September 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
 
 | Project       | Source                                                   | Basis of presentation                                                                                                                                                                                                                                           |
 | ------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -15,6 +15,13 @@ Updated 11 September 2026 from the repositories and websites the owner authorize
 | Pocket        | CaviesLabs/hamsterpocket-frontend                        | Recurring purchase/strategy frontend. Original banner_seo.png product artwork, labeled as artwork.                                                                                                                                                              |
 | LaunchReceipt | meowttt7/launchreceipt; https://launchreceipt.vercel.app | Public scanner/report captures. Read-only research interface; no assertion of complete historical data coverage.                                                                                                                                                |
 | Detourist     | meowttt7/Detourist; https://detourist.vercel.app         | Public launch and sample-deal captures. Sample offers are labeled.                                                                                                                                                                                              |
+
+## Beigman Engineering and Reply Guy — 21 September 2026
+
+- **Beigman Engineering:** owner-requested website case study, captured from `https://beigman.com.au/`. Four full-width views show the homepage, project browser, engineering roadmap, and performance-solutions explorer. Motion was temporarily reduced to capture settled interface states. Existing site copy, architectural imagery, and project attributions are source content, not Cavies engineering credentials or independently claimed project outcomes. No enquiry was submitted.
+- **Reply Guy:** original frontend from `meowttt7/replyguy` at commit `dd820f19520727771505949fddb59af6ce45433f`, before the later REPLY rebrand. The historical version matches the owner's requested Reply Guy identity and former `replyguy.fun` website. Four local captures show the landing hero, analytics, leaderboard, and reward-flow diagram. All activity, profiles, entries, and reward figures are synthetic and labeled as sample data in both screenshots and captions. No production credentials, accounts, wallets, or data services were used. Private source code and local capture fixtures are outside the published site.
+
+Raw captures and dimensions are recorded in the local `research/screenshots/beigman-replyguy-manifest.json` file. Beigman replaces ClaimHQ in the third showcase position; ClaimHQ is retained as a case study.
 
 ## Past advisory and collaboration
 
