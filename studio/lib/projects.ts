@@ -231,13 +231,13 @@ export const showcaseProjects = [
 export const projects: Project[] = [
   ...showcaseProjects,
   ...[
-    "claimhq",
-    "reply-guy",
-    "brrr",
-    "captable",
     "chat",
     "chirp",
     "pit",
+    "brrr",
+    "claimhq",
+    "reply-guy",
+    "captable",
     "detourist",
     "pocket",
     "launchreceipt",
