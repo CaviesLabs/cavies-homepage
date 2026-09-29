@@ -2,6 +2,56 @@ import type { Project } from "./projects";
 
 export const additionalProjects: Project[] = [
   {
+    slug: "chat",
+    name: "Chat",
+    category: "Creator platform",
+    headline: "Creator support, clearly connected.",
+    description:
+      "A creator-support platform connecting token launches with Kick and Twitch streamers.",
+    image: "/work/chat-flow.webp",
+    imageWidth: 1600,
+    imageHeight: 900,
+    color: "#c3f75a",
+    tags: ["Product interface", "Brand identity"],
+    role: "From our product portfolio",
+    context:
+      "Chat, at usechat.live, brings token creation and streamer support into a shared product experience.",
+    approach:
+      "Chat pairs a bold identity with a guided token-launch form, an animated fee-flow explanation, and concise product documentation. These original interfaces are shown as local previews with live data disconnected.",
+    details: [
+      "Guided token-launch interface",
+      "Creator-fee flow visualization",
+      "Product branding and documentation",
+    ],
+    url: "https://usechat.live/",
+    imageNote: "Local interface preview · Live data disconnected",
+  },
+  {
+    slug: "chirp",
+    name: "Chirp",
+    category: "Payments app",
+    headline: "A payment starts with a little sound.",
+    description:
+      "A payment interface for sharing requests and unsigned drafts between nearby phones by sound.",
+    image: "/work/chirp-home.webp",
+    imageWidth: 1585,
+    imageHeight: 995,
+    color: "#e9e5d9",
+    tags: ["Product design", "Responsive frontend"],
+    role: "From our product portfolio",
+    context:
+      "Chirp, at justchirp.xyz, brings sound-based payment requests and offline drafts into a mobile-first Solana payment experience.",
+    approach:
+      "A restrained identity and clear Send and Receive flows make an unfamiliar interaction easy to follow. The illustrated walkthrough explains each step, including the sender reconnecting and approving before an offline draft becomes a payment.",
+    details: [
+      "Send and Receive payment flows",
+      "Mobile-first app navigation",
+      "Interactive onboarding walkthrough",
+    ],
+    url: "https://justchirp.xyz/",
+    imageNote: "Product website · Signed-out view",
+  },
+  {
     slug: "beigman-engineering",
     name: "Beigman Engineering",
     category: "Business website",

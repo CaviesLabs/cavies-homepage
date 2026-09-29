@@ -1,6 +1,6 @@
 # Portfolio provenance
 
-Updated 21 September 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
+Updated 29 September 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
 
 | Project       | Source                                                   | Basis of presentation                                                                                                                                                                                                                                           |
 | ------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -22,6 +22,13 @@ Updated 21 September 2026 from the repositories and websites the owner authorize
 - **Reply Guy:** original frontend from `meowttt7/replyguy` at commit `dd820f19520727771505949fddb59af6ce45433f`, before the later REPLY rebrand. The historical version matches the owner's requested Reply Guy identity and former `replyguy.fun` website. Four local captures show the landing hero, analytics, leaderboard, and reward-flow diagram. All activity, profiles, entries, and reward figures are synthetic and labeled as sample data in both screenshots and captions. No production credentials, accounts, wallets, or data services were used. Private source code and local capture fixtures are outside the published site.
 
 Raw captures and dimensions are recorded in the local `research/screenshots/beigman-replyguy-manifest.json` file. Beigman replaces ClaimHQ in the third showcase position; ClaimHQ is retained as a case study.
+
+## Chat and Chirp — 29 September 2026
+
+- **Chat (`usechat.live`):** original frontend from `meowttt7/tipkick` at commit `02dd205444e539faa7b0b93bfc5885a8ad2b43a3`. The public Vercel deployment was paused at capture time. The fee-flow explanation, complete token-launch form, and documentation were rendered locally without production credentials. A temporary capture adapter leaves resource data unpopulated and labels the screenshots “Portfolio preview · Live data disconnected.” No tokens, payments, streamer profiles, or metrics were fabricated. The fourth image is the repository's original `public/brands/chat-banner-2026.jpg` artwork. No transaction, account connection, or live service change was made.
+- **Chirp (`justchirp.xyz`):** four captures from the public website show its landing page, illustrated offline-payment walkthrough, app home, and mobile Receive form. All app views are signed out; balances remain unpopulated. The walkthrough is the site's own labeled illustration, not a completed payment. No account, microphone, wallet, or payment action was used. Repository `meowttt7/chirp` at commit `18ff59e4575a525658d22a33dbde5863f718f7dc` was read only to verify product behavior and source attribution.
+
+Both additions retain the existing four-project showcase and appear in the wider portfolio. Screenshots preserve complete viewport width; longer forms and walkthroughs include the complete relevant interface. Raw sources, capture dimensions, and the local-only Chat adapter are recorded under `research/screenshots/`, outside deployment inputs.
 
 ## Past advisory and collaboration
 

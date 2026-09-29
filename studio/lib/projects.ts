@@ -235,6 +235,8 @@ export const projects: Project[] = [
     "reply-guy",
     "brrr",
     "captable",
+    "chat",
+    "chirp",
     "pit",
     "detourist",
     "pocket",

@@ -4,6 +4,16 @@ export type ProjectSeoMetadata = {
 };
 
 export const projectSeo: Record<string, ProjectSeoMetadata> = {
+  chat: {
+    title: "Chat: Creator Platform Interface Design",
+    description:
+      "Explore Chat (usechat.live) from the Cavies portfolio: token-launch interfaces, creator-fee flow visualization, product documentation, and branding.",
+  },
+  chirp: {
+    title: "Chirp: Payments App Interface Design",
+    description:
+      "Explore Chirp (justchirp.xyz) from the Cavies portfolio: sound-based payment flows, mobile app design, and an illustrated onboarding experience.",
+  },
   "beigman-engineering": {
     title: "Beigman Engineering: Website Design",
     description:
