@@ -3,6 +3,46 @@ import type { Project } from "./projects";
 type GalleryImage = NonNullable<Project["gallery"]>[number];
 
 export const projectGalleries: Record<string, GalleryImage[]> = {
+  chat: [
+    {
+      src: "/work/chat-launch.webp",
+      caption: "Token-launch form · Local preview, live data disconnected",
+      width: 1585,
+      height: 1469,
+    },
+    {
+      src: "/work/chat-docs.webp",
+      caption: "Product documentation · Local preview",
+      width: 1600,
+      height: 1520,
+    },
+    {
+      src: "/work/chat-brand.webp",
+      caption: "Original brand artwork",
+      width: 1280,
+      height: 427,
+    },
+  ],
+  chirp: [
+    {
+      src: "/work/chirp-walkthrough.webp",
+      caption: "Interactive payment walkthrough · Illustration",
+      width: 1585,
+      height: 1250,
+    },
+    {
+      src: "/work/chirp-app.webp",
+      caption: "App home and offline-mode entry · Signed-out view",
+      width: 1600,
+      height: 1230,
+    },
+    {
+      src: "/work/chirp-receive.webp",
+      caption: "Mobile payment-request form · Signed-out view",
+      width: 860,
+      height: 2300,
+    },
+  ],
   "beigman-engineering": [
     {
       src: "/work/beigman-engineering-projects.webp",
