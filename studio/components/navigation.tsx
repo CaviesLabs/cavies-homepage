@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { emailHref } from "@/lib/contact";
+import { businessWebsitesHref, contactHref } from "@/lib/contact";
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
@@ -32,12 +32,13 @@ export function Navigation() {
           </span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
+          <Link href={businessWebsitesHref}>Websites</Link>
           <Link href="/#work">Work</Link>
           <Link href="/#pricing">Plans</Link>
         </nav>
-        <a href={emailHref} className="button button-small header-contact">
-          Email us <ArrowUpRight size={17} />
-        </a>
+        <Link href={contactHref} className="button button-small header-contact">
+          Let’s talk <ArrowUpRight size={17} />
+        </Link>
         <button
           className="menu-toggle"
           aria-label={open ? "Close navigation" : "Open navigation"}
@@ -52,16 +53,27 @@ export function Navigation() {
             id="mobile-nav"
             className="mobile-nav"
             aria-label="Mobile navigation"
+            onKeyDown={(event) => {
+              if (event.key === "Escape") {
+                setOpen(false);
+                document
+                  .querySelector<HTMLButtonElement>(".menu-toggle")
+                  ?.focus();
+              }
+            }}
           >
+            <Link onClick={() => setOpen(false)} href={businessWebsitesHref}>
+              Websites <ArrowUpRight />
+            </Link>
             <Link onClick={() => setOpen(false)} href="/#work">
               Work <ArrowUpRight />
             </Link>
             <Link onClick={() => setOpen(false)} href="/#pricing">
               Plans <ArrowUpRight />
             </Link>
-            <a href={emailHref}>
-              Email us <ArrowUpRight />
-            </a>
+            <Link onClick={() => setOpen(false)} href={contactHref}>
+              Let’s talk <ArrowUpRight />
+            </Link>
           </nav>
         )}
       </header>

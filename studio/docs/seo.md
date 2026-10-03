@@ -20,6 +20,13 @@ After significant page changes, inspect the homepage in Search Console and reque
 
 When adding a project, update `lib/project-seo.ts` alongside its content. The sitemap and galleries derive from existing project data. Keep service prices, public copy, and metadata consistent. Avoid keyword stuffing or adding thin pages solely to target search terms.
 
+## Business website enquiry path
+
+- `/services/business-websites` is the substantive service page for businesses and service providers in Australia and worldwide. It has its own canonical and social metadata, scope, process, FAQ, and links to the Beigman Engineering case and contact page.
+- The homepage separates business websites from startup/product interface work. Seitrace remains product-interface proof; the Beigman case describes website design/build, ongoing maintenance and SEO support without unverified rankings or business results.
+- `/contact` prepares an email draft locally and offers copy fallback. It does not send messages or store enquiry text. Do not describe this as a working server-delivered contact form.
+- Both new public routes appear in the sitemap. Preserve preview noindex, homepage Google verification, existing portfolio URLs/images, redirects, real 404s and structured-data escaping.
+
 ## References
 
 - [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)

@@ -1132,6 +1132,54 @@ details[open] .faq-plus:after {
   isolation: isolate;
   margin-right: -20px;
 }
+.service-pathways {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  padding-block: 28px 62px;
+}
+.service-pathway {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+  min-width: 0;
+}
+.service-pathway h2 {
+  font-size: clamp(29px, 3vw, 44px);
+  margin-block: 19px 17px;
+}
+.service-pathway > p {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.service-pathway-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  margin-top: 22px;
+}
+.plan-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 16px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 700px) {
+  .service-pathways {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-block: 12px 44px;
+  }
+  .service-pathway .eyebrow {
+    font-size: 10px;
+  }
+}
 .pricing-section {
   padding-top: 90px;
   padding-bottom: 75px;
