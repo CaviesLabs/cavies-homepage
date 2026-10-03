@@ -4,16 +4,24 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { contactEmail, emailHref, telegramHref } from "@/lib/contact";
 import { pageMetadata } from "@/lib/seo";
+import { enquiryDeliveryConfigured } from "@/lib/enquiry-delivery";
+import { enquiryRateLimitConfigured } from "@/lib/enquiry-rate-limit";
 import styles from "@/components/enquiry-form.module.css";
 
 export const metadata = pageMetadata({
   title: "Contact us about your project",
   description:
-    "Discuss a website, product interface or security audit with Cavies Studio. Prepare a project enquiry on your device, or contact us by email or Telegram.",
+    "Discuss a website, product interface or security audit with Cavies Studio. Share your project enquiry, or contact us by email or Telegram.",
   path: "/contact",
 });
 
 export default function ContactPage() {
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const deliveryEnabled = Boolean(
+    turnstileSiteKey &&
+    enquiryDeliveryConfigured() &&
+    enquiryRateLimitConfigured(),
+  );
   return (
     <>
       <Navigation />
@@ -50,7 +58,10 @@ export default function ContactPage() {
               work.
             </p>
           </aside>
-          <EnquiryForm />
+          <EnquiryForm
+            deliveryEnabled={deliveryEnabled}
+            turnstileSiteKey={turnstileSiteKey}
+          />
         </div>
       </main>
       <Footer />

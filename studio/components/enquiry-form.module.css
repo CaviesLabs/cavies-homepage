@@ -193,6 +193,28 @@
 .status:empty {
   margin-block: 0;
 }
+.status:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 5px;
+}
+.statusError {
+  color: #923545;
+}
+.spamCheck {
+  min-width: 0;
+  margin-bottom: 22px;
+}
+.spamCheck > .hint:not(:empty) {
+  margin-top: 8px;
+}
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
 .preview {
   margin-top: 30px;
   padding-top: 28px;
