@@ -15,9 +15,9 @@ export const projectSeo: Record<string, ProjectSeoMetadata> = {
       "Explore Chirp (justchirp.xyz) from the Cavies portfolio: sound-based payment flows, mobile app design, and an illustrated onboarding experience.",
   },
   "beigman-engineering": {
-    title: "Beigman Engineering: Website Design",
+    title: "Beigman Engineering: Website & Ongoing Support",
     description:
-      "Explore Beigman Engineering's business website by Cavies, with interactive service diagrams, project browsing, and a visual engineering roadmap.",
+      "Website design, development, ongoing maintenance and SEO support by Cavies for Beigman Engineering, a Melbourne fire engineering consultancy.",
   },
   "reply-guy": {
     title: "Reply Guy: Community Rewards Interface",

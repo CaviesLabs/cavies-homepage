@@ -17,6 +17,8 @@ export type Project = {
   context: string;
   approach: string;
   details: string[];
+  story?: { heading: string; body: string }[];
+  relatedService?: { href: string; label: string };
   url?: string;
   imageNote: string;
   gallery?: { src: string; caption: string; width?: number; height?: number }[];

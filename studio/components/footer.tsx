@@ -1,7 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { contactEmail, emailHref, telegramHref } from "@/lib/contact";
+import {
+  businessWebsitesHref,
+  contactEmail,
+  contactHref,
+  emailHref,
+  telegramHref,
+} from "@/lib/contact";
 
 export function Footer() {
   return (
@@ -10,11 +16,18 @@ export function Footer() {
         <h2>
           Let’s <em>talk.</em>
         </h2>
-        <a href={emailHref} className="contact-orb" aria-label="Email us">
+        <Link
+          href={contactHref}
+          className="contact-orb"
+          aria-label="Discuss your project"
+        >
           <ArrowUpRight strokeWidth={1.2} />
-        </a>
+        </Link>
       </div>
       <div className="contact-links">
+        <Link href={contactHref}>
+          Prepare an enquiry <ArrowUpRight size={18} />
+        </Link>
         <a href={emailHref}>
           {contactEmail} <ArrowUpRight size={18} />
         </a>
@@ -30,6 +43,7 @@ export function Footer() {
           </span>
         </Link>
         <div>
+          <Link href={businessWebsitesHref}>Business websites</Link>
           <span>© {new Date().getFullYear()} Cavies</span>
         </div>
       </div>

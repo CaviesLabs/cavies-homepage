@@ -121,7 +121,9 @@ export default async function ProjectPage({
                 <p>{project.role}</p>
               </div>
               <div>
-                <span>INTERFACE FOCUS</span>
+                <span>
+                  {project.story ? "PROJECT SCOPE" : "INTERFACE FOCUS"}
+                </span>
                 <ul>
                   {project.details.map((detail) => (
                     <li key={detail}>{detail}</li>
@@ -130,8 +132,25 @@ export default async function ProjectPage({
               </div>
             </aside>
             <div className="case-story">
-              <h2>The interface.</h2>
-              <p>{project.approach}</p>
+              {project.story ? (
+                project.story.map((section) => (
+                  <section key={section.heading}>
+                    <h2>{section.heading}</h2>
+                    <p>{section.body}</p>
+                  </section>
+                ))
+              ) : (
+                <>
+                  <h2>The interface.</h2>
+                  <p>{project.approach}</p>
+                </>
+              )}
+              {project.relatedService && (
+                <Link href={project.relatedService.href} className="text-link">
+                  {project.relatedService.label}
+                  <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
+              )}
             </div>
           </section>
         )}

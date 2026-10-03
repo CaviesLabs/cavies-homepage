@@ -4,7 +4,7 @@ The Cavies product design and frontend engineering website. This app lives in `s
 
 ## Development
 
-Requires Node.js 22 or later.
+Requires Node.js 22.18 or later (the enquiry tests use Node’s built-in TypeScript stripping).
 
 ```sh
 cd studio
@@ -18,12 +18,17 @@ npm run dev
 npm run lint
 npm run typecheck
 npm run build
+npm run test:enquiry
 ```
+
+For production HTTP/SEO smoke checks, run `npm run start -- --port 3100` in one terminal, then `npm run test:smoke` in another. Set `SITE_TEST_URL` if the server uses another port. These checks cover public routes, metadata, sitemap, robots, redirects and real 404s; they do not replace mobile/desktop browser and keyboard QA.
 
 ## Content
 
 - `lib/projects.ts` and `lib/additional-projects.ts` own the portfolio descriptions, screenshots, galleries, collaboration credits, and ordering. Counts and case-study navigation are derived from those collections.
 - `app/page.tsx` owns the homepage and concise FAQ.
+- `app/services/business-websites/page.tsx` explains business website builds, improvements, and ongoing support, with Beigman Engineering as relevant project context.
+- `app/contact/page.tsx` and `components/enquiry-form.tsx` provide a local-only enquiry composer. It prepares an email draft and provides copy/manual-copy fallback; it does not submit or deliver messages.
 - `app/globals.css` owns the responsive visual system.
 - `components/project-showcase.tsx` displays the four curated projects from `showcaseProjects` as selectable, full-width screenshots: Seitrace, HeavenDash, Beigman Engineering, and 0DTE. Beigman is third; ClaimHQ remains in the wider portfolio. Schlong belongs only in the secondary portfolio list.
 - Portfolio screenshots preserve the entire captured view and original aspect ratio. Avoid cover cropping, overlapping panels, fixed-height clipping, or image tilt/zoom that hides UI. Case studies and the showcase provide links to full-resolution images.
@@ -46,7 +51,9 @@ The production domain and canonical URL are `https://cavies.xyz`. The `www` host
 
 Production releases use Vercel. The old root app and legacy hosting configuration do not deploy the Studio app; the former GitHub Pages workflow is available only in Git history.
 
-No application environment variables, database, analytics, tracking cookies, or contact-form backend are required. Inquiry links open the visitor's mail application or Telegram.
+No application environment variables, database, analytics, tracking cookies, or contact-form backend are required. The enquiry composer keeps entered text in the browser page until the visitor chooses to open an email draft or copy it. It never reports an enquiry as sent. Direct email and Telegram remain available, including when JavaScript is unavailable.
+
+Direct form delivery is deliberately not configured. Before enabling it, choose and approve the delivery provider, destination, privacy wording, credentials and any cost. A future sending endpoint must validate server-side, reject oversized requests and header injection, enforce origin and abuse/rate-limit controls, and avoid logging or analytics containing enquiry text or personal data. Verify actual delivery and failure states; never return a success state merely because the form was completed.
 
 ## Search metadata
 

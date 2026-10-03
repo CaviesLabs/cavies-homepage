@@ -57,13 +57,13 @@ export const additionalProjects: Project[] = [
     category: "Business website",
     headline: "Technical expertise, clearly presented.",
     description:
-      "A service-led website for a Melbourne fire engineering consultancy.",
+      "Website design, development and ongoing support for a Melbourne fire engineering consultancy.",
     image: "/work/beigman-engineering-home.webp",
     imageWidth: 1585,
     imageHeight: 1050,
     color: "#e9e1d6",
-    tags: ["Website design", "Frontend development"],
-    role: "Website design & frontend development",
+    tags: ["Website design & build", "Ongoing maintenance", "SEO support"],
+    role: "Website design, frontend development, ongoing maintenance & SEO support",
     context:
       "Beigman Engineering helps architects, developers, and building surveyors understand fire engineering requirements. Its website brings services, project experience, and enquiries together.",
     approach:
@@ -72,7 +72,26 @@ export const additionalProjects: Project[] = [
       "Service and project discovery",
       "Interactive roadmap and diagrams",
       "Responsive website implementation",
+      "Ongoing maintenance and SEO support",
     ],
+    story: [
+      {
+        heading: "A website for a specialist business.",
+        body: "Beigman Engineering is a Melbourne fire engineering consultancy working with architects, developers and building surveyors. Its website needs to explain specialist services, present relevant project experience and give visitors a clear way to make an enquiry. Cavies designed and built the website around those needs.",
+      },
+      {
+        heading: "Make the services easier to explore.",
+        body: "Architectural imagery gives the work context, while interactive service diagrams help visitors explore technical information. A sector-based project browser brings the consultancy’s experience together, and a visual engineering roadmap explains the process from concept to construction. The responsive frontend connects these parts into one business website.",
+      },
+      {
+        heading: "Support beyond the build.",
+        body: "Cavies’ work with Beigman continues through ongoing website maintenance and SEO support. The engagement brings the initial design and development together with continued attention to the site after launch, rather than treating delivery as the end of the project.",
+      },
+    ],
+    relatedService: {
+      href: "/services/business-websites",
+      label: "Explore our business website service",
+    },
     url: "https://beigman.com.au/",
     imageNote: "Business website",
   },

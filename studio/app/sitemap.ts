@@ -5,6 +5,8 @@ import { absoluteUrl } from "@/lib/seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: absoluteUrl("/") },
+    { url: absoluteUrl("/services/business-websites") },
+    { url: absoluteUrl("/contact") },
     ...allProjects.map((project) => ({
       url: absoluteUrl(`/work/${project.slug}`),
       images: [
