@@ -1,5 +1,6 @@
 import { ArrowUpRight, Braces, Layers2, ShieldCheck } from "lucide-react";
-import { inquiryHref } from "@/lib/contact";
+import Link from "next/link";
+import { businessWebsitesHref, contactHref } from "@/lib/contact";
 
 const plans = [
   {
@@ -13,7 +14,7 @@ const plans = [
       "Ongoing improvements",
     ],
     action: "Discuss your website",
-    subject: "Website monthly plan",
+    detailsHref: businessWebsitesHref,
   },
   {
     name: "Product interfaces",
@@ -26,7 +27,6 @@ const plans = [
       "QA, refinement & release support",
     ],
     action: "Discuss your product",
-    subject: "Product interface monthly plan",
     featured: true,
   },
   {
@@ -40,7 +40,6 @@ const plans = [
       "Fix verification",
     ],
     action: "Scope an audit",
-    subject: "Security audit monthly plan",
   },
 ];
 
@@ -82,10 +81,15 @@ export function Pricing() {
                 </li>
               ))}
             </ul>
-            <a href={inquiryHref(plan.subject)} className="plan-action">
+            <Link href={contactHref} className="plan-action">
               {plan.action}
               <ArrowUpRight size={18} />
-            </a>
+            </Link>
+            {plan.detailsHref && (
+              <Link href={plan.detailsHref} className="plan-details">
+                What’s included <ArrowUpRight size={15} />
+              </Link>
+            )}
           </article>
         ))}
       </div>
