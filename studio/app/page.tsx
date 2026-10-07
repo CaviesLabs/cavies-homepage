@@ -144,6 +144,7 @@ export default function Home() {
               imageWidth,
               imageHeight,
               imageNote,
+              liveLink,
             }) => ({
               slug,
               name,
@@ -152,6 +153,7 @@ export default function Home() {
               imageWidth,
               imageHeight,
               imageNote,
+              liveLink,
             }),
           )}
         />

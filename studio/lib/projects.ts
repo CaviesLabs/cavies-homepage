@@ -20,6 +20,8 @@ export type Project = {
   story?: { heading: string; body: string }[];
   relatedService?: { href: string; label: string };
   url?: string;
+  /** Public deployment linked from the case study and showcase. */
+  liveLink?: { href: string; label: string };
   imageNote: string;
   gallery?: { src: string; caption: string; width?: number; height?: number }[];
 };
@@ -31,22 +33,23 @@ const existingProjects: Project[] = [
     category: "Blockchain explorer",
     headline: "Complex data. A clearer picture.",
     description: "A readable, searchable interface to the Sei ecosystem.",
-    image: "/work/seitrace-homepage.webp",
+    image: "/work/seitrace-archive-home.webp",
     imageWidth: 1600,
-    imageHeight: 1330,
+    imageHeight: 1487,
     color: "#e5ebee",
     tags: ["Data-rich interfaces", "Frontend"],
     role: "Cavies Labs product development",
     context:
       "An explorer has to make an entire network understandable, from a first transaction lookup to a detailed investigation of an address or contract.",
     approach:
-      "Search, network statistics, activity charts, and recent blocks and transactions in one explorer interface.",
+      "Search, network statistics, activity charts, and recent blocks and transactions in one explorer interface. Seitrace was retired in April 2026; the original interface is now online as an archived demo with sample data.",
     details: [
       "Transaction and address exploration",
       "Search and structured data views",
       "Reusable interface components",
     ],
     url: "https://seitrace.com",
+    liveLink: { href: "https://seitrace.com", label: "Visit seitrace.com" },
     imageNote: "Explorer homepage · Sample data",
   },
   {

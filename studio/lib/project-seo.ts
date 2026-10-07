@@ -27,7 +27,7 @@ export const projectSeo: Record<string, ProjectSeoMetadata> = {
   seitrace: {
     title: "Seitrace: Blockchain Explorer Design",
     description:
-      "Explore Seitrace's blockchain explorer interface by Cavies: search, network statistics, and transaction details, shown with labeled sample data.",
+      "Explore Seitrace, the Sei blockchain explorer by Cavies: search, network statistics, and transaction details, now archived with labeled sample data.",
   },
   heavendash: {
     title: "HeavenDash: Protocol Analytics Dashboard",

@@ -26,6 +26,7 @@ For production HTTP/SEO smoke checks, run `npm run start -- --port 3100` in one 
 ## Content
 
 - `lib/projects.ts` and `lib/additional-projects.ts` own the portfolio descriptions, screenshots, galleries, collaboration credits, and ordering. Counts and case-study navigation are derived from those collections.
+- A project's optional `liveLink` adds a link to its public deployment on the case study and in the showcase. Seitrace links to its archived demo at seitrace.com, which runs the original interface on labeled sample data.
 - `app/page.tsx` owns the homepage and concise FAQ.
 - `app/services/business-websites/page.tsx` explains business website builds, improvements, and ongoing support, with Beigman Engineering as relevant project context.
 - `app/contact/page.tsx` and `components/enquiry-form.tsx` provide Gmail enquiry delivery when fully configured, with an email-draft fallback when unavailable. `app/api/enquiry/route.ts` validates requests, verifies Turnstile, reserves a durable send allowance, and calls Gmail with send-only OAuth access.

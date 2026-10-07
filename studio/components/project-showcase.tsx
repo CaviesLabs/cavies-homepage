@@ -13,6 +13,7 @@ type ShowcaseProject = {
   imageWidth?: number;
   imageHeight?: number;
   imageNote: string;
+  liveLink?: { href: string; label: string };
 };
 
 export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
@@ -84,6 +85,16 @@ export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
               <Maximize2 size={14} />
               Full-size screenshot
             </a>
+            {active.liveLink && (
+              <a
+                href={active.liveLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {active.liveLink.label}
+                <ArrowUpRight size={16} />
+              </a>
+            )}
             <Link href={`/work/${active.slug}`}>
               View case study
               <ArrowUpRight size={16} />
