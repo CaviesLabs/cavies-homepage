@@ -151,6 +151,17 @@ export default async function ProjectPage({
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>
               )}
+              {project.liveLink && (
+                <a
+                  className="text-link"
+                  href={project.liveLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {project.liveLink.label}
+                  <ArrowUpRight size={18} aria-hidden="true" />
+                </a>
+              )}
             </div>
           </section>
         )}

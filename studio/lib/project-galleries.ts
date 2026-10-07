@@ -85,22 +85,22 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
   ],
   seitrace: [
     {
-      src: "/work/seitrace-gallery-block.webp",
+      src: "/work/seitrace-archive-block.webp",
       caption: "Block details · Sample data",
-      width: 1590,
-      height: 1483,
-    },
-    {
-      src: "/work/seitrace-gallery-transaction.webp",
-      caption: "Transaction details · Sample data",
-      width: 1590,
-      height: 1483,
-    },
-    {
-      src: "/work/seitrace-gallery-api.webp",
-      caption: "Data API overview · Sample data",
       width: 1600,
-      height: 1430,
+      height: 1183,
+    },
+    {
+      src: "/work/seitrace-archive-transaction.webp",
+      caption: "Transaction details · Sample data",
+      width: 1600,
+      height: 1222,
+    },
+    {
+      src: "/work/seitrace-archive-account.webp",
+      caption: "Account details · Sample data",
+      width: 1600,
+      height: 1478,
     },
   ],
   pit: [

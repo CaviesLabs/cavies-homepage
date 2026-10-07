@@ -1671,9 +1671,13 @@ details[open] .faq-plus:after {
   }
   .showcase-links {
     justify-content: space-between;
+    flex-wrap: wrap;
     font-size: 11px;
     margin-top: 14px;
-    gap: 12px;
+    gap: 4px 12px;
+  }
+  .showcase-links > a {
+    white-space: nowrap;
   }
   .project-visual {
     padding: 10px;
