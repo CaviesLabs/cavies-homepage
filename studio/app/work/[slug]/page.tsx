@@ -66,11 +66,20 @@ export default async function ProjectPage({
       <Navigation />
       <main id="main">
         <section className="case-header section-shell">
-          <Link href="/#work" className="case-back">
-            <ArrowLeft size={16} /> All selected work
+          <Link
+            href={project.kind === "game" ? "/#games" : "/#work"}
+            className="case-back"
+          >
+            <ArrowLeft size={16} />{" "}
+            {project.kind === "game" ? "Back to games" : "All selected work"}
           </Link>
           <div className="case-topline">
-            <span className="eyebrow">{project.category}</span>
+            <div className="case-category">
+              <span className="eyebrow">{project.category}</span>
+              {project.status && (
+                <span className="case-status">{project.status}</span>
+              )}
+            </div>
             <span>
               {projectNumber(index)} —{" "}
               {String(allProjects.length).padStart(2, "0")}
@@ -141,7 +150,11 @@ export default async function ProjectPage({
                 ))
               ) : (
                 <>
-                  <h2>The interface.</h2>
+                  <h2>
+                    {project.kind === "game"
+                      ? "The experience."
+                      : "The interface."}
+                  </h2>
                   <p>{project.approach}</p>
                 </>
               )}

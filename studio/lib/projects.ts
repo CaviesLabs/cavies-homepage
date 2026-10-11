@@ -1,8 +1,11 @@
 import { additionalProjects, collaborations } from "./additional-projects";
+import { gameProjects } from "./game-projects";
 export { collaborations } from "./additional-projects";
+export { gameProjects } from "./game-projects";
 
 export type Project = {
-  kind?: "product" | "collaboration";
+  kind?: "product" | "game" | "collaboration";
+  status?: "In development";
   slug: string;
   name: string;
   category: string;
@@ -249,6 +252,10 @@ export const projects: Project[] = [
     "schlong",
   ].map(findProject),
 ];
-export const allProjects: Project[] = [...projects, ...collaborations];
+export const allProjects: Project[] = [
+  ...projects,
+  ...gameProjects,
+  ...collaborations,
+];
 export const projectNumber = (index: number) =>
   String(index + 1).padStart(2, "0");

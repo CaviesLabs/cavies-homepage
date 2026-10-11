@@ -76,6 +76,27 @@ await test("homepage exposes both buyer journeys and keeps verification", () => 
   assert.ok(html.includes('name="google-site-verification"'));
 });
 
+await test("unreleased game cases are linked and retain their development status", () => {
+  const home = htmlByPath.get("/");
+  for (const slug of [
+    "oddly-orderly",
+    "butterpaw",
+    "all-brain-no-luck",
+    "browser-games",
+  ]) {
+    assert.ok(
+      home.includes(`href="/work/${slug}"`),
+      `${slug} linked from homepage`,
+    );
+    const page = htmlByPath.get(`/work/${slug}`);
+    assert.ok(
+      page?.includes("In development"),
+      `${slug} is explicitly unreleased`,
+    );
+    assert.ok(page.includes('href="/#games"'), `${slug} returns to games`);
+  }
+});
+
 await test("service and Beigman pages expose real scope and useful links in HTML", () => {
   const service = htmlByPath.get("/services/business-websites");
   assert.ok(service.includes("Australia"));

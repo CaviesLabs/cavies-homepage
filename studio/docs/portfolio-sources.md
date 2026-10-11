@@ -1,6 +1,6 @@
 # Portfolio provenance
 
-Updated 7 October 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
+Updated 12 October 2026 from the repositories and websites the owner authorized. Images are locally hosted. Private code, credentials, and private user/account data are not published.
 
 | Project       | Source                                                   | Basis of presentation                                                                                                                                                                                                                                           |
 | ------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -36,6 +36,21 @@ Both additions retain the existing four-project showcase and appear in the wider
 - Four captures (homepage, block, transaction, and account details) were taken from `https://seitrace.com` at a 1440 px layout width, starting below the site-wide notice; the “Sample data” tag remains visible. They replace the earlier local fixture captures. No wallet, account, or transaction was used. The case study links to the archive.
 
 Capture routes and dimensions are recorded in the local `research/screenshots/seitrace-archive-manifest.json` file.
+
+## Games in development — 12 October 2026
+
+The owner requested these unreleased games as evidence of game design and implementation. They have a dedicated homepage section and four-image case studies. Every case is marked **In development**; screenshots and artwork are distinguished in captions. No store launch, client commission, player count, or platform endorsement is implied. Private sources and development harnesses are not linked as public play/download destinations.
+
+| Case                    | Source revision                                                                 | Visual basis                                                                                                                                                                                                                                    |
+| ----------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Oddly Orderly           | `meowttt7/oddly-orderly`, `af2ab224ca69f0eb521768a937a2c14811dffab2`            | Fresh 1920×1080 renders using the original Godot capture tool with in-memory progress: title screen, cutlery puzzle, completed jar arrangement, and room journal. Source confirms 65 levels across 13 rooms.                                    |
+| Butterpaw               | `meowttt7/butterpaw`, `56bdbe21dfedcb36f47c77b5a9d988d962639081`                | Original branded capsule, recorded early Unity prototype, and two memory illustrations. Current development build was inspected and matches the captured prototype. Artwork captions do not pass illustrations off as gameplay.                 |
+| All Brain No Luck       | `meowttt7/allbrainnoluck`, `798348c1af31e7cff38795653eb7cff3bc3a4e23`           | Original brand artwork and checked-in QA captures of Number Slide, Laser Path, and results. Current registry has 12 challenge entries. Demo progress is not a customer result or cognitive-performance claim.                                   |
+| Browser game collection | `meowttt7/cavies-youtube-playables`, `3808f626fc9792e75d401cfdd5a6c79d49cbf6d1` | Development builds of Phở Stall, Tide Jars, Teahouse Tiles, and Dockside Shuffle. The registry has 33 games excluding its shell demo. Built for the YouTube Playables format; no claim of publication, certification, or commission by YouTube. |
+
+Oddly Orderly and Butterpaw include AI-assisted/generated artwork with source provenance. No hand-painted or hand-lettered authorship claim is made. Asset export preserves the complete image and aspect ratio, caps width at 1920px where needed, and converts to WebP. Exact local capture mappings and output dimensions are recorded in `research/screenshots/games-2026-10/` outside deployment inputs.
+
+The broader game-repository audit excluded GigaDong as an earlier version of Schlong, OpenBound as an upstream fork, Meowie as empty, and non-game repositories. Grand Paw is a separate possible future example; it was not needed to repeat the four stronger projects in this update.
 
 ## Past advisory and collaboration
 

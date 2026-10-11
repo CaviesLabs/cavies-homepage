@@ -1,0 +1,107 @@
+.selector {
+  position: relative;
+  isolation: isolate;
+  grid-auto-rows: 1fr;
+}
+
+.selector::before {
+  position: absolute;
+  inset: 5px auto auto 5px;
+  z-index: -1;
+  width: calc((100% - 25px) / 4);
+  height: calc(100% - 10px);
+  border-radius: 3px;
+  background: var(--wine);
+  content: "";
+  pointer-events: none;
+  transform: translateX(calc(var(--selected-index) * (100% + 5px)));
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.selector button.selectorButton {
+  position: relative;
+  min-width: 0;
+  transition: color 180ms ease;
+}
+
+.selector button.selectorButton:hover,
+.selector button.selectorButton[aria-pressed="true"] {
+  background: transparent;
+}
+
+.selector button.selectorButton:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.selectorButton svg {
+  flex-shrink: 0;
+  transition: transform 180ms ease;
+}
+
+.imageFrame.imageFrame {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+}
+
+.imageFrame .image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.imageEnter {
+  animation: image-arrive 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes image-arrive {
+  from {
+    opacity: 0.65;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .selector button.selectorButton:not([aria-pressed="true"]):hover {
+    background: #e9eae1;
+  }
+
+  .selectorButton:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+@media (max-width: 700px) {
+  .selector::before {
+    width: calc((100% - 15px) / 2);
+    height: calc((100% - 15px) / 2);
+    transform: translate(
+      calc(var(--selected-column) * (100% + 5px)),
+      calc(var(--selected-row) * (100% + 5px))
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selector::before,
+  .selector button.selectorButton,
+  .selectorButton svg {
+    transition: none;
+  }
+
+  .imageEnter {
+    animation: none;
+  }
+
+  .selectorButton:hover svg {
+    transform: none;
+  }
+}

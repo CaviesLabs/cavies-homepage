@@ -6,6 +6,7 @@ import { businessWebsitesHref, contactHref } from "@/lib/contact";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectIndex } from "@/components/project-index";
 import { ProjectShowcase } from "@/components/project-showcase";
+import { GameShowcase } from "@/components/game-showcase";
 import { Pricing } from "@/components/pricing";
 import { ReflectiveMark } from "@/components/reflective-mark";
 import { StructuredData } from "@/components/structured-data";
@@ -16,6 +17,7 @@ import {
   collaborations,
   allProjects,
   showcaseProjects,
+  gameProjects,
 } from "@/lib/projects";
 
 export const metadata = {
@@ -69,8 +71,8 @@ export default function Home() {
                 <em>Frontend engineering.</em>
               </h1>
               <p className="hero-intro">
-                Websites and product interfaces for startups and businesses in
-                Australia and worldwide.
+                Websites, product interfaces, and games for startups and
+                businesses in Australia and worldwide.
               </p>
               <div className="hero-actions">
                 <Link className="button" href={contactHref}>
@@ -82,6 +84,9 @@ export default function Home() {
                   </span>
                   Explore our work
                 </a>
+                <Link className="hero-pricing-link" href="/#games">
+                  Explore our games <ArrowUpRight size={15} />
+                </Link>
               </div>
             </div>
             <div className="hero-art">
@@ -171,6 +176,7 @@ export default function Home() {
             </Link>
           </div>
         </section>
+        <GameShowcase projects={gameProjects} />
         <Pricing />
         <section id="work" className="work-section section-shell">
           <div className="section-heading">
