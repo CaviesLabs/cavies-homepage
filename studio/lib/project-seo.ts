@@ -4,6 +4,26 @@ export type ProjectSeoMetadata = {
 };
 
 export const projectSeo: Record<string, ProjectSeoMetadata> = {
+  "oddly-orderly": {
+    title: "Oddly Orderly: Cozy Puzzle Game Design",
+    description:
+      "Explore Oddly Orderly, a Cavies game in development: tactile object-placement puzzles, accessible controls, and a visual room journal.",
+  },
+  butterpaw: {
+    title: "Butterpaw: Cozy Game Prototype & World Design",
+    description:
+      "Explore Butterpaw, Cavies' unpacking game in development, with a Unity gameplay prototype, red-panda character identity, and story artwork.",
+  },
+  "all-brain-no-luck": {
+    title: "All Brain No Luck: Mobile Puzzle Game UI",
+    description:
+      "Explore All Brain No Luck, a Cavies game in development with twelve puzzle challenges, touch-friendly boards, hints, and character-led results.",
+  },
+  "browser-games": {
+    title: "Browser Games: Playables Design & Development",
+    description:
+      "Explore Cavies' collection of 33 unreleased browser games built for the YouTube Playables format, with original game interfaces and responsive controls.",
+  },
   chat: {
     title: "Chat: Creator Platform Interface Design",
     description:

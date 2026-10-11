@@ -951,6 +951,19 @@ details[open] .faq-plus:after {
 .case-gallery {
   padding-bottom: 70px;
 }
+.case-category {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.case-status {
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-size: 12px;
+  letter-spacing: 0;
+}
 .case-gallery figure {
   margin: 0 0 40px;
 }

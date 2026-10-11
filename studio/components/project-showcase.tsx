@@ -1,9 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Maximize2 } from "lucide-react";
+import styles from "./project-showcase.module.css";
 
 type ShowcaseProject = {
   slug: string;
@@ -18,7 +24,53 @@ type ShowcaseProject = {
 
 export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hasSelectedProject, setHasSelectedProject] = useState(false);
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
+  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const active = projects[activeIndex];
+
+  function selectProject(index: number) {
+    if (index === activeIndex) return;
+    setHasSelectedProject(true);
+    setActiveIndex(index);
+  }
+
+  function handleSelectorKey(
+    event: KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+
+    const rowStep = window.matchMedia("(max-width: 700px)").matches ? 2 : 1;
+    let nextIndex: number;
+
+    switch (event.key) {
+      case "ArrowRight":
+        nextIndex = (index + 1) % projects.length;
+        break;
+      case "ArrowLeft":
+        nextIndex = (index - 1 + projects.length) % projects.length;
+        break;
+      case "ArrowDown":
+        nextIndex = (index + rowStep) % projects.length;
+        break;
+      case "ArrowUp":
+        nextIndex = (index - rowStep + projects.length) % projects.length;
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = projects.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    selectProject(nextIndex);
+    buttons.current[nextIndex]?.focus();
+  }
 
   return (
     <section
@@ -34,17 +86,29 @@ export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
         </span>
       </div>
       <div
-        className="showcase-selector"
+        className={`showcase-selector ${styles.selector}`}
         role="group"
         aria-label="Choose a featured project"
+        style={
+          {
+            "--selected-index": activeIndex,
+            "--selected-column": activeIndex % 2,
+            "--selected-row": Math.floor(activeIndex / 2),
+          } as CSSProperties
+        }
       >
         {projects.map((project, index) => (
           <button
             key={project.slug}
+            ref={(element) => {
+              buttons.current[index] = element;
+            }}
+            className={styles.selectorButton}
             type="button"
             aria-pressed={index === activeIndex}
             aria-controls="showcase-preview"
-            onClick={() => setActiveIndex(index)}
+            onClick={() => selectProject(index)}
+            onKeyDown={(event) => handleSelectorKey(event, index)}
           >
             <span>{project.name}</span>
             <ArrowUpRight size={17} aria-hidden="true" />
@@ -58,7 +122,7 @@ export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
         aria-label={`${active.name} interface preview`}
       >
         <a
-          className="showcase-image-link"
+          className={`showcase-image-link ${styles.imageFrame}`}
           href={active.image}
           target="_blank"
           rel="noopener noreferrer"
@@ -71,8 +135,13 @@ export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
             width={active.imageWidth ?? 1440}
             height={active.imageHeight ?? 960}
             sizes="(max-width: 700px) 90vw, (max-width: 1680px) 88vw, 1500px"
-            className="showcase-image"
+            className={`showcase-image ${styles.image}${
+              hasSelectedProject && loadedImage === active.slug
+                ? ` ${styles.imageEnter}`
+                : ""
+            }`}
             loading="eager"
+            onLoad={() => setLoadedImage(active.slug)}
           />
         </a>
         <div className="showcase-caption">

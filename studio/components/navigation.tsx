@@ -34,6 +34,7 @@ export function Navigation() {
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href={businessWebsitesHref}>Websites</Link>
           <Link href="/#work">Work</Link>
+          <Link href="/#games">Games</Link>
           <Link href="/#pricing">Plans</Link>
         </nav>
         <Link href={contactHref} className="button button-small header-contact">
@@ -67,6 +68,9 @@ export function Navigation() {
             </Link>
             <Link onClick={() => setOpen(false)} href="/#work">
               Work <ArrowUpRight />
+            </Link>
+            <Link onClick={() => setOpen(false)} href="/#games">
+              Games <ArrowUpRight />
             </Link>
             <Link onClick={() => setOpen(false)} href="/#pricing">
               Plans <ArrowUpRight />
