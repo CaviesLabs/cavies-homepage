@@ -67,11 +67,11 @@ export default async function ProjectPage({
       <main id="main">
         <section className="case-header section-shell">
           <Link
-            href={project.kind === "game" ? "/#games" : "/#work"}
+            href={project.kind === "game" ? "/#games" : "/work"}
             className="case-back"
           >
             <ArrowLeft size={16} />{" "}
-            {project.kind === "game" ? "Back to games" : "All selected work"}
+            {project.kind === "game" ? "Back to games" : "All work"}
           </Link>
           <div className="case-topline">
             <div className="case-category">

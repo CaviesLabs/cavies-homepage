@@ -13,7 +13,7 @@ export default function NotFound() {
           <em>Plenty to explore.</em>
         </h1>
         <p>Let’s get you back to the work.</p>
-        <Link href="/#work" className="button">
+        <Link href="/work" className="button">
           Explore our work ↗
         </Link>
       </main>

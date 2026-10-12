@@ -33,6 +33,9 @@ export function ProjectCard({
             {index === undefined ? "↗" : projectNumber(index)}
           </span>
           <h3>{project.name}</h3>
+          {project.status ? (
+            <span className="project-status">{project.status}</span>
+          ) : null}
           <span className="project-description">{project.description}</span>
         </div>
         <span className="project-category">{project.tags[0]}</span>

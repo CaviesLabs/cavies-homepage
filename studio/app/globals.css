@@ -12,7 +12,7 @@
   box-sizing: border-box;
 }
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
 body {
@@ -364,6 +364,85 @@ svg {
   white-space: nowrap;
   color: var(--muted);
   padding-top: 3px;
+}
+.project-status {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border: 1px solid #cbc8be;
+  border-radius: 100px;
+  font-size: 11px;
+}
+.work-all {
+  margin-top: 44px;
+}
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+}
+.footer-nav a:hover {
+  color: var(--wine);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.work-index-header {
+  padding-block: 50px 20px;
+}
+.work-index-header h1 {
+  max-width: 1100px;
+  margin-top: 22px;
+  font-size: clamp(48px, 6.4vw, 92px);
+  line-height: 1.04;
+}
+.work-index-header > p {
+  max-width: 620px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.work-index {
+  padding-block: 64px 24px;
+}
+.work-index + .work-index {
+  margin-top: 48px;
+  border-top: 1px solid var(--line);
+}
+.work-index-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 70px 110px;
+}
+.work-index-contact h2 {
+  font-size: clamp(32px, 3.6vw, 52px);
+}
+@media (max-width: 700px) {
+  .work-index-header {
+    padding-block: 25px 10px;
+  }
+  .work-index-header h1 {
+    font-size: 42px;
+  }
+  .work-index-header > p {
+    font-size: 15px;
+  }
+  .work-index {
+    padding-block: 44px 10px;
+  }
+  .work-index + .work-index {
+    margin-top: 30px;
+  }
+  .work-index-contact {
+    padding-block: 44px 65px;
+  }
+  .footer-nav {
+    gap: 6px 16px;
+  }
 }
 .faq-section {
   padding-block: 5px 110px;

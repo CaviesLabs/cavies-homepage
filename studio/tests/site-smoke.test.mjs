@@ -91,6 +91,20 @@ await test("scope builder renders its sentence and carries choices to the contac
   assert.ok(contact.includes("Business website &amp; support"));
 });
 
+await test("work index lists every case study and is linked from every page", () => {
+  const work = htmlByPath.get("/work");
+  assert.ok(work, "/work is in the sitemap");
+  const linked = new Set(
+    [...work.matchAll(/href="\/work\/([a-z0-9-]+)"/g)].map((m) => m[1]),
+  );
+  assert.ok(linked.size >= 21, `links ${linked.size} case studies`);
+  assert.ok(work.includes("In development"), "games keep their status");
+  assert.ok(work.includes("Past product advisory"), "advisory stays separate");
+  for (const path of ["/", "/contact", "/work/seitrace"]) {
+    assert.ok(htmlByPath.get(path).includes('href="/work"'), path);
+  }
+});
+
 await test("unreleased game cases are linked and retain their development status", () => {
   const home = htmlByPath.get("/");
   for (const slug of [

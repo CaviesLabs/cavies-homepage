@@ -15,7 +15,6 @@ import { homeStructuredData } from "@/lib/structured-data";
 import { homeDescription, homeTitle, pageMetadata } from "@/lib/seo";
 import {
   projects,
-  collaborations,
   allProjects,
   showcaseProjects,
   gameProjects,
@@ -51,6 +50,8 @@ const faqs = [
     "Tell us about your website or product, what you want to improve, and your timeline. We’ll agree the scope and monthly fee before kickoff.",
   ],
 ];
+
+const featuredCount = showcaseProjects.length;
 
 export default function Home() {
   return (
@@ -183,17 +184,20 @@ export default function Home() {
             </Link>
           </div>
         </section>
-        <GameShowcase projects={gameProjects} />
-        <Pricing />
         <section id="work" className="work-section section-shell">
           <div className="section-heading">
             <h2>
               Selected <em>work.</em>
             </h2>
+            <p>Continued from the four featured interfaces above.</p>
           </div>
           <div className="project-grid">
-            {projects.slice(0, 8).map((project, index) => (
-              <ProjectCard key={project.slug} project={project} index={index} />
+            {projects.slice(featuredCount, 8).map((project, index) => (
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                index={featuredCount + index}
+              />
             ))}
           </div>
           {projects.length > 8 && (
@@ -202,20 +206,15 @@ export default function Home() {
               <ProjectIndex projects={projects.slice(8)} offset={8} />
             </div>
           )}
-          <div id="collaborations" className="collaboration-section">
-            <div className="section-heading">
-              <h2>
-                Past <em>collaborations.</em>
-              </h2>
-              <p>Product advisory & collaboration.</p>
-            </div>
-            <div className="project-grid">
-              {collaborations.map((project) => (
-                <ProjectCard project={project} key={project.slug} />
-              ))}
-            </div>
-          </div>
+          <p className="work-all">
+            <Link href="/work" className="text-link">
+              All work, including games and past collaborations{" "}
+              <ArrowUpRight size={16} />
+            </Link>
+          </p>
         </section>
+        <Pricing />
+        <GameShowcase projects={gameProjects} />
         <section className="faq-section section-shell">
           <div>
             <h2>Questions?</h2>

@@ -71,6 +71,49 @@ export function homeStructuredData(projects: Project[]) {
   };
 }
 
+export function workStructuredData(projects: Project[], description: string) {
+  const url = absoluteUrl("/work");
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: siteName,
+            item: `${siteUrl}/`,
+          },
+          { "@type": "ListItem", position: 2, name: "Work", item: url },
+        ],
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: `Work — ${siteName}`,
+        description,
+        inLanguage: "en",
+        isPartOf: { "@id": websiteId },
+        publisher: { "@id": organizationId },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        mainEntity: {
+          "@type": "ItemList",
+          name: "Cavies Studio case studies",
+          itemListElement: projects.map((project, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: project.name,
+            url: absoluteUrl(`/work/${project.slug}`),
+          })),
+        },
+      },
+    ],
+  };
+}
+
 export function caseStructuredData(
   project: Project,
   description: string,
