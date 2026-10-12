@@ -28,7 +28,9 @@ For production HTTP/SEO smoke checks, run `npm run start -- --port 3100` in one 
 
 - `lib/projects.ts` and `lib/additional-projects.ts` own the portfolio descriptions, screenshots, galleries, collaboration credits, and ordering. Counts and case-study navigation are derived from those collections.
 - A project's optional `liveLink` adds a link to its public deployment on the case study and in the showcase. Seitrace links to its archived demo at seitrace.com, which runs the original interface on labeled sample data.
-- `app/page.tsx` owns the homepage and concise FAQ.
+- `app/page.tsx` owns the homepage and concise FAQ. Its order is hero, service paths, the four featured interfaces, the advisory strip, Selected work (cards 05–08 and the index from 09, continuing the featured numbering), Monthly plans with the scope builder, Games, and FAQ.
+- `app/work/page.tsx` is the full index: featured interfaces, selected work, the wider portfolio, games in development, and past collaborations, each card opening its case study. The Work navigation item, case-study back links, and the 404 page point here.
+- In-page anchors scroll smoothly (`data-scroll-behavior="smooth"` on `<html>`), and reduced motion restores instant jumps.
 - `app/services/business-websites/page.tsx` explains business website builds, improvements, and ongoing support, with Beigman Engineering as relevant project context.
 - `app/contact/page.tsx` and `components/enquiry-form.tsx` provide Gmail enquiry delivery when fully configured, with an email-draft fallback when unavailable. `app/api/enquiry/route.ts` validates requests, verifies Turnstile, reserves a durable send allowance, and calls Gmail with send-only OAuth access.
 - `app/globals.css` owns the responsive visual system.

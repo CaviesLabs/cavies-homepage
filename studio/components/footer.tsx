@@ -8,6 +8,7 @@ import {
   emailHref,
   telegramHref,
 } from "@/lib/contact";
+import { linkedInUrl, xUrl } from "@/lib/seo";
 
 export function Footer() {
   return (
@@ -43,7 +44,18 @@ export function Footer() {
           </span>
         </Link>
         <div>
-          <Link href={businessWebsitesHref}>Business websites</Link>
+          <nav className="footer-nav" aria-label="Footer">
+            <Link href={businessWebsitesHref}>Websites</Link>
+            <Link href="/work">Work</Link>
+            <Link href="/#games">Games</Link>
+            <Link href="/#pricing">Plans</Link>
+            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+            <a href={xUrl} target="_blank" rel="noopener noreferrer">
+              X
+            </a>
+          </nav>
           <span>© {new Date().getFullYear()} Cavies</span>
         </div>
       </div>
