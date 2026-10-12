@@ -1,0 +1,4 @@
+/* The settled glyphs are what people see and copy; the reader copy is for assistive technology only. */
+.reader {
+  user-select: none;
+}

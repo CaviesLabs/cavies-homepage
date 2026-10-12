@@ -76,6 +76,21 @@ await test("homepage exposes both buyer journeys and keeps verification", () => 
   assert.ok(html.includes('name="google-site-verification"'));
 });
 
+await test("scope builder renders its sentence and carries choices to the contact page", () => {
+  const home = htmlByPath.get("/");
+  assert.ok(home.includes('id="scope"'), "scope builder is server-rendered");
+  assert.ok(home.includes("a new business website"), "default sentence");
+  assert.match(
+    home,
+    /href="\/contact\?help=website(?:&amp;|&)stage=new(?:&amp;|&)timing=soon"/,
+    "default scope link without JavaScript",
+  );
+  assert.ok(home.includes('href="/contact?help=product"'), "plan card scope");
+  const contact = htmlByPath.get("/contact");
+  assert.ok(contact.includes('role="radiogroup"'), "service choices");
+  assert.ok(contact.includes("Business website &amp; support"));
+});
+
 await test("unreleased game cases are linked and retain their development status", () => {
   const home = htmlByPath.get("/");
   for (const slug of [

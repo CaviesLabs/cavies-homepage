@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Maximize2 } from "lucide-react";
+import { MorphText } from "./morph-text";
 import styles from "./project-showcase.module.css";
 
 type ShowcaseProject = {
@@ -81,7 +82,7 @@ export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
       <div className="showcase-heading">
         <span className="eyebrow">A FEW THINGS WE’VE DESIGNED & BUILT</span>
         <span className="showcase-count">
-          {String(activeIndex + 1).padStart(2, "0")} /{" "}
+          <MorphText text={String(activeIndex + 1).padStart(2, "0")} /> /{" "}
           {String(projects.length).padStart(2, "0")}
         </span>
       </div>
@@ -146,8 +147,12 @@ export function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
         </a>
         <div className="showcase-caption">
           <div>
-            <strong>{active.name}</strong>
-            <span>{active.category}</span>
+            <strong>
+              <MorphText text={active.name} />
+            </strong>
+            <span>
+              <MorphText text={active.category} />
+            </span>
           </div>
           <div className="showcase-links">
             <a href={active.image} target="_blank" rel="noopener noreferrer">

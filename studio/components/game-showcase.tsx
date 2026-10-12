@@ -11,6 +11,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import type { Project } from "@/lib/projects";
+import { MorphText } from "./morph-text";
 import styles from "./game-showcase.module.css";
 
 type GameImage = {
@@ -210,9 +211,11 @@ export function GameShowcase({ projects }: { projects: Project[] }) {
                 aria-live="polite"
                 aria-atomic="true"
               >
-                <span>{selectedImage.caption}</span>
+                <span>
+                  <MorphText text={selectedImage.caption} />
+                </span>
                 <span className={styles.imageCount}>
-                  {imageIndex + 1} / {images.length}
+                  <MorphText text={String(imageIndex + 1)} /> / {images.length}
                 </span>
               </figcaption>
             </figure>

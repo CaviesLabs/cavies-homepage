@@ -1,5 +1,12 @@
 import { contactEmail } from "./contact";
-import { absoluteUrl, homeDescription, linkedInUrl, siteName, siteUrl } from "./seo";
+import {
+  absoluteUrl,
+  homeDescription,
+  linkedInUrl,
+  siteName,
+  siteUrl,
+  xUrl,
+} from "./seo";
 import type { Project } from "./projects";
 
 const organizationId = `${siteUrl}/#organization`;
@@ -20,7 +27,7 @@ export const organization = {
     width: 512,
     height: 512,
   },
-  sameAs: [linkedInUrl],
+  sameAs: [linkedInUrl, xUrl],
 };
 
 export function homeStructuredData(projects: Project[]) {

@@ -4,8 +4,11 @@ import { ArrowUpRight } from "lucide-react";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { StructuredData } from "@/components/structured-data";
+import { scopeContactHref } from "@/lib/project-scope";
 import { absoluteUrl, pageMetadata, siteName, siteUrl } from "@/lib/seo";
 import styles from "./page.module.css";
+
+const websiteEnquiryHref = scopeContactHref({ help: "website" });
 
 const path = "/services/business-websites";
 const title = "Website Design for Australian Businesses";
@@ -168,7 +171,7 @@ export default function BusinessWebsitesPage() {
               do and make it easy to get in touch.
             </p>
             <div className={styles.actions}>
-              <Link href="/contact" className="button">
+              <Link href={websiteEnquiryHref} className="button">
                 Discuss your website
                 <ArrowUpRight size={18} aria-hidden="true" />
               </Link>
@@ -294,7 +297,7 @@ export default function BusinessWebsitesPage() {
         >
           <div>
             <h2 id="website-faq-title">Good questions.</h2>
-            <Link href="/contact" className="text-link">
+            <Link href={websiteEnquiryHref} className="text-link">
               Talk to us <ArrowUpRight size={15} aria-hidden="true" />
             </Link>
           </div>
@@ -324,7 +327,7 @@ export default function BusinessWebsitesPage() {
               timeline. We can work out a useful starting point together.
             </p>
           </div>
-          <Link href="/contact" className="button">
+          <Link href={websiteEnquiryHref} className="button">
             Discuss your website
             <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
