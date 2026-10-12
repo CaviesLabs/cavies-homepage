@@ -19,6 +19,7 @@ npm run lint
 npm run typecheck
 npm run build
 npm run test:enquiry
+npm run test:scope
 ```
 
 For production HTTP/SEO smoke checks, run `npm run start -- --port 3100` in one terminal, then `npm run test:smoke` in another. Set `SITE_TEST_URL` if the server uses another port. These checks cover public routes, metadata, sitemap, robots, redirects and real 404s; they do not replace mobile/desktop browser and keyboard QA.
@@ -37,6 +38,9 @@ For production HTTP/SEO smoke checks, run `npm run start -- --port 3100` in one 
 - `lib/game-projects.ts` contains four unreleased game case studies. `components/game-showcase.tsx` provides keyboard-accessible game and screenshot selection. Its previews preserve full images, with no autoplay; the cases stay separate from the established product order.
 - The product and game selectors use short user-triggered transitions and moving selection indicators, disabled for reduced motion. See `docs/portfolio-motion.md` for reference review and design choices.
 - `components/pricing.tsx` owns the monthly plans: Websites, Product interfaces, and Security audit. Each is quoted to an agreed scope and delivery capacity; no fixed public rate or unverified case-study price is advertised.
+- `components/scope-builder.tsx` (under the plans, `/#scope`) composes three visitor decisions into one sentence. `lib/project-scope.ts` owns the options, phrasing, service mapping, and the `/contact?help=…&stage=…&timing=…` link. Plan cards and primary calls to action pass `help` so the contact form preselects the service. See `docs/portfolio-motion.md`.
+- `components/option-row.tsx` is the shared segmented radio group with a sliding indicator; `components/morph-text.tsx` settles changed text letter by letter and reads as plain text to assistive technology.
+- On `/contact`, a complete scope from the URL shows as a stub, preselects the service, and prefills the first line of the brief until the visitor edits or clears the form. After a confirmed send, `components/enquiry-ticket.tsx` prints a summary of what was sent. Nothing about delivery changed.
 - `components/reflective-mark.tsx` progressively enhances the hero with a reflective C. Its scene loads on demand, stops rendering when idle or offscreen, and uses a static fallback for reduced motion or unavailable WebGL. See `docs/hero-motion.md`.
 - `public/work/` contains optimized, locally hosted original artwork and product captures. See `docs/portfolio-sources.md` for provenance.
 - `lib/contact.ts` is the single source for the contact address and email links.

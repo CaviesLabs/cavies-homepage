@@ -1,11 +1,23 @@
 import { ArrowUpRight, Braces, Layers2, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-import { businessWebsitesHref, contactHref } from "@/lib/contact";
+import { businessWebsitesHref } from "@/lib/contact";
+import { scopeContactHref, type HelpId } from "@/lib/project-scope";
+import { ScopeBuilder } from "./scope-builder";
 
-const plans = [
+const plans: {
+  name: string;
+  icon: typeof Layers2;
+  help: HelpId;
+  description: string;
+  items: string[];
+  action: string;
+  detailsHref?: string;
+  featured?: boolean;
+}[] = [
   {
     name: "Websites",
     icon: Layers2,
+    help: "website",
     description:
       "Business websites, landing pages, and redesigns, with a focused monthly scope.",
     items: [
@@ -19,6 +31,7 @@ const plans = [
   {
     name: "Product interfaces",
     icon: Braces,
+    help: "product",
     description:
       "Design and frontend development for apps, dashboards, and customer portals.",
     items: [
@@ -32,6 +45,7 @@ const plans = [
   {
     name: "Security audit",
     icon: ShieldCheck,
+    help: "audit",
     description:
       "Security review with prioritized findings and remediation guidance.",
     items: [
@@ -81,7 +95,10 @@ export function Pricing() {
                 </li>
               ))}
             </ul>
-            <Link href={contactHref} className="plan-action">
+            <Link
+              href={scopeContactHref({ help: plan.help })}
+              className="plan-action"
+            >
               {plan.action}
               <ArrowUpRight size={18} />
             </Link>
@@ -93,9 +110,7 @@ export function Pricing() {
           </article>
         ))}
       </div>
-      <div className="pricing-footnote">
-        <p>Scope, monthly fee, and delivery capacity agreed before kickoff.</p>
-      </div>
+      <ScopeBuilder />
     </section>
   );
 }

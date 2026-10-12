@@ -8,6 +8,8 @@ import {
   useSyncExternalStore,
   type FormEvent,
 } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { contactEmail, emailHref } from "@/lib/contact";
 import {
   copyEnquiryText,
@@ -18,11 +20,23 @@ import {
   type EnquiryErrors,
   type EnquiryFields,
 } from "@/lib/enquiry";
+import {
+  isCompleteScope,
+  parseScope,
+  scopeClause,
+  scopePhrase,
+  scopeSentence,
+  scopeService,
+} from "@/lib/project-scope";
 import styles from "./enquiry-form.module.css";
+import { EnquiryTicket } from "./enquiry-ticket";
 import {
   EnquiryTurnstile,
   type EnquiryTurnstileHandle,
 } from "./enquiry-turnstile";
+import { OptionRow } from "./option-row";
+
+type EnquiryService = (typeof enquiryServices)[number];
 
 const emptyFields: EnquiryFields = {
   name: "",
@@ -34,6 +48,12 @@ const emptyFields: EnquiryFields = {
 const subscribe = () => () => {};
 const clientReady = () => true;
 const serverReady = () => false;
+const clientSearch = () => window.location.search;
+const serverSearch = () => "";
+const serviceOptions = enquiryServices.map((service) => ({
+  id: service,
+  label: service,
+}));
 const fieldOrder: (keyof EnquiryFields)[] = [
   "name",
   "email",
@@ -51,13 +71,17 @@ export function EnquiryForm({
 }) {
   const directDelivery = deliveryEnabled && Boolean(turnstileSiteKey);
   const ready = useSyncExternalStore(subscribe, clientReady, serverReady);
+  const search = useSyncExternalStore(subscribe, clientSearch, serverSearch);
   const [fields, setFields] = useState<EnquiryFields>(emptyFields);
+  const [scopeDismissed, setScopeDismissed] = useState(false);
+  const [briefEdited, setBriefEdited] = useState(false);
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [draft, setDraft] = useState<EnquiryDraft | null>(null);
   const [status, setStatus] = useState("");
   const [copying, setCopying] = useState(false);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sentOn, setSentOn] = useState("");
   const [statusIsError, setStatusIsError] = useState(false);
   const [company, setCompany] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -76,6 +100,21 @@ export function EnquiryForm({
     (token: string) => setTurnstileToken(token),
     [],
   );
+
+  // Choices made on the homepage arrive in the URL. They seed the service and
+  // the first line of the brief until the visitor edits or clears the form.
+  const selection = scopeDismissed ? null : parseScope(search);
+  const scope = isCompleteScope(selection) ? selection : null;
+  const current: EnquiryFields = {
+    ...fields,
+    service:
+      fields.service || (selection?.help ? scopeService(selection.help) : ""),
+    brief: briefEdited
+      ? fields.brief
+      : scope
+        ? `${scopeSentence(scope)}\n\n`
+        : "",
+  };
 
   useEffect(
     () => () => {
@@ -116,6 +155,7 @@ export function EnquiryForm({
   function updateField(field: keyof EnquiryFields, value: string) {
     if (pending.current) return;
     revision.current += 1;
+    if (field === "brief") setBriefEdited(true);
     setFields((previous) => ({ ...previous, [field]: value }));
     setErrors((previous) => ({ ...previous, [field]: undefined }));
     setDraft(null);
@@ -131,7 +171,7 @@ export function EnquiryForm({
     setStatus("");
     setCopying(false);
     setStatusIsError(false);
-    const result = prepareEnquiry(fields, contactEmail);
+    const result = prepareEnquiry(current, contactEmail);
     if (!result.ok) {
       setErrors(result.errors);
       setDraft(null);
@@ -180,7 +220,7 @@ export function EnquiryForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "same-origin",
-        body: JSON.stringify({ ...fields, company, turnstileToken }),
+        body: JSON.stringify({ ...current, company, turnstileToken }),
         signal: controller.signal,
       });
       const result: unknown = await response.json();
@@ -193,6 +233,13 @@ export function EnquiryForm({
         result.ok === true
       ) {
         setSent(true);
+        setSentOn(
+          new Date().toLocaleDateString(undefined, {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+        );
         announce(
           "Your enquiry has been sent. We’ll reply to the email address you provided.",
         );
@@ -284,6 +331,8 @@ export function EnquiryForm({
     if (pending.current) return;
     revision.current += 1;
     setFields(emptyFields);
+    setScopeDismissed(true);
+    setBriefEdited(false);
     setErrors({});
     setDraft(null);
     setCopying(false);
@@ -312,6 +361,18 @@ export function EnquiryForm({
           </p>
         </div>
       )}
+      {scope ? (
+        <div className={styles.scope}>
+          <span className={styles.scopeLabel}>Your scope</span>
+          <p className={styles.scopeSentence}>
+            We need <span className="scope-chip">{scopePhrase(scope)}</span>,{" "}
+            <span className="scope-chip">{scopeClause(scope)}</span>.
+          </p>
+          <Link className={styles.scopeEdit} href="/#scope">
+            Adjust <ArrowUpRight size={13} aria-hidden="true" />
+          </Link>
+        </div>
+      ) : null}
       <noscript>
         <p className={styles.notice}>
           This form needs JavaScript. You can still email{" "}
@@ -326,7 +387,7 @@ export function EnquiryForm({
         aria-busy={sending}
         aria-describedby={directDelivery ? undefined : "enquiry-privacy"}
       >
-        {/* No names are assigned to controls, so a native fallback submission cannot put details in a URL. */}
+        {/* No names are assigned to text controls, so a native fallback submission cannot put details in a URL. */}
         <fieldset disabled={!ready || sending} className={styles.fields}>
           <legend className={styles.srOnly}>Project details</legend>
           <p className={styles.requiredNote}>
@@ -384,24 +445,18 @@ export function EnquiryForm({
             </div>
           </div>
           <div className={styles.field}>
-            <label htmlFor="enquiry-service">What can we help with?</label>
-            <select
+            <OptionRow
               id="enquiry-service"
-              required
-              value={fields.service}
-              onChange={(event) => updateField("service", event.target.value)}
-              aria-invalid={Boolean(errors.service)}
-              aria-describedby={
-                errors.service ? "enquiry-service-error" : undefined
-              }
-            >
-              <option value="">Choose a service</option>
-              {enquiryServices.map((service) => (
-                <option key={service} value={service}>
-                  {service}
-                </option>
-              ))}
-            </select>
+              variant="stacked"
+              label="What can we help with?"
+              labelClassName={styles.groupLabel}
+              name="enquiry-service"
+              options={serviceOptions}
+              value={current.service as EnquiryService | ""}
+              onChange={(service) => updateField("service", service)}
+              invalid={Boolean(errors.service)}
+              describedBy={errors.service ? "enquiry-service-error" : undefined}
+            />
             {errors.service ? (
               <p id="enquiry-service-error" className={styles.error}>
                 {errors.service}
@@ -443,7 +498,7 @@ export function EnquiryForm({
               required
               minLength={20}
               maxLength={enquiryLimits.brief}
-              value={fields.brief}
+              value={current.brief}
               onChange={(event) => updateField("brief", event.target.value)}
               aria-invalid={Boolean(errors.brief)}
               aria-describedby={`enquiry-brief-hint enquiry-brief-count${errors.brief ? " enquiry-brief-error" : ""}`}
@@ -453,7 +508,7 @@ export function EnquiryForm({
                 What do you want to build or improve? Add any useful timing.
               </p>
               <p id="enquiry-brief-count" className={styles.hint}>
-                {fields.brief.length}/{enquiryLimits.brief}
+                {current.brief.length}/{enquiryLimits.brief}
               </p>
             </div>
             {errors.brief ? (
@@ -525,6 +580,15 @@ export function EnquiryForm({
       >
         {status}
       </p>
+      {sent ? (
+        <EnquiryTicket
+          fields={current}
+          scope={scope}
+          sentOn={sentOn}
+          onReset={clearDraft}
+          resetClassName={styles.secondaryButton}
+        />
+      ) : null}
       {draft ? (
         <section className={styles.preview} aria-labelledby="draft-title">
           <h3 id="draft-title">Review your draft</h3>

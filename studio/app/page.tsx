@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { businessWebsitesHref, contactHref } from "@/lib/contact";
+import { scopeContactHref } from "@/lib/project-scope";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectIndex } from "@/components/project-index";
 import { ProjectShowcase } from "@/components/project-showcase";
@@ -75,7 +76,10 @@ export default function Home() {
                 businesses in Australia and worldwide.
               </p>
               <div className="hero-actions">
-                <Link className="button" href={contactHref}>
+                <Link
+                  className="button"
+                  href={scopeContactHref({ help: "website" })}
+                >
                   Discuss your website <ArrowUpRight size={18} />
                 </Link>
                 <a className="text-link" href="#work">
@@ -130,7 +134,10 @@ export default function Home() {
               portals. We work in your codebase and connect to your team’s APIs.
             </p>
             <div className="service-pathway-links">
-              <Link className="text-link" href={contactHref}>
+              <Link
+                className="text-link"
+                href={scopeContactHref({ help: "product" })}
+              >
                 Discuss your product <ArrowUpRight size={16} />
               </Link>
               <Link className="hero-pricing-link" href="/work/seitrace">

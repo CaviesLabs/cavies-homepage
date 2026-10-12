@@ -39,6 +39,7 @@ The backend refuses refreshed grants containing broader Gmail access. It does no
 - Only HMAC identifiers and timestamps are stored. Expired entries are removed on the next successful reservation; inactivity can leave old hashes in the single private ledger. No brief, email, or raw IP is stored there.
 - Failed and uncertain sends retain their reservation. Gmail sends are not automatically retried, because Gmail has no send-idempotency guarantee. An intentional later retry or manual follow-up can produce a duplicate.
 - Successful responses require Gmail's message ID. Timeouts never produce a success message. Provider errors and credentials are not returned or logged.
+- Scope choices carried from the homepage (`/contact?help=…&stage=…&timing=…`) only preselect the service and prefill the first line of the brief on the client; the visitor can edit or clear them, and the request fields, validation, and limits are unchanged. After a confirmed send, the client prints a ticket from the visitor's own form values; nothing is fetched or stored for it.
 - An additional Vercel project firewall rule limits `POST /api/enquiry` to 10 requests per IP per 10 minutes. This is a regional burst control; the Blob ledger supplies the global cap.
 
 Normal Vercel Function, Blob, and WAF usage applies against the existing plan. There is no additional email-provider subscription. The application does not store enquiries for recovery; Gmail and the visitor's retained form text are the delivery/manual-fallback paths.

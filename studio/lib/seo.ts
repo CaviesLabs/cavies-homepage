@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 export const siteUrl = "https://cavies.xyz";
 export const siteName = "Cavies Studio";
 export const linkedInUrl = "https://www.linkedin.com/company/caviesstudio/";
-export const homeTitle = "Cavies Studio | Website Design & Frontend Engineering";
+export const xUrl = "https://x.com/CaviesStudio";
+export const homeTitle =
+  "Cavies Studio | Website Design & Frontend Engineering";
 export const homeDescription =
   "Website design and frontend engineering for startups and businesses in Australia and worldwide. Monthly plans shaped around your scope and budget.";
 export const absoluteUrl = (path: string) => new URL(path, `${siteUrl}/`).href;

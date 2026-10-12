@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test:enquiry": "node --experimental-strip-types --test tests/enquiry.test.mjs tests/enquiry-delivery.test.mjs tests/enquiry-rate-limit.test.mjs",
+    "test:scope": "node --experimental-strip-types --test tests/project-scope.test.mjs",
     "test:smoke": "node --test tests/site-smoke.test.mjs"
   },
   "dependencies": {
