@@ -2,6 +2,184 @@ import type { Project } from "./projects";
 
 export const additionalProjects: Project[] = [
   {
+    slug: "paperdash",
+    name: "Paperdash",
+    category: "Trading interface",
+    headline: "Live markets. Clear numbers.",
+    description:
+      "An independent web app and Telegram bot for Papertrade analytics and live leveraged trading.",
+    image: "/work/paperdash-markets.webp",
+    imageWidth: 1920,
+    imageHeight: 1307,
+    color: "#f8e6f0",
+    tags: ["Trading interfaces", "Data visualization"],
+    role: "From our product portfolio",
+    context:
+      "Papertrade is an onchain protocol for high-leverage BTC and ETH positions margined in USDC. Its fees, price impact, liquidation, and payout rules are hard to read from raw protocol data before placing an order.",
+    approach:
+      "Papertrade is an onchain protocol for leveraged BTC and ETH positions. Paperdash brings live prices, protocol statistics, and clearly labeled payout estimates together with a one-screen trading terminal, a Telegram bot, and an origami-themed arcade. The terminal, the bot, and every arcade round place real Papertrade orders, and each arcade table states the position it opens.",
+    details: [
+      "Live market and protocol analytics",
+      "One-screen trading terminal",
+      "Arcade tables on real positions",
+      "Telegram bot and nine languages",
+    ],
+    url: "https://paperdash.xyz",
+    liveLink: { href: "https://paperdash.xyz", label: "Visit paperdash.xyz" },
+    imageNote: "BTC market · Live data",
+  },
+  {
+    slug: "reai",
+    name: "Reai",
+    category: "AI property assistant",
+    headline: "Quick to reply. Quick to hand over.",
+    description:
+      "A WhatsApp assistant that answers Singapore property agents’ enquiries from their own listings.",
+    image: "/work/reai-home.webp",
+    imageWidth: 1920,
+    imageHeight: 1200,
+    color: "#f6d3c4",
+    tags: ["AI product", "Product design"],
+    role: "From our product portfolio",
+    context:
+      "Property agents get the same WhatsApp questions at all hours, and a slow reply can lose a lead. Reai answers on the agent’s own work number using only the agent’s listings, rules, and official sources. It is live at reai.sg in an early pilot.",
+    approach:
+      "Clients keep messaging the agent’s usual number, while the agent works from a separate Reai chat: lead summaries, viewing times to approve, and questions handed over with a suggested reply. A web workspace holds listings, clients, and settings, and a shadow mode drafts replies beside the agent’s own before anything is sent. Reai is live at reai.sg in an early pilot.",
+    details: [
+      "Answers grounded in the agent’s listings",
+      "Lead qualification and summaries",
+      "Agent-approved viewing times",
+      "Handover with suggested replies",
+    ],
+    url: "https://reai.sg",
+    liveLink: { href: "https://reai.sg", label: "Visit reai.sg" },
+    imageNote: "Product website · Illustrative conversation",
+  },
+  {
+    slug: "vpawhook",
+    name: "vPawHook",
+    category: "Onchain clan game",
+    headline: "Pixel pets. Onchain races.",
+    description:
+      "A pixel-art clan racing game on Ethereum, built around an upgradeable Uniswap v4 hook.",
+    image: "/work/vpawhook-hooks.webp",
+    imageWidth: 1920,
+    imageHeight: 1625,
+    color: "#ecf0cc",
+    tags: ["Game interface", "Design engineering"],
+    role: "From our product portfolio",
+    context:
+      "vPawHook ties a pet-racing game to one Uniswap v4 pool. Clans share a pet and burn or lock tokens during timed races, while pool fees are designed to fund prizes, so game rules, token actions, and claims all need to stay easy to follow.",
+    approach:
+      "A pixel-art world, wardrobe, and clan pages carry the identity. A hook explainer shows where each swap fee goes, race formats are set out before each event, and an input-by-input replay shows how a pet earned its result. Mainnet is not live; the public test site runs on Ethereum Sepolia with test assets.",
+    details: [
+      "Fee-routing hook explainer",
+      "Race formats and pet progression",
+      "Input-by-input race replay",
+      "Pet wardrobe and pixel-art identity",
+    ],
+    imageNote: "Hook and fee routing · Pre-launch",
+  },
+  {
+    slug: "skew",
+    name: "Skew",
+    category: "Options trading app",
+    headline: "Complex contracts. One plain sentence.",
+    description:
+      "A mobile-first options app that turns a plain-language market view into a listed contract.",
+    image: "/work/skew-discover.webp",
+    imageWidth: 1920,
+    imageHeight: 1200,
+    color: "#e8f0cf",
+    tags: ["Mobile product design", "Trading interfaces"],
+    role: "From our product portfolio",
+    context:
+      "Options pack strikes, expiries, premiums, and settlement rules into one decision, and onchain venues add wallets, networks, and funding steps. Skew was designed to make that decision readable on a phone without hiding the risk.",
+    approach:
+      "A sentence composer matches a view such as “I think ETH finishes higher” to listed calls and puts on Derive and Hypercall, then shows the current ask, maximum loss, break-even, and an at-expiry payoff chart before any order review. Each order or transfer has its own review and is signed in the user’s own wallet, and clearly labeled educational examples stay separate from live markets. The images show the final release running locally with live public market data.",
+    details: [
+      "Plain-language outcome composer",
+      "At-expiry payoff and price-history charts",
+      "Wallet-signed order and transfer reviews",
+      "Labeled educational examples",
+    ],
+    imageNote: "Discover · Live market data",
+  },
+  {
+    slug: "loosecoins",
+    name: "Loosecoins",
+    category: "Wallet checker",
+    headline: "Paste an address. See what was left behind.",
+    description:
+      "A read-only check of public sources for forgotten balances on EVM and Solana addresses.",
+    image: "/work/loosecoins-results.webp",
+    imageWidth: 1920,
+    imageHeight: 1200,
+    color: "#f5ebd2",
+    tags: ["Data-rich interfaces", "Web3 integration"],
+    role: "From our product portfolio",
+    context:
+      "Leftover crypto sits where wallet apps don’t look: old contract balances, unclaimed staking withdrawals, stalled bridge transfers, and rent held by empty Solana token accounts.",
+    approach:
+      "Loosecoins checks the public sources that match a pasted address and labels each finding ready, waiting, blocked, or to check, with a link to its source. Historical snapshots never count toward ready totals, and an unreachable source shows as unavailable rather than empty.",
+    details: [
+      "EVM and Solana checks, no wallet connection",
+      "Ready, waiting, blocked, and to-check states",
+      "Evidence and source links",
+    ],
+    imageNote: "Scan results · Example address",
+  },
+  {
+    slug: "dexpaid",
+    name: "DexPaid",
+    category: "Token launchpad",
+    headline: "Know where the creator fees go.",
+    description:
+      "A Solana launchpad that routes creator fees to token marketing and buybacks, with a public ledger.",
+    image: "/work/dexpaid-discover.webp",
+    imageWidth: 1920,
+    imageHeight: 1035,
+    color: "#e4e3f7",
+    tags: ["Product interface", "Web3 integration"],
+    role: "From our product portfolio",
+    context:
+      "Fee-funded promotion and buybacks are easy to promise and hard to check. DexPaid fixes each fee route at launch and reports marketing, buyback, and operating funds separately.",
+    approach:
+      "Creators sign in with a Solana wallet and save a draft, and each launch is prepared as a single transaction that locks in its fee route for the creator to sign. Owner-approved spending is reserved against a budget and verified onchain before it reaches a double-entry ledger. The release stayed in a gated pre-launch state, with every financial action paused.",
+    details: [
+      "Wallet sign-in and private drafts",
+      "Launches with locked fee routing",
+      "Double-entry ledger with separate funds",
+      "Owner review and payment checks",
+    ],
+    imageNote: "Discover · Pre-launch",
+  },
+  {
+    slug: "emberline",
+    name: "Emberline",
+    category: "Engineering workflow tool",
+    headline: "Every opening, linked to its evidence.",
+    description:
+      "A local pilot that turns Bluebeam markup exports into reviewed, traceable draft evidence packages.",
+    image: "/work/emberline-opening-review.webp",
+    imageWidth: 1920,
+    imageHeight: 1200,
+    color: "#203c35",
+    tags: ["Workflow tool", "Document generation"],
+    role: "Internal tool design & development",
+    context:
+      "Preparing boundary-opening evidence means carrying measurements from marked-up drawings into registers, workbooks, and reports. Emberline is a pilot for keeping every figure connected to its source drawing, export row, and reviewer.",
+    approach:
+      "Emberline imports a labeled markup export and the original PDF, keeps an opening register, and proposes a drawing crop for each opening from exact annotation matches. An engineer reviews and approves each opening, and only approved openings go into a draft report, input register, and audit record. It runs locally, does not apply building-code rules or make engineering judgments, and is shown with its built-in synthetic sample.",
+    details: [
+      "Opening register with source references",
+      "Drawing crops from exact annotation matches",
+      "Engineer review for every opening",
+      "Draft report and audit package",
+    ],
+    imageNote: "Opening review · Synthetic sample",
+  },
+  {
     slug: "chat",
     name: "Chat",
     category: "Creator platform",

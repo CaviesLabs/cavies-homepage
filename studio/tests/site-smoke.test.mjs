@@ -18,7 +18,7 @@ await test("public sitemap retains the portfolio and includes both new pages", a
   assert.equal(new Set(urls).size, urls.length, "no duplicate sitemap URLs");
   assert.ok(urls.includes(`${canonicalOrigin}/services/business-websites`));
   assert.ok(urls.includes(`${canonicalOrigin}/contact`));
-  assert.ok(urls.filter((url) => url.includes("/work/")).length >= 17);
+  assert.ok(urls.filter((url) => url.includes("/work/")).length >= 28);
   const titles = new Set();
   const descriptions = new Set();
   for (const url of urls) {
@@ -97,11 +97,54 @@ await test("work index lists every case study and is linked from every page", ()
   const linked = new Set(
     [...work.matchAll(/href="\/work\/([a-z0-9-]+)"/g)].map((m) => m[1]),
   );
-  assert.ok(linked.size >= 21, `links ${linked.size} case studies`);
+  assert.ok(linked.size >= 28, `links ${linked.size} case studies`);
   assert.ok(work.includes("In development"), "games keep their status");
   assert.ok(work.includes("Past product advisory"), "advisory stays separate");
   for (const path of ["/", "/contact", "/work/seitrace"]) {
     assert.ok(htmlByPath.get(path).includes('href="/work"'), path);
+  }
+});
+
+await test("featured work follows the owner's order", () => {
+  const work = htmlByPath.get("/work");
+  const featured = [
+    ...new Set(
+      [...work.matchAll(/href="\/work\/([a-z0-9-]+)"/g)].map((m) => m[1]),
+    ),
+  ].slice(0, 4);
+  assert.deepEqual(featured, [
+    "paperdash",
+    "seitrace",
+    "beigman-engineering",
+    "reai",
+  ]);
+  assert.ok(htmlByPath.get("/").includes('href="/work/paperdash"'));
+});
+
+await test("new cases keep live links and honest data labels", () => {
+  const expectations = {
+    "/work/paperdash": [
+      'href="https://paperdash.xyz"',
+      "real Papertrade orders",
+    ],
+    "/work/reai": [
+      'href="https://reai.sg"',
+      "Illustrative conversation",
+      "early pilot",
+    ],
+    "/work/browser-games": ["53 games", "YouTube Playables format"],
+    "/work/vpawhook": ["Sepolia testnet", "Mainnet is not live"],
+    "/work/skew": ["Educational"],
+    "/work/dexpaid": ["Pre-launch"],
+    "/work/loosecoins": ["Example address"],
+    "/work/emberline": ["Synthetic sample"],
+  };
+  for (const [path, phrases] of Object.entries(expectations)) {
+    const html = htmlByPath.get(path);
+    assert.ok(html, `${path} is in the sitemap`);
+    for (const phrase of phrases) {
+      assert.ok(html.includes(phrase), `${path} includes ${phrase}`);
+    }
   }
 });
 
