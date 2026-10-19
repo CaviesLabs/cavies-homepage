@@ -3,6 +3,110 @@ import type { Project } from "./projects";
 type GalleryImage = NonNullable<Project["gallery"]>[number];
 
 export const projectGalleries: Record<string, GalleryImage[]> = {
+  paperdash: [
+    {
+      src: "/work/paperdash-house-stats.webp",
+      caption: "Protocol liquidity and open interest · Live data",
+      width: 1920,
+      height: 1476,
+    },
+    {
+      src: "/work/paperdash-payout-calculator.webp",
+      caption: "Payout calculator · Estimate",
+      width: 1920,
+      height: 1179,
+    },
+    {
+      src: "/work/paperdash-arcade-table.webp",
+      caption: "Arcade wheel table · Signed-out view",
+      width: 1920,
+      height: 1483,
+    },
+  ],
+  reai: [
+    {
+      src: "/work/reai-how-it-works.webp",
+      caption: "Setup in four steps · Illustrative",
+      width: 1920,
+      height: 1380,
+    },
+    {
+      src: "/work/reai-handover.webp",
+      caption: "Handover to the agent · Illustrative conversation",
+      width: 1920,
+      height: 1619,
+    },
+    {
+      src: "/work/reai-assistant-chat.webp",
+      caption: "Managing listings by chat · Illustrative conversation",
+      width: 1920,
+      height: 1176,
+    },
+  ],
+  vpawhook: [
+    {
+      src: "/work/vpawhook-race-formats.webp",
+      caption: "Race formats and pet progression · Pre-launch",
+      width: 1920,
+      height: 1463,
+    },
+    {
+      src: "/work/vpawhook-race-replay.webp",
+      caption: "Race replay · Sepolia testnet",
+      width: 1920,
+      height: 1811,
+    },
+    {
+      src: "/work/vpawhook-wardrobe.webp",
+      caption: "Pet wardrobe · Art preview",
+      width: 1920,
+      height: 1784,
+    },
+  ],
+  skew: [
+    {
+      src: "/work/skew-composer-mobile.webp",
+      caption: "Outcome composer on a phone · Live market data",
+      width: 820,
+      height: 1775,
+    },
+    {
+      src: "/work/skew-history-mobile.webp",
+      caption: "Index price history · Live market data",
+      width: 820,
+      height: 1775,
+    },
+    {
+      src: "/work/skew-learn-mobile.webp",
+      caption: "Options basics · Educational",
+      width: 820,
+      height: 1775,
+    },
+  ],
+  loosecoins: [
+    {
+      src: "/work/loosecoins-evidence.webp",
+      caption: "Evidence and source details · Example address",
+      width: 1920,
+      height: 1200,
+    },
+  ],
+  dexpaid: [
+    {
+      src: "/work/dexpaid-fee-routes.webp",
+      caption: "Fee routes and selection policy · Pre-launch",
+      width: 1920,
+      height: 1519,
+    },
+  ],
+  emberline: [
+    {
+      src: "/work/emberline-draft-package.webp",
+      caption: "Draft evidence package · Synthetic sample",
+      width: 1920,
+      height: 1325,
+    },
+  ],
   chat: [
     {
       src: "/work/chat-launch.webp",

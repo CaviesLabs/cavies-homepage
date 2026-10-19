@@ -4,10 +4,45 @@ export type ProjectSeoMetadata = {
 };
 
 export const projectSeo: Record<string, ProjectSeoMetadata> = {
+  paperdash: {
+    title: "Paperdash: Trading Interface & Market Analytics",
+    description:
+      "Explore Paperdash, an independent Papertrade web app by Cavies: live market analytics, payout estimates, a trading terminal, and arcade tables on real positions.",
+  },
+  reai: {
+    title: "Reai: WhatsApp AI Assistant for Property Agents",
+    description:
+      "Explore Reai, Cavies' WhatsApp assistant for Singapore property agents: replies from the agent's own listings, lead summaries, viewing approvals, and handover.",
+  },
+  vpawhook: {
+    title: "vPawHook: Onchain Pixel-Pet Racing Game",
+    description:
+      "Explore vPawHook, a pixel-art clan racing game built around an upgradeable Uniswap v4 hook, shown with pre-launch pages and Sepolia testnet data.",
+  },
+  skew: {
+    title: "Skew: Mobile Options Trading Interface",
+    description:
+      "Explore Skew, a mobile-first options app by Cavies: a plain-language outcome composer, payoff and price-history charts, and wallet-signed order reviews.",
+  },
+  loosecoins: {
+    title: "Loosecoins: Crypto Wallet Checker Interface",
+    description:
+      "See Loosecoins, a read-only checker for forgotten EVM and Solana balances across public sources, with evidence links and clear status labels.",
+  },
+  dexpaid: {
+    title: "DexPaid: Solana Token Launchpad Interface",
+    description:
+      "See DexPaid, a Solana launchpad by Cavies with locked creator-fee routes, owner-approved spending, and a public double-entry ledger, shown pre-launch.",
+  },
+  emberline: {
+    title: "Emberline: Engineering Evidence Workflow Pilot",
+    description:
+      "See Emberline, a local pilot by Cavies that links each boundary opening to its drawing, review, and draft evidence package. Shown with synthetic sample data.",
+  },
   "oddly-orderly": {
     title: "Oddly Orderly: Cozy Puzzle Game Design",
     description:
-      "Explore Oddly Orderly, a Cavies game in development: tactile object-placement puzzles, accessible controls, and a visual room journal.",
+      "Explore Oddly Orderly, a Cavies game in development: 100 tactile object-placement puzzles across 20 rooms, accessible controls, and a visual journal.",
   },
   butterpaw: {
     title: "Butterpaw: Cozy Game Prototype & World Design",
@@ -15,14 +50,14 @@ export const projectSeo: Record<string, ProjectSeoMetadata> = {
       "Explore Butterpaw, Cavies' unpacking game in development, with a Unity gameplay prototype, red-panda character identity, and story artwork.",
   },
   "all-brain-no-luck": {
-    title: "All Brain No Luck: Mobile Puzzle Game UI",
+    title: "All Brain No Luck: Family Puzzle Game Design",
     description:
-      "Explore All Brain No Luck, a Cavies game in development with twelve puzzle challenges, touch-friendly boards, hints, and character-led results.",
+      "Explore All Brain No Luck, a Cavies family puzzle game in development: twelve solver-checked challenges, a daily stage, and an island expedition.",
   },
   "browser-games": {
     title: "Browser Games: Playables Design & Development",
     description:
-      "Explore Cavies' collection of 33 unreleased browser games built for the YouTube Playables format, with original game interfaces and responsive controls.",
+      "Explore Cavies' collection of 53 browser games built for the YouTube Playables format, with original game interfaces and responsive controls.",
   },
   chat: {
     title: "Chat: Creator Platform Interface Design",

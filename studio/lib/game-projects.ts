@@ -10,38 +10,39 @@ export const gameProjects: Project[] = [
     headline: "A place for every little thing.",
     description:
       "Tactile puzzles about arranging everyday objects, with more than one way to put things in place.",
-    image: "/work/oddly-orderly-title.webp",
+    image: "/work/oddly-orderly-title-screen.webp",
     imageWidth: 1920,
     imageHeight: 1080,
     color: "#e9dfc9",
     tags: ["Game design", "Interaction design", "Godot development"],
     role: "Original game design & development",
     context:
-      "An unreleased organizing game built around familiar objects and quiet discoveries.",
+      "An unreleased organizing game about two people moving in together, told through their belongings, with a magpie for company.",
     approach:
-      "Drag, tap, keyboard, and gamepad controls share the same object-placement system. Visual hints, undo, and alternate solutions make the puzzles approachable, while a journal ties 65 levels across 13 rooms together.",
+      "Drag, tap, keyboard, and gamepad controls share one object-placement system, and nothing requires holding a button. Pencil-sketch hints, undo, and alternate solutions keep the puzzles approachable, while a room-by-room journal ties 100 levels across 20 rooms together.",
     details: [
       "Object placement and puzzle feedback",
       "Multiple input methods",
-      "Room navigation and visual journal",
+      "Room-by-room visual journal",
     ],
     imageNote: "Title screen · Development build",
     gallery: [
       {
-        src: "/work/oddly-orderly-cutlery.webp",
-        caption: "Cutlery arrangement · Development build",
+        src: "/work/oddly-orderly-party.webp",
+        caption: "Matching balloons to party hats · Development build",
         width: 1920,
         height: 1080,
       },
       {
-        src: "/work/oddly-orderly-jars.webp",
-        caption: "Completed jar puzzle · Development build",
+        src: "/work/oddly-orderly-candles.webp",
+        caption:
+          "Candles lit after a completed arrangement · Development build",
         width: 1920,
         height: 1080,
       },
       {
-        src: "/work/oddly-orderly-journal.webp",
-        caption: "Room journal and progress · Development build",
+        src: "/work/oddly-orderly-journal-winter.webp",
+        caption: "Room-by-room journal · Development build",
         width: 1920,
         height: 1080,
       },
@@ -98,10 +99,10 @@ export const gameProjects: Project[] = [
     status: "In development",
     slug: "all-brain-no-luck",
     name: "All Brain No Luck",
-    category: "Mobile puzzle collection",
+    category: "Family puzzle game",
     headline: "Small puzzles. Clear feedback.",
     description:
-      "Twelve skill-based puzzle challenges with a playful character and touch-friendly game interfaces.",
+      "A family puzzle game with twelve skill-based challenges, a daily stage, and an island expedition.",
     image: "/work/all-brain-no-luck-brand.webp",
     imageWidth: 1024,
     imageHeight: 500,
@@ -109,31 +110,32 @@ export const gameProjects: Project[] = [
     tags: ["Mobile game UI", "Puzzle systems", "Character feedback"],
     role: "Original game design & development",
     context:
-      "An unreleased puzzle collection for phones and tablets, with local profiles and progress.",
+      "An unreleased game for phones and tablets, with parent-managed player profiles, offline play, and an interface in ten languages.",
     approach:
-      "Clear boards, concise instructions, and hints make each challenge easy to enter. Character-led results give progress a personality, while shared navigation keeps twelve different puzzle types feeling like one game.",
+      "Every puzzle is generated from a seed and checked by a solver, so results come from skill rather than chance. Short rule demos, hints, and Pip’s reactions make each challenge easy to start, while Today’s Stage and the Brain Expedition give twelve different puzzle types one shared structure.",
     details: [
-      "Touch-first puzzle boards",
-      "Hints, progress, and local profiles",
-      "Character-led completion states",
+      "Twelve challenges, twelve levels each",
+      "Seeded, solver-checked puzzles",
+      "Ten languages, offline play, parent controls",
     ],
     imageNote: "Visual identity · Development artwork",
     gallery: [
       {
-        src: "/work/all-brain-no-luck-number-slide.webp",
-        caption: "Number Slide · Development build",
+        src: "/work/all-brain-no-luck-home.webp",
+        caption:
+          "Today’s Stage, the Brain Expedition, and challenges · Development build",
         width: 820,
         height: 1180,
       },
       {
-        src: "/work/all-brain-no-luck-laser-path.webp",
-        caption: "Laser Path · Development build",
+        src: "/work/all-brain-no-luck-cube-hop.webp",
+        caption: "Cube Hop puzzle board · Development build",
         width: 820,
         height: 1180,
       },
       {
-        src: "/work/all-brain-no-luck-results.webp",
-        caption: "Character-led results · Development build",
+        src: "/work/all-brain-no-luck-expedition.webp",
+        caption: "Brain Expedition island map · Development build",
         width: 820,
         height: 1180,
       },
@@ -147,38 +149,41 @@ export const gameProjects: Project[] = [
     category: "Quick-play browser games",
     headline: "Many ways to play.",
     description:
-      "A collection of 33 lightweight games spanning puzzles, arcade challenges, and everyday simulations.",
-    image: "/work/playables-pho-title.webp",
+      "A collection of 53 lightweight games spanning puzzles, card and board classics, arcade challenges, and sports.",
+    image: "/work/playables-lantern-burst-title.webp",
     imageWidth: 1440,
     imageHeight: 960,
-    color: "#ece7da",
+    color: "#13204a",
     tags: ["Game development", "Canvas interfaces", "Responsive controls"],
     role: "Original browser game design & development",
-    context: "An unreleased collection built for the YouTube Playables format.",
+    context:
+      "A collection in development, built for the YouTube Playables format.",
     approach:
-      "Each game has its own visual identity and interaction loop, with shared support for touch, keyboard controls, saved progress, audio, and localization. The collection is built for the YouTube Playables format and is still in development.",
+      "Each game has its own visual identity and interaction loop, with shared support for touch, keyboard controls, saved progress, audio, and localization. The newest, Lantern Burst, adds a festival-night run with route choices, three bosses, and a daily challenge, balanced with simulated players. The collection is built for the YouTube Playables format and is still in development.",
     details: [
-      "33 games across multiple genres",
+      "53 games across multiple genres",
       "Touch and keyboard interaction",
       "Shared platform integration and localization",
     ],
-    imageNote: "Phở Stall title screen · Development build",
+    imageNote: "Lantern Burst title screen · Development build",
     gallery: [
       {
-        src: "/work/playables-tide-jars.webp",
-        caption: "Tide Jars: color sorting · Development build",
+        src: "/work/playables-lantern-burst-fireworks.webp",
+        caption:
+          "Lantern Burst: a lantern string bursting into fireworks · Development build",
         width: 1440,
         height: 960,
       },
       {
-        src: "/work/playables-teahouse-tiles.webp",
-        caption: "Teahouse Tiles: mahjong solitaire · Development build",
+        src: "/work/playables-boathouse-billiards.webp",
+        caption:
+          "Boathouse Billiards: 8-ball against an otter · Development build",
         width: 1440,
         height: 960,
       },
       {
-        src: "/work/playables-dockside-shuffle.webp",
-        caption: "Dockside Shuffle: sliding-block puzzles · Development build",
+        src: "/work/playables-pinecone-peaks.webp",
+        caption: "Pinecone Peaks: TriPeaks solitaire · Development build",
         width: 1440,
         height: 960,
       },
