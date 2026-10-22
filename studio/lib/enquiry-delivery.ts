@@ -6,8 +6,9 @@ import { prepareEnquiry, type EnquiryFields } from "./enquiry";
 const mailbox = "tin@cavies.studio";
 // Gmail keeps API sends addressed from and to the same address out of the
 // Inbox (they only get the SENT label), so notifications come from this
-// verified send-as alias of the same account instead of the mailbox itself.
-const sender = "contact@cavies.xyz";
+// alias of the same account, which must stay listed under Gmail's "Send mail
+// as" settings; otherwise Gmail rewrites the From header to the mailbox.
+const sender = "contact@cavies.studio";
 const canonicalOrigin = "https://cavies.studio";
 const gmailSendScope = "https://www.googleapis.com/auth/gmail.send";
 const permittedScopes = new Set([

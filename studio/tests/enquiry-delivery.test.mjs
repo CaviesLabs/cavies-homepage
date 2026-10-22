@@ -447,7 +447,7 @@ test("only Gmail acknowledgement succeeds; MIME preserves Unicode and fixes all 
     .split("\r\n\r\n");
   assert.match(
     headers,
-    /^From: Cavies website <contact@cavies.xyz>\r\nTo: tin@cavies.studio\r\nReply-To: visitor@example.com\r\n/,
+    /^From: Cavies website <contact@cavies.studio>\r\nTo: tin@cavies.studio\r\nReply-To: visitor@example.com\r\n/,
   );
   assert.match(
     headers,
