@@ -40,7 +40,7 @@ const env = {
   GOOGLE_CLIENT_SECRET: "mock-client-secret",
   GMAIL_REFRESH_TOKEN: "mock-refresh-token",
 };
-const captcha = { success: true, hostname: "cavies.xyz", action: "enquiry" };
+const captcha = { success: true, hostname: "cavies.studio", action: "enquiry" };
 const googleToken = {
   access_token: "mock-access-token",
   token_type: "Bearer",
@@ -48,10 +48,10 @@ const googleToken = {
 };
 
 function request(body = valid, headers = {}) {
-  return new Request("https://cavies.xyz/api/enquiry", {
+  return new Request("https://cavies.studio/api/enquiry", {
     method: "POST",
     headers: {
-      origin: "https://cavies.xyz",
+      origin: "https://cavies.studio",
       "content-type": "application/json",
       ...headers,
     },
@@ -93,14 +93,14 @@ test("production config is exact-origin only and ignores preview/development kno
     VERCEL_URL: "some-preview.vercel.app",
     ENQUIRY_LOCAL_ORIGIN: "http://localhost:3000",
   });
-  assert.deepEqual(config.allowedOrigins, ["https://cavies.xyz"]);
+  assert.deepEqual(config.allowedOrigins, ["https://cavies.studio"]);
   assert.deepEqual(
     enquiryDeliveryConfig({
       ...env,
       VERCEL_ENV: "preview",
       VERCEL_URL: "this-preview.vercel.app",
     }).allowedOrigins,
-    ["https://cavies.xyz", "https://this-preview.vercel.app"],
+    ["https://cavies.studio", "https://this-preview.vercel.app"],
   );
   for (const host of [
     "evil.example",
@@ -111,7 +111,7 @@ test("production config is exact-origin only and ignores preview/development kno
     assert.deepEqual(
       enquiryDeliveryConfig({ ...env, VERCEL_ENV: "preview", VERCEL_URL: host })
         .allowedOrigins,
-      ["https://cavies.xyz"],
+      ["https://cavies.studio"],
     );
   }
   assert.deepEqual(
@@ -119,14 +119,14 @@ test("production config is exact-origin only and ignores preview/development kno
       NODE_ENV: "development",
       ENQUIRY_LOCAL_ORIGIN: "http://localhost:3000",
     }).allowedOrigins,
-    ["https://cavies.xyz", "http://localhost:3000"],
+    ["https://cavies.studio", "http://localhost:3000"],
   );
   assert.deepEqual(
     enquiryDeliveryConfig({
       NODE_ENV: "development",
       ENQUIRY_LOCAL_ORIGIN: "https://evil.example",
     }).allowedOrigins,
-    ["https://cavies.xyz"],
+    ["https://cavies.studio"],
   );
 });
 
@@ -135,10 +135,10 @@ test("rejects absent, null, foreign, malformed and cross-site origins before any
     "",
     "null",
     "https://evil.example",
-    "http://cavies.xyz",
-    "https://cavies.xyz.evil.example",
-    "https://cavies.xyz/",
-    "https://cavies.xyz:444",
+    "http://cavies.studio",
+    "https://cavies.studio.evil.example",
+    "https://cavies.studio/",
+    "https://cavies.studio:444",
   ]) {
     const run = setup();
     const response = await run.handler(request(valid, { origin }));
@@ -234,12 +234,12 @@ test("body limit counts streamed bytes even without Content-Length or with a fal
       },
     });
     const response = await run.handler(
-      new Request("https://cavies.xyz/api/enquiry", {
+      new Request("https://cavies.studio/api/enquiry", {
         method: "POST",
         duplex: "half",
         body: stream,
         headers: {
-          origin: "https://cavies.xyz",
+          origin: "https://cavies.studio",
           "content-type": "application/json",
           ...(length ? { "content-length": length } : {}),
         },
@@ -260,12 +260,12 @@ test("slow or unfinished body is cancelled within the configured deadline", asyn
   });
   const run = setup({ dependencies: { timeoutMs: 20 } });
   const response = await run.handler(
-    new Request("https://cavies.xyz/api/enquiry", {
+    new Request("https://cavies.studio/api/enquiry", {
       method: "POST",
       duplex: "half",
       body: stream,
       headers: {
-        origin: "https://cavies.xyz",
+        origin: "https://cavies.studio",
         "content-type": "application/json",
       },
     }),
@@ -429,7 +429,7 @@ test("only Gmail acknowledgement succeeds; MIME preserves Unicode and fixes all 
   assert.equal(run.calls[1].init.body.get("scope"), googleToken.scope);
   assert.equal(
     run.calls[2].url,
-    "https://gmail.googleapis.com/gmail/v1/users/tin%40cavies.xyz/messages/send",
+    "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
   );
   assert.equal(
     run.calls[2].init.headers.Authorization,
@@ -447,7 +447,7 @@ test("only Gmail acknowledgement succeeds; MIME preserves Unicode and fixes all 
     .split("\r\n\r\n");
   assert.match(
     headers,
-    /^From: Cavies website <contact@cavies.xyz>\r\nTo: tin@cavies.xyz\r\nReply-To: visitor@example.com\r\n/,
+    /^From: Cavies website <tin@cavies.studio>\r\nTo: tin@cavies.studio\r\nReply-To: visitor@example.com\r\n/,
   );
   assert.match(
     headers,

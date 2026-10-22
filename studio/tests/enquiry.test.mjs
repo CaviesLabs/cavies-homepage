@@ -8,7 +8,7 @@ import {
   prepareEnquiry,
 } from "../lib/enquiry.ts";
 
-const recipient = "contact@cavies.xyz";
+const recipient = "tin@cavies.studio";
 const valid = {
   name: "Example Visitor",
   email: "visitor@example.com",

@@ -12,7 +12,9 @@ if (!clientFile) {
   );
   process.exit(1);
 }
-const expectedAccount = "tin@cavies.xyz";
+const expectedAccount = "tin@cavies.studio";
+// The same mailbox answered as tin@cavies.xyz before the October 2026 move.
+const acceptedAccounts = new Set([expectedAccount, "tin@cavies.xyz"]);
 const redirectUri = "http://127.0.0.1:8787/oauth/callback";
 const localOrigin = "http://127.0.0.1:8787";
 const secretDirectory = path.join(
@@ -107,13 +109,16 @@ async function authorize(code) {
       headers: { Authorization: `Bearer ${token.access_token}` },
     },
   );
-  if (identity.email !== expectedAccount || identity.email_verified !== true) {
+  if (
+    !acceptedAccounts.has(identity.email) ||
+    identity.email_verified !== true
+  ) {
     await fetch("https://oauth2.googleapis.com/revoke", {
       method: "POST",
       body: new URLSearchParams({ token: token.refresh_token }),
       signal: AbortSignal.timeout(10_000),
     }).catch(() => {});
-    throw new Error("The authorized account did not match tin@cavies.xyz.");
+    throw new Error("The authorized account did not match tin@cavies.studio.");
   }
   await mkdir(secretDirectory, { recursive: true, mode: 0o700 });
   await writeFile(
@@ -122,7 +127,7 @@ async function authorize(code) {
       GOOGLE_CLIENT_ID: client.client_id,
       GOOGLE_CLIENT_SECRET: client.client_secret,
       GMAIL_REFRESH_TOKEN: token.refresh_token,
-      account: expectedAccount,
+      account: identity.email,
       scopes,
     }),
     { mode: 0o600 },
@@ -157,7 +162,7 @@ const server = createServer(async (request, response) => {
       outcome =
         "Gmail authorization is complete. You can return to the Cavies chat. No email has been sent.";
       console.log(
-        "Authorized tin@cavies.xyz with Gmail send-only access. Credentials saved privately outside the repository.",
+        "Authorized tin@cavies.studio with Gmail send-only access. Credentials saved privately outside the repository.",
       );
     } catch {
       outcome =

@@ -1,4 +1,4 @@
-export const contactEmail = "contact@cavies.xyz";
+export const contactEmail = "tin@cavies.studio";
 export const contactHref = "/contact";
 export const businessWebsitesHref = "/services/business-websites";
 export const inquiryHref = (subject: string) =>

@@ -5,10 +5,15 @@ const nextConfig: NextConfig = {
   turbopack: { root: path.resolve(__dirname) },
   poweredByHeader: false,
   redirects: async () => [
-    ...["www.cavies.xyz", "cavies-studio.vercel.app"].map((host) => ({
+    ...[
+      "www.cavies.studio",
+      "cavies.xyz",
+      "www.cavies.xyz",
+      "cavies-studio.vercel.app",
+    ].map((host) => ({
       source: "/:path*",
       has: [{ type: "host" as const, value: host.replaceAll(".", "\\.") }],
-      destination: "https://cavies.xyz/:path*",
+      destination: "https://cavies.studio/:path*",
       permanent: true,
     })),
     { source: "/work/seispace", destination: "/#work", permanent: true },

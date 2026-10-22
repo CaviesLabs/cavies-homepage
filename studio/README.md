@@ -46,7 +46,7 @@ For production HTTP/SEO smoke checks, run `npm run start -- --port 3100` in one 
 - `components/reflective-mark.tsx` progressively enhances the hero with a reflective C. Its scene loads on demand, stops rendering when idle or offscreen, and uses a static fallback for reduced motion or unavailable WebGL. See `docs/hero-motion.md`.
 - `public/work/` contains optimized, locally hosted original artwork and product captures. See `docs/portfolio-sources.md` for provenance.
 - `lib/contact.ts` is the single source for the contact address and email links.
-- Contact: `contact@cavies.xyz` and `https://t.me/tincavies`.
+- Contact: `tin@cavies.studio` and `https://t.me/tincavies`.
 
 Project and advisory work are attributed separately. No funding totals, impact metrics, or endorsements are implied. Pre-launch captures and sample states are identified on project pages.
 
@@ -56,7 +56,7 @@ The Vercel project is `cavies/cavies-studio`, connected to `CaviesLabs/cavies-ho
 
 Push changes through a pull request. Vercel creates preview deployments for feature branches and production deployments when changes merge into `main`. Run `npm run lint` and `npm run build` locally before merging. GitHub Actions is disabled for this repository, and no Actions workflows are maintained.
 
-The production domain and canonical URL are `https://cavies.xyz`. The `www` hostname and `cavies-studio.vercel.app` redirect permanently to the canonical domain, preserving paths and queries. Preview deployments remain available for review and are marked noindex. DNS is managed in Cloudflare. Preserve existing mail and unrelated DNS records when changing web traffic routing.
+The production domain and canonical URL are `https://cavies.studio` (moved from `cavies.xyz` on 22 October 2026). The `www` hostname, the former `cavies.xyz` and `www.cavies.xyz` hostnames, and `cavies-studio.vercel.app` redirect permanently to the canonical domain, preserving paths and queries. Game subdomains of cavies.xyz are separate deployments and are unaffected. Preview deployments remain available for review and are marked noindex. DNS is managed in Cloudflare. Preserve existing mail and unrelated DNS records when changing web traffic routing.
 
 Production releases use Vercel. The old root app and legacy hosting configuration do not deploy the Studio app; the former GitHub Pages workflow is available only in Git history.
 
