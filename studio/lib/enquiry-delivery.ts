@@ -1,9 +1,10 @@
 import { randomUUID } from "node:crypto";
 import { prepareEnquiry, type EnquiryFields } from "./enquiry";
 
-const mailbox = "tin@cavies.xyz";
-const sender = "contact@cavies.xyz";
-const canonicalOrigin = "https://cavies.xyz";
+// The mailbox was tin@cavies.xyz until the October 2026 move to cavies.studio;
+// the old address remains an alias of the same Google Workspace account.
+const mailbox = "tin@cavies.studio";
+const canonicalOrigin = "https://cavies.studio";
 const gmailSendScope = "https://www.googleapis.com/auth/gmail.send";
 const permittedScopes = new Set([
   gmailSendScope,
@@ -16,9 +17,9 @@ const maxProviderBytes = 32 * 1024;
 const bodyTimeoutMs = 3_000;
 const providerTimeoutMs = 5_000;
 const unavailableMessage =
-  "The form is temporarily unavailable. Please email contact@cavies.xyz.";
+  "The form is temporarily unavailable. Please email tin@cavies.studio.";
 const unconfirmedMessage =
-  "We couldn't confirm your enquiry was sent. Please email contact@cavies.xyz if you need help.";
+  "We couldn't confirm your enquiry was sent. Please email tin@cavies.studio if you need help.";
 
 type Environment = Record<string, string | undefined>;
 type LimitResult = { allowed: true } | { allowed: false; retryAfter: number };
@@ -229,12 +230,12 @@ function mimeMessage(
       ?.join("\r\n") || "";
   // Subject contains only the service allowlist; no visitor-supplied name.
   const mime = [
-    `From: Cavies website <${sender}>`,
+    `From: Cavies website <${mailbox}>`,
     `To: ${mailbox}`,
     `Reply-To: ${fields.email.trim()}`,
     `Subject: ${subject}`,
     `Date: ${new Date().toUTCString()}`,
-    `Message-ID: <${randomUUID()}@cavies.xyz>`,
+    `Message-ID: <${randomUUID()}@cavies.studio>`,
     "MIME-Version: 1.0",
     'Content-Type: text/plain; charset="UTF-8"',
     "Content-Transfer-Encoding: base64",
@@ -387,7 +388,7 @@ export function createEnquiryHandler(
       if (!limit.allowed) {
         return failure(
           429,
-          "Too many enquiries have been submitted. Please try later or email contact@cavies.xyz.",
+          "Too many enquiries have been submitted. Please try later or email tin@cavies.studio.",
           Math.max(1, Math.ceil(limit.retryAfter)),
         );
       }
@@ -436,7 +437,8 @@ export function createEnquiryHandler(
 
     try {
       const sent = await providerJson(
-        `https://gmail.googleapis.com/gmail/v1/users/${encodeURIComponent(mailbox)}/messages/send`,
+        // "me" is the authorised account; Gmail rejects alias addresses here.
+        "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
         {
           method: "POST",
           headers: {

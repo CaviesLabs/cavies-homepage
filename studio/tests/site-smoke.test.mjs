@@ -4,7 +4,7 @@ import { request as httpRequest } from "node:http";
 import { request as httpsRequest } from "node:https";
 
 const base = process.env.SITE_TEST_URL || "http://127.0.0.1:3100";
-const canonicalOrigin = "https://cavies.xyz";
+const canonicalOrigin = "https://cavies.studio";
 const htmlByPath = new Map();
 const request = (path, options) => fetch(new URL(path, base), options);
 const attribute = (tag, name) =>
@@ -183,8 +183,8 @@ await test("service and Beigman pages expose real scope and useful links in HTML
 
 await test("contact route renders honest email and Telegram fallbacks without JavaScript", () => {
   const html = htmlByPath.get("/contact");
-  assert.ok(html.includes("contact@cavies.xyz"));
-  assert.ok(html.includes("mailto:contact@cavies.xyz"));
+  assert.ok(html.includes("tin@cavies.studio"));
+  assert.ok(html.includes("mailto:tin@cavies.studio"));
   assert.ok(html.includes("https://t.me/tincavies"));
   assert.ok(html.includes("<noscript"));
 });
@@ -202,7 +202,12 @@ await test("robots retains the canonical sitemap", async () => {
 });
 
 await test("canonical host redirects preserve path and query", async () => {
-  for (const host of ["www.cavies.xyz", "cavies-studio.vercel.app"]) {
+  for (const host of [
+    "www.cavies.studio",
+    "cavies.xyz",
+    "www.cavies.xyz",
+    "cavies-studio.vercel.app",
+  ]) {
     const url = new URL("/services/business-websites?source=test", base);
     const response = await new Promise((resolve, reject) => {
       const makeRequest =

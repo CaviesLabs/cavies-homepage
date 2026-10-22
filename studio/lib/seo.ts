@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const siteUrl = "https://cavies.xyz";
+export const siteUrl = "https://cavies.studio";
 export const siteName = "Cavies Studio";
 export const linkedInUrl = "https://www.linkedin.com/company/caviesstudio/";
 export const xUrl = "https://x.com/CaviesStudio";

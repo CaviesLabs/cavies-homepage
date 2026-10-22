@@ -1,6 +1,6 @@
 # Project enquiry delivery
 
-The owner selected Vercel and the existing `tin@cavies.xyz` Gmail account. Notifications use its `contact@cavies.xyz` sender alias and go to the primary address to avoid Gmail's self-to-alias inbox behavior. Visitors supply `Reply-To`; they cannot choose a notification recipient or sender. No automatic visitor replies are sent.
+The owner selected Vercel and the existing `tin@cavies.studio` Google Workspace mailbox (named `tin@cavies.xyz` until the October 2026 move to cavies.studio; the old address remains an alias of the same account). Notifications are sent from and to that primary address through the Gmail API `me` user, so a renamed primary address keeps working. Visitors supply `Reply-To`; they cannot choose a notification recipient or sender. No automatic visitor replies are sent.
 
 ## Required configuration
 
@@ -13,7 +13,7 @@ Set these in the intended Vercel environment, keeping preview separate from prod
 | `TURNSTILE_SECRET_KEY`           | Server-only Turnstile verification secret.                    |
 | `GOOGLE_CLIENT_ID`               | Dedicated Google web OAuth client.                            |
 | `GOOGLE_CLIENT_SECRET`           | Server-only OAuth client secret.                              |
-| `GMAIL_REFRESH_TOKEN`            | Offline Gmail send permission for `tin@cavies.xyz`.           |
+| `GMAIL_REFRESH_TOKEN`            | Offline Gmail send permission for `tin@cavies.studio`.        |
 | `BLOB_READ_WRITE_TOKEN`          | Token for the dedicated private Vercel Blob store.            |
 | `RATE_LIMIT_SALT`                | Random secret of at least 32 characters for HMAC identifiers. |
 
@@ -25,7 +25,7 @@ Vercel Blob OIDC credentials (`BLOB_STORE_ID` plus `VERCEL_OIDC_TOKEN`) are also
 2. Configure the consent screen and a Web application OAuth client. Prefer an Internal audience when available for the owner's organization. An External app left in Testing has short-lived refresh grants and is unsuitable for unattended production delivery.
 3. Register only this setup redirect URI: `http://127.0.0.1:8787/oauth/callback`. The helper binds to loopback and expires after 15 minutes.
 4. Save the client JSON outside the repository. Run `node scripts/authorize-gmail.mjs <path-to-client-json>` and open the printed local URL. The owner grants consent.
-5. The helper requests `gmail.send` plus basic account email identity, verifies the account is `tin@cavies.xyz`, and writes credentials under the user's local application-data directory at `CaviesStudio/gmail-setup/gmail.json`. It does not print tokens or send a message.
+5. The helper requests `gmail.send` plus basic account email identity, verifies the account is `tin@cavies.studio`, and writes credentials under the user's local application-data directory at `CaviesStudio/gmail-setup/gmail.json`. It does not print tokens or send a message.
 6. Transfer credentials into Vercel sensitive environment variables using stdin or the dashboard. Do not paste secrets into chat, command arguments, or source files. Keep the local credential files private; remove them once no longer needed.
 
 The backend refuses refreshed grants containing broader Gmail access. It does not read, list, or delete mailbox messages. Google access can be revoked, expire, or be invalidated by account/security changes; a failed refresh produces a generic unavailable response and preserves the visitor's manual-email option.
@@ -48,6 +48,6 @@ Normal Vercel Function, Blob, and WAF usage applies against the existing plan. T
 
 Run `npm run lint`, `npm run typecheck`, `npm run test:enquiry`, and `npm run build`, then the HTTP smoke suite against the built server. Tests cover validation, injection, deadlines, origin and CAPTCHA failures, limited grants, provider failures, and concurrent rate-limit reservations. Use official Turnstile dummy keys only in local tests; use placeholder Gmail credentials and intercept local endpoint responses for UI tests so no real messages are sent.
 
-Before production activation, verify private Blob atomic creation and same-ETag write conflicts, complete the owner OAuth grant, and send one clearly labeled synthetic enquiry. Confirm the message appears in the `tin@cavies.xyz` inbox, that Reply-To is the submitted test address, and that no client bundle contains secrets. Check mobile layout, server-error focus, pending/double-click protection, failure fallback, success, clear, and navigation.
+Before production activation, verify private Blob atomic creation and same-ETag write conflicts, complete the owner OAuth grant, and send one clearly labeled synthetic enquiry. Confirm the message appears in the `tin@cavies.studio` inbox, that Reply-To is the submitted test address, and that no client bundle contains secrets. Check mobile layout, server-error focus, pending/double-click protection, failure fallback, success, clear, and navigation.
 
 To stop sending, set `ENQUIRY_DELIVERY_ENABLED=false` and redeploy. For urgent credential revocation, revoke the Google grant or remove the refresh token; the endpoint fails closed immediately, while a redeploy restores the draft-only UI. Preserve the private ledger during redeploys and avoid resetting it during an abuse incident.

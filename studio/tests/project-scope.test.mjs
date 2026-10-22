@@ -55,7 +55,7 @@ test("contact links carry only the chosen decisions and parse back", () => {
   assert.equal(scopeContactHref({}), "/contact");
   assert.equal(scopeContactHref({ help: "product" }), "/contact?help=product");
   const href = scopeContactHref(defaultScope);
-  const parsed = parseScope(new URL(href, "https://cavies.xyz").search);
+  const parsed = parseScope(new URL(href, "https://cavies.studio").search);
   assert.deepEqual(parsed, defaultScope);
   assert.ok(isCompleteScope(parsed));
 });

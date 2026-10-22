@@ -4,8 +4,8 @@ The primary positioning is website design and frontend engineering for startups 
 
 ## Maintained signals
 
-- Canonicals, Open Graph URLs, and the sitemap use `https://cavies.xyz`.
-- `www.cavies.xyz` and the stable production Vercel alias redirect with HTTP 308. Preview URLs remain usable and have noindex metadata.
+- Canonicals, Open Graph URLs, and the sitemap use `https://cavies.studio`.
+- `www.cavies.studio`, the former `cavies.xyz` and `www.cavies.xyz` hostnames, and the stable production Vercel alias redirect with HTTP 308, preserving paths and queries. Preview URLs remain usable and have noindex metadata.
 - All public pages have unique search titles/descriptions and matching Open Graph/Twitter metadata. The homepage sharing image is `public/brand/social-card.png`; case studies use their own uncropped source images.
 - Organization and WebSite JSON-LD identify Cavies Studio, its logo, contact address, and owner-confirmed LinkedIn profile. Case pages provide BreadcrumbList and WebPage data. Advisory screenshots do not assert Cavies designed the current Ancient8 or Solscan websites.
 - The sitemap is generated from the portfolio data and includes every case-study hero and gallery image. No automatically refreshed last-modified timestamps are invented.
@@ -14,7 +14,7 @@ The primary positioning is website design and frontend engineering for startups 
 
 ## Google Search Console
 
-Use the URL-prefix property `https://cavies.xyz/` in the owner's Google account. It covers the canonical homepage and all case studies. The public Google verification meta tag is maintained in `app/page.tsx`; keep it in place after verification. Submit `https://cavies.xyz/sitemap.xml`. A broader DNS domain property is optional; do not authorize new DNS-account integrations solely for verification.
+Use the URL-prefix property `https://cavies.studio/` in the owner's Google account. It covers the canonical homepage and all case studies. The public Google verification meta tag is maintained in `app/page.tsx`; keep it in place after verification. Submit `https://cavies.studio/sitemap.xml`. The site moved from cavies.xyz on 22 October 2026: keep the old `https://cavies.xyz/` property and run Search Console's Change of Address from it to the new property while the redirects are live. A broader DNS domain property is optional; do not authorize new DNS-account integrations solely for verification.
 
 After significant page changes, inspect the homepage in Search Console and request indexing when available. Monitor indexing and query impressions as data becomes available. A sitemap submission and valid structured data do not guarantee indexing, rankings, or special search features.
 
