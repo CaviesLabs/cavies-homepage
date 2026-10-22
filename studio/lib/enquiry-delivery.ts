@@ -4,6 +4,10 @@ import { prepareEnquiry, type EnquiryFields } from "./enquiry";
 // The mailbox was tin@cavies.xyz until the October 2026 move to cavies.studio;
 // the old address remains an alias of the same Google Workspace account.
 const mailbox = "tin@cavies.studio";
+// Gmail keeps API sends addressed from and to the same address out of the
+// Inbox (they only get the SENT label), so notifications come from this
+// verified send-as alias of the same account instead of the mailbox itself.
+const sender = "contact@cavies.xyz";
 const canonicalOrigin = "https://cavies.studio";
 const gmailSendScope = "https://www.googleapis.com/auth/gmail.send";
 const permittedScopes = new Set([
@@ -230,7 +234,7 @@ function mimeMessage(
       ?.join("\r\n") || "";
   // Subject contains only the service allowlist; no visitor-supplied name.
   const mime = [
-    `From: Cavies website <${mailbox}>`,
+    `From: Cavies website <${sender}>`,
     `To: ${mailbox}`,
     `Reply-To: ${fields.email.trim()}`,
     `Subject: ${subject}`,
