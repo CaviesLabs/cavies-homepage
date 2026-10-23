@@ -1,0 +1,761 @@
+/* Oddly Orderly's own pages: the game, its press kit, support and privacy.
+   Media is shown whole at its own aspect ratio, on the game's paper colour. */
+
+.hero {
+  padding-block: 64px 60px;
+}
+
+.logoTitle {
+  max-width: 720px;
+  margin: 28px 0 0;
+  line-height: 0;
+}
+
+.logoTitle img {
+  width: 100%;
+  height: auto;
+}
+
+.tagline {
+  margin-top: 30px;
+  font-size: clamp(32px, 3.7vw, 54px);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.heroBottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  margin-top: 34px;
+}
+
+.lead {
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.heroActions {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.platformLine {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 13px;
+}
+
+.platformLine strong {
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.platformLine span {
+  color: var(--muted);
+}
+
+.trailerSection {
+  padding-bottom: 76px;
+}
+
+.trailer {
+  margin: 0;
+}
+
+.stage {
+  padding: 30px;
+  border-radius: 4px;
+  background: #efe6d2;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 5px;
+  background: #e3d8c2;
+  box-shadow: 0 20px 50px #2222;
+}
+
+.video:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 6px;
+}
+
+.caption {
+  padding-top: 14px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 6vw;
+  padding-block: 82px;
+  border-top: 1px solid var(--line);
+}
+
+.aboutIntro h2,
+.sectionHeading h2,
+.steam h2 {
+  font-size: clamp(34px, 3.8vw, 56px);
+}
+
+.aboutIntro p {
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px 34px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.features li {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.features h3 {
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.features p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.gallery {
+  padding-block: 82px;
+  border-top: 1px solid var(--line);
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 42px;
+}
+
+.sectionHeading > p {
+  max-width: 340px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 42px 28px;
+}
+
+.shot {
+  min-width: 0;
+  margin: 0;
+}
+
+.shot > a,
+.pressShot > a,
+.asset > a {
+  display: block;
+  padding: 12px;
+  border-radius: 4px;
+  background: #efe6d2;
+}
+
+.shot img,
+.pressShot img {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+.shot figcaption {
+  margin-top: 13px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.shot figcaption strong,
+.pressShot figcaption strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.closing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 6vw;
+  padding-block: 82px 60px;
+  border-top: 1px solid var(--line);
+}
+
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 28px 0 30px;
+  padding: 0;
+}
+
+.platforms li {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 13px;
+}
+
+.art {
+  align-self: end;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.art h2,
+.factsheet h2 {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.art p {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.moreLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 30px;
+  padding-block: 0 96px;
+}
+
+.moreLinks a,
+.download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #c8c3bc;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.moreLinks a:hover,
+.download:hover {
+  border-color: var(--wine);
+}
+
+/* The subpages: press kit, support and privacy. */
+
+.pageHeader {
+  padding-block: 64px 54px;
+}
+
+.pageHeader h1 {
+  margin-top: 26px;
+  font-size: clamp(50px, 6.2vw, 92px);
+  line-height: 1.04;
+}
+
+.pageHeader .lead {
+  margin-top: 28px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.32fr) minmax(0, 1fr);
+  gap: 6vw;
+  padding-block: 56px 96px;
+  border-top: 1px solid var(--line);
+}
+
+.aside {
+  position: sticky;
+  top: 28px;
+  align-self: start;
+}
+
+.prose {
+  max-width: 760px;
+}
+
+.prose > section + section {
+  margin-top: 54px;
+}
+
+.prose h2 {
+  font-size: clamp(28px, 2.6vw, 38px);
+}
+
+.prose h3 {
+  margin-top: 30px;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.prose p,
+.prose li,
+.prose dd {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.prose p {
+  margin-top: 16px;
+}
+
+.prose ul {
+  margin: 14px 0 0;
+  padding-left: 1.2em;
+}
+
+.prose a:not(.download) {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #ecece5;
+  color: var(--ink);
+  font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  overflow-wrap: anywhere;
+}
+
+.prose .trailer {
+  margin-top: 22px;
+}
+
+/* Contents lists: a column beside the page, or a row atop the press kit. */
+
+.toc h2,
+.prose .toc h2 {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+}
+
+.toc ol {
+  display: grid;
+  gap: 2px;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  font-size: 13px;
+}
+
+.toc a,
+.prose .toc a {
+  display: block;
+  padding: 6px 0;
+  color: var(--ink);
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.toc a:hover,
+.prose .toc a:hover {
+  color: var(--wine);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tocRow {
+  margin-bottom: 52px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tocRow ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 22px;
+}
+
+.settings {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.4fr) minmax(0, 1fr);
+  margin: 20px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.settings dt,
+.settings dd {
+  margin: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.settings dt {
+  padding-right: 20px;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.settings dd {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.places {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.places th,
+.places td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.places thead th {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+}
+
+.places tbody th {
+  width: 30%;
+  font-weight: 650;
+}
+
+.places td {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Press kit */
+
+.factsheet {
+  padding: 26px;
+  border-radius: 4px;
+  background: #efe6d2;
+}
+
+.factsheet dl {
+  margin: 18px 0 0;
+}
+
+.factsheet dt {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+}
+
+.factsheet dd {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.factsheet a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.pressShots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px 24px;
+  margin-top: 26px;
+}
+
+.pressShot,
+.asset {
+  min-width: 0;
+  margin: 0;
+}
+
+.asset {
+  display: flex;
+  flex-direction: column;
+}
+
+.pressShot figcaption,
+.asset figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.pressShot figcaption span,
+.asset figcaption span {
+  color: var(--muted);
+}
+
+.pressShot .download,
+.asset .download {
+  font-size: 13px;
+}
+
+.assets {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  gap: 24px;
+  margin-top: 26px;
+}
+
+.assetWide {
+  grid-column: 1 / -1;
+}
+
+.asset > a {
+  display: grid;
+  flex: 1;
+  place-items: center;
+}
+
+.asset img {
+  width: 100%;
+  height: auto;
+}
+
+.assetLogo > a {
+  padding: 36px 28px;
+}
+
+.assetIcon > a {
+  padding: 24px;
+}
+
+.asset .iconImage {
+  width: 128px;
+  border-radius: 22%;
+}
+
+.quote {
+  margin: 18px 0 0;
+  padding: 4px 0 4px 20px;
+  border-left: 2px solid var(--wine);
+}
+
+.quote p {
+  margin-top: 0;
+  color: var(--ink);
+}
+
+/* Privacy policy */
+
+.policyMeta {
+  margin-top: 0;
+  font-size: 15px;
+}
+
+.policyTitle {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+}
+
+.policy section {
+  margin-top: 40px;
+}
+
+/* The policy's own capitalised headings, at every width. */
+.prose.policy h2 {
+  color: var(--wine);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  line-height: 1.5;
+}
+
+.prose.policy h2 + p {
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .heroBottom,
+  .sectionHeading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .about,
+  .closing,
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .aside {
+    position: static;
+  }
+
+  .shots {
+    gap: 34px 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero,
+  .pageHeader {
+    padding-block: 40px 44px;
+  }
+
+  .logoTitle {
+    margin-top: 22px;
+  }
+
+  .tagline {
+    margin-top: 22px;
+    font-size: 31px;
+  }
+
+  .heroBottom {
+    margin-top: 24px;
+  }
+
+  .lead {
+    font-size: 16px;
+  }
+
+  .stage {
+    padding: 12px;
+  }
+
+  .trailerSection {
+    padding-bottom: 52px;
+  }
+
+  .about,
+  .gallery,
+  .closing {
+    padding-block: 52px;
+  }
+
+  .aboutIntro h2,
+  .sectionHeading h2,
+  .steam h2 {
+    font-size: 34px;
+  }
+
+  .aboutIntro p {
+    font-size: 16px;
+  }
+
+  .features,
+  .shots,
+  .pressShots {
+    grid-template-columns: 1fr;
+  }
+
+  .shot > a,
+  .pressShot > a,
+  .asset > a {
+    padding: 8px;
+  }
+
+  .pageHeader h1 {
+    margin-top: 20px;
+    font-size: 46px;
+  }
+
+  .layout {
+    padding-block: 36px 64px;
+  }
+
+  .prose h2 {
+    font-size: 28px;
+  }
+
+  .prose p,
+  .prose li,
+  .prose dd {
+    font-size: 15px;
+  }
+
+  .settings {
+    grid-template-columns: 1fr;
+  }
+
+  .settings dt {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .settings dd {
+    padding-top: 4px;
+  }
+
+  .places thead {
+    display: none;
+  }
+
+  .places,
+  .places tbody,
+  .places tr,
+  .places th,
+  .places td {
+    display: block;
+    width: 100%;
+  }
+
+  .places tbody th {
+    width: 100%;
+    padding-bottom: 2px;
+    border-bottom: 0;
+  }
+
+  .places td {
+    padding-top: 0;
+  }
+
+  .assets {
+    grid-template-columns: 1fr;
+  }
+
+  .moreLinks {
+    padding-bottom: 64px;
+  }
+}

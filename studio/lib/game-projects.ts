@@ -19,12 +19,17 @@ export const gameProjects: Project[] = [
     context:
       "An unreleased organizing game about two people moving in together, told through their belongings, with a magpie for company.",
     approach:
-      "Drag, tap, keyboard, and gamepad controls share one object-placement system, and nothing requires holding a button. Pencil-sketch hints, undo, and alternate solutions keep the puzzles approachable, while a room-by-room journal ties 100 levels across 20 rooms together.",
+      "Drag, tap, keyboard, and gamepad controls share one object-placement system, and nothing requires holding a button. Pencil-sketch hints, undo, and alternate solutions keep the puzzles approachable, while a room-by-room journal ties 104 pages across 20 rooms together. Four showpieces close their rooms: a bookcase of 24 books, a kitchen dresser of 27 pieces of china, a tool wall with an outline for every tool, and a dressing table of 24 things.",
     details: [
       "Object placement and puzzle feedback",
       "Multiple input methods",
       "Room-by-room visual journal",
+      "Four showpiece pages",
     ],
+    gamePage: {
+      href: "/games/oddly-orderly",
+      label: "Visit the game’s page",
+    },
     imageNote: "Title screen · Development build",
     gallery: [
       {

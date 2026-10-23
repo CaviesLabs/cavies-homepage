@@ -170,9 +170,23 @@ export function GameShowcase({ projects }: { projects: Project[] }) {
                 </div>
                 <p>{project.description}</p>
               </div>
-              <Link className={styles.caseLink} href={`/work/${project.slug}`}>
-                View case study <ArrowUpRight size={18} aria-hidden="true" />
-              </Link>
+              <div className={styles.caseLinks}>
+                {project.gamePage && (
+                  <Link
+                    className={styles.caseLink}
+                    href={project.gamePage.href}
+                  >
+                    {project.gamePage.label}{" "}
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </Link>
+                )}
+                <Link
+                  className={styles.caseLink}
+                  href={`/work/${project.slug}`}
+                >
+                  View case study <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
 
             <figure className={styles.figure}>

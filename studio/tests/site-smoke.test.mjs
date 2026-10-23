@@ -9,6 +9,31 @@ const htmlByPath = new Map();
 const request = (path, options) => fetch(new URL(path, base), options);
 const attribute = (tag, name) =>
   tag.match(new RegExp(`${name}="([^"]*)"`))?.[1];
+const gamePages = [
+  "/games/oddly-orderly",
+  "/games/oddly-orderly/press",
+  "/games/oddly-orderly/privacy",
+  "/games/oddly-orderly/support",
+];
+const textOf = (html) =>
+  html
+    .replace(/<!--.*?-->/gs, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&#x27;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/\s+/g, " ")
+    .trim();
+const formatBytes = (bytes) =>
+  bytes >= 1_000_000
+    ? `${(bytes / 1_000_000).toFixed(1)} MB`
+    : `${Math.round(bytes / 1000)} KB`;
+const structuredGraph = (html) =>
+  [
+    ...html.matchAll(
+      /<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs,
+    ),
+  ].flatMap((match) => JSON.parse(match[1])["@graph"] ?? []);
 
 await test("public sitemap retains the portfolio and includes both new pages", async () => {
   const response = await request("/sitemap.xml");
@@ -18,6 +43,9 @@ await test("public sitemap retains the portfolio and includes both new pages", a
   assert.equal(new Set(urls).size, urls.length, "no duplicate sitemap URLs");
   assert.ok(urls.includes(`${canonicalOrigin}/services/business-websites`));
   assert.ok(urls.includes(`${canonicalOrigin}/contact`));
+  for (const path of gamePages) {
+    assert.ok(urls.includes(`${canonicalOrigin}${path}`), `${path} in sitemap`);
+  }
   assert.ok(urls.filter((url) => url.includes("/work/")).length >= 28);
   const titles = new Set();
   const descriptions = new Set();
@@ -167,6 +195,192 @@ await test("unreleased game cases are linked and retain their development status
     );
     assert.ok(page.includes('href="/#games"'), `${slug} returns to games`);
   }
+});
+
+await test("Oddly Orderly's page shows the game and its trailer without autoplay", () => {
+  const html = htmlByPath.get("/games/oddly-orderly");
+  assert.ok(html, "the game's page is in the sitemap");
+  const text = textOf(html);
+  assert.ok(text.includes("A place for every little thing."));
+  assert.ok(text.includes("Coming soon to Steam"));
+  for (const platform of ["Windows", "macOS", "SteamOS and Steam Deck"]) {
+    assert.ok(text.includes(platform), platform);
+  }
+  for (const feature of [
+    "104 pages in twenty rooms",
+    "More than one tidy way",
+    "Four big pages",
+    "No timers, no fail states",
+    "A magpie",
+    "A lofi theme for every room",
+    "Mouse, controller or keyboard",
+  ]) {
+    assert.ok(text.includes(feature), feature);
+  }
+  const videos = html.match(/<video[^>]*>/g) ?? [];
+  assert.equal(videos.length, 1, "one trailer");
+  assert.ok(/\scontrols(?:=""|\s|>)/.test(videos[0]), "trailer has controls");
+  assert.ok(videos[0].includes('preload="none"'), "trailer loads on request");
+  assert.match(videos[0], /poster="\/games\/oddly-orderly\/[^"]+\.webp"/);
+  assert.ok(!/autoplay/i.test(videos[0]), "no autoplay");
+  const screenshots = new Set(
+    [
+      ...html.matchAll(
+        /\/games\/oddly-orderly\/screenshots\/oddly-orderly-([a-z-]+)\.webp/g,
+      ),
+    ].map((match) => match[1]),
+  );
+  assert.ok(screenshots.size >= 6 && screenshots.size <= 8, "six to eight");
+  for (const showpiece of [
+    "bookcase",
+    "dresser",
+    "tool-wall",
+    "dressing-table",
+  ]) {
+    assert.ok(screenshots.has(showpiece), `the ${showpiece} showpiece`);
+  }
+  for (const path of gamePages.slice(1)) {
+    assert.ok(html.includes(`href="${path}"`), `links ${path}`);
+  }
+  for (const [, href] of html.matchAll(/href="([^"]*steam[^"]*)"/gi)) {
+    assert.match(href, /^https:\/\/store\.steampowered\.com\/app\/\d+/);
+  }
+  const game = structuredGraph(html).find(
+    (node) => node["@type"] === "VideoGame",
+  );
+  assert.equal(game?.name, "Oddly Orderly", "VideoGame structured data");
+  for (const invented of [
+    "offers",
+    "aggregateRating",
+    "review",
+    "datePublished",
+  ]) {
+    assert.ok(!(invented in game), `no ${invented}`);
+  }
+});
+
+await test("Oddly Orderly's pages keep private and third-party things out", () => {
+  for (const path of gamePages) {
+    const html = htmlByPath.get(path);
+    assert.ok(html, `${path} is in the sitemap`);
+    assert.ok(
+      !html.includes("cavies.xyz"),
+      `${path}: no tester build or old domain`,
+    );
+    assert.ok(!/next fest/i.test(html), `${path}: no unannounced plans`);
+    assert.ok(!/<iframe/i.test(html), `${path}: no embeds`);
+    assert.ok(
+      !/<script[^>]+src="https?:/i.test(html),
+      `${path}: no third-party scripts`,
+    );
+    assert.ok(!html.includes('href="#"'), `${path}: no placeholder links`);
+    const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+    assert.equal(new Set(ids).size, ids.length, `${path}: ids are unique`);
+  }
+});
+
+await test("the press kit has the factsheet, the approved art note and working downloads", async () => {
+  const html = htmlByPath.get("/games/oddly-orderly/press");
+  const text = textOf(html);
+  for (const fact of [
+    "Factsheet",
+    "Cavies Studio (self-published)",
+    "Coming soon",
+    "To be announced",
+    "Windows, macOS, SteamOS/Linux (Steam)",
+    "English. The game is wordless apart from its menus and page names.",
+    "Single-player",
+    "contact@cavies.studio",
+  ]) {
+    assert.ok(text.includes(fact), fact);
+  }
+  assert.ok(
+    text.includes(
+      "The painted scenes and the music were made during development with generative AI tools run on our own computer, from our own drawings and prompts, then cut, fitted and arranged by us. The game does not use generative AI while it runs.",
+    ),
+    "the approved art note, word for word",
+  );
+  const downloads = [
+    ...html.matchAll(
+      /<a[^>]*href="(\/games\/oddly-orderly\/[^"]+)"[^>]*\sdownload=""[^>]*>(.*?)<\/a>/gs,
+    ),
+  ];
+  const types = { jpg: "image/jpeg", png: "image/png", mp4: "video/mp4" };
+  const kinds = downloads.map(([, href]) => href.split(".").pop());
+  assert.ok(kinds.filter((kind) => kind === "jpg").length >= 7, "JPEGs");
+  assert.ok(
+    kinds.includes("png") && kinds.includes("mp4"),
+    "logo, icon, trailer",
+  );
+  for (const [, href, inner] of downloads) {
+    const response = await request(href);
+    assert.equal(response.status, 200, href);
+    const extension = href.split(".").pop();
+    assert.equal(response.headers.get("content-type"), types[extension], href);
+    const bytes = (await response.arrayBuffer()).byteLength;
+    assert.ok(bytes <= 15_000_000, `${href} is at most 15 MB`);
+    assert.ok(textOf(inner).includes(formatBytes(bytes)), `${href} size label`);
+  }
+});
+
+await test("the privacy policy is the game's own, with an anchor per section", () => {
+  const html = htmlByPath.get("/games/oddly-orderly/privacy");
+  const text = textOf(html);
+  assert.ok(text.includes("the privacy policy that ships with the game"));
+  assert.match(text, /Effective date: [A-Z][a-z]+ \d{1,2}, \d{4}/);
+  for (const id of [
+    "what-the-app-stores",
+    "optional-playtest-notes",
+    "what-the-app-does-not-collect",
+    "device-and-platform-services",
+    "steam",
+    "children",
+    "deleting-local-data",
+    "changes-to-this-policy",
+    "privacy-contact",
+  ]) {
+    assert.ok(html.includes(`id="${id}"`), `#${id}`);
+    assert.ok(html.includes(`href="#${id}"`), `#${id} is in the contents`);
+  }
+  assert.ok(text.includes("Oddly Orderly is published by Cavies Studio."));
+  assert.ok(html.includes('href="mailto:contact@cavies.studio"'));
+  assert.ok(html.includes('href="/games/oddly-orderly/support"'));
+  assert.ok(!text.includes("private testing"));
+});
+
+await test("support covers contact, saves, starting over, notes, accessibility and refunds", () => {
+  const text = textOf(htmlByPath.get("/games/oddly-orderly/support"));
+  for (const phrase of [
+    "contact@cavies.studio",
+    "%APPDATA%\\Oddly Orderly\\",
+    "~/Library/Application Support/Oddly Orderly/",
+    "~/.local/share/Oddly Orderly/",
+    "Steam Cloud",
+    "Clear all rosettes",
+    "Delete notes",
+    "Reduced motion",
+    "Colour assist patterns",
+    "Refunds go through the store you bought the game from",
+  ]) {
+    assert.ok(text.includes(phrase), phrase);
+  }
+});
+
+await test("the case study counts pages, names the showpieces and links the game", () => {
+  const casePage = htmlByPath.get("/work/oddly-orderly");
+  const text = textOf(casePage);
+  assert.ok(text.includes("104 pages"));
+  assert.ok(!/100 levels/.test(text));
+  assert.ok(text.includes("Four showpieces"));
+  assert.ok(casePage.includes('href="/games/oddly-orderly"'));
+  assert.ok(htmlByPath.get("/").includes('href="/games/oddly-orderly"'));
+});
+
+await test("/games goes to the games section", async () => {
+  const response = await request("/games", { redirect: "manual" });
+  assert.equal(response.status, 307);
+  const location = new URL(response.headers.get("location"), base);
+  assert.equal(`${location.pathname}${location.hash}`, "/#games");
 });
 
 await test("service and Beigman pages expose real scope and useful links in HTML", () => {

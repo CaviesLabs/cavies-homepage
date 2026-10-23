@@ -25,6 +25,8 @@ export type Project = {
   url?: string;
   /** Public deployment linked from the case study and showcase. */
   liveLink?: { href: string; label: string };
+  /** A game's own page on this site, linked from its case study and the games section. */
+  gamePage?: { href: string; label: string };
   imageNote: string;
   gallery?: { src: string; caption: string; width?: number; height?: number }[];
 };

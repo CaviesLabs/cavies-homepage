@@ -105,6 +105,14 @@
   line-height: 1.65;
 }
 
+.caseLinks {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 28px;
+}
+
 .caseLink {
   display: inline-flex;
   flex-shrink: 0;
@@ -297,8 +305,11 @@
   .meta {
     gap: 8px 12px;
   }
-  .caseLink {
+  .caseLinks {
     margin-top: 13px;
+    gap: 4px 22px;
+  }
+  .caseLink {
     padding-block: 5px;
     font-size: 12px;
   }

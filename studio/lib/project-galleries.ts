@@ -3,6 +3,22 @@ import type { Project } from "./projects";
 type GalleryImage = NonNullable<Project["gallery"]>[number];
 
 export const projectGalleries: Record<string, GalleryImage[]> = {
+  "oddly-orderly": [
+    {
+      src: "/games/oddly-orderly/screenshots/oddly-orderly-bookcase.webp",
+      caption:
+        "The bookcase, one of four showpieces: 24 books, a colour to each column · Development build",
+      width: 1920,
+      height: 1080,
+    },
+    {
+      src: "/games/oddly-orderly/screenshots/oddly-orderly-tool-wall.webp",
+      caption:
+        "The tool wall, a showpiece with an outline for every tool · Development build",
+      width: 1920,
+      height: 1080,
+    },
+  ],
   paperdash: [
     {
       src: "/work/paperdash-house-stats.webp",
