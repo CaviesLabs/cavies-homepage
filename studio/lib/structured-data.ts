@@ -114,6 +114,150 @@ export function workStructuredData(projects: Project[], description: string) {
   };
 }
 
+type GameImage = {
+  src: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
+type VideoGameInput = {
+  path: string;
+  name: string;
+  pageTitle: string;
+  description: string;
+  images: GameImage[];
+  trailer: {
+    name: string;
+    description: string;
+    contentUrl: string;
+    thumbnailUrl: string;
+    duration: string;
+    uploadDate: string;
+  };
+  genre: string[];
+  platforms: string[];
+  /** The store page, once there is one; never invented. */
+  storeUrl: string | null;
+};
+
+/**
+ * A game's own page: its breadcrumb, the page, and the game as a VideoGame.
+ * No offers, prices, ratings or release dates are stated: only what the page shows.
+ */
+export function videoGameStructuredData(game: VideoGameInput) {
+  const url = absoluteUrl(game.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: siteName,
+            item: `${siteUrl}/`,
+          },
+          { "@type": "ListItem", position: 2, name: game.name, item: url },
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: game.pageTitle,
+        description: game.description,
+        inLanguage: "en",
+        isPartOf: { "@id": websiteId },
+        publisher: { "@id": organizationId },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        mainEntity: { "@id": `${url}#game` },
+      },
+      {
+        "@type": "VideoGame",
+        "@id": `${url}#game`,
+        name: game.name,
+        url,
+        description: game.description,
+        inLanguage: "en",
+        genre: game.genre,
+        gamePlatform: game.platforms,
+        operatingSystem: game.platforms.join(", "),
+        applicationCategory: "Game",
+        playMode: "https://schema.org/SinglePlayer",
+        author: { "@id": organizationId },
+        publisher: { "@id": organizationId },
+        image: game.images.map((image) => ({
+          "@type": "ImageObject",
+          contentUrl: absoluteUrl(image.src),
+          caption: `${game.name} — ${image.caption}`,
+          width: image.width,
+          height: image.height,
+        })),
+        trailer: {
+          "@type": "VideoObject",
+          name: game.trailer.name,
+          description: game.trailer.description,
+          contentUrl: absoluteUrl(game.trailer.contentUrl),
+          thumbnailUrl: absoluteUrl(game.trailer.thumbnailUrl),
+          duration: game.trailer.duration,
+          uploadDate: game.trailer.uploadDate,
+        },
+        ...(game.storeUrl ? { sameAs: [game.storeUrl] } : {}),
+      },
+    ],
+  };
+}
+
+/** A page that belongs to a game's page, such as its press kit or support. */
+export function gameSubpageStructuredData(page: {
+  path: string;
+  name: string;
+  description: string;
+  game: { name: string; path: string };
+}) {
+  const url = absoluteUrl(page.path);
+  const gameUrl = absoluteUrl(page.game.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: siteName,
+            item: `${siteUrl}/`,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: page.game.name,
+            item: gameUrl,
+          },
+          { "@type": "ListItem", position: 3, name: page.name, item: url },
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: `${page.game.name} ${page.name.toLowerCase()} — ${siteName}`,
+        description: page.description,
+        inLanguage: "en",
+        isPartOf: { "@id": websiteId },
+        publisher: { "@id": organizationId },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        about: { "@id": `${gameUrl}#game` },
+      },
+    ],
+  };
+}
+
 export function caseStructuredData(
   project: Project,
   description: string,

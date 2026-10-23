@@ -164,6 +164,12 @@ export default async function ProjectPage({
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>
               )}
+              {project.gamePage && (
+                <Link href={project.gamePage.href} className="text-link">
+                  {project.gamePage.label}
+                  <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
+              )}
               {project.liveLink && (
                 <a
                   className="text-link"

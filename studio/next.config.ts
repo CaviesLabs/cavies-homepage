@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
       permanent: true,
     })),
     { source: "/work/seispace", destination: "/#work", permanent: true },
+    // The games live in the homepage's games section (the navigation's Games
+    // item). Temporary, so a games index can take /games later.
+    { source: "/games", destination: "/#games", permanent: false },
   ],
 };
 export default nextConfig;
