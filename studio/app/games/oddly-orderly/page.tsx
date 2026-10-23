@@ -6,7 +6,6 @@ import { GameSubnav } from "@/components/game-subnav";
 import { Navigation } from "@/components/navigation";
 import { StructuredData } from "@/components/structured-data";
 import {
-  aboutTheArt,
   features,
   formatBytes,
   gameName,
@@ -224,10 +223,6 @@ export default function OddlyOrderlyPage() {
                 Wishlist on Steam <ArrowUpRight size={18} aria-hidden="true" />
               </a>
             )}
-          </div>
-          <div className={styles.art}>
-            <h2>About the art</h2>
-            <p>{aboutTheArt.join(" ")}</p>
           </div>
         </section>
 

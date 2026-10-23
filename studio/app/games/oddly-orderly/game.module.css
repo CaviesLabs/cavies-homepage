@@ -206,9 +206,6 @@
 }
 
 .closing {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: 6vw;
   padding-block: 82px 60px;
   border-top: 1px solid var(--line);
 }
@@ -229,26 +226,12 @@
   font-size: 13px;
 }
 
-.art {
-  align-self: end;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-}
-
-.art h2,
 .factsheet h2 {
   font-size: 12px;
   font-weight: 650;
   letter-spacing: 0.09em;
   line-height: 1.4;
   text-transform: uppercase;
-}
-
-.art p {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
 }
 
 .moreLinks {
