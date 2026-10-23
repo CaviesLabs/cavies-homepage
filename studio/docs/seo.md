@@ -27,6 +27,15 @@ When adding a project, update `lib/project-seo.ts` alongside its content. The si
 - `/contact` prepares an email draft locally and offers copy fallback. It does not send messages or store enquiry text. Do not describe this as a working server-delivered contact form.
 - Both new public routes appear in the sitemap. Preserve preview noindex, homepage Google verification, existing portfolio URLs/images, redirects, real 404s and structured-data escaping.
 
+## Oddly Orderly's pages
+
+- `/games/oddly-orderly` (the game), `/games/oddly-orderly/press`, `/games/oddly-orderly/privacy` and `/games/oddly-orderly/support` are public and in the sitemap, the first two with their images. The stores and the game link to these exact URLs; don't move them.
+- Each has its own title, description and sharing image through `pageMetadata` (the end card, or the capsule for the press kit).
+- The game page describes a `VideoGame` (genre, platforms, screenshots, the trailer as a `VideoObject`) published by the organization. It states no offers, prices, ratings or release date. The subpages carry a breadcrumb and a `WebPage` about the game.
+- `steamUrl` in `lib/oddly-orderly.ts` is null until the Steam page is public. Setting it shows the Steam buttons and adds the store page to the game's `sameAs`; the release text ("Coming soon") is separate copy.
+- `/games` redirects with HTTP 307 to the homepage's games section (`/#games`), where the navigation's Games item points. It is temporary so a games index can take the URL later.
+- The pages use their own contact address, `gameContactEmail` (`lib/contact.ts`), for support, privacy and press.
+
 ## References
 
 - [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)
