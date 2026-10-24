@@ -42,7 +42,7 @@ export const projectSeo: Record<string, ProjectSeoMetadata> = {
   "oddly-orderly": {
     title: "Oddly Orderly: Cozy Puzzle Game Design",
     description:
-      "Explore Oddly Orderly, a Cavies game in development: 104 tactile tidying puzzles in 20 rooms, four showpiece pages, accessible controls, and a visual journal.",
+      "Explore Oddly Orderly, a Cavies game in development: over a hundred tactile tidying puzzles in 20 rooms, four showpiece pages, accessible controls, and a visual journal.",
   },
   butterpaw: {
     title: "Butterpaw: Cozy Game Prototype & World Design",

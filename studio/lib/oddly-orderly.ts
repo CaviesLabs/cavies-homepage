@@ -37,7 +37,7 @@ export const pressParagraph =
 /** The store page's features, from About This Game. */
 export const features = [
   {
-    title: "104 pages in twenty rooms",
+    title: "Over a hundred pages in twenty rooms",
     body: "From the hallway to the eaves, with a day by the sea, a winter evening and a birthday party on the way.",
   },
   {
