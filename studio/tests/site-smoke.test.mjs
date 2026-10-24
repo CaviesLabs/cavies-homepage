@@ -207,7 +207,7 @@ await test("Oddly Orderly's page shows the game and its trailer without autoplay
     assert.ok(text.includes(platform), platform);
   }
   for (const feature of [
-    "104 pages in twenty rooms",
+    "Over a hundred pages in twenty rooms",
     "More than one tidy way",
     "Four big pages",
     "No timers, no fail states",
@@ -369,7 +369,7 @@ await test("support covers contact, saves, starting over, notes, accessibility a
 await test("the case study counts pages, names the showpieces and links the game", () => {
   const casePage = htmlByPath.get("/work/oddly-orderly");
   const text = textOf(casePage);
-  assert.ok(text.includes("104 pages"));
+  assert.ok(text.includes("over a hundred pages"));
   assert.ok(!/100 levels/.test(text));
   assert.ok(text.includes("Four showpieces"));
   assert.ok(casePage.includes('href="/games/oddly-orderly"'));
