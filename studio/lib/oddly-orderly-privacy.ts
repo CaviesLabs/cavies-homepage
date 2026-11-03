@@ -11,11 +11,11 @@ Oddly Orderly is designed to be a quiet, offline puzzle game.
 
 WHAT THE APP STORES
 
-The game stores the rosettes found on each page, the last page played, which small shiny things the magpie has taken, and settings locally on this device. This information is used only to continue the game and restore the player's preferences.
+The game stores the rosettes found on each page, the last page played, how each page left part-way was arranged, which small shiny things the magpie has taken, and settings locally on this device. This information is used only to continue the game and restore the player's preferences.
 
 OPTIONAL PLAYTEST NOTES
 
-Playtest notes are off unless the player turns them on in Settings (or opens a playtest link that turns them on). While they are on, the game keeps, on this device only, a note of each page visited: how long it was open; how many moves, undos, start-overs and hints there were, how far into a hint the player went (a third of it, two thirds or all of it), and how often the magpie came and was petted; which rosettes were found and when, and, if the player gives one, a rating of how the page felt; how the page was left; and which kinds of input (mouse, touch, keyboard, gamepad) were used, together with the game's build number, the platform's name and the time each session started. The notes contain no name, account, device identifier or location. They are never transmitted. The player may save a copy to share with the person running the playtest, and may delete the notes at any time in Settings.
+Playtest notes are off unless the player turns them on in Settings (or opens a playtest link that turns them on). While they are on, the game keeps, on this device only, a note of each page visited: how long it was open; how many moves, undos, start-overs and hints there were, how far into a hint the player went (a third of it, two thirds or all of it), and how often the magpie came and was petted; which rosettes were found and when, and, if the player gives one, a rating of how the page felt; how the page was left, and whether it came back as it was left; and which kinds of input (mouse, touch, keyboard, gamepad) were used, together with the game's build number, the platform's name and the time each session started. The notes contain no name, account, device identifier or location. They are never transmitted. The player may save a copy to share with the person running the playtest, and may delete the notes at any time in Settings.
 
 WHAT THE APP DOES NOT COLLECT
 
@@ -27,7 +27,7 @@ The app uses ordinary operating-system functions to save local files, play audio
 
 STEAM
 
-When the game runs on Steam, it tells Steam which achievements the player has earned and how many rosettes have been found, and Steam Cloud keeps a copy of the save file (the rosettes, the last page, the treasures and the settings) so that it can follow the player to another computer. Valve processes this under its own terms and privacy policy, and Steam Cloud can be turned off for the game in Steam. Playtest notes are never synced. The game works the same without Steam.
+When the game runs on Steam, it tells Steam which achievements the player has earned and how many rosettes have been found, and Steam Cloud keeps a copy of the save file (the rosettes, the last page, the arrangement of each page left part-way, the treasures and the settings) so that it can follow the player to another computer. Valve processes this under its own terms and privacy policy, and Steam Cloud can be turned off for the game in Steam. Playtest notes are never synced. The game works the same without Steam.
 
 CHILDREN
 
