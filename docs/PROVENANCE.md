@@ -27,7 +27,7 @@ This site shows art, audio and video made in other repositories. Their provenanc
 |---|---|---|---|---|---|---|
 | No rows recorded yet; see `studio/docs/portfolio-sources.md` and the provenance records in `meowttt7/oddly-orderly` | | | | | | |
 
-Files under `studio/public/games/oddly-orderly/` (screenshots, trailer, capsule, icon, wordmark) and the Butterpaw artwork under `studio/public/work/` (its brand capsule and memory illustrations; the prototype frame is a capture) are the ones that include generated art or music. Rows for them should be added from the game repositories' records, not guessed.
+Files under `studio/public/games/oddly-orderly/` (screenshots, trailer, capsule, icon, wordmark) the Butterpaw artwork (its brand capsule and memory illustrations; the prototype frame is a capture), the All Brain No Luck island art (`all-brain-no-luck-*.webp`) and the Lantern Burst art (`playables-lantern-burst-*.webp`), all under `studio/public/work/`, are the ones that include generated art or music. `studio/docs/portfolio-sources.md` says which frames carry it. Rows for them should be added from the game repositories' records, not guessed.
 
 ## Sourced third-party assets
 <!-- Fonts, sound libraries, icons, code snippets, photos. Include anything that needs a notice in the product. -->

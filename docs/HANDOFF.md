@@ -38,5 +38,5 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 - From `studio/`: `npm run lint`, `npm run typecheck`, `npm run build`, `npm run test:enquiry`, `npm run test:scope`. All pass on `main` at the time of this change.
 
 **Links**
-- PR: see the pull request that added this file.
+- PR: https://github.com/CaviesLabs/cavies-homepage/pull/31
 - Docs changed: `CLAUDE.md`, `docs/HANDOFF.md`, `docs/PROVENANCE.md`

@@ -27,6 +27,10 @@ The Vercel project is `cavies/cavies-studio`, connected to `CaviesLabs/cavies-ho
 
 Push changes through a pull request. Vercel creates preview deployments for feature branches and production deployments when changes merge into `main`. Run `npm run lint` and `npm run build` locally before merging. GitHub Actions is disabled for this repository, and no Actions workflows are maintained.
 
+The production domain and canonical URL are `https://cavies.studio` (moved from `cavies.xyz` on 22 October 2026). The `www` hostname, the former `cavies.xyz` and `www.cavies.xyz` hostnames, and `cavies-studio.vercel.app` redirect permanently to the canonical domain, preserving paths and queries. Game subdomains of cavies.xyz are separate deployments and are unaffected. Preview deployments remain available for review and are marked noindex. DNS is managed in Cloudflare. Preserve existing mail and unrelated DNS records when changing web traffic routing.
+
+Production releases use Vercel. The old root app and legacy hosting configuration do not deploy the Studio app; the former GitHub Pages workflow is available only in Git history.
+
 The site works without delivery credentials: it shows an email-draft composer, and the sending endpoint fails closed. Direct email and Telegram remain available without JavaScript. Enquiry text is sent through Gmail and is not stored in a site database or application logs. The private rate-limit ledger stores HMAC identifiers and timestamps only. No marketing analytics are added.
 
 Gmail delivery setup, operating limits, validation, and rollback are documented in `docs/enquiry-delivery.md`. Never expose credentials through public environment variables or commit Google client downloads. Verify actual inbox arrival before enabling production delivery; a Gmail API acknowledgement confirms acceptance, not inbox placement.
