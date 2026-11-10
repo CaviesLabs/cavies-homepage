@@ -43,6 +43,7 @@ await test("public sitemap retains the portfolio and includes both new pages", a
   assert.equal(new Set(urls).size, urls.length, "no duplicate sitemap URLs");
   assert.ok(urls.includes(`${canonicalOrigin}/services/business-websites`));
   assert.ok(urls.includes(`${canonicalOrigin}/contact`));
+  assert.ok(urls.includes(`${canonicalOrigin}/privacy`), "/privacy in sitemap");
   for (const path of gamePages) {
     assert.ok(urls.includes(`${canonicalOrigin}${path}`), `${path} in sitemap`);
   }

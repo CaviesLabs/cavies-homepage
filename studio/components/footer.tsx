@@ -49,6 +49,7 @@ export function Footer() {
             <Link href="/work">Work</Link>
             <Link href="/#games">Games</Link>
             <Link href="/#pricing">Plans</Link>
+            <Link href="/privacy">Privacy</Link>
             <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>

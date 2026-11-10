@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/work") },
     { url: absoluteUrl("/services/business-websites") },
     { url: absoluteUrl("/contact") },
+    { url: absoluteUrl("/privacy") },
     ...allProjects.map((project) => ({
       url: absoluteUrl(`/work/${project.slug}`),
       images: [
