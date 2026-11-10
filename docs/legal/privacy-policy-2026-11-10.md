@@ -2,7 +2,7 @@
 
 Published at https://cavies.studio/privacy. This is the dated copy the studio template asks for (studio-os `ops/legal/PRIVACY-POLICY-TEMPLATE.md`, template version 1). The page is built from `studio/lib/studio-privacy.ts`; this file holds the same words. Do not change its policy text: when the policy changes, add a new dated copy.
 
-Status: draft awaiting Meow's approval (PR). Not legal advice; not reviewed by an adviser.
+Status: approved by Meow on 10 November 2026 (PR #32) and published by merging that PR. Not legal advice; not reviewed by an adviser.
 
 ---
 
