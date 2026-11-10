@@ -92,7 +92,7 @@ This site links to LinkedIn, X and Telegram, and to projects we have worked on. 
 
 ## Security
 
-The site uses HTTPS. The keys the form needs stay on our server and never reach your browser. Enquiry text is not stored in a site database or in our logs. No system is perfect. If a data breach is likely to cause serious harm, we will tell the people affected and the regulator as the law requires.
+The site uses HTTPS. The secret keys the form uses stay on our server and never reach your browser. Enquiry text is not stored in a site database or in our logs. No system is perfect. If a data breach is likely to cause serious harm, we will tell the people affected and the regulator as the law requires.
 
 ## Your rights
 
