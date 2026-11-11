@@ -19,10 +19,70 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
       height: 1080,
     },
   ],
+  tender: [
+    {
+      src: "/work/tender-trade.webp",
+      caption: "Trade page · Signed out, order book empty at capture",
+      width: 1920,
+      height: 1629,
+    },
+    {
+      src: "/work/tender-compute-etf.webp",
+      caption: "Compute ETF · A reference level, not a fund · Live data at capture",
+      width: 1920,
+      height: 2096,
+    },
+    {
+      src: "/work/tender-forwards.webp",
+      caption: "Compute forwards · In development",
+      width: 1920,
+      height: 1105,
+    },
+  ],
+  amoeba: [
+    {
+      src: "/work/amoeba-fee-arm.webp",
+      caption: "Fee routing on the organism map · Pre-launch",
+      width: 1920,
+      height: 1200,
+    },
+    {
+      src: "/work/amoeba-hooks.webp",
+      caption: "The hook’s six programs · Pre-launch",
+      width: 1920,
+      height: 1840,
+    },
+    {
+      src: "/work/amoeba-rules.webp",
+      caption: "Published rules for the organism’s state · Pre-launch",
+      width: 1920,
+      height: 1813,
+    },
+  ],
+  tyche: [
+    {
+      src: "/work/tyche-first-draw.webp",
+      caption: "How the daily draw is designed to work · Pre-launch, no draw has run",
+      width: 1920,
+      height: 1320,
+    },
+    {
+      src: "/work/tyche-design-tokens.webp",
+      caption: "Colour tokens for the night and daylight themes · Design system page",
+      width: 1920,
+      height: 2533,
+    },
+  ],
   paperdash: [
     {
+      src: "/work/paperdash-markets.webp",
+      caption: "BTC market · Captured while live, October 2026",
+      width: 1920,
+      height: 1307,
+    },
+    {
       src: "/work/paperdash-house-stats.webp",
-      caption: "Protocol liquidity and open interest · Live data",
+      caption: "Protocol liquidity and open interest · Captured while live",
       width: 1920,
       height: 1476,
     },
@@ -31,12 +91,6 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
       caption: "Payout calculator · Estimate",
       width: 1920,
       height: 1179,
-    },
-    {
-      src: "/work/paperdash-arcade-table.webp",
-      caption: "Arcade wheel table · Signed-out view",
-      width: 1920,
-      height: 1483,
     },
   ],
   reai: [
@@ -61,20 +115,26 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
   ],
   vpawhook: [
     {
-      src: "/work/vpawhook-race-formats.webp",
+      src: "/work/vpawhook-formats-progression.webp",
       caption: "Race formats and pet progression · Pre-launch",
       width: 1920,
       height: 1463,
     },
     {
+      src: "/work/vpawhook-hook-architecture.webp",
+      caption: "One pool, upgradeable hook · Pre-launch",
+      width: 1920,
+      height: 1064,
+    },
+    {
       src: "/work/vpawhook-race-replay.webp",
-      caption: "Race replay · Sepolia testnet",
+      caption: "Race replay · Sepolia testnet, October 2026",
       width: 1920,
       height: 1811,
     },
     {
       src: "/work/vpawhook-wardrobe.webp",
-      caption: "Pet wardrobe · Art preview",
+      caption: "Pet wardrobe · Art preview, October 2026",
       width: 1920,
       height: 1784,
     },
@@ -117,8 +177,32 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
   ],
   emberline: [
     {
+      src: "/work/emberline-perpendicular-calculator.webp",
+      caption: "Radiant heat on a wall at 90° · Example values",
+      width: 1920,
+      height: 1933,
+    },
+    {
+      src: "/work/emberline-report-and-working.webp",
+      caption: "Report table and step-by-step working · Example values",
+      width: 1920,
+      height: 1381,
+    },
+    {
+      src: "/work/emberline-time-equivalence.webp",
+      caption: "Time equivalence results · Example fire cell",
+      width: 1920,
+      height: 1467,
+    },
+    {
+      src: "/work/emberline-opening-review.webp",
+      caption: "Drafting pilot: opening review · Synthetic sample",
+      width: 1920,
+      height: 1200,
+    },
+    {
       src: "/work/emberline-draft-package.webp",
-      caption: "Draft evidence package · Synthetic sample",
+      caption: "Drafting pilot: draft evidence package · Synthetic sample",
       width: 1920,
       height: 1325,
     },

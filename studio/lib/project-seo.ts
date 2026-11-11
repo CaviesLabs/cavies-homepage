@@ -5,14 +5,29 @@ export type ProjectSeoMetadata = {
 
 export const projectSeo: Record<string, ProjectSeoMetadata> = {
   paperdash: {
-    title: "Paperdash: Trading Interface & Market Analytics",
+    title: "Paperdash: Trading Interface & Origami Arcade",
     description:
-      "Explore Paperdash, an independent Papertrade web app by Cavies: live market analytics, payout estimates, a trading terminal, and arcade tables on real positions.",
+      "See Paperdash, an independent Papertrade web app by Cavies, now shut down: an origami arcade on real positions, market analytics, and a trading terminal.",
   },
   reai: {
     title: "Reai: WhatsApp AI Assistant for Property Agents",
     description:
-      "Explore Reai, Cavies' WhatsApp assistant for Singapore property agents: replies from the agent's own listings, lead summaries, viewing approvals, and handover.",
+      "Explore Reai, Cavies' WhatsApp AI for Singapore property agents, in a trial: an assistant on each agent's number, a central AI, and replies from their listings.",
+  },
+  tender: {
+    title: "Tender: AI Inference Marketplace for HyperFlow",
+    description:
+      "See Tender, an AI inference marketplace Cavies designed and built for HyperFlow: a public order book, a price index and the API behind them, at an early stage.",
+  },
+  amoeba: {
+    title: "Amoeba: A Uniswap v4 Hook Drawn as an Organism",
+    description:
+      "See Amoeba, a pre-launch token on Elysium by Cavies: a Uniswap v4 hook's fee routing drawn as a live WebGL organism, with its rules published in plain words.",
+  },
+  tyche: {
+    title: "Tyche: Trading Terminal with a Daily Pot",
+    description:
+      "See Tyche, a pre-launch trading terminal for Elysium tokens by Cavies: a pachinko-style pot and draw, token pages with charts, and a clear fee breakdown.",
   },
   vpawhook: {
     title: "vPawHook: Onchain Pixel-Pet Racing Game",
@@ -35,9 +50,9 @@ export const projectSeo: Record<string, ProjectSeoMetadata> = {
       "See DexPaid, a Solana launchpad by Cavies with locked creator-fee routes, owner-approved spending, and a public double-entry ledger, shown pre-launch.",
   },
   emberline: {
-    title: "Emberline: Engineering Evidence Workflow Pilot",
+    title: "Emberline: Fire Engineering Calculators",
     description:
-      "See Emberline, a local pilot by Cavies that links each boundary opening to its drawing, review, and draft evidence package. Shown with synthetic sample data.",
+      "See Emberline by Cavies: free fire engineering calculators that show every step of the working, and a local drafting pilot shown with synthetic sample data.",
   },
   "oddly-orderly": {
     title: "Oddly Orderly: Cozy Puzzle Game Design",

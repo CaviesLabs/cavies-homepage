@@ -142,31 +142,60 @@ await test("featured work follows the owner's order", () => {
     ),
   ].slice(0, 4);
   assert.deepEqual(featured, [
-    "paperdash",
-    "seitrace",
+    "emberline",
     "beigman-engineering",
     "reai",
+    "tender",
   ]);
-  assert.ok(htmlByPath.get("/").includes('href="/work/paperdash"'));
+  // The showcase server-renders a link for its selected (first) project only;
+  // selected work (cards 05 to 08) and the index from 09 are plain links.
+  const home = htmlByPath.get("/");
+  for (const slug of ["emberline", "amoeba", "tyche", "seitrace", "paperdash"]) {
+    assert.ok(home.includes(`href="/work/${slug}"`), `${slug} linked from homepage`);
+  }
 });
 
 await test("new cases keep live links and honest data labels", () => {
+  assert.ok(
+    !htmlByPath.get("/work/paperdash").includes("paperdash.xyz"),
+    "Paperdash has shut down, so it is not linked",
+  );
   const expectations = {
     "/work/paperdash": [
-      'href="https://paperdash.xyz"',
+      "Paperdash has shut down",
       "real Papertrade orders",
+      "Captured while live",
     ],
     "/work/reai": [
       'href="https://reai.sg"',
       "Illustrative conversation",
-      "early pilot",
+      "in a trial",
+    ],
+    "/work/amoeba": [
+      'href="https://amoeba.family"',
+      "Pre-launch",
+      "not deployed yet",
+    ],
+    "/work/tyche": ["Pre-launch preview", "no draw has run"],
+    "/work/tender": [
+      'href="https://tender-by-hyperflow.vercel.app"',
+      "Compute forwards · In development",
+      "at an early stage",
     ],
     "/work/browser-games": ["53 games", "YouTube Playables format"],
-    "/work/vpawhook": ["Sepolia testnet", "Mainnet is not live"],
+    "/work/vpawhook": [
+      'href="https://vpawhook.com"',
+      "Sepolia testnet, October 2026",
+      "The game has not launched",
+    ],
     "/work/skew": ["Educational"],
     "/work/dexpaid": ["Pre-launch"],
     "/work/loosecoins": ["Example address"],
-    "/work/emberline": ["Synthetic sample"],
+    "/work/emberline": [
+      'href="https://emberline.cavies.studio"',
+      "Synthetic sample",
+      "does not by itself establish compliance",
+    ],
   };
   for (const [path, phrases] of Object.entries(expectations)) {
     const html = htmlByPath.get(path);
