@@ -42,7 +42,7 @@ export const additionalProjects: Project[] = [
     context:
       "Property agents get the same WhatsApp questions at all hours, and a slow reply can lose a lead. Each agent who signs up gets an AI assistant on their own work number that answers using only that agent’s listings, rules, and official sources. Reai is in a trial at reai.sg.",
     approach:
-      "Clients keep messaging the agent’s usual number. Agents work with Reai’s central AI on its own company number: lead summaries, viewing times to approve, questions handed over with a suggested reply, and changes previewed before the agent confirms them. A web workspace holds listings, clients, and settings, and a shadow mode drafts replies beside the agent’s own before anything is sent. Reai is in a trial at reai.sg.",
+      "Each agent who signs up gets an AI assistant on their own work number that answers clients from that agent’s listings, rules, and official sources, so clients keep messaging the number they know. Agents work with Reai’s central AI on its own company number: lead summaries, viewing times to approve, questions handed over with a suggested reply, and changes previewed before the agent confirms them. A web workspace holds listings, clients, and settings, and a shadow mode drafts replies beside the agent’s own before anything is sent. Reai is in a trial at reai.sg.",
     details: [
       "An assistant on each agent’s own number",
       "A central AI on Reai’s company number",
@@ -69,7 +69,7 @@ export const additionalProjects: Project[] = [
     context:
       "Tender is HyperFlow’s market for AI inference. A buyer picks a model, an amount, and the price they will pay per million output tokens, and the order rests in a public book until one of HyperFlow’s sellers fills it. Buyers need a reference price to check before they bid.",
     approach:
-      "Cavies designed and built the four-page site and the service behind it. The Trade page puts a model’s reference price and its history beside an order panel and the open book, and Compute ETF tracks ten models as one basket against their list prices, as a reference level and not a fund. The API computes the index from public market prices, keeps the book, and records each step of an order. Tender is at an early stage: orders are filled by hand and paid in USDC on the Elysium network, and compute forwards are in development.",
+      "Cavies designed and built the four-page site and the service behind it. The Trade page puts a model’s reference price and its history beside an order panel and the open book, and Compute ETF tracks ten models as one basket against their list prices, as a reference level and not a fund. The API computes the index from public market prices, keeps the book, and records each step of an order. Tender is at an early stage: buyers pay in USDC on the Elysium network, and compute forwards are in development.",
     details: [
       "Order book with buyer-set prices",
       "Reference price index for each model",
@@ -81,7 +81,7 @@ export const additionalProjects: Project[] = [
       href: "https://tender-by-hyperflow.vercel.app",
       label: "Visit Tender",
     },
-    imageNote: "Landing page · Live site",
+    imageNote: "Landing page",
   },
   {
     slug: "amoeba",
@@ -89,7 +89,7 @@ export const additionalProjects: Project[] = [
     category: "Token and Uniswap v4 hook",
     headline: "One pool, drawn as a living cell.",
     description:
-      "A token on Elysium whose Uniswap v4 hook is shown as an organism under a microscope, one arm for each thing the hook does.",
+      "A pre-launch token on Elysium whose Uniswap v4 hook is shown as an organism under a microscope, one arm for each thing the hook does.",
     image: "/work/amoeba-home.webp",
     imageWidth: 1920,
     imageHeight: 1200,

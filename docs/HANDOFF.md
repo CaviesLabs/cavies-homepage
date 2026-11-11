@@ -15,6 +15,67 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Portfolio order of 11 November: Emberline, Beigman, Reai, Tender first; Tender, Amoeba and Tyche added: 11 November 2026
+
+**What shipped**
+- The owner's new order (PR #33). Featured: Emberline, Beigman Engineering, Reai, Tender. Selected work (05 to 08): Amoeba, vPawHook, Tyche, Seitrace. The index starts at 09 with Paperdash; the rest keep their order. `studio/lib/projects.ts`.
+- New cases in `studio/lib/additional-projects.ts`, `project-galleries.ts` and `project-seo.ts`, with images in `studio/public/work/`:
+  - Tender, client work for HyperFlow, linked to tender-by-hyperflow.vercel.app.
+  - Amoeba, pre-launch, linked to amoeba.family.
+  - Tyche, pre-launch, not linked: its only address is a preview build.
+- Emberline now leads with the public calculator site (emberline.cavies.studio, linked). The two pilot images moved into its gallery.
+- vPawHook:
+  - The Sepolia test site is gone (404), so the copy says the game has not launched and the pool has not opened.
+  - New lead, formats and hook images in the site's current look. The two outdated images (`vpawhook-hooks.webp`, `vpawhook-race-formats.webp`) were removed.
+  - Linked to vpawhook.com.
+- Paperdash has shut down. paperdash.xyz no longer resolves, so it has no link. It leads with the arcade, and its captions say "captured while live".
+- Reai copy: in a trial, with an assistant on each agent's own number and a central AI on Reai's company number.
+- Smoke tests:
+  - They check the first nine positions of the order.
+  - They match honesty labels against the visible page, not meta tags.
+  - They check the new and changed cases and that Paperdash is not linked.
+- Provenance:
+  - `studio/docs/portfolio-sources.md` has an 11 November section.
+  - `docs/PROVENANCE.md` notes the Amoeba mascot's AI-assisted origin.
+  - `studio/README.md` describes the new order and links, and says that `context` is not rendered.
+
+**Decisions**
+- The order above. Meow, 11 November 2026.
+- Paperdash is shut down and its arcade can be showcased; Reai is in a trial with a central AI and an assistant for each agent who signs up. Meow, 9 November 2026 (desk answer in studio-os `DECISIONS.md`).
+- Tender names HyperFlow in its role line and search title. Their own site reads "Tender by HyperFlow", and Meow asked for Tender at the top, but no written OK from HyperFlow is on file. A studio-os PENDING line asks Meow to confirm. (mine), 11 November 2026
+- Tender's lead image ends above the landing page's live price, so no savings figure sits on the homepage. The copy leaves out HyperFlow's internal operations. (mine)
+- vPawHook says "has not launched" rather than "deployed on Ethereum mainnet": before the opening, the portfolio says no more than vpawhook.com does. (mine)
+- Not used, though captured:
+  - Tyche's token page, which showed a third-party token's market data and its creator's address.
+  - Emberline's validation page, whose pass count would read as an accuracy claim.
+  - Emberline's drafting-support sentence, which would be a new public offer on the studio site and is Meow's call. (mine)
+- Status lines (pre-launch, shut down, in a trial) sit in `description` or `approach`, because case pages do not render `context`. (mine)
+
+**Open items**
+- HyperFlow consent: if Meow or HyperFlow says no, drop "for HyperFlow" from Tender's role line and from its search title and description. Owner: Meow.
+- Launch-day refreshes. Whoever runs each launch updates the case the same day:
+  - Amoeba: its copy and images say pre-launch.
+  - Tyche: preview build, no draw yet.
+  - vPawHook: "the pool has not opened" becomes false at the opening.
+- Tender changes often. Re-run the capture script in `research/screenshots/2026-11-11/tender/` (local, outside the repo) after the next site release.
+- From the growth backlog item of 9 November, still open: the Rosewater series page, and contact@cavies.studio as the one enquiry address in the site schema. This PR did only that item's role lines.
+- `meowttt7/grandpaw` README and AGENTS still describe testnet.vpawhook.com as a current site, and the repo has no provenance file.
+
+**How to verify**
+- From `studio/`, all passed on the branch: `npm run lint`, `npm run typecheck`, `npm run build`, `npm run test:enquiry`, `npm run test:scope`, then `npx next start --port 3123` and `SITE_TEST_URL=http://127.0.0.1:3123 npm run test:smoke`.
+- Desktop (1440) and phone (390) screenshots showed no page errors. They covered the homepage showcase (with Tender selected), Selected work, /work and seven case studies.
+- Production after merge:
+  - https://cavies.studio/work lists Emberline, Beigman Engineering, Reai, Tender, Amoeba, vPawHook, Tyche, Seitrace and Paperdash first.
+  - /work/paperdash has no paperdash.xyz link.
+  - /work/emberline links the calculator site.
+
+**Links**
+- PR: https://github.com/CaviesLabs/cavies-homepage/pull/33
+- Research packages (briefs, manifests, capture scripts, raw captures): `research/screenshots/2026-11-11/` in the Cavies Studio workspace, outside this repo.
+- Models: Opus 5.5 integrated and wrote the copy edits. Four Fable 5.2 helpers on dev2 and dev3 made the captures and draft copy. The Opus reviewer and the Haiku supervisor checked the PR.
+
+---
+
 ## Studio privacy policy page at /privacy: 10 November 2026
 
 **What shipped**

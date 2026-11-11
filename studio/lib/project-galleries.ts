@@ -22,13 +22,14 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
   tender: [
     {
       src: "/work/tender-trade.webp",
-      caption: "Trade page · Signed out, order book empty at capture",
+      caption: "Trade page · Signed out, live data at capture",
       width: 1920,
       height: 1629,
     },
     {
       src: "/work/tender-compute-etf.webp",
-      caption: "Compute ETF · A reference level, not a fund · Live data at capture",
+      caption:
+        "Compute ETF · A reference level, not a fund · SI index reference figures at capture",
       width: 1920,
       height: 2096,
     },
@@ -88,7 +89,7 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
     },
     {
       src: "/work/paperdash-payout-calculator.webp",
-      caption: "Payout calculator · Estimate",
+      caption: "Payout calculator · Estimate, captured while live",
       width: 1920,
       height: 1179,
     },

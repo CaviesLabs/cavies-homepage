@@ -136,16 +136,23 @@ await test("work index lists every case study and is linked from every page", ()
 
 await test("featured work follows the owner's order", () => {
   const work = htmlByPath.get("/work");
-  const featured = [
+  // The owner's order of 11 November 2026: the four featured cases, the
+  // four selected-work cards (05 to 08) and the first index entry (09).
+  const ordered = [
     ...new Set(
       [...work.matchAll(/href="\/work\/([a-z0-9-]+)"/g)].map((m) => m[1]),
     ),
-  ].slice(0, 4);
-  assert.deepEqual(featured, [
+  ].slice(0, 9);
+  assert.deepEqual(ordered, [
     "emberline",
     "beigman-engineering",
     "reai",
     "tender",
+    "amoeba",
+    "vpawhook",
+    "tyche",
+    "seitrace",
+    "paperdash",
   ]);
   // The showcase server-renders a link for its selected (first) project only;
   // selected work (cards 05 to 08) and the index from 09 are plain links.
@@ -197,11 +204,18 @@ await test("new cases keep live links and honest data labels", () => {
       "does not by itself establish compliance",
     ],
   };
+  // Labels must be visible on the page, so match the body without scripts
+  // (the head's meta, Open Graph and JSON-LD descriptions do not count).
+  const visibleHtml = (html) =>
+    html
+      .replace(/^[\s\S]*?<body[^>]*>/, "")
+      .replace(/<script[\s\S]*?<\/script>/g, "");
   for (const [path, phrases] of Object.entries(expectations)) {
-    const html = htmlByPath.get(path);
-    assert.ok(html, `${path} is in the sitemap`);
+    const page = htmlByPath.get(path);
+    assert.ok(page, `${path} is in the sitemap`);
+    const html = visibleHtml(page);
     for (const phrase of phrases) {
-      assert.ok(html.includes(phrase), `${path} includes ${phrase}`);
+      assert.ok(html.includes(phrase), `${path} shows ${phrase}`);
     }
   }
 });

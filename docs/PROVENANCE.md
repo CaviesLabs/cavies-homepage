@@ -29,6 +29,8 @@ This site shows art, audio and video made in other repositories. Their provenanc
 
 Files under `studio/public/games/oddly-orderly/` (screenshots, trailer, capsule, icon, wordmark) the Butterpaw artwork (its brand capsule and memory illustrations; the prototype frame is a capture), the All Brain No Luck island art (`all-brain-no-luck-*.webp`) and the Lantern Burst art (`playables-lantern-burst-*.webp`), all under `studio/public/work/`, are the ones that include generated art or music. `studio/docs/portfolio-sources.md` says which frames carry it. Rows for them should be added from the game repositories' records, not guessed.
 
+The Amoeba captures (`studio/public/work/amoeba-*.webp`, 11 November 2026) show the product's mascot, which its brand guide describes as an AI-assisted reconstruction from the designer's raster master; its cut-out and face rig were made with open-weight tools. The record is `docs/PROVENANCE.md` in `meowttt7/amoeba`. Of the other captures added that day, Emberline's and Tyche's repositories record no generated imagery on the pages shown, and Tender's site ships none. `meowttt7/grandpaw` (vPawHook) has no provenance file and its docs mention no generated art, so whether its pixel art includes any is not recorded; check before adding a row.
+
 ## Sourced third-party assets
 <!-- Fonts, sound libraries, icons, code snippets, photos. Include anything that needs a notice in the product. -->
 
