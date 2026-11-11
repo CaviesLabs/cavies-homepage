@@ -233,16 +233,20 @@ const findProject = (slug: string): Project => {
 };
 
 export const showcaseProjects = [
-  "paperdash",
-  "seitrace",
+  "emberline",
   "beigman-engineering",
   "reai",
+  "tender",
 ].map(findProject);
 export const projects: Project[] = [
   ...showcaseProjects,
   ...[
-    "skew",
+    "amoeba",
     "vpawhook",
+    "tyche",
+    "seitrace",
+    "paperdash",
+    "skew",
     "heavendash",
     "0dte",
     "chat",
@@ -251,7 +255,6 @@ export const projects: Project[] = [
     "brrr",
     "dexpaid",
     "loosecoins",
-    "emberline",
     "claimhq",
     "reply-guy",
     "captable",

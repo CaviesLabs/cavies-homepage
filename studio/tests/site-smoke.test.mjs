@@ -136,43 +136,86 @@ await test("work index lists every case study and is linked from every page", ()
 
 await test("featured work follows the owner's order", () => {
   const work = htmlByPath.get("/work");
-  const featured = [
+  // The owner's order of 11 November 2026: the four featured cases, the
+  // four selected-work cards (05 to 08) and the first index entry (09).
+  const ordered = [
     ...new Set(
       [...work.matchAll(/href="\/work\/([a-z0-9-]+)"/g)].map((m) => m[1]),
     ),
-  ].slice(0, 4);
-  assert.deepEqual(featured, [
-    "paperdash",
-    "seitrace",
+  ].slice(0, 9);
+  assert.deepEqual(ordered, [
+    "emberline",
     "beigman-engineering",
     "reai",
+    "tender",
+    "amoeba",
+    "vpawhook",
+    "tyche",
+    "seitrace",
+    "paperdash",
   ]);
-  assert.ok(htmlByPath.get("/").includes('href="/work/paperdash"'));
+  // The showcase server-renders a link for its selected (first) project only;
+  // selected work (cards 05 to 08) and the index from 09 are plain links.
+  const home = htmlByPath.get("/");
+  for (const slug of ["emberline", "amoeba", "tyche", "seitrace", "paperdash"]) {
+    assert.ok(home.includes(`href="/work/${slug}"`), `${slug} linked from homepage`);
+  }
 });
 
 await test("new cases keep live links and honest data labels", () => {
+  assert.ok(
+    !htmlByPath.get("/work/paperdash").includes("paperdash.xyz"),
+    "Paperdash has shut down, so it is not linked",
+  );
   const expectations = {
     "/work/paperdash": [
-      'href="https://paperdash.xyz"',
+      "Paperdash has shut down",
       "real Papertrade orders",
+      "Captured while live",
     ],
     "/work/reai": [
       'href="https://reai.sg"',
       "Illustrative conversation",
-      "early pilot",
+      "in a trial",
+    ],
+    "/work/amoeba": [
+      'href="https://amoeba.family"',
+      "Pre-launch",
+      "not deployed yet",
+    ],
+    "/work/tyche": ["Pre-launch preview", "no draw has run"],
+    "/work/tender": [
+      'href="https://tender-by-hyperflow.vercel.app"',
+      "Compute forwards · In development",
+      "at an early stage",
     ],
     "/work/browser-games": ["53 games", "YouTube Playables format"],
-    "/work/vpawhook": ["Sepolia testnet", "Mainnet is not live"],
+    "/work/vpawhook": [
+      'href="https://vpawhook.com"',
+      "Sepolia testnet, October 2026",
+      "The game has not launched",
+    ],
     "/work/skew": ["Educational"],
     "/work/dexpaid": ["Pre-launch"],
     "/work/loosecoins": ["Example address"],
-    "/work/emberline": ["Synthetic sample"],
+    "/work/emberline": [
+      'href="https://emberline.cavies.studio"',
+      "Synthetic sample",
+      "does not by itself establish compliance",
+    ],
   };
+  // Labels must be visible on the page, so match the body without scripts
+  // (the head's meta, Open Graph and JSON-LD descriptions do not count).
+  const visibleHtml = (html) =>
+    html
+      .replace(/^[\s\S]*?<body[^>]*>/, "")
+      .replace(/<script[\s\S]*?<\/script>/g, "");
   for (const [path, phrases] of Object.entries(expectations)) {
-    const html = htmlByPath.get(path);
-    assert.ok(html, `${path} is in the sitemap`);
+    const page = htmlByPath.get(path);
+    assert.ok(page, `${path} is in the sitemap`);
+    const html = visibleHtml(page);
     for (const phrase of phrases) {
-      assert.ok(html.includes(phrase), `${path} includes ${phrase}`);
+      assert.ok(html.includes(phrase), `${path} shows ${phrase}`);
     }
   }
 });
