@@ -1,0 +1,28 @@
+# Cloudflare Workers static assets headers (https://developers.cloudflare.com/workers/static-assets/headers/).
+# These replace the headers studio/vercel.json set on every response, plus the
+# Strict-Transport-Security header Vercel added itself.
+/*
+  Strict-Transport-Security: max-age=63072000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+
+# Hashed build output never changes.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Resized images and media keep their names when replaced: a day, then revalidate.
+/_img/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/work/*.webp
+  Cache-Control: public, max-age=86400, must-revalidate
+/work/*.png
+  Cache-Control: public, max-age=86400, must-revalidate
+/work/*.jpg
+  Cache-Control: public, max-age=86400, must-revalidate
+/brand/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/games/oddly-orderly/*.webp
+  Cache-Control: public, max-age=86400, must-revalidate
+/games/oddly-orderly/*.mp4
+  Cache-Control: public, max-age=86400, must-revalidate

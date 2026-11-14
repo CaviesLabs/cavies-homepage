@@ -7,10 +7,10 @@ import test from "node:test";
 const hooks = registerHooks({
   resolve(specifier, context, next) {
     if (
-      specifier === "./enquiry" &&
-      context.parentURL?.endsWith("/lib/enquiry-delivery.ts")
+      specifier === "../lib/enquiry" &&
+      context.parentURL?.endsWith("/worker/enquiry-delivery.ts")
     ) {
-      return next("./enquiry.ts", context);
+      return next("../lib/enquiry.ts", context);
     }
     return next(specifier, context);
   },
@@ -19,7 +19,7 @@ const {
   createEnquiryHandler,
   enquiryDeliveryConfig,
   enquiryDeliveryConfigured,
-} = await import("../lib/enquiry-delivery.ts");
+} = await import("../worker/enquiry-delivery.ts");
 hooks.deregister();
 
 const valid = {
@@ -32,8 +32,6 @@ const valid = {
   turnstileToken: "mock-token",
 };
 const env = {
-  NODE_ENV: "production",
-  VERCEL_ENV: "production",
   ENQUIRY_DELIVERY_ENABLED: "true",
   TURNSTILE_SECRET_KEY: "mock-secret",
   GOOGLE_CLIENT_ID: "mock-client-id",
@@ -87,43 +85,46 @@ function setup(overrides = {}) {
   return { handler, calls, reservations };
 }
 
-test("production config is exact-origin only and ignores preview/development knobs", () => {
+test("production config is exact-origin only and ignores development knobs", () => {
   const config = enquiryDeliveryConfig({
     ...env,
-    VERCEL_URL: "some-preview.vercel.app",
     ENQUIRY_LOCAL_ORIGIN: "http://localhost:3000",
   });
+  assert.equal(config.production, true);
   assert.deepEqual(config.allowedOrigins, ["https://cavies.studio"]);
   assert.deepEqual(
     enquiryDeliveryConfig({
       ...env,
-      VERCEL_ENV: "preview",
-      VERCEL_URL: "this-preview.vercel.app",
+      ENQUIRY_EXTRA_ORIGIN: "https://cavies-studio-test.dev-226.workers.dev",
     }).allowedOrigins,
-    ["https://cavies.studio", "https://this-preview.vercel.app"],
+    ["https://cavies.studio", "https://cavies-studio-test.dev-226.workers.dev"],
   );
-  for (const host of [
-    "evil.example",
-    "good.vercel.app/path",
-    "*.vercel.app",
-    "good.vercel.app@evil.example",
+  for (const origin of [
+    "https://evil.example",
+    "https://evil.workers.dev",
+    "https://other.dev-226.workers.dev",
+    "http://cavies-studio-test.dev-226.workers.dev",
+    "https://cavies-studio-test.dev-226.workers.dev/path",
+    "https://*.workers.dev",
+    "https://good.workers.dev@evil.example",
+    "https://workers.dev.evil.example",
   ]) {
     assert.deepEqual(
-      enquiryDeliveryConfig({ ...env, VERCEL_ENV: "preview", VERCEL_URL: host })
+      enquiryDeliveryConfig({ ...env, ENQUIRY_EXTRA_ORIGIN: origin })
         .allowedOrigins,
       ["https://cavies.studio"],
     );
   }
   assert.deepEqual(
     enquiryDeliveryConfig({
-      NODE_ENV: "development",
+      ENQUIRY_ENV: "development",
       ENQUIRY_LOCAL_ORIGIN: "http://localhost:3000",
     }).allowedOrigins,
     ["https://cavies.studio", "http://localhost:3000"],
   );
   assert.deepEqual(
     enquiryDeliveryConfig({
-      NODE_ENV: "development",
+      ENQUIRY_ENV: "development",
       ENQUIRY_LOCAL_ORIGIN: "https://evil.example",
     }).allowedOrigins,
     ["https://cavies.studio"],
@@ -437,7 +438,7 @@ test("only Gmail acknowledgement succeeds; MIME preserves Unicode and fixes all 
   );
   assert.ok(
     run.calls.every(
-      ({ init }) => init.cache === "no-store" && init.redirect === "error",
+      ({ init }) => init.cache === "no-store" && init.redirect === "manual",
     ),
   );
   const raw = JSON.parse(run.calls[2].init.body).raw;
@@ -516,4 +517,18 @@ test("ambiguous send timeout aborts and does not retry", async () => {
   assert.equal(response.status, 502);
   assert.equal(calls, 3);
   assert.equal(sendSignal.aborted, true);
+});
+
+test("a provider redirect is a failure, never followed or treated as success", async () => {
+  const redirect = () =>
+    new Response(null, {
+      status: 302,
+      headers: { location: "https://evil.example/" },
+    });
+  const captchaRedirect = setup({ replies: [redirect()] });
+  assert.equal((await captchaRedirect.handler(request())).status, 503);
+  assert.equal(captchaRedirect.calls.length, 1);
+  const sendRedirect = setup({ replies: [captcha, googleToken, redirect()] });
+  assert.equal((await sendRedirect.handler(request())).status, 502);
+  assert.equal(sendRedirect.calls.length, 3);
 });

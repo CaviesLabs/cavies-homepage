@@ -1,7 +1,5 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { request as httpRequest } from "node:http";
-import { request as httpsRequest } from "node:https";
 
 const base = process.env.SITE_TEST_URL || "http://127.0.0.1:3100";
 const canonicalOrigin = "https://cavies.studio";
@@ -157,8 +155,17 @@ await test("featured work follows the owner's order", () => {
   // The showcase server-renders a link for its selected (first) project only;
   // selected work (cards 05 to 08) and the index from 09 are plain links.
   const home = htmlByPath.get("/");
-  for (const slug of ["emberline", "amoeba", "tyche", "seitrace", "paperdash"]) {
-    assert.ok(home.includes(`href="/work/${slug}"`), `${slug} linked from homepage`);
+  for (const slug of [
+    "emberline",
+    "amoeba",
+    "tyche",
+    "seitrace",
+    "paperdash",
+  ]) {
+    assert.ok(
+      home.includes(`href="/work/${slug}"`),
+      `${slug} linked from homepage`,
+    );
   }
 });
 
@@ -185,7 +192,7 @@ await test("new cases keep live links and honest data labels", () => {
     ],
     "/work/tyche": ["Pre-launch preview", "no draw has run"],
     "/work/tender": [
-      'href="https://tender-by-hyperflow.vercel.app"',
+      'href="https://tender-by-hyperflow.dev-226.workers.dev"',
       "Compute forwards · In development",
       "at an early stage",
     ],
@@ -422,9 +429,22 @@ await test("the case study counts pages, names the showpieces and links the game
 
 await test("/games goes to the games section", async () => {
   const response = await request("/games", { redirect: "manual" });
-  assert.equal(response.status, 307);
+  assert.equal(response.status, 302);
   const location = new URL(response.headers.get("location"), base);
   assert.equal(`${location.pathname}${location.hash}`, "/#games");
+});
+
+await test("trailing-slash forms of the redirected paths redirect too", async () => {
+  for (const [path, status, target] of [
+    ["/games/", 302, "/#games"],
+    ["/work/seispace", 301, "/#work"],
+    ["/work/seispace/", 301, "/#work"],
+  ]) {
+    const response = await request(path, { redirect: "manual" });
+    assert.equal(response.status, status, path);
+    const location = new URL(response.headers.get("location"), base);
+    assert.equal(`${location.pathname}${location.hash}`, target, path);
+  }
 });
 
 await test("service and Beigman pages expose real scope and useful links in HTML", () => {
@@ -460,27 +480,62 @@ await test("robots retains the canonical sitemap", async () => {
 });
 
 await test("canonical host redirects preserve path and query", async () => {
-  for (const host of [
-    "www.cavies.studio",
-    "cavies.xyz",
-    "www.cavies.xyz",
-    "cavies-studio.vercel.app",
-  ]) {
-    const url = new URL("/services/business-websites?source=test", base);
-    const response = await new Promise((resolve, reject) => {
-      const makeRequest =
-        url.protocol === "https:" ? httpsRequest : httpRequest;
-      const req = makeRequest(url, { headers: { host } }, (res) => {
-        res.resume();
-        resolve({ status: res.statusCode, location: res.headers.location });
-      });
-      req.on("error", reject);
-      req.end();
-    });
+  // The hosts are handled by the redirect Worker (redirect/worker.js), not the site.
+  const { default: redirect } = await import("../redirect/worker.js");
+  for (const host of ["www.cavies.studio", "cavies.xyz", "www.cavies.xyz"]) {
+    const response = redirect.fetch(
+      new Request(`https://${host}/services/business-websites?source=test`),
+    );
     assert.equal(response.status, 308);
     assert.equal(
-      response.location,
+      response.headers.get("strict-transport-security"),
+      "max-age=63072000",
+    );
+    assert.equal(
+      response.headers.get("location"),
       `${canonicalOrigin}/services/business-websites?source=test`,
     );
   }
+});
+
+await test("every response carries the three security headers; hashed assets are immutable", async () => {
+  for (const path of [
+    "/",
+    "/contact",
+    "/this-page-does-not-exist",
+    "/robots.txt",
+  ]) {
+    const response = await request(path);
+    assert.equal(
+      response.headers.get("x-content-type-options"),
+      "nosniff",
+      path,
+    );
+    assert.equal(response.headers.get("x-frame-options"), "DENY", path);
+    assert.equal(
+      response.headers.get("strict-transport-security"),
+      "max-age=63072000",
+      path,
+    );
+    assert.equal(
+      response.headers.get("referrer-policy"),
+      "strict-origin-when-cross-origin",
+      path,
+    );
+    await response.arrayBuffer();
+  }
+  const html = htmlByPath.get("/");
+  const asset = html.match(/\/_next\/static\/[^"]+\.js/)?.[0];
+  assert.ok(asset, "a hashed script is linked");
+  const response = await request(asset);
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("cache-control"), /immutable/);
+  await response.arrayBuffer();
+});
+
+await test("the enquiry endpoint is the Worker's: GET is refused, unknown API paths are 404", async () => {
+  const get = await request("/api/enquiry");
+  assert.equal(get.status, 405);
+  const other = await request("/api/other");
+  assert.equal(other.status, 404);
 });

@@ -1,0 +1,17 @@
+{
+  // Free-plan redirect Worker for the old and www hostnames, on zone routes. The
+  // routes are inert until each hostname's existing DNS record is switched to
+  // proxied (see docs/cloudflare-workers.md); nothing is deleted, so no hostname
+  // is ever without a record.
+  "name": "cavies-studio-redirect",
+  "account_id": "22695a77ae05b80e3b67824b68152f29",
+  "compatibility_date": "2026-11-01",
+  "main": "./worker.js",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "www.cavies.studio/*", "zone_name": "cavies.studio" },
+    { "pattern": "cavies.xyz/*", "zone_name": "cavies.xyz" },
+    { "pattern": "www.cavies.xyz/*", "zone_name": "cavies.xyz" }
+  ]
+}
