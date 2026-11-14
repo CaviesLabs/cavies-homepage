@@ -49,13 +49,20 @@ if (mode === "test" && !noindex) {
   console.error("Refusing: a test deploy must be a noindex build.");
   process.exit(1);
 }
+// The test origin is passed only for a deploy that has the form on (the delivery gate);
+// every other deploy leaves it unset, so the Worker accepts https://cavies.studio only.
+const withTestOrigin = mode === "test" && env.ENQUIRY_FORM_ENABLED === "true";
 run(
   mode === "test"
     ? [
         "node_modules/wrangler/bin/wrangler.js",
         "deploy",
-        "--var",
-        "ENQUIRY_EXTRA_ORIGIN:https://cavies-studio.dev-226.workers.dev",
+        ...(withTestOrigin
+          ? [
+              "--var",
+              "ENQUIRY_EXTRA_ORIGIN:https://cavies-studio.dev-226.workers.dev",
+            ]
+          : []),
       ]
     : [
         "node_modules/wrangler/bin/wrangler.js",
