@@ -1,6 +1,8 @@
 # Cloudflare Workers static assets headers (https://developers.cloudflare.com/workers/static-assets/headers/).
-# These three replace the headers studio/vercel.json set on every response.
+# These replace the headers studio/vercel.json set on every response, plus the
+# Strict-Transport-Security header Vercel added itself.
 /*
+  Strict-Transport-Security: max-age=63072000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY

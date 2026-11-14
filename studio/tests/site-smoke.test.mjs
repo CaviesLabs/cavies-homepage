@@ -434,6 +434,19 @@ await test("/games goes to the games section", async () => {
   assert.equal(`${location.pathname}${location.hash}`, "/#games");
 });
 
+await test("trailing-slash forms of the redirected paths redirect too", async () => {
+  for (const [path, status, target] of [
+    ["/games/", 302, "/#games"],
+    ["/work/seispace", 301, "/#work"],
+    ["/work/seispace/", 301, "/#work"],
+  ]) {
+    const response = await request(path, { redirect: "manual" });
+    assert.equal(response.status, status, path);
+    const location = new URL(response.headers.get("location"), base);
+    assert.equal(`${location.pathname}${location.hash}`, target, path);
+  }
+});
+
 await test("service and Beigman pages expose real scope and useful links in HTML", () => {
   const service = htmlByPath.get("/services/business-websites");
   assert.ok(service.includes("Australia"));
@@ -475,6 +488,10 @@ await test("canonical host redirects preserve path and query", async () => {
     );
     assert.equal(response.status, 308);
     assert.equal(
+      response.headers.get("strict-transport-security"),
+      "max-age=63072000",
+    );
+    assert.equal(
       response.headers.get("location"),
       `${canonicalOrigin}/services/business-websites?source=test`,
     );
@@ -495,6 +512,11 @@ await test("every response carries the three security headers; hashed assets are
       path,
     );
     assert.equal(response.headers.get("x-frame-options"), "DENY", path);
+    assert.equal(
+      response.headers.get("strict-transport-security"),
+      "max-age=63072000",
+      path,
+    );
     assert.equal(
       response.headers.get("referrer-policy"),
       "strict-origin-when-cross-origin",

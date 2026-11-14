@@ -1,5 +1,17 @@
 # Cloudflare Workers static assets redirects. Host redirects (www.cavies.studio,
 # cavies.xyz, www.cavies.xyz) live in redirect/worker.js.
 /work/seispace /#work 301
+/work/seispace/ /#work 301
 # Temporary, so a games index can take /games later.
 /games /#games 302
+/games/ /#games 302
+# Trailing-slash forms go to the plain path, as on Vercel (308).
+/work/ /work 308
+/contact/ /contact 308
+/privacy/ /privacy 308
+/services/business-websites/ /services/business-websites 308
+/games/oddly-orderly/ /games/oddly-orderly 308
+/games/oddly-orderly/press/ /games/oddly-orderly/press 308
+/games/oddly-orderly/privacy/ /games/oddly-orderly/privacy 308
+/games/oddly-orderly/support/ /games/oddly-orderly/support 308
+/work/:slug/ /work/:slug 308
