@@ -15,6 +15,25 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Move to Cloudflare Workers Free, built and deployed to workers.dev, not cut over: 14 November 2026
+
+**What shipped**
+- A static export served as Worker static assets (`studio/wrangler.jsonc`), the enquiry endpoint as Worker code at `/api/enquiry` with a SQLite Durable Object ledger (`studio/worker/`), `public/_headers` and `public/_redirects`, build-time image resizing (`studio/scripts/`), and a separate redirect Worker for www.cavies.studio, cavies.xyz and www.cavies.xyz (`studio/redirect/`, not deployed). Details: `studio/docs/cloudflare-workers.md`.
+- Test deploy: https://cavies-studio.dev-226.workers.dev (noindex build). Tender's address is now tender-by-hyperflow.dev-226.workers.dev.
+- cavies.studio is still served by Vercel. No DNS, domain or Vercel change was made.
+
+**Decisions**
+- Mine: the Worker has no Vercel-style firewall rule; the 5 per client per hour and 100 per day limits are the only throttles.
+- Mine: the privacy policy still names Vercel. Changing a published policy needs a dated version and Meow's approval, so it is left for the cutover.
+- Mine: `ENQUIRY_EXTRA_ORIGIN` lets one workers.dev origin through for testing, passed with `--var` only.
+
+**Open items**
+- Cutover and rollback steps are in the pull request. Enquiry secrets could not be copied from Vercel (all sensitive, write-only): TURNSTILE_SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, ENQUIRY_DELIVERY_ENABLED. RATE_LIMIT_SALT was generated fresh on the Worker. Delivery stays off until Meow supplies them.
+- A real enquiry must be sent once after the secrets are in, before the cutover.
+
+**How to verify**
+- `cd studio; npm run lint; npm run typecheck; npm run test:enquiry; npm run test:scope; npm run build:cf`, then `npx wrangler dev --port 3100 --compatibility-date 2026-10-10` and `npm run test:smoke`.
+
 ## Portfolio order of 11 November: Emberline, Beigman, Reai, Tender first; Tender, Amoeba and Tyche added: 11 November 2026
 
 **What shipped**
