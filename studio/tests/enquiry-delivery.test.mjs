@@ -95,16 +95,16 @@ test("production config is exact-origin only and ignores development knobs", () 
   assert.deepEqual(
     enquiryDeliveryConfig({
       ...env,
-      ENQUIRY_EXTRA_ORIGIN: "https://cavies-studio.dev-226.workers.dev",
+      ENQUIRY_EXTRA_ORIGIN: "https://cavies-studio-test.dev-226.workers.dev",
     }).allowedOrigins,
-    ["https://cavies.studio", "https://cavies-studio.dev-226.workers.dev"],
+    ["https://cavies.studio", "https://cavies-studio-test.dev-226.workers.dev"],
   );
   for (const origin of [
     "https://evil.example",
     "https://evil.workers.dev",
     "https://other.dev-226.workers.dev",
-    "http://cavies-studio.dev-226.workers.dev",
-    "https://cavies-studio.dev-226.workers.dev/path",
+    "http://cavies-studio-test.dev-226.workers.dev",
+    "https://cavies-studio-test.dev-226.workers.dev/path",
     "https://*.workers.dev",
     "https://good.workers.dev@evil.example",
     "https://workers.dev.evil.example",

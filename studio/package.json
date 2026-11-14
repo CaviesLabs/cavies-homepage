@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build-cf.mjs",
     "start": "next start",
     "typecheck": "tsc --noEmit && tsc --noEmit -p worker",
     "lint": "eslint .",

@@ -60,7 +60,7 @@ run(
         ...(withTestOrigin
           ? [
               "--var",
-              "ENQUIRY_EXTRA_ORIGIN:https://cavies-studio.dev-226.workers.dev",
+              "ENQUIRY_EXTRA_ORIGIN:https://cavies-studio-test.dev-226.workers.dev",
             ]
           : []),
       ]

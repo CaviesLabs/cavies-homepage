@@ -59,7 +59,7 @@ We are based in Australia. Cloudflare and Google are based in the United States 
 ## How long we keep it
 
 - **Enquiries and emails** stay in our mailbox while we need them for the conversation, any work that follows and our records. We delete them when you ask, unless the law says we must keep them.
-- **Form-limit codes** stop counting after a day, and are deleted the next time someone uses the form.
+- **Form-limit codes** stop counting after a day, and are deleted the next time an enquiry passes the spam check.
 - **Request data** is kept by Cloudflare for a limited time under its own terms.
 - **Spam check data** is handled by Cloudflare under its Turnstile privacy notice.
 

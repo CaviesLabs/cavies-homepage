@@ -2,9 +2,9 @@
 
 Published at https://cavies.studio/privacy once the move to Cloudflare Workers goes live (the page is built from `studio/lib/studio-privacy.ts`; this file holds the same words). This is the dated copy the studio template asks for (studio-os `ops/legal/PRIVACY-POLICY-TEMPLATE.md`, template version 1). Do not change its policy text: when the policy changes, add a new dated copy.
 
-Version 1 (10 November 2026) is kept in `privacy-policy-2026-11-10.md`. What changed in version 2: Cloudflare replaces Vercel as the host and keeper of the form-limit codes; the form's server code runs on Cloudflare Workers; the form-limit code note says it is kept in Cloudflare's storage and, for IPv6, is made from the network part of the address; the enquiry path says the server code hands the enquiry to Gmail. Nothing else changed.
+Version 1 (10 November 2026) is kept in `privacy-policy-2026-11-10.md`. What changed in version 2: Cloudflare replaces Vercel as the host and keeper of the form-limit codes; the form's server code runs on Cloudflare Workers; the form-limit code note says it is kept in Cloudflare's storage and, for IPv6, is made from the network part of the address; the codes are deleted the next time an enquiry passes the spam check; the enquiry path says the server code hands the enquiry to Gmail. Nothing else changed.
 
-Status: a new version naming the new host was approved in principle by Meow on 14 November 2026 (relayed by the coordinating agent); Meow has not yet read this wording. It takes effect when the move is cut over, not before. Not legal advice; not reviewed by an adviser.
+Status: approved by Meow on 14 November 2026 to proceed; the wording was not individually reviewed by him. It takes effect on the day the move is cut over (14 November 2026; correct the date in both files if the cutover happens on another day). Not legal advice; not reviewed by an adviser.
 
 ---
 
@@ -58,7 +58,7 @@ We are based in Australia. Cloudflare and Google are based in the United States 
 ## How long we keep it
 
 - **Enquiries and emails** stay in our mailbox while we need them for the conversation, any work that follows and our records. We delete them when you ask, unless the law says we must keep them.
-- **Form-limit codes** stop counting after a day, and are deleted the next time someone uses the form.
+- **Form-limit codes** stop counting after a day, and are deleted the next time an enquiry passes the spam check.
 - **Request data** is kept by Cloudflare for a limited time under its own terms.
 - **Spam check data** is handled by Cloudflare under its Turnstile privacy notice.
 

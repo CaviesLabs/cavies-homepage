@@ -1,9 +1,10 @@
 {
   // cavies.studio on the Cloudflare Workers Free plan: the static export in out/
   // as Worker static assets, plus the enquiry endpoint at /api/enquiry.
-  // This is the workers.dev test configuration (`npm run deploy:cf`); production
-  // is wrangler.production.jsonc. See docs/cloudflare-workers.md.
-  "name": "cavies-studio",
+  // This is the workers.dev TEST Worker (`npm run deploy:cf`): its own name, ledger and
+  // address, no Gmail secrets. Production is the Worker `cavies-studio`, configured in
+  // wrangler.production.jsonc. See docs/cloudflare-workers.md.
+  "name": "cavies-studio-test",
   "account_id": "22695a77ae05b80e3b67824b68152f29",
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["cache_option_enabled"],

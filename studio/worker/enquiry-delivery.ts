@@ -10,7 +10,7 @@ const mailbox = "tin@cavies.studio";
 const sender = "contact@cavies.studio";
 const canonicalOrigin = "https://cavies.studio";
 // The one workers.dev address that may be named in ENQUIRY_EXTRA_ORIGIN.
-const testOrigin = "https://cavies-studio.dev-226.workers.dev";
+const testOrigin = "https://cavies-studio-test.dev-226.workers.dev";
 const gmailSendScope = "https://www.googleapis.com/auth/gmail.send";
 const permittedScopes = new Set([
   gmailSendScope,
