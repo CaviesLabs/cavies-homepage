@@ -1,7 +1,7 @@
 /**
  * The studio's privacy policy for cavies.studio, as published at /privacy.
  * A dated copy of each published version is kept in the repository's
- * docs/legal/ folder (docs/legal/privacy-policy-2026-11-10.md for this one).
+ * docs/legal/ folder (docs/legal/privacy-policy-2026-11-14.md for this one; the 10 November copy stays as published).
  * When the text changes, change both, bump the version and the date, and add
  * a new dated copy rather than editing the old one.
  *
@@ -9,12 +9,12 @@
  * lines that each start with "- " is a list, anything else is a paragraph.
  * "**words**" is bold. Web and email addresses become links on the page.
  */
-export const studioPrivacyVersion = "Version 1. Effective 10 November 2026.";
+export const studioPrivacyVersion = "Version 2. Effective 14 November 2026.";
 
 export const studioPrivacyText = `## The short version
 
 - This site collects only what you choose to send us, such as an enquiry, and the request data that any website host sees. It has no analytics, ads or tracking.
-- Your enquiry goes to our email at Google Workspace. Vercel hosts the site and Cloudflare runs the spam check on the form. We do not sell your information.
+- Your enquiry goes to our email at Google Workspace. Cloudflare hosts the site, runs the form's server code and the spam check, and keeps the form-limit codes. We do not sell your information.
 - To see, correct or delete what we hold about you, email contact@cavies.studio.
 
 ## Who we are
@@ -31,7 +31,7 @@ This policy covers this website (cavies.studio), enquiries and emails you send u
 - **Emails and messages.** If you email us or message us on Telegram, we receive your address or username and what you write.
 - **Request data.** When you visit, our host receives the standard information any website gets, such as your IP address, your browser and the page you asked for. It uses this to deliver pages and block attacks.
 - **Spam check.** The contact form uses Cloudflare Turnstile to tell people from bots. Cloudflare collects signals from your browser and device for this check, as its Turnstile privacy notice explains: https://www.cloudflare.com/turnstile-privacy-policy/
-- **Form limit.** To stop the form being flooded, we keep a one-way code made from your IP address, with the time of each enquiry. We do not keep the IP address itself.
+- **Form limit.** To stop the form being flooded, we keep a one-way code made from your IP address (for IPv6, from its network part), with the time of each enquiry, in Cloudflare's storage. We do not keep the IP address itself.
 
 We do not use analytics, advertising, tracking pixels or social media plugins. Our own code sets no cookies and stores nothing in your browser. Our fonts, images and videos are served from our own site. There are no accounts on this site and nothing to buy on it.
 
@@ -47,21 +47,20 @@ We do not use your information for advertising, and we do not sell it.
 
 These providers handle information for us:
 
-- **Vercel** hosts this site and keeps the form-limit codes. Its privacy policy: https://vercel.com/legal/privacy-policy
-- **Cloudflare** runs the spam check on the contact form. Its privacy policy: https://www.cloudflare.com/privacypolicy/
-- **Google** runs our email (Google Workspace). Enquiries from the form are delivered there. Its privacy policy: https://policies.google.com/privacy
+- **Cloudflare** hosts this site, runs the contact form's server code (Cloudflare Workers), keeps the form-limit codes and runs the spam check (Turnstile). Its privacy policy: https://www.cloudflare.com/privacypolicy/
+- **Google** runs our email (Google Workspace). The form's server code hands each enquiry to Google's Gmail service, which delivers it to our mailbox. Its privacy policy: https://policies.google.com/privacy
 
 We may also share information if the law requires it.
 
 ## Moving data between countries
 
-We are based in Australia. Vercel, Cloudflare and Google are based in the United States and may store or process data there and in other countries. Before sending personal information overseas, we take reasonable steps to make sure the recipient looks after it properly.
+We are based in Australia. Cloudflare and Google are based in the United States and may store or process data there and in other countries. Before sending personal information overseas, we take reasonable steps to make sure the recipient looks after it properly.
 
 ## How long we keep it
 
 - **Enquiries and emails** stay in our mailbox while we need them for the conversation, any work that follows and our records. We delete them when you ask, unless the law says we must keep them.
 - **Form-limit codes** stop counting after a day, and are deleted the next time someone uses the form.
-- **Request data** is kept by Vercel for a limited time under its own terms.
+- **Request data** is kept by Cloudflare for a limited time under its own terms.
 - **Spam check data** is handled by Cloudflare under its Turnstile privacy notice.
 
 ## If we email you first
