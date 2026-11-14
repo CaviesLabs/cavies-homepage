@@ -1,12 +1,16 @@
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
+import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
-import { BlobError, BlobPreconditionFailedError } from "@vercel/blob";
 import {
+  clientLimit,
   enquiryRateLimitConfigured,
   getEnquiryClientIp,
-  reserveEnquiryAttempt,
-} from "../lib/enquiry-rate-limit.ts";
+  globalLimit,
+  hashClientKey,
+  initLedger,
+  reserve,
+} from "../worker/rate-limit.ts";
 
 const salt = "a-secret-rate-limit-test-salt-of-at-least-32-characters";
 const hour = 60 * 60 * 1000;
@@ -14,282 +18,177 @@ const day = 24 * hour;
 const start = Date.UTC(2026, 9, 4, 12);
 const hashed = (key) => createHmac("sha256", salt).update(key).digest("hex");
 
-// Models one shared object with atomic creates and ETag compare-and-swap writes.
-function memoryBlob(initial = null) {
-  let text = initial === null ? null : JSON.stringify(initial);
-  let version = text === null ? 0 : 1;
-  const calls = { reads: [], writes: [] };
-  const blob = {
-    async get(path, options) {
-      calls.reads.push({ path, options });
-      if (text === null) return null;
-      return {
-        statusCode: 200,
-        stream: new Response(text).body,
-        blob: { etag: `etag-${version}` },
-      };
-    },
-    async put(path, body, options) {
-      calls.writes.push({ path, body, options });
-      if (options.allowOverwrite === false && text !== null) {
-        throw new BlobError("This blob already exists.");
-      }
-      if (options.ifMatch && options.ifMatch !== `etag-${version}`) {
-        throw new BlobPreconditionFailedError();
-      }
-      text = body;
-      version += 1;
-      return { etag: `etag-${version}` };
+// A real SQLite database behind the same exec() shape as a Durable Object's
+// SqlStorage. Each call to reserve() is synchronous, as it is inside the
+// ledger's transactionSync, so interleaving cannot happen.
+function ledger() {
+  const db = new DatabaseSync(":memory:");
+  const sql = {
+    exec(query, ...bindings) {
+      const statement = db.prepare(query);
+      const isRead = /^\s*SELECT/i.test(query);
+      const rows = isRead
+        ? statement.all(...bindings).map((row) => ({ ...row }))
+        : (statement.run(...bindings), []);
+      return { toArray: () => rows };
     },
   };
+  initLedger(sql);
   return {
-    blob,
-    calls,
-    state: () => (text === null ? null : JSON.parse(text)),
-    raw: () => text,
+    sql,
+    rows: () => sql.exec("SELECT client, at FROM reservations").toArray(),
   };
 }
 
-function settings(store, now = start) {
-  return { blob: store.blob, salt, now: () => now, retryDelay: async () => {} };
-}
+test("limits and client key hashing match the Vercel-era values", () => {
+  assert.equal(clientLimit, 5);
+  assert.equal(globalLimit, 100);
+});
 
-test("requires a strong salt and a Blob credential without exposing either", () => {
+test("requires a strong salt and the ledger binding", () => {
   assert.equal(enquiryRateLimitConfigured({}), false);
   assert.equal(
-    enquiryRateLimitConfigured({
-      RATE_LIMIT_SALT: salt,
-      BLOB_READ_WRITE_TOKEN: "token",
-    }),
+    enquiryRateLimitConfigured({ RATE_LIMIT_SALT: salt, LEDGER: {} }),
     true,
   );
+  assert.equal(enquiryRateLimitConfigured({ RATE_LIMIT_SALT: salt }), false);
   assert.equal(
-    enquiryRateLimitConfigured({
-      RATE_LIMIT_SALT: salt,
-      BLOB_STORE_ID: "store_example",
-      VERCEL_OIDC_TOKEN: "token",
-    }),
-    true,
-  );
-  assert.equal(
-    enquiryRateLimitConfigured({
-      RATE_LIMIT_SALT: "short",
-      BLOB_READ_WRITE_TOKEN: "token",
-    }),
+    enquiryRateLimitConfigured({ RATE_LIMIT_SALT: "short", LEDGER: {} }),
     false,
   );
 });
 
-test("uses only a valid Vercel supplied IP on Vercel, rejecting spoofable alternatives", () => {
+test("uses only a valid CF-Connecting-IP, rejecting spoofable alternatives", () => {
   const request = (headers) => ({ headers: new Headers(headers) });
   assert.equal(
-    getEnquiryClientIp(
-      request({ "x-vercel-forwarded-for": "203.0.113.1" }),
-      true,
-    ),
+    getEnquiryClientIp(request({ "cf-connecting-ip": "203.0.113.1" })),
     "203.0.113.1",
   );
   assert.equal(
-    getEnquiryClientIp(
-      request({ "x-vercel-forwarded-for": "2001:0DB8:0:0::1" }),
-      true,
-    ),
+    getEnquiryClientIp(request({ "cf-connecting-ip": "2001:0DB8:0:0::1" })),
     "2001:db8::1",
   );
   for (const headers of [
+    {},
     { "x-forwarded-for": "203.0.113.1" },
-    { "cf-connecting-ip": "203.0.113.1" },
-    { "x-vercel-forwarded-for": "203.0.113.1, 203.0.113.2" },
-    { "x-vercel-forwarded-for": "unknown" },
+    { "x-vercel-forwarded-for": "203.0.113.1" },
+    { "cf-connecting-ip": "203.0.113.1, 203.0.113.2" },
+    { "cf-connecting-ip": "999.0.113.1" },
+    { "cf-connecting-ip": "unknown" },
+    { "cf-connecting-ip": "::1]/evil" },
   ]) {
-    assert.equal(getEnquiryClientIp(request(headers), true), undefined);
+    assert.equal(getEnquiryClientIp(request(headers)), undefined);
   }
-  assert.equal(
-    getEnquiryClientIp(
-      request({ "x-vercel-forwarded-for": "203.0.113.1" }),
-      false,
-    ),
-    undefined,
+});
+
+test("hashes the client key with HMAC-SHA-256 and rejects weak salts", async () => {
+  assert.equal(await hashClientKey("203.0.113.1", salt), hashed("203.0.113.1"));
+  await assert.rejects(hashClientKey("203.0.113.1", "short"), /not configured/);
+  await assert.rejects(hashClientKey("", salt), /not configured/);
+});
+
+test("stores hashes and timestamps, never the client address", async () => {
+  const store = ledger();
+  const key = await hashClientKey("203.0.113.1", salt);
+  assert.deepEqual(reserve(store.sql, key, start), { allowed: true });
+  assert.deepEqual(store.rows(), [
+    { client: hashed("203.0.113.1"), at: start },
+  ]);
+  assert.ok(!JSON.stringify(store.rows()).includes("203.0.113.1"));
+  assert.throws(
+    () => reserve(store.sql, "203.0.113.1", start),
+    /Invalid enquiry client identifier/,
   );
 });
 
-test("creates one private uncached ledger and stores hashes, never the client address", async () => {
-  const store = memoryBlob();
-  assert.deepEqual(
-    await reserveEnquiryAttempt("203.0.113.1", settings(store)),
-    { allowed: true },
-  );
-  assert.deepEqual(store.state(), {
-    version: 1,
-    entries: [{ key: hashed("203.0.113.1"), at: start }],
-  });
-  assert.ok(!store.raw().includes("203.0.113.1"));
-  assert.equal(store.calls.reads[0].options.useCache, false);
-  assert.equal(store.calls.reads[0].options.access, "private");
-  assert.equal(store.calls.writes[0].options.access, "private");
-  assert.equal(store.calls.writes[0].options.allowOverwrite, false);
-  assert.equal(store.calls.writes[0].options.addRandomSuffix, false);
-  await reserveEnquiryAttempt("203.0.113.2", settings(store));
-  assert.equal(store.calls.writes[1].options.ifMatch, "etag-1");
-});
-
-test("allows five attempts per client per rolling hour, without extending rejection", async () => {
-  const store = memoryBlob();
+test("allows five attempts per client per rolling hour, without extending rejection", () => {
+  const store = ledger();
+  const one = hashed("one-client");
   for (let index = 0; index < 5; index += 1) {
-    assert.equal(
-      (await reserveEnquiryAttempt("one-client", settings(store))).allowed,
-      true,
-    );
+    assert.equal(reserve(store.sql, one, start).allowed, true);
   }
-  const blocked = await reserveEnquiryAttempt(
-    "one-client",
-    settings(store, start + 20_000),
-  );
-  assert.deepEqual(blocked, { allowed: false, retryAfter: 3580 });
-  assert.equal(store.state().entries.length, 5);
-  assert.equal(store.calls.writes.length, 5);
+  assert.deepEqual(reserve(store.sql, one, start + 20_000), {
+    allowed: false,
+    retryAfter: 3580,
+  });
+  assert.equal(store.rows().length, 5);
   assert.equal(
-    (await reserveEnquiryAttempt("another-client", settings(store))).allowed,
+    reserve(store.sql, hashed("another-client"), start).allowed,
     true,
   );
-  assert.equal(
-    (await reserveEnquiryAttempt("one-client", settings(store, start + hour)))
-      .allowed,
-    true,
-  );
+  assert.equal(reserve(store.sql, one, start + hour).allowed, true);
 });
 
-test("global 100 attempts use a rolling 24 hours across IPs and midnight", async () => {
-  const store = memoryBlob();
+test("global 100 attempts use a rolling 24 hours across IPs and midnight", () => {
+  const store = ledger();
   for (let index = 0; index < 100; index += 1) {
     assert.equal(
-      (await reserveEnquiryAttempt(`client-${index}`, settings(store))).allowed,
+      reserve(store.sql, hashed(`client-${index}`), start).allowed,
       true,
     );
   }
   assert.deepEqual(
-    await reserveEnquiryAttempt(
-      "new-client",
-      settings(store, start + 12 * hour),
-    ),
-    { allowed: false, retryAfter: 12 * 60 * 60 },
+    reserve(store.sql, hashed("new-client"), start + 12 * hour),
+    {
+      allowed: false,
+      retryAfter: 12 * 60 * 60,
+    },
   );
-  assert.equal(store.state().entries.length, 100);
+  assert.equal(store.rows().length, 100);
   assert.equal(
-    (await reserveEnquiryAttempt("new-client", settings(store, start + day)))
-      .allowed,
+    reserve(store.sql, hashed("new-client"), start + day).allowed,
     true,
   );
-  assert.equal(store.state().entries.length, 1);
+  assert.equal(store.rows().length, 1);
 });
 
-test("concurrent creates preserve both accepted reservations", async () => {
-  const store = memoryBlob();
-  const results = await Promise.all([
-    reserveEnquiryAttempt("first", settings(store)),
-    reserveEnquiryAttempt("second", settings(store)),
-  ]);
-  assert.ok(results.every((result) => result.allowed));
-  assert.equal(store.state().entries.length, 2);
-  assert.equal(
-    new Set(store.state().entries.map((entry) => entry.key)).size,
-    2,
-  );
-});
-
-test("concurrent requests cannot overshoot the global last slot", async () => {
-  const store = memoryBlob({
-    version: 1,
-    entries: Array.from({ length: 99 }, (_, index) => ({
-      key: hashed(`existing-${index}`),
-      at: start,
-    })),
-  });
+test("a burst cannot overshoot the global or per-client last slot", async () => {
+  const globalStore = ledger();
+  for (let index = 0; index < 99; index += 1) {
+    reserve(globalStore.sql, hashed(`existing-${index}`), start);
+  }
+  // Each reserve() is one synchronous transaction, so even when started
+  // together they run one after another, as inside the Durable Object.
   const results = await Promise.all(
     Array.from({ length: 20 }, (_, index) =>
-      reserveEnquiryAttempt(`new-${index}`, settings(store)),
+      Promise.resolve().then(() =>
+        reserve(globalStore.sql, hashed(`new-${index}`), start),
+      ),
     ),
   );
   assert.equal(results.filter((result) => result.allowed).length, 1);
-  assert.equal(results.filter((result) => !result.allowed).length, 19);
-  assert.equal(store.state().entries.length, 100);
-});
+  assert.equal(globalStore.rows().length, 100);
 
-test("concurrent requests cannot overshoot the per-client last slot", async () => {
-  const store = memoryBlob({
-    version: 1,
-    entries: Array.from({ length: 4 }, () => ({
-      key: hashed("same-client"),
-      at: start,
-    })),
-  });
-  const results = await Promise.all(
-    Array.from({ length: 20 }, () =>
-      reserveEnquiryAttempt("same-client", settings(store)),
-    ),
-  );
-  assert.equal(results.filter((result) => result.allowed).length, 1);
-  assert.equal(store.state().entries.length, 5);
-});
-
-test("fails closed on corrupt or oversized state rather than resetting the allowance", async () => {
-  for (const value of [
-    {},
-    { version: 2, entries: [] },
-    { version: 1, entries: [{ key: "raw-ip", at: start }] },
-    { version: 1, entries: [{ key: hashed("client"), at: -1 }] },
-    {
-      version: 1,
-      entries: Array.from({ length: 101 }, () => ({
-        key: hashed("client"),
-        at: start,
-      })),
-    },
-  ]) {
-    const store = memoryBlob(value);
-    await assert.rejects(
-      reserveEnquiryAttempt("client", settings(store)),
-      /Invalid enquiry rate limit state/,
-    );
-    assert.equal(store.calls.writes.length, 0);
+  const clientStore = ledger();
+  for (let index = 0; index < 4; index += 1) {
+    reserve(clientStore.sql, hashed("same-client"), start);
   }
+  const clientResults = await Promise.all(
+    Array.from({ length: 20 }, () =>
+      Promise.resolve().then(() =>
+        reserve(clientStore.sql, hashed("same-client"), start),
+      ),
+    ),
+  );
+  assert.equal(clientResults.filter((result) => result.allowed).length, 1);
+  assert.equal(clientStore.rows().length, 5);
 });
 
-test("does not retry storage outages and bounds compare-and-swap retries", async () => {
-  const failing = memoryBlob();
-  failing.blob.put = async () => {
-    throw new Error("storage unavailable");
-  };
-  await assert.rejects(
-    reserveEnquiryAttempt("client", settings(failing)),
-    /storage unavailable/,
-  );
-  assert.equal(failing.calls.reads.length, 1);
-
-  const conflict = memoryBlob();
-  conflict.blob.put = async () => {
-    throw new BlobPreconditionFailedError();
-  };
-  await assert.rejects(
-    reserveEnquiryAttempt("client", settings(conflict)),
-    /Unable to reserve enquiry allowance/,
-  );
-  assert.equal(conflict.calls.reads.length, 5);
+test("rejects an invalid clock rather than writing a bad timestamp", () => {
+  const store = ledger();
+  for (const now of [-1, 1.5, Number.NaN]) {
+    assert.throws(
+      () => reserve(store.sql, hashed("client"), now),
+      /Invalid enquiry rate limit clock/,
+    );
+  }
+  assert.equal(store.rows().length, 0);
 });
 
-test("retains a reservation after caller failure or an ambiguous successful write", async () => {
-  const store = memoryBlob();
-  const originalPut = store.blob.put;
-  store.blob.put = async (...args) => {
-    await originalPut(...args);
-    throw new Error("connection lost after storage committed");
-  };
-  await assert.rejects(
-    reserveEnquiryAttempt("client", settings(store)),
-    /connection lost/,
-  );
-  assert.equal(store.state().entries.length, 1);
-  store.blob.put = originalPut;
-  await reserveEnquiryAttempt("client", settings(store));
-  assert.equal(store.state().entries.length, 2);
+test("a failed send keeps its reservation (the caller never releases one)", () => {
+  const store = ledger();
+  reserve(store.sql, hashed("client"), start);
+  // No release API exists; a later attempt counts the earlier reservation.
+  reserve(store.sql, hashed("client"), start + 1);
+  assert.equal(store.rows().length, 2);
 });

@@ -1,5 +1,4 @@
-import { randomUUID } from "node:crypto";
-import { prepareEnquiry, type EnquiryFields } from "./enquiry";
+import { prepareEnquiry, type EnquiryFields } from "../lib/enquiry";
 
 // The mailbox was tin@cavies.xyz until the October 2026 move to cavies.studio;
 // the old address remains an alias of the same Google Workspace account.
@@ -26,7 +25,16 @@ const unavailableMessage =
 const unconfirmedMessage =
   "We couldn't confirm your enquiry was sent. Please email tin@cavies.studio if you need help.";
 
-type Environment = Record<string, string | undefined>;
+export type Environment = {
+  ENQUIRY_ENV?: string;
+  ENQUIRY_DELIVERY_ENABLED?: string;
+  ENQUIRY_EXTRA_ORIGIN?: string;
+  ENQUIRY_LOCAL_ORIGIN?: string;
+  TURNSTILE_SECRET_KEY?: string;
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
+  GMAIL_REFRESH_TOKEN?: string;
+};
 type LimitResult = { allowed: true } | { allowed: false; retryAfter: number };
 type JsonObject = Record<string, unknown>;
 
@@ -49,15 +57,20 @@ export type EnquiryDeliveryDependencies = {
   timeoutMs?: number;
 };
 
-// Only the current deployment is allowed in preview; other *.vercel.app sites
-// must not be able to use this endpoint as an email relay.
+// The site is served from https://cavies.studio only. ENQUIRY_EXTRA_ORIGIN
+// lets one workers.dev address through for pre-cutover testing; it is never set
+// in wrangler.jsonc, only passed with `wrangler deploy --var`. ENQUIRY_ENV is
+// "development" only in a local `wrangler dev` (.dev.vars).
 export function enquiryDeliveryConfig(env: Environment): EnquiryDeliveryConfig {
-  const production =
-    env.VERCEL_ENV === "production" || env.NODE_ENV === "production";
+  const production = env.ENQUIRY_ENV !== "development";
   const allowedOrigins = [canonicalOrigin];
-  if (env.VERCEL_ENV === "preview" && env.VERCEL_URL) {
-    const origin = exactOrigin(`https://${env.VERCEL_URL}`);
-    if (origin && /^[a-z0-9-]+\.vercel\.app$/.test(new URL(origin).hostname)) {
+  if (env.ENQUIRY_EXTRA_ORIGIN) {
+    const origin = exactOrigin(env.ENQUIRY_EXTRA_ORIGIN);
+    if (
+      origin &&
+      new URL(origin).protocol === "https:" &&
+      /^[a-z0-9-]+(\.[a-z0-9-]+)*\.workers\.dev$/.test(new URL(origin).hostname)
+    ) {
       allowedOrigins.push(origin);
     }
   }
@@ -93,10 +106,7 @@ function deliveryConfigReady(config: EnquiryDeliveryConfig): boolean {
   );
 }
 
-// The caller must separately confirm durable rate limiting is configured.
-export function enquiryDeliveryConfigured(
-  env: Environment = process.env,
-): boolean {
+export function enquiryDeliveryConfigured(env: Environment): boolean {
   return deliveryConfigReady(enquiryDeliveryConfig(env));
 }
 
@@ -149,8 +159,14 @@ async function readBounded(
       if (bytes > limit) throw new BodyTooLarge();
       chunks.push(chunk.value);
     }
-    return new TextDecoder("utf-8", { fatal: true }).decode(
-      Buffer.concat(chunks),
+    const all = new Uint8Array(bytes);
+    let offset = 0;
+    for (const chunk of chunks) {
+      all.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    return new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(
+      all,
     );
   } finally {
     signal.removeEventListener("abort", cancel);
@@ -176,7 +192,7 @@ async function withDeadline<T>(
       }),
     ]);
   } finally {
-    clearTimeout(timer);
+    if (timer !== undefined) clearTimeout(timer);
     controller.abort();
   }
 }
@@ -223,14 +239,21 @@ function replyAddress(value: string): boolean {
   );
 }
 
+function base64(bytes: Uint8Array): string {
+  let binary = "";
+  for (let index = 0; index < bytes.length; index += 8192) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 8192));
+  }
+  return btoa(binary);
+}
+
 function mimeMessage(
   fields: EnquiryFields,
   subject: string,
   body: string,
 ): string {
   const encodedBody =
-    Buffer.from(body.replace(/\r\n|\r|\n/g, "\r\n"), "utf8")
-      .toString("base64")
+    base64(new TextEncoder().encode(body.replace(/\r\n|\r|\n/g, "\r\n")))
       .match(/.{1,76}/g)
       ?.join("\r\n") || "";
   // Subject contains only the service allowlist; no visitor-supplied name.
@@ -240,7 +263,7 @@ function mimeMessage(
     `Reply-To: ${fields.email.trim()}`,
     `Subject: ${subject}`,
     `Date: ${new Date().toUTCString()}`,
-    `Message-ID: <${randomUUID()}@cavies.studio>`,
+    `Message-ID: <${crypto.randomUUID()}@cavies.studio>`,
     "MIME-Version: 1.0",
     'Content-Type: text/plain; charset="UTF-8"',
     "Content-Transfer-Encoding: base64",
@@ -248,7 +271,10 @@ function mimeMessage(
     encodedBody,
     "",
   ].join("\r\n");
-  return Buffer.from(mime, "utf8").toString("base64url");
+  return base64(new TextEncoder().encode(mime))
+    .replaceAll("+", "-")
+    .replaceAll("/", "_")
+    .replace(/=+$/, "");
 }
 
 export function createEnquiryHandler(

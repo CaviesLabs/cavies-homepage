@@ -76,9 +76,9 @@ export const additionalProjects: Project[] = [
       "Compute basket and market statistics",
       "Index, order, and gateway API",
     ],
-    url: "https://tender-by-hyperflow.vercel.app",
+    url: "https://tender-by-hyperflow.dev-226.workers.dev",
     liveLink: {
-      href: "https://tender-by-hyperflow.vercel.app",
+      href: "https://tender-by-hyperflow.dev-226.workers.dev",
       label: "Visit Tender",
     },
     imageNote: "Landing page",
