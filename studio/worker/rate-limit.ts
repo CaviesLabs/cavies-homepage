@@ -48,6 +48,32 @@ export function getEnquiryClientIp(
   }
 }
 
+/**
+ * The rate-limit key for a client address. IPv4 is used as is; an IPv6 client
+ * is keyed by its /64, because one household or host can use any address in it.
+ */
+export function rateLimitClientKey(address: string): string {
+  if (!address.includes(":") || address.includes(".")) return address;
+  const [head, tail, extra] = address.split("::");
+  if (extra !== undefined) return address;
+  const headGroups = head ? head.split(":") : [];
+  const tailGroups = tail ? tail.split(":") : [];
+  const missing = 8 - headGroups.length - tailGroups.length;
+  const groups =
+    tail === undefined
+      ? headGroups
+      : [
+          ...headGroups,
+          ...Array(Math.max(missing, 0)).fill("0"),
+          ...tailGroups,
+        ];
+  if (groups.length !== 8) return address;
+  return `${groups
+    .slice(0, 4)
+    .map((group) => group.replace(/^0+(?=.)/, ""))
+    .join(":")}::/64`;
+}
+
 /** HMAC-SHA-256 of the client key, hex. The raw address never reaches storage. */
 export async function hashClientKey(
   clientKey: string,

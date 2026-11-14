@@ -1,0 +1,20 @@
+{
+  // Test configuration for tests/workerd.test.mjs; never deployed.
+  "name": "cavies-studio-workerd-test",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["cache_option_enabled"],
+  "main": "../../worker/test-entry.ts",
+  "durable_objects": {
+    "bindings": [{ "name": "LEDGER", "class_name": "EnquiryLedger" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["EnquiryLedger"] }],
+  "vars": {
+    "ENQUIRY_DELIVERY_ENABLED": "true",
+    "TURNSTILE_SECRET_KEY": "test-turnstile-secret",
+    "GOOGLE_CLIENT_ID": "test-client-id",
+    "GOOGLE_CLIENT_SECRET": "test-client-secret",
+    "GMAIL_REFRESH_TOKEN": "test-refresh-token",
+    "RATE_LIMIT_SALT": "test-rate-limit-salt-of-at-least-32-characters",
+    "STUB_URL": "http://127.0.0.1:3102"
+  }
+}

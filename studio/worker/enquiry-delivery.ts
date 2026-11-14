@@ -9,6 +9,8 @@ const mailbox = "tin@cavies.studio";
 // as" settings; otherwise Gmail rewrites the From header to the mailbox.
 const sender = "contact@cavies.studio";
 const canonicalOrigin = "https://cavies.studio";
+// The one workers.dev address that may be named in ENQUIRY_EXTRA_ORIGIN.
+const testOrigin = "https://cavies-studio.dev-226.workers.dev";
 const gmailSendScope = "https://www.googleapis.com/auth/gmail.send";
 const permittedScopes = new Set([
   gmailSendScope,
@@ -58,7 +60,7 @@ export type EnquiryDeliveryDependencies = {
 };
 
 // The site is served from https://cavies.studio only. ENQUIRY_EXTRA_ORIGIN
-// lets one workers.dev address through for pre-cutover testing; it is never set
+// lets that one workers.dev address (and no other) through for pre-cutover testing; it is never set
 // in wrangler.jsonc, only passed with `wrangler deploy --var`. ENQUIRY_ENV is
 // "development" only in a local `wrangler dev` (.dev.vars).
 export function enquiryDeliveryConfig(env: Environment): EnquiryDeliveryConfig {
@@ -66,13 +68,7 @@ export function enquiryDeliveryConfig(env: Environment): EnquiryDeliveryConfig {
   const allowedOrigins = [canonicalOrigin];
   if (env.ENQUIRY_EXTRA_ORIGIN) {
     const origin = exactOrigin(env.ENQUIRY_EXTRA_ORIGIN);
-    if (
-      origin &&
-      new URL(origin).protocol === "https:" &&
-      /^[a-z0-9-]+(\.[a-z0-9-]+)*\.workers\.dev$/.test(new URL(origin).hostname)
-    ) {
-      allowedOrigins.push(origin);
-    }
+    if (origin === testOrigin) allowedOrigins.push(origin);
   }
   if (!production && env.ENQUIRY_LOCAL_ORIGIN) {
     const origin = exactOrigin(env.ENQUIRY_LOCAL_ORIGIN);
@@ -290,8 +286,13 @@ export function createEnquiryHandler(
         ...init,
         signal,
         cache: "no-store",
-        redirect: "error",
+        // Workers rejects redirect: "error"; a 3xx is treated as a failure below.
+        redirect: "manual",
       });
+      if (response.status >= 300 && response.status < 400) {
+        void response.body?.cancel().catch(() => {});
+        throw new Error("Provider redirected.");
+      }
       const text = await readBounded(response.body, maxProviderBytes, signal);
       const data: unknown = JSON.parse(text);
       return { status: response.status, ok: response.ok, data };

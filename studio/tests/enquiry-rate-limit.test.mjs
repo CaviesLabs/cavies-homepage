@@ -192,3 +192,20 @@ test("a failed send keeps its reservation (the caller never releases one)", () =
   reserve(store.sql, hashed("client"), start + 1);
   assert.equal(store.rows().length, 2);
 });
+
+test("IPv6 clients are keyed by their /64, IPv4 by the address", async () => {
+  const { rateLimitClientKey } = await import("../worker/rate-limit.ts");
+  assert.equal(rateLimitClientKey("203.0.113.1"), "203.0.113.1");
+  assert.equal(
+    rateLimitClientKey("2001:db8:1:2:aaaa:bbbb:cccc:dddd"),
+    "2001:db8:1:2::/64",
+  );
+  assert.equal(rateLimitClientKey("2001:db8:1:2::1"), "2001:db8:1:2::/64");
+  assert.equal(rateLimitClientKey("2001:db8:1:2::ffff"), "2001:db8:1:2::/64");
+  assert.equal(rateLimitClientKey("2001:db8::1"), "2001:db8:0:0::/64");
+  assert.equal(rateLimitClientKey("::1"), "0:0:0:0::/64");
+  assert.notEqual(
+    rateLimitClientKey("2001:db8:1:3::1"),
+    rateLimitClientKey("2001:db8:1:2::1"),
+  );
+});

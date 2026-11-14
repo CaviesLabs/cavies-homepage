@@ -101,6 +101,8 @@ test("production config is exact-origin only and ignores development knobs", () 
   );
   for (const origin of [
     "https://evil.example",
+    "https://evil.workers.dev",
+    "https://other.dev-226.workers.dev",
     "http://cavies-studio.dev-226.workers.dev",
     "https://cavies-studio.dev-226.workers.dev/path",
     "https://*.workers.dev",
@@ -436,7 +438,7 @@ test("only Gmail acknowledgement succeeds; MIME preserves Unicode and fixes all 
   );
   assert.ok(
     run.calls.every(
-      ({ init }) => init.cache === "no-store" && init.redirect === "error",
+      ({ init }) => init.cache === "no-store" && init.redirect === "manual",
     ),
   );
   const raw = JSON.parse(run.calls[2].init.body).raw;
@@ -515,4 +517,18 @@ test("ambiguous send timeout aborts and does not retry", async () => {
   assert.equal(response.status, 502);
   assert.equal(calls, 3);
   assert.equal(sendSignal.aborted, true);
+});
+
+test("a provider redirect is a failure, never followed or treated as success", async () => {
+  const redirect = () =>
+    new Response(null, {
+      status: 302,
+      headers: { location: "https://evil.example/" },
+    });
+  const captchaRedirect = setup({ replies: [redirect()] });
+  assert.equal((await captchaRedirect.handler(request())).status, 503);
+  assert.equal(captchaRedirect.calls.length, 1);
+  const sendRedirect = setup({ replies: [captcha, googleToken, redirect()] });
+  assert.equal((await sendRedirect.handler(request())).status, 502);
+  assert.equal(sendRedirect.calls.length, 3);
 });
