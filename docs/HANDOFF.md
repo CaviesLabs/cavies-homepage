@@ -15,24 +15,39 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
-## Move to Cloudflare Workers Free, built and deployed to workers.dev, not cut over: 14 November 2026
+## cavies.studio moved from Vercel to Cloudflare Workers Free: 14 November 2026
 
-**What shipped**
-- A static export served as Worker static assets (`studio/wrangler.jsonc`), the enquiry endpoint as Worker code at `/api/enquiry` with a SQLite Durable Object ledger (`studio/worker/`), `public/_headers` and `public/_redirects`, build-time image resizing (`studio/scripts/`), and a separate redirect Worker for www.cavies.studio, cavies.xyz and www.cavies.xyz (`studio/redirect/`, not deployed). Details: `studio/docs/cloudflare-workers.md`.
-- Test deploy: https://cavies-studio.dev-226.workers.dev (noindex build). Tender's address is now tender-by-hyperflow.dev-226.workers.dev.
-- cavies.studio is still served by Vercel. No DNS, domain or Vercel change was made.
+**What moved**
+- cavies.studio, www.cavies.studio, cavies.xyz and www.cavies.xyz now reach Cloudflare. The four DNS records are the same CNAMEs to Vercel, switched from DNS-only to proxied (no record was deleted, so there was no gap). The Worker `cavies-studio` serves cavies.studio through the zone route `cavies.studio/*`; the Worker `cavies-studio-redirect` sends the other three hosts to https://cavies.studio with a 308, path and query kept. Mail records and every other subdomain are untouched and answered the same before and after.
+- Site: a static export served as Worker static assets, plus the enquiry endpoint at `/api/enquiry` (Worker code, Durable Object ledger for the 5 per hour and 100 per day limits). Test Worker: `cavies-studio-test` (own name, ledger and address, form off, no Gmail secrets). Details and commands: `studio/docs/cloudflare-workers.md`.
+- Gmail sign-in was redone (new client secret and refresh token for the same OAuth client and mailbox, piped straight into the Worker). The delivery gate passed: Meow sent one test enquiry from the workers.dev contact page and it arrived in his inbox. The enquiry form is on in production.
+- Always Use HTTPS is now on for both zones. Privacy policy version 2 (14 November 2026) names Cloudflare as host (`studio/lib/studio-privacy.ts`, `docs/legal/privacy-policy-2026-11-14.md`).
 
-**Decisions**
-- Mine: the Worker has no Vercel-style firewall rule; the 5 per client per hour and 100 per day limits are the only throttles.
-- Mine: the privacy policy still names Vercel. Changing a published policy needs a dated version and Meow's approval, so it is left for the cutover.
-- Mine: `ENQUIRY_EXTRA_ORIGIN` lets one workers.dev origin through for testing, passed with `--var` only.
+**Deploy and verification**
+- Production Worker deployed with `ENQUIRY_FORM_ENABLED=true ENQUIRY_DELIVERY_VERIFIED=yes npm run deploy:cf:production`, redirect Worker with `npm run deploy:cf:redirect`; records switched with `cf dns records edit`.
+- Checked on the live hosts: https and http (301 to https), all main pages, 404, sitemap, robots, `/games` and `/work/seispace` redirects (with trailing slashes), the four security headers including HSTS on pages, redirects and Worker replies, `Server: cloudflare`, `/api/enquiry` rejection paths, the contact form and spam-check script, privacy v2, the trailer playing, no console errors beyond the spam widget's own messages, page heights identical to the old site. The repo smoke test passes against https://cavies.studio (22 of 22; a run now and then fails with a connection timeout from this PC to a Cloudflare address, which also happens to the unchanged emberline host).
+- No real enquiry was sent during the cutover.
+
+**Decisions (mine unless stated)**
+- Zone routes plus proxying existing records instead of Custom Domains, because a Custom Domain cannot sit on a hostname that has a CNAME and deleting first would leave a gap.
+- Test and production are separate Workers so a test deploy cannot overwrite the live site.
+- `npm run build` is the full pipeline, so a Vercel build of `main` still produces a working static fallback instead of one with missing images.
+- Meow approved the move, privacy v2 (14 Nov 2026; wording not individually reviewed) and Always Use HTTPS.
+
+**Rollback**
+- Set the record back to DNS-only: `cf dns records edit <id> --zone <zone> --body '{... "proxied": false}'` for cavies.studio (44976ad48916a47fe38c724acacce618), www.cavies.studio (ff23a53beab63817ae0d723d493d4dce), cavies.xyz (6dd3e3e8693f38b9e27b8d83a282b0ca), www.cavies.xyz (bc68edd9b9f76bd3e7306cc03077e532). Traffic returns to Vercel within minutes.
+- Caveats: Vercel cannot renew certificates for a hostname while it is proxied, so rollback is safe only while the Vercel certificates are valid; once the Vercel project is deleted there is nothing to roll back to.
+
+**Still on Vercel**
+- The Vercel project `cavies/cavies-studio`, its domains and its Blob store (the old rate-limit ledger) are untouched. The Vercel project builds `main`; after this merge its build produces a static composer-only site (or fails and keeps the old deployment). Nothing serves the live domains from it.
 
 **Open items**
-- Cutover and rollback steps are in `studio/docs/cloudflare-workers.md` and the pull request (zone routes plus switching the existing records to proxied: no DNS gap, one-step rollback). Worker secrets: `TURNSTILE_SECRET_KEY` was read from the widget with `cf turnstile widgets get` and piped into the Worker; `RATE_LIMIT_SALT` is new. Still missing, needs Meow: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GMAIL_REFRESH_TOKEN`, `ENQUIRY_DELIVERY_ENABLED`. Delivery stays off until then.
-- One real enquiry must be delivered and seen in the inbox before the production build turns the form on (`ENQUIRY_DELIVERY_VERIFIED=yes`). The form is off in every build until then.
+- Meow retires Vercel in a few days: delete the Vercel project and its Blob store, then replace each CNAME with a proxied `AAAA 100::` placeholder. Agents do not do this.
+- Check the first real enquiry that arrives, and watch the Worker for errors for a few days (`npx wrangler tail`).
+- The old client secret and refresh token stay valid until Vercel is retired; revoke them then if wanted (Meow's call).
 
 **How to verify**
-- `cd studio; npm run lint; npm run typecheck; npm run test:enquiry; npm run test:scope; npm run build:cf`, then `npx wrangler dev --port 3100` and `npm run test:smoke`.
+- `cd studio; npm run lint; npm run typecheck; npm run test:enquiry; npm run test:scope; npm run test:workerd`, then `SITE_TEST_URL=https://cavies.studio npm run test:smoke`.
 
 ## Portfolio order of 11 November: Emberline, Beigman, Reai, Tender first; Tender, Amoeba and Tyche added: 11 November 2026
 
