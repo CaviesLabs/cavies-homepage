@@ -1,0 +1,5 @@
+# Cloudflare Workers static assets redirects. Host redirects (www.cavies.studio,
+# cavies.xyz, www.cavies.xyz) live in redirect/worker.js.
+/work/seispace /#work 301
+# Temporary, so a games index can take /games later.
+/games /#games 302

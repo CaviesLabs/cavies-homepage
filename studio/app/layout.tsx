@@ -12,8 +12,9 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`,
   },
   description: homeDescription,
+  // SITE_NOINDEX=1 at build time marks a workers.dev test build noindex.
   robots:
-    process.env.VERCEL_ENV === "preview"
+    process.env.SITE_NOINDEX === "1"
       ? { index: false, follow: false }
       : undefined,
 };

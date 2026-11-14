@@ -8,3 +8,7 @@ test-results/
 
 .vercel
 .env*
+out/
+public/_img/
+.wrangler/
+.dev.vars

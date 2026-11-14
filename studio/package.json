@@ -6,16 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p worker",
     "lint": "eslint .",
     "test:enquiry": "node --experimental-strip-types --test tests/enquiry.test.mjs tests/enquiry-delivery.test.mjs tests/enquiry-rate-limit.test.mjs",
     "test:scope": "node --experimental-strip-types --test tests/project-scope.test.mjs",
-    "test:smoke": "node --test tests/site-smoke.test.mjs"
+    "test:smoke": "node --test tests/site-smoke.test.mjs",
+    "build:cf": "node scripts/build-cf.mjs",
+    "deploy:cf": "wrangler deploy"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",
     "@fontsource/dm-serif-display": "^5.3.0",
-    "@vercel/blob": "2.8.0",
     "lucide-react": "^0.577.0",
     "next": "16.3.4",
     "react": "19.2.8",
@@ -23,6 +24,7 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261114.1",
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
@@ -30,6 +32,7 @@
     "eslint": "^9.39.0",
     "eslint-config-next": "16.3.4",
     "prettier": "^3.9.6",
+    "sharp": "^0.35.4",
     "typescript": "^5.9.3"
   }
 }

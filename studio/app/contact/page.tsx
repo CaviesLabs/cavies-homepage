@@ -4,8 +4,6 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { contactEmail, emailHref, telegramHref } from "@/lib/contact";
 import { pageMetadata } from "@/lib/seo";
-import { enquiryDeliveryConfigured } from "@/lib/enquiry-delivery";
-import { enquiryRateLimitConfigured } from "@/lib/enquiry-rate-limit";
 import styles from "@/components/enquiry-form.module.css";
 
 export const metadata = pageMetadata({
@@ -17,10 +15,11 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  // The page is static, so the form is switched on at build time
+  // (ENQUIRY_FORM_ENABLED=true plus the public site key). The Worker still
+  // refuses every request unless its own configuration is complete.
   const deliveryEnabled = Boolean(
-    turnstileSiteKey &&
-    enquiryDeliveryConfigured() &&
-    enquiryRateLimitConfigured(),
+    turnstileSiteKey && process.env.ENQUIRY_FORM_ENABLED === "true",
   );
   return (
     <>
