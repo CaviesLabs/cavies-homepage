@@ -1,0 +1,16 @@
+{
+  // Free-plan redirect Worker for the old and www hostnames. Not deployed until
+  // the cutover (see docs/cloudflare-workers.md): custom domains attach on deploy
+  // and need the existing DNS records for these names removed first.
+  "name": "cavies-studio-redirect",
+  "account_id": "22695a77ae05b80e3b67824b68152f29",
+  "compatibility_date": "2026-11-01",
+  "main": "./worker.js",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "www.cavies.studio", "custom_domain": true },
+    { "pattern": "cavies.xyz", "custom_domain": true },
+    { "pattern": "www.cavies.xyz", "custom_domain": true },
+  ],
+}
