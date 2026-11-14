@@ -1,0 +1,28 @@
+{
+  // Production configuration for cavies.studio: the same Worker as wrangler.jsonc,
+  // routed from the zone and with the workers.dev address switched off.
+  // Deploy with `npm run deploy:cf:production` (builds first, refuses a noindex
+  // build). The route stays inert until the cavies.studio record is proxied;
+  // see docs/cloudflare-workers.md for the cutover and the one-step rollback.
+  "name": "cavies-studio",
+  "account_id": "22695a77ae05b80e3b67824b68152f29",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["cache_option_enabled"],
+  "main": "worker/index.ts",
+  "assets": {
+    "directory": "./out",
+    // Pages never invoke Worker code; only the enquiry endpoint does.
+    "run_worker_first": ["/api/*"],
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "LEDGER", "class_name": "EnquiryLedger" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["EnquiryLedger"] }],
+  // Secrets (wrangler secret put): ENQUIRY_DELIVERY_ENABLED, TURNSTILE_SECRET_KEY,
+  // GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, RATE_LIMIT_SALT.
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "cavies.studio/*", "zone_name": "cavies.studio" }]
+}

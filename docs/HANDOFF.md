@@ -28,11 +28,11 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 - Mine: `ENQUIRY_EXTRA_ORIGIN` lets one workers.dev origin through for testing, passed with `--var` only.
 
 **Open items**
-- Cutover and rollback steps are in the pull request. Enquiry secrets could not be copied from Vercel (all sensitive, write-only): TURNSTILE_SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, ENQUIRY_DELIVERY_ENABLED. RATE_LIMIT_SALT was generated fresh on the Worker. Delivery stays off until Meow supplies them.
-- A real enquiry must be sent once after the secrets are in, before the cutover.
+- Cutover and rollback steps are in `studio/docs/cloudflare-workers.md` and the pull request (zone routes plus switching the existing records to proxied: no DNS gap, one-step rollback). Worker secrets: `TURNSTILE_SECRET_KEY` was read from the widget with `cf turnstile widgets get` and piped into the Worker; `RATE_LIMIT_SALT` is new. Still missing, needs Meow: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GMAIL_REFRESH_TOKEN`, `ENQUIRY_DELIVERY_ENABLED`. Delivery stays off until then.
+- One real enquiry must be delivered and seen in the inbox before the production build turns the form on (`ENQUIRY_DELIVERY_VERIFIED=yes`). The form is off in every build until then.
 
 **How to verify**
-- `cd studio; npm run lint; npm run typecheck; npm run test:enquiry; npm run test:scope; npm run build:cf`, then `npx wrangler dev --port 3100 --compatibility-date 2026-10-10` and `npm run test:smoke`.
+- `cd studio; npm run lint; npm run typecheck; npm run test:enquiry; npm run test:scope; npm run build:cf`, then `npx wrangler dev --port 3100` and `npm run test:smoke`.
 
 ## Portfolio order of 11 November: Emberline, Beigman, Reai, Tender first; Tender, Amoeba and Tyche added: 11 November 2026
 

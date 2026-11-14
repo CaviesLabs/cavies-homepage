@@ -1,12 +1,14 @@
 // Builds out/ for the Cloudflare Worker: resized images, then the static export.
-// The enquiry form is switched on at build time with the site's public
-// Turnstile key (it is in every production page, so it is not a secret).
-// Override either with the environment; set ENQUIRY_FORM_ENABLED=false for a
-// build with the email-draft composer only. SITE_NOINDEX=1 marks a test build.
+// The direct enquiry form is OFF unless ENQUIRY_FORM_ENABLED=true is set: a static
+// page cannot ask the Worker whether delivery works, so the form is switched on
+// only after one real enquiry has been delivered (see docs/cloudflare-workers.md).
+// NEXT_PUBLIC_TURNSTILE_SITE_KEY defaults to the site's public widget key (it is
+// in every page that shows the form, so it is not a secret). SITE_NOINDEX=1 marks
+// a workers.dev test build noindex.
 import { spawnSync } from "node:child_process";
 
 const env = {
-  ENQUIRY_FORM_ENABLED: "true",
+  ENQUIRY_FORM_ENABLED: "false",
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: "0x4AAAAAAFM-53cFpNHTdaOn",
   ...process.env,
 };

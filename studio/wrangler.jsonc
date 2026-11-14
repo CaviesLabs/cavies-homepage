@@ -1,7 +1,8 @@
 {
   // cavies.studio on the Cloudflare Workers Free plan: the static export in out/
   // as Worker static assets, plus the enquiry endpoint at /api/enquiry.
-  // `npm run build:cf` builds out/, `npm run deploy:cf` deploys. See docs/cloudflare-workers.md.
+  // This is the workers.dev test configuration (`npm run deploy:cf`); production
+  // is wrangler.production.jsonc. See docs/cloudflare-workers.md.
   "name": "cavies-studio",
   "account_id": "22695a77ae05b80e3b67824b68152f29",
   "compatibility_date": "2026-11-01",
@@ -22,6 +23,4 @@
   // GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, RATE_LIMIT_SALT.
   "workers_dev": true,
   "preview_urls": false
-  // At cutover add: "routes": [{ "pattern": "cavies.studio", "custom_domain": true }]
-  // and set "workers_dev": false.
 }

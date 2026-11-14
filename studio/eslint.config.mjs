@@ -7,7 +7,7 @@ export default defineConfig([
   globalIgnores([
     ".next/**",
     "out/**",
-    ".wrangler/**",
+    "**/.wrangler/**",
     "public/_img/**",
     "next-env.d.ts",
   ]),
