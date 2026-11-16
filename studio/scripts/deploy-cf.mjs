@@ -3,19 +3,31 @@
 //                                          noindex build, the one test origin allowed.
 //   node scripts/deploy-cf.mjs production  zone route (wrangler.production.jsonc):
 //                                          indexable build, no test origin.
+//   node scripts/deploy-cf.mjs xyz         cavies.xyz (wrangler.xyz.jsonc): the same
+//                                          indexable build with the form always off,
+//                                          on an assets-only Worker.
 // Production refuses a noindex build, and refuses the direct form unless
 // ENQUIRY_DELIVERY_VERIFIED=yes says a real enquiry was delivered and seen.
 import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 
 const mode = process.argv[2];
-if (!["test", "production"].includes(mode)) {
-  console.error("Usage: deploy-cf.mjs test|production");
+if (!["test", "production", "xyz"].includes(mode)) {
+  console.error("Usage: deploy-cf.mjs test|production|xyz");
   process.exit(2);
 }
 const env = { ...process.env };
 if (mode === "test") {
   env.SITE_NOINDEX = "1";
+} else if (mode === "xyz") {
+  // cavies.xyz has no enquiry endpoint, so its build never shows the direct form.
+  if (env.SITE_NOINDEX) {
+    console.error(
+      "Refusing: SITE_NOINDEX is set; cavies.xyz is an indexable build.",
+    );
+    process.exit(1);
+  }
+  env.ENQUIRY_FORM_ENABLED = "false";
 } else {
   if (env.SITE_NOINDEX) {
     console.error(
@@ -41,7 +53,7 @@ run(["scripts/build-cf.mjs"]);
 
 const home = await readFile("out/index.html", "utf8");
 const noindex = /<meta name="robots" content="[^"]*noindex/.test(home);
-if (mode === "production" && noindex) {
+if (mode !== "test" && noindex) {
   console.error("Refusing: out/index.html is a noindex build.");
   process.exit(1);
 }
@@ -53,21 +65,28 @@ if (mode === "test" && !noindex) {
 // every other deploy leaves it unset, so the Worker accepts https://cavies.studio only.
 const withTestOrigin = mode === "test" && env.ENQUIRY_FORM_ENABLED === "true";
 run(
-  mode === "test"
+  mode === "xyz"
     ? [
         "node_modules/wrangler/bin/wrangler.js",
         "deploy",
-        ...(withTestOrigin
-          ? [
-              "--var",
-              "ENQUIRY_EXTRA_ORIGIN:https://cavies-studio-test.dev-226.workers.dev",
-            ]
-          : []),
-      ]
-    : [
-        "node_modules/wrangler/bin/wrangler.js",
-        "deploy",
         "-c",
-        "wrangler.production.jsonc",
-      ],
+        "wrangler.xyz.jsonc",
+      ]
+    : mode === "test"
+      ? [
+          "node_modules/wrangler/bin/wrangler.js",
+          "deploy",
+          ...(withTestOrigin
+            ? [
+                "--var",
+                "ENQUIRY_EXTRA_ORIGIN:https://cavies-studio-test.dev-226.workers.dev",
+              ]
+            : []),
+        ]
+      : [
+          "node_modules/wrangler/bin/wrangler.js",
+          "deploy",
+          "-c",
+          "wrangler.production.jsonc",
+        ],
 );
