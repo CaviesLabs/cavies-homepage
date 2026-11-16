@@ -15,6 +15,31 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## cavies.xyz serves the site again instead of redirecting: 17 November 2026
+
+**What shipped**
+- Meow asked (17 Nov 2026) for cavies.xyz to stop redirecting to cavies.studio, because the AWS Activate application needs a website on the exact domain it names.
+- New assets-only Worker `cavies-xyz` (`studio/wrangler.xyz.jsonc`, zone route `cavies.xyz/*`), deployed with the new `npm run deploy:cf:xyz` (`studio/scripts/deploy-cf.mjs` mode `xyz`). Same static export as cavies.studio, direct form always off, no Worker code, no secrets, no `/api/enquiry`.
+- The cavies.xyz zone's Redirect Rule now matches `www.cavies.xyz` only and sends it to `https://cavies.xyz` (308, path and query kept). It used to send both hosts to cavies.studio.
+- No DNS record changed. cavies.studio, www.cavies.studio, mail records and the game subdomains were not touched.
+
+**Decisions (mine)**
+- A separate Worker instead of a second route on `cavies-studio`: the enquiry endpoint accepts `https://cavies.studio` only, so the production build's form would fail on cavies.xyz.
+- Canonical tags, robots.txt and the sitemap on cavies.xyz still name `https://cavies.studio`, so search engines keep indexing the canonical site. The pages still say cavies.studio in the contact addresses and privacy policy.
+
+**Open items**
+- Run `npm run deploy:cf:xyz` after each production deploy, or the copy drifts.
+- The 308 from cavies.xyz was the signal for the October domain move; with it gone, only the canonical tags tell Google which domain is the real one. Once AWS Activate is settled, Meow decides whether to put the redirect back (steps in `studio/docs/cloudflare-workers.md`, "cavies.xyz").
+- The retired `redirect/worker.js` and the smoke test that imports it still describe the old behaviour.
+
+**How to verify**
+- `curl -I https://cavies.xyz/` is 200; `curl -I "https://www.cavies.xyz/contact?a=1"` is 308 to `https://cavies.xyz/contact?a=1`.
+- `SITE_TEST_URL=https://cavies.xyz npm run test:smoke` passes 21 of 22; the enquiry-endpoint test fails by design (no endpoint there).
+- Checked after the deploy: home, /contact (composer, no Send button), a case page, 404, sitemap, security headers with HSTS, http to https; cavies.studio 200, www.cavies.studio 308, playables.cavies.xyz 200, MX unchanged. Not checked: screenshots (the pages are the same build as cavies.studio with the form off).
+
+**Disk**
+- Nothing new kept: the build reused `studio/out` (81 MB) and `node_modules` in the existing worktree `cavies-homepage-wt-cf`.
+
 ## cavies.studio moved from Vercel to Cloudflare Workers Free: 14 November 2026
 
 **What moved**

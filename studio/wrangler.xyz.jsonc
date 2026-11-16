@@ -1,0 +1,21 @@
+{
+  // cavies.xyz as its own site (17 November 2026): the same static export as
+  // cavies.studio, served by a separate assets-only Worker so the old domain
+  // answers with pages instead of a redirect. No Worker code, no secrets, no
+  // enquiry endpoint: the build has the direct form off, so /contact shows the
+  // email-draft composer. Canonical tags, the sitemap and robots.txt still name
+  // https://cavies.studio. Deploy with `npm run deploy:cf:xyz`.
+  // www.cavies.xyz goes to https://cavies.xyz through the zone's Redirect Rule.
+  // See docs/cloudflare-workers.md, "cavies.xyz".
+  "name": "cavies-xyz",
+  "account_id": "22695a77ae05b80e3b67824b68152f29",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "cavies.xyz/*", "zone_name": "cavies.xyz" }],
+}
