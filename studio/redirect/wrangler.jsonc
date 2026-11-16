@@ -1,3 +1,4 @@
+// RETIRED 16 Nov 2026: do not deploy. See the note in worker.js.
 {
   // Free-plan redirect Worker for the old and www hostnames, on zone routes. The
   // routes are inert until each hostname's existing DNS record is switched to
