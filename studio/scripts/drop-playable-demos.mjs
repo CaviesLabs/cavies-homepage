@@ -15,9 +15,9 @@ import { fileURLToPath } from "node:url";
 const demos = [
   { id: "rise-squeeze", game: "squishy-studio" },
   { id: "lantern-burst", game: "firefly-festival" },
-  { id: "cavy-conga", game: "cavy-conga" },
+  { id: "tide-jars", game: "tide-jars" },
 ];
-const largest = 5 * 1024 * 1024; // the ad networks' own limit; ours run 0.6 to 2.0 MB
+const largest = 5 * 1024 * 1024; // the ad networks' own limit; ours run 0.2 to 1.7 MB
 const target = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",

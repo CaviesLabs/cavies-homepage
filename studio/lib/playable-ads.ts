@@ -54,13 +54,13 @@ export const playableDemos: readonly PlayableDemo[] = [
     },
   },
   {
-    id: "cavy-conga",
-    name: "Cavy Conga",
-    genre: "Action",
+    id: "tide-jars",
+    name: "Tide Jars",
+    genre: "Puzzle",
     poster: null,
     tone: {
-      from: "#e6f2bd",
-      to: "#b9d97a",
+      from: "#cfe4ea",
+      to: "#7fa9ba",
       ink: "#39292d",
       button: "#69313e",
       buttonInk: "#ffffff",
