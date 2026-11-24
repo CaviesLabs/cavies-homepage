@@ -15,6 +15,38 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Deploy: /playable-ads live on cavies.studio and cavies.xyz: 24 November 2026
+
+**What was deployed**
+- PR #37 merged as `b511162` (squash, `origin/main`). The tree deployed was a detached checkout of exactly that commit, rebuilt with `npm run build:cf`; the three demo files again hashed 5ee6ec69 (Cavy Conga), 2680fd06 (Lantern Burst), ce0421b3 (Rise & Squeeze), and `git archive HEAD studio/public/playable-ads` showed 1,575,160, 1,615,793 and 731,749 bytes.
+- Production Worker `cavies-studio`: `ENQUIRY_FORM_ENABLED=true ENQUIRY_DELIVERY_VERIFIED=yes npm run deploy:cf:production`, version `2869cb7a-6e70-4d15-91bb-15e96dda9e5a` (16:17 UTC). Previous: `00925a66-07ba-41e8-82d9-67256401213b`.
+- cavies.xyz Worker `cavies-xyz`: `npm run deploy:cf:xyz`, version `11c2500c-02a8-4ebe-94a8-689a8fa772bc` (16:19 UTC). Previous: `05a22ab0-93f4-43d9-8c3c-fe3e0dedf5c9`.
+
+**Gate before the merge (24 Nov, from `studio/` after `npm ci`)**
+- `lint`, `typecheck`, `build` clean; `test:enquiry` 43 of 43; `test:scope` 4 of 4; `test:workerd` 5 of 5; `build:cf`, `wrangler dev` on port 3151, `test:smoke` 24 of 24.
+
+**Smoke results as they ran (live)**
+- `https://cavies.studio/playable-ads`: 200, `x-frame-options: DENY`; the HTML names Unity Ads, AppLovin, Google App campaigns, TikTok and Meta and says "Fixed price, quoted in a day". `/playable-ads/` answers 308 to `/playable-ads`.
+- `/playable-ads/demos/{cavy-conga,lantern-burst,rise-squeeze}/`: 200, `x-frame-options: SAMEORIGIN`, `x-robots-tag: noindex`, the sandbox CSP (`sandbox allow-scripts; default-src 'none'; ... connect-src 'none'`). The bytes served by curl hash to the same first eight characters as the files in the repo, on cavies.studio and cavies.xyz. (`.../index.html` answers 307 to the folder, as for every page.)
+- Home, `/contact` (still shows Send enquiry), `/work/tender`, `sitemap.xml` (lists `https://cavies.studio/playable-ads`) and `robots.txt`: all 200.
+- `SITE_TEST_URL=https://cavies.studio npm run test:smoke`: 24 of 24 pass (the enquiry-endpoint test passes live).
+- `https://cavies.xyz/playable-ads`: 200 with the same text; the demo folder has the same headers. `SITE_TEST_URL=https://cavies.xyz npm run test:smoke`: 23 of 24; the one failure is "the enquiry endpoint is the Worker's", by design (cavies.xyz has no endpoint), as in the 17 November entry.
+- Chrome headless (Playwright) against the live page at 390x844 (touch) and 1440x900: page loads (200), "Tap to play Cavy Conga" starts the real demo (a 322x702 and a 352x765 canvas inside the sandboxed frame, drawn: the grove with the conga line, a "Drag anywhere to steer" hint and the Dance button, about 225 distinct colours in the capture). No page errors. Browser closed. The enquiry form was not touched.
+
+**Found, not fixed**
+- Console noise, the same on both widths: Cloudflare's Web Analytics beacon (`static.cloudflareinsights.com`) is injected into every HTML response a browser fetches, the demo files included (curl with a browser User-Agent shows it; plain curl does not). The demo's sandbox CSP blocks it ("violates script-src 'unsafe-inline'"), so no request leaves the demo and the demo bytes in the repo are unchanged; the other messages come from the Turnstile widget on the page (a 401 from its challenge call and a blocked `data:` connect). All pre-existing zone behaviour, none from the page's code. If a clean console matters: switch the beacon's automatic setup off for the zone, or add `Cache-Control: no-transform` to the demo folder in `public/_headers` (not tried).
+
+**Not checked**
+- The page on a real phone held upright; a screen reader; the form's live delivery (no test enquiry was sent, by instruction); the other demos (Lantern Burst, Rise & Squeeze) played in the live browser session (served and hashed only); Safari or Firefox.
+
+**How to roll back**
+- From `studio/`: `npx wrangler rollback 00925a66-07ba-41e8-82d9-67256401213b -c wrangler.production.jsonc` for cavies.studio, and `npx wrangler rollback 05a22ab0-93f4-43d9-8c3c-fe3e0dedf5c9 -c wrangler.xyz.jsonc` for cavies.xyz (or `wrangler versions deploy` with the old id). Rollback was not needed.
+
+**Disk**
+- Removed after the checks: `studio/.next`, `studio/out`, `studio/.wrangler`, `studio/node_modules`, `studio/public/_img`, and the local wrangler log. Left: `studio/.tmp/screens` (19 MB, untracked, the lead wants it) and the worktree `cavies-homepage-wt-ads`. Scratch captures of the live check are in the session scratchpad, not the repo.
+
+---
+
 ## /playable-ads: three playable demos, the five networks, the quote form: 24 November 2026
 
 **What shipped**
