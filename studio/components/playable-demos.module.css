@@ -17,7 +17,7 @@
 
 /* A phone drawn in CSS: no photo. */
 .phone {
-  width: min(100%, 272px);
+  width: min(100%, 372px);
   aspect-ratio: 9 / 19;
   padding: 10px;
   border-radius: 40px;
@@ -172,9 +172,5 @@
   .grid {
     grid-template-columns: 1fr;
     gap: 56px;
-  }
-
-  .phone {
-    width: min(100%, 300px);
   }
 }
