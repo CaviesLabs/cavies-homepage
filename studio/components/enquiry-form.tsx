@@ -65,9 +65,12 @@ const fieldOrder: (keyof EnquiryFields)[] = [
 export function EnquiryForm({
   deliveryEnabled = false,
   turnstileSiteKey,
+  defaultService,
 }: {
   deliveryEnabled?: boolean;
   turnstileSiteKey?: string;
+  /** Preselects a service on a page about one of them (the visitor can change it). */
+  defaultService?: EnquiryService;
 }) {
   const directDelivery = deliveryEnabled && Boolean(turnstileSiteKey);
   const ready = useSyncExternalStore(subscribe, clientReady, serverReady);
@@ -108,7 +111,9 @@ export function EnquiryForm({
   const current: EnquiryFields = {
     ...fields,
     service:
-      fields.service || (selection?.help ? scopeService(selection.help) : ""),
+      fields.service ||
+      defaultService ||
+      (selection?.help ? scopeService(selection.help) : ""),
     brief: briefEdited
       ? fields.brief
       : scope
