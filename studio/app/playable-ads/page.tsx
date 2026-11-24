@@ -143,7 +143,10 @@ export default function PlayableAdsPage() {
             <h2 id="networks-title">
               One build, <em>exported for:</em>
             </h2>
-            <p>Each export is made to that network’s published format rules.</p>
+            <p>
+              Each export follows that network’s published specs, checked
+              against each network’s size limit before delivery.
+            </p>
           </div>
           <ul className={styles.networkList}>
             {adNetworks.map((network) => (

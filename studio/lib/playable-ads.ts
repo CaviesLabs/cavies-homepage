@@ -23,8 +23,7 @@ export type PlayableDemo = {
   };
 };
 
-export const playableDemoCaption =
-  "Our own game, made into a 20 second playable.";
+export const playableDemoCaption = "Our own game, about 20 seconds of play.";
 
 /** The real file for each is the `generic` network build of that game's demo ad (see README, "Playable ads demos"). */
 export const playableDemos: readonly PlayableDemo[] = [
@@ -69,8 +68,7 @@ export const playableDemos: readonly PlayableDemo[] = [
   },
 ] as const;
 
-export const demoSrc = (id: string) =>
-  `${playableAdsPath}/demos/${id}/index.html`;
+export const demoSrc = (id: string) => `${playableAdsPath}/demos/${id}/`;
 
 /** Exactly these five, in this order. Moloco is not listed. */
 export const adNetworks = [
