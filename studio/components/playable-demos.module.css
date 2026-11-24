@@ -1,0 +1,176 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px 38px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  min-width: 0;
+}
+
+/* A phone drawn in CSS: no photo. */
+.phone {
+  width: min(100%, 372px);
+  aspect-ratio: 9 / 19;
+  padding: 10px;
+  border-radius: 40px;
+  background: #251a1d;
+  box-shadow:
+    0 22px 40px #39292d26,
+    inset 0 0 0 2px #4a3a3e;
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 31px;
+  background: #0f0b0c;
+  isolation: isolate;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #0f0b0c;
+}
+
+.frame[hidden] {
+  display: none;
+}
+
+.poster {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 24px;
+  border: 0;
+  background-color: var(--tone-from);
+  background-image: linear-gradient(
+    165deg,
+    var(--tone-from) 0%,
+    var(--tone-to) 100%
+  );
+  background-size: cover;
+  background-position: center;
+  color: var(--tone-ink);
+  text-align: center;
+}
+
+.posterGenre {
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.posterName {
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+.posterPlay {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 13px 22px;
+  border-radius: 100px;
+  background: var(--tone-button);
+  color: var(--tone-button-ink);
+  font-size: 14px;
+  font-weight: 600;
+  transition: filter 0.2s;
+}
+
+.poster:hover .posterPlay {
+  filter: brightness(0.88);
+}
+
+.poster:focus-visible {
+  outline-offset: -6px;
+}
+
+.caption {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.caption h3 {
+  font-size: 27px;
+}
+
+.genre {
+  color: var(--wine);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.caption p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 10px 20px;
+  border: 1px solid var(--ink);
+  border-radius: 100px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.replay:hover:not(:disabled) {
+  background: var(--ink);
+  color: #fff;
+}
+
+.replay:disabled {
+  border-color: var(--line);
+  color: #8a8380;
+  cursor: default;
+}
+
+.noscript {
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+}

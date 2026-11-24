@@ -46,6 +46,7 @@ export function Footer() {
         <div>
           <nav className="footer-nav" aria-label="Footer">
             <Link href={businessWebsitesHref}>Websites</Link>
+            <Link href="/playable-ads">Playable ads</Link>
             <Link href="/work">Work</Link>
             <Link href="/#games">Games</Link>
             <Link href="/#pricing">Plans</Link>

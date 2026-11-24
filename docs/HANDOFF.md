@@ -15,6 +15,33 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## /playable-ads: three playable demos, the five networks, the quote form: 24 November 2026
+
+**What shipped**
+- PR #37: the page `/playable-ads` (title "Playable Ads for Mobile Games | Cavies Studio"). It shows three demos of our own games in phone frames (Rise & Squeeze, Lantern Burst, Cavy Conga), each a sandboxed iframe (`sandbox="allow-scripts"`) that loads only after "Tap to play", with Replay; the line "One build, exported for: Unity Ads, AppLovin, Google App campaigns, TikTok, Meta" and "Each export follows that network's published specs, checked against each network's size limit before delivery"; how it works; "Fixed price, quoted in a day."; and the existing enquiry form with a new "Playable ads" service preselected (`lib/enquiry.ts`, `components/enquiry-form.tsx` `defaultService`; delivery, rate limit and secrets untouched). No prices, no install or performance claims, no client names.
+- The demo files: `studio/public/playable-ads/demos/<id>/index.html`, the `generic` builds from the Playables repo (ad bytes built at Playables commit `308d6b90`; 731,749 / 1,615,793 / 1,575,160 bytes; sha256 in the Playables repo's `.tmp/ad-demos/<id>/SHA256SUMS`). `.gitattributes` marks them `-text` so line-ending conversion cannot change them. `npm run demos:drop -- <dist-ad folder>` replaces them (README, "Playable ads demos"). A demo's end-card button posts `{type:'cavies-ad-cta'}` to the page; the page ignores the payload's url, checks `event.source` and scrolls to the quote form.
+- `public/_headers`: the demo folder alone is framable (`X-Frame-Options: SAMEORIGIN`, every other path stays `DENY`), sends `X-Robots-Tag: noindex` and a sandbox CSP that allows inline script and `data:` and `blob:` only. Sitemap entry, canonical `https://cavies.studio/playable-ads`, footer link "Playable ads", `/playable-ads/` redirects to `/playable-ads`.
+
+**Decisions**
+- Meow, 24 Nov 2026: the playable-ads test and its prices (plan: studio-os `growth/playable-ads/PLAN.md`); "fixed price, quoted in a day", no price on the site.
+- Mine: the form topic became a fifth service ("Playable ads") in the shared list, so it also shows on `/contact`. The alternative was a preset "Not sure yet".
+- Mine: the footer is the only link (the header has four items and the home page's two service cards sit in a two-column grid); say if it should be in the header.
+- Mine: the phone frame is a plain rounded frame, 372 px wide at most, with no camera-dot overlay (it covered Rise & Squeeze's HUD). At that size the games draw 10.7 to 10.9 px at worst in Lantern Burst's tutorial hints and Cavy Conga's pick-card captions (just under the studio's 11 px label floor); Rise & Squeeze draws nothing under 11.
+- Reviewer (Opus 5.5) read the page and the headers before merge: merge after fixes, all done.
+
+**Open items**
+- Not verified: the page on a phone held upright (the S24 was held sideways; the page ran there at a forced 384x693 size, which shows the frame about 716 px tall, so a visitor scrolls a little); a screen reader and a full keyboard walk (only Tap to play by keyboard); the live form delivery (off in the build; the composer shows); real network SDKs (none involved here).
+- Each demo's end card needs a thumb: the demos were played by scripted touch only.
+- Cavy Conga is the weakest of the three on art (the Playables handoff says why); Meow or Miu may swap a demo with `npm run demos:drop`.
+- Deploy: see the next entry (written after the production deploy and smoke check).
+
+**How to verify**
+- From `studio/`: `npm run lint`, `typecheck`, `build`, `test:enquiry`, `test:scope`, `test:workerd` (all pass as run 24 Nov: 43, 4 and 5 tests), then `npm run build:cf`, `npx wrangler dev --port <free port>`, `npm run test:smoke` (24 of 24).
+- Screenshots (not committed): `studio/.tmp/screens/real/` in the PR worktree: phone 390x844 and desktop 1440x900, each demo idle, mid-run, end card, after the card's button, replay.
+
+**Disk**
+- The PR worktree `cavies-homepage-wt-ads`: removed `.next`, `out`, `.wrangler`, `node_modules`, `public/_img`; left `studio/.tmp/screens` (19 MB, untracked).
+
 ## Tender case no longer links to its site: 24 November 2026
 
 **What shipped**

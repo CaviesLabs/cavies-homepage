@@ -46,6 +46,19 @@ test("prepares an encoded draft with no website when optional URL is empty", () 
   assert.ok(result.draft.copyText.startsWith(`To: ${recipient}\nSubject:`));
 });
 
+test("the Playable ads service is accepted and names itself in the subject", () => {
+  const result = prepareEnquiry(
+    {
+      ...valid,
+      service: "Playable ads",
+      website: "https://play.google.com/store/apps/details?id=com.example.game",
+    },
+    recipient,
+  );
+  assert.equal(result.ok, true);
+  assert.equal(result.draft.subject, "Project enquiry: Playable ads");
+});
+
 test("trims boundary whitespace and preserves ordinary Unicode and brief line breaks", () => {
   const result = prepareEnquiry(
     {
