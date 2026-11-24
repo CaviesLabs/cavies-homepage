@@ -37,21 +37,6 @@
   isolation: isolate;
 }
 
-/* The camera dot sits over the picture and takes no touches. */
-.screen::after {
-  content: "";
-  position: absolute;
-  top: 11px;
-  left: 50%;
-  z-index: 3;
-  width: 58px;
-  height: 16px;
-  transform: translateX(-50%);
-  border-radius: 100px;
-  background: #0f0b0c;
-  pointer-events: none;
-}
-
 .frame {
   position: absolute;
   inset: 0;
