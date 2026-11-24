@@ -42,6 +42,22 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 **Disk**
 - The PR worktree `cavies-homepage-wt-ads`: removed `.next`, `out`, `.wrangler`, `node_modules`, `public/_img`; left `studio/.tmp/screens` (19 MB, untracked).
 
+## Tender case no longer links to its site: 24 November 2026
+
+**What shipped**
+- Meow took the parked Tender site offline (24 Nov 2026). PR #38 removed `liveLink` and `url` from the Tender case in `studio/lib/additional-projects.ts`; the text and pictures stay, the caption reads "Landing page · Captured while live". README link list and the smoke test (Tender must have no link) updated.
+- Deployed after the merge: `npm run deploy:cf:production` (with the form flags as on 14 Nov) and `npm run deploy:cf:xyz`. Production version `00925a66-07ba-41e8-82d9-67256401213b`, cavies.xyz `05a22ab0-93f4-43d9-8c3c-fe3e0dedf5c9` (previous versions are in `wrangler deployments list`).
+
+**How to verify**
+- `/work/tender` is 200 on cavies.studio and cavies.xyz and has no tender-by-hyperflow link; `/contact` still shows Send enquiry; `SITE_TEST_URL=https://cavies.studio npm run test:smoke` passes 22 of 22.
+- Not verified: a phone-width screenshot (Edge headless cannot go below its minimum window width, so the 390 px capture was cropped).
+
+**Open**: if the Tender site returns, put the link back and revert the smoke test line.
+
+**Disk**: removed the build output (`studio/out`, `.next`, `public/_img`) after the deploy; `node_modules` removed too.
+
+---
+
 ## cavies.xyz serves the site again instead of redirecting: 17 November 2026
 
 **What shipped**
