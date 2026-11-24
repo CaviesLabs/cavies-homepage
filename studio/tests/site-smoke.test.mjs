@@ -41,6 +41,7 @@ await test("public sitemap retains the portfolio and includes both new pages", a
   assert.equal(new Set(urls).size, urls.length, "no duplicate sitemap URLs");
   assert.ok(urls.includes(`${canonicalOrigin}/services/business-websites`));
   assert.ok(urls.includes(`${canonicalOrigin}/contact`));
+  assert.ok(urls.includes(`${canonicalOrigin}/playable-ads`));
   assert.ok(urls.includes(`${canonicalOrigin}/privacy`), "/privacy in sitemap");
   for (const path of gamePages) {
     assert.ok(urls.includes(`${canonicalOrigin}${path}`), `${path} in sitemap`);
@@ -439,6 +440,7 @@ await test("trailing-slash forms of the redirected paths redirect too", async ()
     ["/games/", 302, "/#games"],
     ["/work/seispace", 301, "/#work"],
     ["/work/seispace/", 301, "/#work"],
+    ["/playable-ads/", 308, "/playable-ads"],
   ]) {
     const response = await request(path, { redirect: "manual" });
     assert.equal(response.status, status, path);
@@ -465,6 +467,82 @@ await test("contact route renders honest email and Telegram fallbacks without Ja
   assert.ok(html.includes("mailto:tin@cavies.studio"));
   assert.ok(html.includes("https://t.me/tincavies"));
   assert.ok(html.includes("<noscript"));
+});
+
+await test("the playable ads page has three idle demo frames, five networks and no prices or claims", () => {
+  const html = htmlByPath.get("/playable-ads");
+  assert.ok(html, "/playable-ads is in the sitemap");
+  // Visible text only: scripts carry the framework's own payload.
+  const text = textOf(html.replace(/<script[\s\S]*?<\/script>/g, ""));
+  const frames = html.match(/<iframe[^>]*>/g) ?? [];
+  assert.equal(frames.length, 3, "three demo frames");
+  for (const frame of frames) {
+    assert.ok(/sandbox="allow-scripts"/.test(frame), "sandboxed, scripts only");
+    assert.ok(!/allow-same-origin/.test(frame), "opaque origin");
+    assert.ok(/\stitle="[^"]+"/.test(frame), "titled");
+    assert.ok(/loading="lazy"/.test(frame), "lazy");
+    assert.ok(!/\ssrc=/.test(frame), "nothing loads before Tap to play");
+  }
+  assert.equal(
+    (html.match(/Tap to play/g) ?? []).length >= 3,
+    true,
+    "a Tap to play button per demo",
+  );
+  for (const name of ["Rise & Squeeze", "Lantern Burst", "Cavy Conga"]) {
+    assert.ok(text.includes(name), name);
+  }
+  assert.ok(text.includes("Our own game, made into a 20 second playable."));
+  assert.ok(text.includes("One build, exported for:"));
+  const networks = [...html.matchAll(/<li>([^<]+)<\/li>/g)].map((m) => m[1]);
+  for (const network of [
+    "Unity Ads",
+    "AppLovin",
+    "Google App campaigns",
+    "TikTok",
+    "Meta",
+  ]) {
+    assert.ok(networks.includes(network), network);
+  }
+  assert.ok(!text.includes("Moloco"), "Moloco is not listed");
+  assert.ok(text.includes("published format rules"));
+  assert.ok(text.includes("Fixed price, quoted in a day."));
+  assert.ok(html.includes('id="quote"'), "quote section for the end button");
+  assert.ok(html.includes('role="radiogroup"'), "enquiry form is on the page");
+  assert.ok(text.includes("Playable ads"), "service is offered");
+  assert.ok(!/[$€£]\s?\d|US\$|AUD|USD/.test(text), "no prices");
+  for (const banned of [
+    /approved by/i,
+    /tested on/i,
+    /certified/i,
+    /small businesses/i,
+    /installs?/i,
+    /conversion/i,
+    /revenue/i,
+    /ROAS/i,
+    /from \d/i,
+  ]) {
+    assert.ok(!banned.test(text), `no ${banned}`);
+  }
+  assert.ok(!/<script[^>]+src="https?:/i.test(html), "no third-party scripts");
+  const graph = structuredGraph(html);
+  assert.ok(graph.some((node) => node["@type"] === "Service"));
+  assert.ok(
+    !graph.some((node) => "offers" in node || "aggregateRating" in node),
+  );
+});
+
+await test("the demo files are served and may be framed by our own page only", async () => {
+  for (const id of ["rise-squeeze", "lantern-burst", "cavy-conga"]) {
+    const response = await request(`/playable-ads/demos/${id}/index.html`);
+    assert.equal(response.status, 200, id);
+    assert.match(response.headers.get("content-type"), /text\/html/, id);
+    assert.equal(response.headers.get("x-frame-options"), "SAMEORIGIN", id);
+    assert.equal(response.headers.get("x-content-type-options"), "nosniff", id);
+    assert.ok((await response.text()).length > 0, id);
+  }
+  const page = await request("/playable-ads");
+  assert.equal(page.headers.get("x-frame-options"), "DENY", "the page itself");
+  await page.arrayBuffer();
 });
 
 await test("missing routes are real noindex 404s", async () => {

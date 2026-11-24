@@ -7,6 +7,15 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
 
+# The playable-ad demos are embedded by our own /playable-ads page, so they may
+# be framed by the same origin (the /* rule above says DENY; a second value would
+# be joined to it and ignored, so it is detached first). The page puts them in a
+# sandbox without allow-same-origin.
+/playable-ads/demos/*
+  ! X-Frame-Options
+  X-Frame-Options: SAMEORIGIN
+  Cache-Control: public, max-age=3600, must-revalidate
+
 # Hashed build output never changes.
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable

@@ -34,6 +34,7 @@ For production HTTP/SEO smoke checks, run `npm run build:cf`, then `npx wrangler
 - `app/work/page.tsx` is the full index: featured interfaces, selected work, the wider portfolio, games in development, and past collaborations, each card opening its case study. The Work navigation item, case-study back links, and the 404 page point here.
 - In-page anchors scroll smoothly (`data-scroll-behavior="smooth"` on `<html>`), and reduced motion restores instant jumps.
 - `app/services/business-websites/page.tsx` explains business website builds, improvements, and ongoing support, with Beigman Engineering as relevant project context.
+- `app/playable-ads/page.tsx` is the Playable ads page (`/playable-ads`): three demo ads in CSS phone frames (`components/playable-demos.tsx`), the five networks, how it works, and the enquiry form with the service set to Playable ads. `lib/playable-ads.ts` owns the demos, the networks list and the paths. No prices or performance claims go on it (the plan is `studio-os/growth/playable-ads/PLAN.md`). See "Playable ads demos" below.
 - `app/contact/page.tsx` and `components/enquiry-form.tsx` provide Gmail enquiry delivery when fully configured, with an email-draft fallback when unavailable. `worker/` validates requests, verifies Turnstile, reserves a durable send allowance, and calls Gmail with send-only OAuth access.
 - `app/globals.css` owns the responsive visual system.
 - `components/project-showcase.tsx` displays the four curated projects from `showcaseProjects` as selectable, full-width screenshots: Emberline, Beigman Engineering, Reai, and Tender (the owner's order from 11 November 2026). Selected work continues with Amoeba, vPawHook, Tyche, and Seitrace; the index follows with Paperdash (shut down; its case study leads with the arcade), then Skew, HeavenDash, 0DTE, Chat, Chirp, Pit Finance, brrr, DexPaid, Loosecoins, and the rest in their earlier order. Schlong belongs only in the secondary portfolio list.
@@ -52,6 +53,14 @@ For production HTTP/SEO smoke checks, run `npm run build:cf`, then `npx wrangler
 - Contact: `tin@cavies.studio` and `https://t.me/tincavies`; for the games, `contact@cavies.studio`.
 
 Project and advisory work are attributed separately. No funding totals, impact metrics, or endorsements are implied. Pre-launch captures and sample states are identified on project pages.
+
+## Playable ads demos
+
+Each demo is one self-contained HTML file in `public/playable-ads/demos/<id>/index.html`, shown in a sandboxed iframe (`sandbox="allow-scripts"`, no `allow-same-origin`) that gets its `src` only when the visitor presses Tap to play. The ids are `rise-squeeze`, `lantern-burst` and `cavy-conga`. Until the real files are dropped in, each is a placeholder that says "Demo file arrives with the build".
+
+To drop in the real files, build the demo ads in the Playables repo (`node tools/build.ts --ad --network generic squishy-studio firefly-festival cavy-conga`), then from `studio/` run `npm run demos:drop -- <path to that repo's dist-ad folder>`. It copies each game's `generic/index.html` (Rise & Squeeze is `squishy-studio`, Lantern Burst is `firefly-festival`, Cavy Conga is `cavy-conga`), refuses a missing, non-HTML or over-5 MB file, and replaces nothing if any of the three fails. Then check each on `/playable-ads` and commit the three files. The `generic` build posts `{ type: "cavies-ad-cta", url }` to its parent when its end button is pressed; the page accepts that message only from its own three frames, never opens the `url`, and scrolls to the quote form.
+
+`public/_headers` detaches the site-wide `X-Frame-Options: DENY` for `/playable-ads/demos/*` and sets `SAMEORIGIN`, so the page can frame its own files. Nothing else on the site may be framed.
 
 ## Deployment
 
