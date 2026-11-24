@@ -174,6 +174,10 @@ await test("new cases keep live links and honest data labels", () => {
     !htmlByPath.get("/work/paperdash").includes("paperdash.xyz"),
     "Paperdash has shut down, so it is not linked",
   );
+  assert.ok(
+    !htmlByPath.get("/work/tender").includes("tender-by-hyperflow"),
+    "Tender's site was taken down on 24 November 2026, so it is not linked",
+  );
   const expectations = {
     "/work/paperdash": [
       "Paperdash has shut down",
@@ -192,7 +196,7 @@ await test("new cases keep live links and honest data labels", () => {
     ],
     "/work/tyche": ["Pre-launch preview", "no draw has run"],
     "/work/tender": [
-      'href="https://tender-by-hyperflow.dev-226.workers.dev"',
+      "Captured while live",
       "Compute forwards · In development",
       "at an early stage",
     ],
