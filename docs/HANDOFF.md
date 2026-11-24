@@ -15,6 +15,36 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Deploy: Tide Jars replaces Cavy Conga on /playable-ads: 25 November 2026
+
+**What shipped**
+- PR #41 merged as `a944b9c`: the third demo on `/playable-ads` is now Tide Jars (Puzzle) in place of Cavy Conga. Order: Rise & Squeeze, Lantern Burst, Tide Jars. `studio/lib/playable-ads.ts` (new entry, sea-glass poster gradient, no art), `studio/public/playable-ads/demos/tide-jars/index.html` (the `generic` build, 178,384 bytes, sha256 `bd304a50baa2b1a6a12194d33e6ebaed56725deb45674faefee35dd173011dee`; game sources at Playables commit `b78d4561`, ad bytes from the Playables PR #327 branch `ads/demo-swap`), `scripts/drop-playable-demos.mjs`, README "Playable ads demos" and the smoke tests. The two other demo files are unchanged. `public/_headers` already covered `/playable-ads/demos/*`. The old `/playable-ads/demos/cavy-conga/` URL now answers 404 (nobody links it).
+- Deployed from a detached checkout of `a944b9c`. Production `cavies-studio`: version `89f76a38-6629-4cba-9f22-9acd1eecb4ea` (19:33 UTC), previous `2869cb7a-6e70-4d15-91bb-15e96dda9e5a`. cavies.xyz `cavies-xyz`: version `7776340c-e2d1-43fc-a653-5d0478b040d9` (19:35 UTC), previous `11c2500c-02a8-4ebe-94a8-689a8fa772bc`. Form flags as before (`ENQUIRY_FORM_ENABLED=true`, `ENQUIRY_DELIVERY_VERIFIED=yes` on production only).
+
+**Decision of the lead, 25 Nov 2026**
+- Cloudflare Web Analytics' automatic injection was turned OFF for the cavies.studio zone (account Dev@cavies.xyz, site tag `967c0d32...`, `cf rum site-info update <site> --auto-install=false`), because the published privacy policy says the site has no analytics. To turn it back on: the same command with `--auto-install=true`. `cf rum site-info list` (with `CLOUDFLARE_ACCOUNT_ID` set) shows `auto_install: false` for cavies.studio.
+
+**Gate and smoke, as they ran**
+- Before the merge: `lint`, `typecheck`, `build` clean; `test:enquiry` 43 of 43; `test:scope` 4 of 4; `test:workerd` 5 of 5; `build:cf`, `wrangler dev` on port 3161, `test:smoke` 24 of 24 (the old demo URL 404s locally too).
+- Screenshots (not committed; kept in `studio/.tmp/screens/tide-jars/` in the PR worktree), phone 390x844 and desktop 1440x900: the page idle, Tide Jars playing mid-run, its end card, and the page after its button (scrolled to the quote form, focus on the "Ask for a quote." heading). Tide Jars looks right in the frame: both jars and the empty jar visible, the hand hint, nothing hidden by the frame or its rounded corners. The smallest text the game draws is "Moves", 11.6 px at the phone's 322 px frame and 12.7 px at 352 px (measured by hooking `fillText`), so nothing is under 11 px. The end card reads "Tide Jars" and "Learn more".
+- Live, cavies.studio and cavies.xyz: `/playable-ads` is 200, `x-frame-options: DENY`, and the page text names Rise & Squeeze, Lantern Burst and Tide Jars (no Cavy Conga), the five networks and "Fixed price, quoted in a day". The three demo folders are 200 with `x-frame-options: SAMEORIGIN`, `x-robots-tag: noindex` and the sandbox CSP, and the served bytes hash to ce0421b3, 2680fd06 and bd304a50 on both domains. `/playable-ads/demos/cavy-conga/` is 404 on both. On cavies.studio: home, `/contact`, `/work/tender`, `sitemap.xml` (lists `/playable-ads`) and `robots.txt` are 200. `SITE_TEST_URL=https://cavies.studio npm run test:smoke`: 24 of 24. `SITE_TEST_URL=https://cavies.xyz npm run test:smoke`: 23 of 24, the one failure being the enquiry-endpoint test, by design.
+- Chrome headless, 390x844 (touch) and 1440x900: on cavies.studio "Tap to play" on Tide Jars starts the real demo (322x702 and 352x765 canvases, drawn, played to the end card, its button scrolls to the quote form); on cavies.xyz the same start, with no console errors and no bad responses. Browser closed. No form was submitted.
+
+**Found, not fixed: the analytics beacon is still injected on cavies.studio**
+- With `auto_install: false` already set, a curl with a browser User-Agent (19:36 to 19:42 UTC, cache-busting query strings) still finds `static.cloudflareinsights.com/beacon.min.js` in the HTML of the home page, `/contact`, `/work/tender`, `/playable-ads` and the demo pages on cavies.studio. A browser then asks for `https://cavies.studio/cdn-cgi/rum`, which answers 404 (so no data is being taken in, but the script still loads on the pages and the console shows a 404). cavies.xyz has no beacon. Plain curl (no browser UA) and `sitemap.xml` / `robots.txt` show none, as before. It may be edge propagation lag, or the zone's separate Web Analytics "enabled" ruleset (`enabled: true`, `lite: false` for cavies.studio in `cf rum site-info list`) injecting regardless; I did not change any zone setting. Re-check with: `curl -sL -H "User-Agent: Mozilla/5.0 Chrome/130" -H "Accept: text/html" --compressed https://cavies.studio/contact | grep -c cloudflareinsights` (0 is the goal). Until it is 0 the privacy policy's "no analytics" line is not met on the live pages.
+- Other console messages on the page are Turnstile's (a 401 from its challenge call, a blocked `data:` connect) and one "focus-without-user-activation" policy note when the demo's button moves focus to the quote heading; the scroll and focus themselves work.
+
+**Not checked**
+- A real phone held upright; a screen reader; the live form's delivery (no enquiry sent); Safari and Firefox; the other two demos played in the live browser (served and hashed only).
+
+**How to roll back**
+- From `studio/`: `npx wrangler rollback 2869cb7a-6e70-4d15-91bb-15e96dda9e5a -c wrangler.production.jsonc` and `npx wrangler rollback 11c2500c-02a8-4ebe-94a8-689a8fa772bc -c wrangler.xyz.jsonc`. Not needed.
+
+**Disk**
+- Removed `studio/.next`, `out`, `.wrangler`, `node_modules`, `public/_img` and the local wrangler log. Left `studio/.tmp/screens` (untracked, the lead wants it): it now holds only the `tide-jars` folder, 2.7 MB; the `real/` folder of the 24 November screenshots (19 MB) was not there when this thread looked, and nothing here removed it. Left the worktree `cavies-homepage-wt-ads`.
+
+---
+
 ## Deploy: /playable-ads live on cavies.studio and cavies.xyz: 24 November 2026
 
 **What was deployed**
