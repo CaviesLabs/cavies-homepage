@@ -492,7 +492,7 @@ await test("the playable ads page has three idle demo frames, five networks and 
     true,
     "a Tap to play button per demo",
   );
-  for (const name of ["Rise & Squeeze", "Lantern Burst", "Cavy Conga"]) {
+  for (const name of ["Rise & Squeeze", "Lantern Burst", "Tide Jars"]) {
     assert.ok(text.includes(name), name);
   }
   assert.ok(text.includes("Our own game, about 20 seconds of play."));
@@ -536,7 +536,7 @@ await test("the playable ads page has three idle demo frames, five networks and 
 });
 
 await test("the demo files are served and may be framed by our own page only", async () => {
-  for (const id of ["rise-squeeze", "lantern-burst", "cavy-conga"]) {
+  for (const id of ["rise-squeeze", "lantern-burst", "tide-jars"]) {
     const response = await request(`/playable-ads/demos/${id}/`);
     assert.equal(response.status, 200, id);
     assert.match(response.headers.get("content-type"), /text\/html/, id);
