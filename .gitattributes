@@ -1,0 +1,2 @@
+# The playable-ad demo files are built elsewhere and served as they are: never convert their line endings.
+studio/public/playable-ads/demos/** -text
