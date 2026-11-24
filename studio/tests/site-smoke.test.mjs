@@ -491,7 +491,7 @@ await test("the playable ads page has three idle demo frames, five networks and 
   for (const name of ["Rise & Squeeze", "Lantern Burst", "Cavy Conga"]) {
     assert.ok(text.includes(name), name);
   }
-  assert.ok(text.includes("Our own game, made into a 20 second playable."));
+  assert.ok(text.includes("Our own game, about 20 seconds of play."));
   assert.ok(text.includes("One build, exported for:"));
   const networks = [...html.matchAll(/<li>([^<]+)<\/li>/g)].map((m) => m[1]);
   for (const network of [
@@ -504,7 +504,7 @@ await test("the playable ads page has three idle demo frames, five networks and 
     assert.ok(networks.includes(network), network);
   }
   assert.ok(!text.includes("Moloco"), "Moloco is not listed");
-  assert.ok(text.includes("published format rules"));
+  assert.ok(text.includes("published specs"));
   assert.ok(text.includes("Fixed price, quoted in a day."));
   assert.ok(html.includes('id="quote"'), "quote section for the end button");
   assert.ok(html.includes('role="radiogroup"'), "enquiry form is on the page");
@@ -533,10 +533,14 @@ await test("the playable ads page has three idle demo frames, five networks and 
 
 await test("the demo files are served and may be framed by our own page only", async () => {
   for (const id of ["rise-squeeze", "lantern-burst", "cavy-conga"]) {
-    const response = await request(`/playable-ads/demos/${id}/index.html`);
+    const response = await request(`/playable-ads/demos/${id}/`);
     assert.equal(response.status, 200, id);
     assert.match(response.headers.get("content-type"), /text\/html/, id);
     assert.equal(response.headers.get("x-frame-options"), "SAMEORIGIN", id);
+    assert.equal(response.headers.get("x-robots-tag"), "noindex", id);
+    const policy = response.headers.get("content-security-policy");
+    assert.ok(policy?.startsWith("sandbox allow-scripts;"), id);
+    assert.ok(policy.includes("connect-src 'none'"), id);
     assert.equal(response.headers.get("x-content-type-options"), "nosniff", id);
     assert.ok((await response.text()).length > 0, id);
   }
