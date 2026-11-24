@@ -15,6 +15,26 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Correction: Cloudflare Web Analytics is off for cavies.studio: 25 November 2026
+
+**What changed**
+- The entry below this one (Tide Jars deploy) says automatic injection was turned off with `--auto-install=false` and that the beacon still loaded. That was right about the symptom but not the fix. `auto_install=false` alone left the zone's Web Analytics ruleset enabled and the beacon (`static.cloudflareinsights.com/beacon.min.js`) was still injected; the update also reset the site's `lite` flag from `true` to `false` (a PUT replaces the fields it is not given).
+- The lead then set the site to `auto_install: true`, `enabled: false`, `lite: true` (account Dev@cavies.xyz, site tag `967c0d32...`): `cf rum site-info update <site-id> --auto-install=true --enabled=false --lite=true`. A compressed fetch with a browser User-Agent (`curl -sL --compressed -H "User-Agent: Mozilla/5.0 Chrome/130" -H "Accept: text/html" "https://cavies.studio/contact?x=$RANDOM"`) now finds no `cloudflareinsights` on `/contact` and `/playable-ads` (25 Nov, about 20:00 UTC). The first check of that day used curl without `--compressed`, so its "0 matches" was meaningless; do not trust a curl that does not decompress.
+- Why: the published privacy policy (`studio/lib/studio-privacy.ts`) says the site has no analytics. The site had been created in Web Analytics on 22 Oct with automatic injection on.
+
+**Decisions**
+- Meow, 25 Nov 2026: "what do you recommend? will follow your recommendations" (the lead recommended turning it off).
+
+**Open items**
+- To turn it back on: `cf rum site-info update <site-id> --auto-install=true --enabled=true --lite=true`, and update the privacy policy first.
+- Other zones in that Cloudflare account (other products) have their own Web Analytics sites with automatic injection on; not touched here.
+
+**How to verify**
+- The curl above, and `cf rum site-info list --per-page 50` with `CLOUDFLARE_ACCOUNT_ID` set to the Dev@cavies.xyz account: `auto_install: true`, `enabled: false`, `lite: true` for cavies.studio.
+
+**Disk**
+- Nothing made.
+
 ## Deploy: Tide Jars replaces Cavy Conga on /playable-ads: 25 November 2026
 
 **What shipped**
