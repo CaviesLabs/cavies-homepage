@@ -15,6 +15,38 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Enquiry form sends through Cloudflare Email Sending; Gmail token removed: 25 November 2026
+
+**What shipped**
+- Meow agreed (25 Nov 2026) to move the form off the Gmail API onto Cloudflare Email Sending, which Workers Free may use for free to the account's verified destination addresses. PR #47 (`2470e82`): the Worker hands the notification to its `send_email` binding `EMAIL` (from `Cavies website <contact@cavies.studio>`, to tin@cavies.studio, Reply-To the visitor), held to that sender and recipient in both wrangler configs. Turnstile, origins, rate limits and the messages are unchanged. Setup errors (sender or recipient not verified, malformed message) answer 503 "temporarily unavailable"; Email Sending throttling 429; other failures 502 "couldn't confirm". Only the binding's error code is logged. `scripts/authorize-gmail.mjs` removed.
+- Privacy policy version 3, effective 25 November 2026 (Meow approved the wording in the thread): Cloudflare sends the enquiry on to our Google mailbox. Dated copy `docs/legal/privacy-policy-2026-11-25.md`.
+- Cloudflare, by CLI: `cavies.studio` onboarded as a sending domain (`cf email-sending subdomains create`); five new records, all under `cf-bounce` (three MX, SPF TXT, DKIM TXT on `cf-bounce._domainkey`). Apex MX, SPF, Google DKIM and DMARC (`p=none`) untouched (before and after snapshots diffed). `tin@cavies.studio` added as the account's verified destination address (verify link clicked in the studio browser).
+- Deployed: production `e0980f8c-cdbb-47e7-8dbc-0c187d3c93b8` (`ENQUIRY_FORM_ENABLED=true ENQUIRY_DELIVERY_VERIFIED=yes npm run deploy:cf:production`, after `gate.py run --full` on `2470e82`). Previous version `89f76a38-6629-4cba-9f22-9acd1eecb4ea`. Deleting the three secrets made version `b271c8e3-a0cb-4e69-a769-113d345c249e` (same code).
+- After the test enquiry arrived: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `GMAIL_REFRESH_TOKEN` deleted from `cavies-studio`, and the Gmail grant "Cavies Studio Enquiries" removed from tin@'s Google account (linked apps). Nothing else used that OAuth client (searched the workspace, `tools/outreach` uses the Gmail connector, `tools/invoicing` Apps Script).
+
+**Test send (Meow approved it in the thread)**
+- One enquiry on https://cavies.studio/contact, name "Cavies test (agent)", email contact@cavies.studio, service "Not sure yet". Meow ticked Turnstile and pressed Send. It reached tin@'s Inbox (Primary) at 16:44:54 UTC: From `Cavies website <contact@cavies.studio>`, Reply-To `contact@cavies.studio` (the address typed in the form), Return-Path `bounces@cf-bounce.cavies.studio`, SPF, DKIM (`cavies.studio`, selector `cf-bounce`) and DMARC pass.
+
+**Decisions (mine)**
+- Tested on production, not the test Worker: the test Worker would need its own secrets and the workers.dev hostname put back on the Turnstile widget. Rollback was one `wrangler rollback` while the Google secrets existed.
+- The test Worker carries the same `EMAIL` binding; it sends nothing while `ENQUIRY_DELIVERY_ENABLED` is unset there.
+
+**Mistake, fixed**
+- I ran `npm run deploy:cf:xyz` from a checkout made before PR #46, which had removed that script and deleted the `cavies-xyz` Worker. It re-created the Worker (version `79c6a3b9`) for about 5 minutes; visitors still got the 308 because the Redirect Rule runs first. I deleted it again with `wrangler delete --name cavies-xyz`. Not checked by listing: that its `cavies.xyz/*` route went with it (deleting a Worker removes its routes; both cavies.xyz hosts answer 308 to cavies.studio).
+
+**Open**
+- The workerd ledger test failed once in the first gate run (all six requests 429), then passed on the three runs after. It reuses persisted Durable Object state and picks one of 200 random IP ranges per run; if it fails again, give it a fresh state directory per run.
+- The Google Cloud project `cavies-studio-enquiries` and its OAuth client still exist, unused. Delete them if wanted (Meow's call; costs nothing).
+
+**How to verify**
+- `cf email-sending subdomains preview -z cavies.studio --name cavies.studio` has an empty `errors` list; `cf email-routing addresses list` shows tin@cavies.studio verified.
+- `SITE_TEST_URL=https://cavies.studio npm run test:smoke` passed 24 of 24 after the deploy; `/privacy` shows "Version 3. Effective 25 November 2026."
+- A POST with the right origin and a broken body answers 400 (endpoint configured), not 503.
+
+**Disk**: removed `studio/node_modules`, `studio/out`, `.next`, `public/_img` and `.wrangler` from the worktree `cavies-homepage-wt-email`, then the worktree itself. DNS snapshots (about 20 KB) are in `review/email-sending-2026-11-25/` in the Cavies Studio workspace.
+
+---
+
 ## cavies.xyz redirects to cavies.studio again: 25 November 2026
 
 **What shipped**
