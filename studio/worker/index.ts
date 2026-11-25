@@ -44,7 +44,6 @@ async function route(
   request: Request,
   env: Env,
   providerFetch?: typeof fetch,
-  sendEmail?: (message: EnquiryEmail) => Promise<unknown>,
 ): Promise<Response> {
   const { pathname } = new URL(request.url);
   if (pathname !== "/api/enquiry") {
@@ -62,7 +61,7 @@ async function route(
   const mailer = env.EMAIL;
   const handler = createEnquiryHandler({
     config: enquiryDeliveryConfig(env),
-    sendEmail: sendEmail ?? (mailer && ((message) => mailer.send(message))),
+    sendEmail: mailer && ((message: EnquiryEmail) => mailer.send(message)),
     rateLimitsReady: enquiryRateLimitConfigured(env),
     clientKey: (incoming) => getEnquiryClientIp(incoming) || null,
     reserveAttempt: async (clientKey) =>
@@ -77,16 +76,13 @@ async function route(
   return handler(request);
 }
 
-/** `providerFetch` and `sendEmail` are for tests only (worker/test-entry.ts). */
+/** `providerFetch` is for tests only (worker/test-entry.ts). */
 export async function handle(
   request: Request,
   env: Env,
   providerFetch?: typeof fetch,
-  sendEmail?: (message: EnquiryEmail) => Promise<unknown>,
 ): Promise<Response> {
-  return withSecurityHeaders(
-    await route(request, env, providerFetch, sendEmail),
-  );
+  return withSecurityHeaders(await route(request, env, providerFetch));
 }
 
 // wrangler.jsonc sends only /api/* here (assets.run_worker_first); every page

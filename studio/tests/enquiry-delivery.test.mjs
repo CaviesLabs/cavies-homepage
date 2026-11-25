@@ -424,13 +424,29 @@ test("Reply-To is the trimmed visitor address", async () => {
   assert.equal(run.sends[0]?.replyTo, "visitor@example.com");
 });
 
+test("setup errors (nothing was sent) answer 503 temporarily unavailable", async () => {
+  for (const result of [
+    sendError("E_SENDER_NOT_VERIFIED"),
+    sendError("E_RECIPIENT_NOT_ALLOWED"),
+    sendError("E_RECIPIENT_PLAN_RESTRICTED"),
+    sendError("E_EMAIL_SENDING_NOT_READY"),
+    new TypeError("private-content malformed message"),
+  ]) {
+    const run = setup({ sent: result });
+    const response = await run.handler(request());
+    assert.equal(response.status, 503);
+    const text = await response.text();
+    assert.match(text, /temporarily unavailable/);
+    assert.ok(!text.includes("private-content"));
+    assert.equal(run.sends.length, 1);
+  }
+});
+
 test("send errors and missing message ids return failure without retry or provider details", async () => {
   for (const result of [
     sendError("E_DELIVERY_FAILED"),
-    sendError("E_SENDER_NOT_VERIFIED"),
-    sendError("E_RECIPIENT_PLAN_RESTRICTED"),
+    sendError("E_INTERNAL_SERVER_ERROR"),
     new Error("private-content without a code"),
-    new TypeError("private-content malformed message"),
     undefined,
     {},
     { messageId: "" },

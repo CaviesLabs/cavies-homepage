@@ -18,6 +18,21 @@ const throttledCodes = new Set([
   "E_RATE_LIMIT_EXCEEDED",
   "E_DAILY_LIMIT_EXCEEDED",
 ]);
+// Errors that mean our own setup is wrong and nothing was sent: the visitor
+// gets "temporarily unavailable" (as a broken Google grant did before), not
+// "couldn't confirm".
+const setupCodes = new Set([
+  "E_SENDER_NOT_VERIFIED",
+  "E_SENDER_DOMAIN_NOT_AVAILABLE",
+  "E_SENDER_DOMAIN_NOT_CONFIGURED",
+  "E_EMAIL_SENDING_NOT_READY",
+  "E_RECIPIENT_NOT_ALLOWED",
+  "E_RECIPIENT_PLAN_RESTRICTED",
+  "E_RECIPIENT_SUPPRESSED",
+  "E_ACCOUNT_SUSPENDED",
+  "E_HEADER_NOT_ALLOWED",
+  "E_HEADER_USE_API_FIELD",
+]);
 const maxBodyBytes = 8 * 1024;
 const maxProviderBytes = 32 * 1024;
 const bodyTimeoutMs = 3_000;
@@ -431,9 +446,12 @@ export function createEnquiryHandler(
       if (/^E_[A-Z_]{1,60}$/.test(code)) {
         console.log(JSON.stringify({ event: "enquiry_send_failed", code }));
       }
-      return throttledCodes.has(code)
-        ? failure(429, unconfirmedMessage, 60)
-        : failure(502, unconfirmedMessage);
+      if (throttledCodes.has(code)) return failure(429, unconfirmedMessage, 60);
+      // A TypeError is the binding refusing a malformed message: nothing sent.
+      if (setupCodes.has(code) || error instanceof TypeError) {
+        return failure(503, unavailableMessage);
+      }
+      return failure(502, unconfirmedMessage);
     }
   };
 }

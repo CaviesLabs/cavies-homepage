@@ -1,9 +1,10 @@
 // Test-only entry for tests/workerd.test.mjs, run under `wrangler dev` (workerd).
 // The real handler, headers and ledger run unchanged; the Turnstile URL is
 // pointed at a local stub server (STUB_URL) through the runtime's own fetch,
-// and the email send is posted to the same stub as JSON instead of going to
-// the binding, so runtime differences (fetch options, Web Crypto, Durable
-// Objects, the send path's error handling) are exercised and nothing is sent.
+// and env.EMAIL is swapped for an object with the binding's send() that posts
+// the message to the same stub as JSON, so the real wiring from env.EMAIL and
+// runtime differences (fetch options, Web Crypto, Durable Objects, the send
+// path's error handling) are exercised and nothing is sent.
 import { handle, type Env } from "./index";
 
 export { EnquiryLedger } from "./ledger";
@@ -31,8 +32,12 @@ export default {
   fetch: (request: Request, env: TestEnv) =>
     handle(
       request,
-      env,
+      {
+        ...env,
+        EMAIL: {
+          send: (message: unknown) => stubSend(env, message),
+        } as unknown as SendEmail,
+      },
       (url, init) => fetch(env.STUB_URL + stubPaths[String(url)], init),
-      (message) => stubSend(env, message),
     ),
 } satisfies ExportedHandler<TestEnv>;

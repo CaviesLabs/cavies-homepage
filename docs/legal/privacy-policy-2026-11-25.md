@@ -4,7 +4,7 @@ Published at https://cavies.studio/privacy (the page is built from `studio/lib/s
 
 Version 2 (14 November 2026) is kept in `privacy-policy-2026-11-14.md`, version 1 in `privacy-policy-2026-11-10.md`. What changed in version 3: the contact form now sends each enquiry to our mailbox through Cloudflare Email Service instead of handing it to Google's Gmail service, so the short version and "Who handles it" say Cloudflare sends the enquiry on and Google's mailbox is where it arrives. Nothing else changed.
 
-Status: a factual update for the delivery change Meow agreed on 25 November 2026; published with the deploy that makes the change, so the text never describes a path the site does not use. Not legal advice; not reviewed by an adviser.
+Status: a factual update for the delivery change Meow agreed on 25 November 2026; published with the deploy that makes the change, so the text never describes a path the site does not use. If that deploy happens on another day, correct the effective date in both files. Not legal advice; not reviewed by an adviser.
 
 ---
 
