@@ -62,6 +62,14 @@ const fieldOrder: (keyof EnquiryFields)[] = [
   "brief",
 ];
 
+/**
+ * The status line under the form. Its text and its tone are one value, so a message can never be shown
+ * in the style of the message before it. They were two states until 26 Nov 2026: after a failed send,
+ * "Draft copied" kept the error style and was read out as an alert.
+ */
+type Notice = { text: string; tone: "info" | "error" };
+const noNotice: Notice = { text: "", tone: "info" };
+
 export function EnquiryForm({
   deliveryEnabled = false,
   turnstileSiteKey,
@@ -80,12 +88,11 @@ export function EnquiryForm({
   const [briefEdited, setBriefEdited] = useState(false);
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [draft, setDraft] = useState<EnquiryDraft | null>(null);
-  const [status, setStatus] = useState("");
+  const [notice, setNotice] = useState<Notice>(noNotice);
   const [copying, setCopying] = useState(false);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [sentOn, setSentOn] = useState("");
-  const [statusIsError, setStatusIsError] = useState(false);
   const [company, setCompany] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
@@ -142,10 +149,15 @@ export function EnquiryForm({
     }
   }, [sending, errors]);
 
+  /** A message that takes focus: the result of sending, or what is wrong. */
   function announce(message: string, isError = false) {
-    setStatus(message);
-    setStatusIsError(isError);
+    setNotice({ text: message, tone: isError ? "error" : "info" });
     statusRef.current?.focus();
+  }
+
+  /** A plain message that leaves focus where it is. It is never an error. */
+  function say(text: string) {
+    setNotice({ text, tone: "info" });
   }
 
   function focusFirstError(nextErrors: EnquiryErrors) {
@@ -164,18 +176,16 @@ export function EnquiryForm({
     setFields((previous) => ({ ...previous, [field]: value }));
     setErrors((previous) => ({ ...previous, [field]: undefined }));
     setDraft(null);
-    setStatus("");
+    setNotice(noNotice);
     setCopying(false);
     setSent(false);
-    setStatusIsError(false);
   }
 
   function prepareDraft() {
     if (pending.current) return null;
     revision.current += 1;
-    setStatus("");
+    setNotice(noNotice);
     setCopying(false);
-    setStatusIsError(false);
     const result = prepareEnquiry(current, contactEmail);
     if (!result.ok) {
       setErrors(result.errors);
@@ -217,7 +227,7 @@ export function EnquiryForm({
     pending.current = true;
     setSending(true);
     setDraft(null);
-    setStatus("Sending your enquiry…");
+    say("Sending your enquiry…");
     const timeout = window.setTimeout(() => controller.abort(), 30_000);
 
     try {
@@ -319,14 +329,14 @@ export function EnquiryForm({
     if (revision.current !== currentRevision) return;
     setCopying(false);
     if (outcome === "copied") {
-      setStatus(
+      say(
         directDelivery
           ? "Draft copied. Paste it into your email app or webmail if you need to follow up."
           : "Draft copied. Nothing has been sent. Paste it into your email app or webmail and send it there.",
       );
     } else {
       selectDraft();
-      setStatus(
+      say(
         "Automatic copy isn’t available. The draft is selected below; use your device’s Copy command, then paste it into your email app or webmail.",
       );
     }
@@ -343,9 +353,8 @@ export function EnquiryForm({
     setCopying(false);
     setCompany("");
     setSent(false);
-    setStatusIsError(false);
     turnstileRef.current?.reset();
-    setStatus("Form cleared on this page.");
+    say("Form cleared on this page.");
     formRef.current?.querySelector<HTMLElement>("#enquiry-name")?.focus();
   }
 
@@ -578,12 +587,12 @@ export function EnquiryForm({
       <p
         ref={statusRef}
         tabIndex={-1}
-        className={`${styles.status} ${statusIsError ? styles.statusError : ""}`}
+        className={`${styles.status} ${notice.tone === "error" ? styles.statusError : ""}`}
         role="status"
-        aria-live={statusIsError ? "assertive" : "polite"}
+        aria-live={notice.tone === "error" ? "assertive" : "polite"}
         aria-atomic="true"
       >
-        {status}
+        {notice.text}
       </p>
       {sent ? (
         <EnquiryTicket
@@ -617,7 +626,7 @@ export function EnquiryForm({
                 className={`button ${styles.primaryButton}`}
                 href={draft.mailtoHref}
                 onClick={() =>
-                  setStatus(
+                  say(
                     "Your device will try to open its email app. Opening a draft does not send it. If no draft opens, copy the text below to webmail.",
                   )
                 }
