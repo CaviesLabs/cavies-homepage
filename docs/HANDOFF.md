@@ -30,7 +30,7 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 **Open items**
 - None for cavies.xyz. Nobody needs to run `deploy:cf:xyz` any more; it no longer exists.
-- Still stale from before: `studio/redirect/` (retired Worker), the `deploy:cf:redirect` script, two lines in `studio/docs/cloudflare-workers.md` that describe that Worker as live, and the smoke test that imports it.
+- Still stale from before: `studio/redirect/` (retired Worker), the `deploy:cf:redirect` script, three lines in `studio/docs/cloudflare-workers.md` (11, 23, 51) that describe that Worker as live, and the smoke test that imports it.
 
 **How to verify**
 - `curl -I https://cavies.xyz/` and `curl -I "https://www.cavies.xyz/contact?a=1"` are 308 to the same path and query on `https://cavies.studio`.
