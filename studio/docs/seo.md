@@ -5,7 +5,7 @@ The primary positioning is website design and frontend engineering for startups 
 ## Maintained signals
 
 - Canonicals, Open Graph URLs, and the sitemap use `https://cavies.studio`.
-- `www.cavies.studio` redirects with HTTP 308, preserving paths and queries. Since 17 November 2026 `cavies.xyz` serves a copy of the site instead of redirecting (see `cloudflare-workers.md`, "cavies.xyz"); every page on it carries a canonical tag pointing at `https://cavies.studio`, and its robots.txt and sitemap name the canonical URLs, so search engines keep indexing cavies.studio. `www.cavies.xyz` redirects to `https://cavies.xyz`.
+- `www.cavies.studio` and the former `cavies.xyz` and `www.cavies.xyz` hostnames redirect to `https://cavies.studio` with HTTP 308, preserving paths and queries. `cavies.xyz` served a copy of the site from 17 to 25 November 2026 (see `cloudflare-workers.md`, "cavies.xyz"); every page of that copy carried a canonical tag pointing at `https://cavies.studio`.
 - All public pages have unique search titles/descriptions and matching Open Graph/Twitter metadata. The homepage sharing image is `public/brand/social-card.png`; case studies use their own uncropped source images.
 - Organization and WebSite JSON-LD identify Cavies Studio, its logo, contact address, and owner-confirmed LinkedIn profile. Case pages provide BreadcrumbList and WebPage data. Advisory screenshots do not assert Cavies designed the current Ancient8 or Solscan websites.
 - The sitemap is generated from the portfolio data and includes every case-study hero and gallery image. No automatically refreshed last-modified timestamps are invented.

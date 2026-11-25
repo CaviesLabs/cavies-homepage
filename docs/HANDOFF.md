@@ -15,6 +15,30 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## cavies.xyz redirects to cavies.studio again: 25 November 2026
+
+**What shipped**
+- Meow said (25 Nov 2026) the AWS Activate credit has arrived and asked for cavies.xyz to redirect to cavies.studio again, undoing the 17 November change.
+- The cavies.xyz zone's Redirect Rule (ref `cavies_xyz_to_cavies_studio`) matches `cavies.xyz` and `www.cavies.xyz` again and sends both to `https://cavies.studio` (308, path and query kept). Changed with `cf rulesets rules update`.
+- The assets-only Worker `cavies-xyz` and its route `cavies.xyz/*` are deleted (`wrangler delete`), after the rule was live and checked.
+- Repo: `studio/wrangler.xyz.jsonc`, the `deploy:cf:xyz` script and the `xyz` mode of `studio/scripts/deploy-cf.mjs` are removed. `CLAUDE.md`, `studio/README.md`, `studio/docs/seo.md`, `studio/docs/cloudflare-workers.md` and the comment in `studio/public/_redirects` describe the redirect.
+- No DNS record changed. cavies.studio was not deployed or touched.
+
+**Decisions (mine)**
+- Deleted the Worker instead of leaving it without traffic: the rule runs before it, so it could never answer, and a stale copy of the site is one more thing to drift.
+- The docs say the redirects are Cloudflare Redirect Rules, not the text from before 17 November, which still named the retired `redirect/` Worker.
+
+**Open items**
+- None for cavies.xyz. Nobody needs to run `deploy:cf:xyz` any more; it no longer exists.
+- Still stale from before: `studio/redirect/` (retired Worker), the `deploy:cf:redirect` script, two lines in `studio/docs/cloudflare-workers.md` that describe that Worker as live, and the smoke test that imports it.
+
+**How to verify**
+- `curl -I https://cavies.xyz/` and `curl -I "https://www.cavies.xyz/contact?a=1"` are 308 to the same path and query on `https://cavies.studio`.
+- Checked after the change: cavies.xyz (https and http), a path with a query on both hosts, cavies.studio 200, www.cavies.studio 308, playables.cavies.xyz 200. Not checked: Search Console (the 308 is the signal it needs; nothing to do there).
+
+**Disk**
+- Nothing new kept. The worktree `cavies-homepage-wt-cf` keeps its `studio/node_modules` and `studio/out` from earlier threads.
+
 ## Gate setup step: 25 November 2026
 
 **What shipped** (branch `chore/gate-setup`; tooling only; no page change, nothing deployed)
