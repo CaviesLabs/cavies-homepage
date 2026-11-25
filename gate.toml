@@ -1,0 +1,54 @@
+# The pre-push gate: what `git push` runs in this repo (studio-os ops/machine/GATE.md).
+# lefthook.yml runs `python ~/.cavies/gate.py pre-push`. A push runs only the checks its new files can
+# affect, and a check that passed on exactly these files on this PC reads "same".
+#   python ~/.cavies/gate.py plan        what a push would run, and why
+#   python ~/.cavies/gate.py check       what each check skips; globs that match nothing
+# Together the checks equal the verify gate in CLAUDE.md, in its order. Change both together.
+# The app lives in studio/: every check runs from there.
+
+[gate]
+# A push touching any of these runs every check: the gate's own files, dependencies and toolchain, the
+# enquiry endpoint and its rate-limit ledger (visitors' messages), the privacy pages' source, and the
+# Worker build, deploy and redirect configs.
+never_skip = [
+  "gate.toml", "lefthook.yml",
+  "package.json", "package-lock.json", ".npmrc", ".nvmrc",
+  "tsconfig*.json", "eslint.config.*", "next.config.*", "wrangler*.jsonc",
+  "studio/worker", "studio/lib/enquiry.ts", "studio/lib/contact.ts", "studio/lib/*privacy*.ts",
+  "studio/scripts/build-cf.mjs", "studio/scripts/deploy-cf.mjs", "studio/scripts/authorize-gmail.mjs",
+  "studio/redirect",
+]
+versions = ["node --version", "npm --version"]
+
+[paths]
+# Markdown and the docs folders: code, tests and the build name them only in comments (checked 25 Nov 2026).
+docs = ["*.md", "docs/**", "studio/docs/**"]
+
+[[check]]
+name = "lint"
+run = "cd studio && npm run lint"
+skip = ["docs"]
+
+[[check]]
+name = "types"
+run = "cd studio && npm run typecheck"
+skip = ["docs"]
+units = 2
+
+[[check]]
+name = "build"
+run = "cd studio && npm run build"
+skip = ["docs"]
+units = 4
+
+[[check]]
+name = "enquiry and scope tests"
+run = "cd studio && npm run test:enquiry && npm run test:scope"
+skip = ["docs"]
+
+[[check]]
+name = "workerd test"
+run = "cd studio && npm run test:workerd"
+skip = ["docs"]
+units = 2
+ports = 3

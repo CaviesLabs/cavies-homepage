@@ -32,13 +32,13 @@ The site works without delivery credentials: it shows an email-draft composer, a
 Gmail delivery setup, operating limits, validation, and rollback are documented in `docs/enquiry-delivery.md`. Never expose credentials through public environment variables or commit Google client downloads. Verify actual inbox arrival before enabling production delivery; a Gmail API acknowledgement confirms acceptance, not inbox placement.
 
 ## Commands
-Run from `studio/`. There is no lefthook, no pnpm workspace and no GitHub Actions; the checks run locally.
-- `npm ci`: install dependencies.
+Run from `studio/`. There is no pnpm workspace and no GitHub Actions; the checks run locally, through the studio pre-push gate.
+- `npm ci`: install dependencies. Once per clone, `lefthook install` at the repo root installs the pre-push gate.
 - `npm run dev`: run the site locally (Node.js 22.18 or later).
-- Verify gate, run before every push and before merging: `npm run lint`, `npm run typecheck`, `npm run build`, `npm run test:enquiry`, `npm run test:scope`, `npm run test:workerd` (the commands `studio/README.md` lists under Validation). For routes and metadata, build with `npm run build:cf`, run `npx wrangler dev --port 3100` and `npm run test:smoke`.
+- Verify gate: `npm run lint`, `npm run typecheck`, `npm run build`, `npm run test:enquiry`, `npm run test:scope`, `npm run test:workerd` (the commands `studio/README.md` lists under Validation). `git push` runs them through the studio pre-push gate (`gate.toml`; studio-os `ops/machine/GATE.md`): only those the push can affect, `same` for those that passed on these files, and the workerd test on a free block of ports. `python ~/.cavies/gate.py plan` shows what a push would run; `CAVIES_GATE=full git push` runs every check. For routes and metadata, build with `npm run build:cf`, run `npx wrangler dev --port 3100` and `npm run test:smoke`.
 - Deploys: `npm run deploy:cf:production` from `studio/` (wrangler, signed in as the Cloudflare account "Dev@cavies.xyz"). Merging to `main` no longer deploys. Follow the studio shipping rules: verify gate and a smoke check first, batch deploys, smoke-check `https://cavies.studio` after, log it in `docs/HANDOFF.md`.
 
 ## How to finish a task
-1. Run the verify gate and fix what it finds.
+1. Commit, then push: the pre-push gate runs what the push needs. Fix what it finds (`python ~/.cavies/gate.py run` runs the same without pushing).
 2. Add an entry at the top of `docs/HANDOFF.md`: what shipped, decisions, open items, how to verify, links.
 3. Work on a branch and open a PR with `gh`. Merge under the studio shipping rules and the repo rules above.
