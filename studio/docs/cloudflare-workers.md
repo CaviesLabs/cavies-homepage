@@ -68,14 +68,11 @@ Steps:
 
 Rollback, one step per hostname: set the record back to DNS-only (`--proxied false`). Traffic returns to Vercel as soon as resolvers drop the proxied answer (a few minutes). The routes can stay, because they do nothing on a DNS-only record. Two caveats. While a hostname is proxied, Vercel cannot renew its certificate for that name, so the window for rolling back safely is the time left on the existing Vercel certificates (weeks, but not forever); do not leave the Vercel domains proxied-and-forgotten and expect them to work. And once Vercel is retired (project deleted) there is nothing to roll back to; the only way back would be rebuilding it.
 
-## cavies.xyz (17 November 2026)
+## cavies.xyz
 
-Meow asked for cavies.xyz to answer as a website again instead of redirecting, because the AWS Activate application needs a website on the exact domain it names. It is a second, assets-only Worker, `cavies-xyz` (`wrangler.xyz.jsonc`, zone route `cavies.xyz/*` on the existing proxied `AAAA 100::` record). It has no Worker code, no secrets and no enquiry endpoint.
+`cavies.xyz` and `www.cavies.xyz` redirect to `https://cavies.studio` (308, path and query kept) through one Redirect Rule in the cavies.xyz zone: ruleset phase `http_request_dynamic_redirect`, rule ref `cavies_xyz_to_cavies_studio`, expression `(http.host in {"cavies.xyz" "www.cavies.xyz"})`, target `concat("https://cavies.studio", http.request.uri.path)`. Read it with `cf rulesets get <ruleset id> -z cavies.xyz` and change it with `cf rulesets rules update <rule id> --ruleset-id <ruleset id> -z cavies.xyz --body '<json>'`.
 
-- Deploy: `npm run deploy:cf:xyz`. It builds first, always with the direct form off (the production endpoint accepts `https://cavies.studio` only), so `/contact` shows the email-draft composer. Run it after each production deploy so the copy does not drift. A production deploy leaves `out/` as a form-on build and an xyz deploy leaves it form-off; each script rebuilds, so the order does not matter.
-- The pages are the same as cavies.studio: canonical tags, structured data, robots.txt and the sitemap all name `https://cavies.studio`, so search engines treat cavies.xyz as a duplicate of the canonical site. The privacy policy and contact addresses still say cavies.studio.
-- The cavies.xyz zone's Redirect Rule (ruleset phase `http_request_dynamic_redirect`, rule ref `cavies_xyz_to_cavies_studio`) now matches `www.cavies.xyz` only and sends it to `https://cavies.xyz` (308, path and query kept). Redirect Rules run before Workers, so the apex had to leave the rule for the route to fire.
-- To go back to redirecting: set the rule's expression to `(http.host in {"cavies.xyz" "www.cavies.xyz"})` and its target to `concat("https://cavies.studio", http.request.uri.path)` with `cf rulesets rules edit`, then `npx wrangler delete -c wrangler.xyz.jsonc`.
+From 17 to 25 November 2026 the apex served a copy of the site instead, because the AWS Activate application needed a website on the exact domain it named: an assets-only Worker `cavies-xyz` on the zone route `cavies.xyz/*`, built with the direct form off, while the rule matched `www.cavies.xyz` only. The credit arrived, Meow asked on 25 November for the redirect back, the rule was restored and the Worker deleted. Its configuration and deploy mode are in git history (PR #36) if a site on that domain is ever needed again; Redirect Rules run before Workers, so the apex has to leave the rule for a route to fire.
 
 ## Privacy policy
 

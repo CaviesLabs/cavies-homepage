@@ -15,7 +15,6 @@
     "deploy:cf": "node scripts/deploy-cf.mjs test",
     "test:workerd": "node --test tests/workerd.test.mjs",
     "deploy:cf:production": "node scripts/deploy-cf.mjs production",
-    "deploy:cf:xyz": "node scripts/deploy-cf.mjs xyz",
     "demos:drop": "node scripts/drop-playable-demos.mjs",
     "deploy:cf:redirect": "wrangler deploy -c redirect/wrangler.jsonc"
   },
