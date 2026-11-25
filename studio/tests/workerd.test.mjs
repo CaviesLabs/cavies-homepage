@@ -6,8 +6,11 @@ import { spawn } from "node:child_process";
 import { createServer } from "node:http";
 import test, { after, before } from "node:test";
 
-const workerPort = 3101;
-const stubPort = 3102;
+// Ports: a free block from the studio pre-push gate when it runs this (CAVIES_GATE_PORT_BASE, studio-os
+// ops/machine/GATE.md), so two checkouts never share them; by hand, 3101 to 3103.
+const workerPort = Number(process.env.CAVIES_GATE_PORT_BASE ?? 3101);
+const stubPort = workerPort + 1;
+const inspectorPort = workerPort + 2;
 const base = `http://127.0.0.1:${workerPort}`;
 // A fresh range each run: wrangler dev keeps Durable Object state between runs.
 const run = Math.floor(Math.random() * 200) + 1;
@@ -46,7 +49,7 @@ before(async () => {
         });
       }
       if (sendStatus === 302) {
-        return json(302, {}, { location: "http://127.0.0.1:3102/elsewhere" });
+        return json(302, {}, { location: `http://127.0.0.1:${stubPort}/elsewhere` });
       }
       return json(200, { id: "stub-message-id" });
     });
@@ -63,6 +66,11 @@ before(async () => {
       String(workerPort),
       "--ip",
       "127.0.0.1",
+      "--inspector-port",
+      String(inspectorPort),
+      // The stub's address follows its port (tests/workerd/wrangler.jsonc holds the by-hand default).
+      "--var",
+      `STUB_URL:http://127.0.0.1:${stubPort}`,
     ],
     { stdio: "ignore" },
   );

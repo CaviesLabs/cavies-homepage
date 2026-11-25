@@ -1,0 +1,9 @@
+# The pre-push gate. There is no hosted CI: checks run on the machine that makes the change, and this
+# hook stops a push that fails them. gate.toml says which checks run (studio-os ops/machine/GATE.md).
+# Install once per clone with `lefthook install` (the lefthook binary on PATH).
+pre-push:
+  follow: true
+  jobs:
+    - name: gate
+      run: python "$HOME/.cavies/gate.py" pre-push {1}
+      use_stdin: true
