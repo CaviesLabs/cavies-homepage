@@ -31,19 +31,15 @@ const valid = {
   company: "",
   turnstileToken: "mock-token",
 };
+const mailer = { send: async () => ({ messageId: "binding-message-id" }) };
 const env = {
   ENQUIRY_DELIVERY_ENABLED: "true",
   TURNSTILE_SECRET_KEY: "mock-secret",
-  GOOGLE_CLIENT_ID: "mock-client-id",
-  GOOGLE_CLIENT_SECRET: "mock-client-secret",
-  GMAIL_REFRESH_TOKEN: "mock-refresh-token",
+  EMAIL: mailer,
 };
 const captcha = { success: true, hostname: "cavies.studio", action: "enquiry" };
-const googleToken = {
-  access_token: "mock-access-token",
-  token_type: "Bearer",
-  scope: "https://www.googleapis.com/auth/gmail.send",
-};
+const sendError = (code) =>
+  Object.assign(new Error(`binding detail private-content ${code}`), { code });
 
 function request(body = valid, headers = {}) {
   return new Request("https://cavies.studio/api/enquiry", {
@@ -60,14 +56,18 @@ function request(body = valid, headers = {}) {
 function setup(overrides = {}) {
   const calls = [];
   const reservations = [];
-  const replies = overrides.replies || [
-    captcha,
-    googleToken,
-    { id: "message-id" },
-  ];
+  const sends = [];
+  const replies = overrides.replies || [captcha];
+  const sent =
+    "sent" in overrides ? overrides.sent : { messageId: "binding-message-id" };
   const handler = createEnquiryHandler({
     config: enquiryDeliveryConfig(overrides.env || env),
     rateLimitsReady: true,
+    sendEmail: async (message) => {
+      sends.push(message);
+      if (sent instanceof Error) throw sent;
+      return sent;
+    },
     clientKey: () => "192.0.2.10",
     reserveAttempt: async (key) => {
       reservations.push(key);
@@ -82,7 +82,7 @@ function setup(overrides = {}) {
     },
     ...overrides.dependencies,
   });
-  return { handler, calls, reservations };
+  return { handler, calls, reservations, sends };
 }
 
 test("production config is exact-origin only and ignores development knobs", () => {
@@ -157,19 +157,20 @@ test("rejects absent, null, foreign, malformed and cross-site origins before any
   assert.equal(run.calls.length, 0);
 });
 
-test("fails closed when delivery, credentials, CAPTCHA key or durable limiter is missing", async () => {
+test("fails closed when delivery, the email binding, CAPTCHA key or durable limiter is missing", async () => {
   assert.equal(enquiryDeliveryConfigured(env), true);
-  for (const key of [
-    "ENQUIRY_DELIVERY_ENABLED",
-    "TURNSTILE_SECRET_KEY",
-    "GOOGLE_CLIENT_ID",
-    "GOOGLE_CLIENT_SECRET",
-    "GMAIL_REFRESH_TOKEN",
+  for (const [key, value] of [
+    ["ENQUIRY_DELIVERY_ENABLED", ""],
+    ["ENQUIRY_DELIVERY_ENABLED", "yes"],
+    ["TURNSTILE_SECRET_KEY", ""],
+    ["EMAIL", undefined],
+    ["EMAIL", {}],
   ]) {
-    const run = setup({ env: { ...env, [key]: "" } });
-    assert.equal(enquiryDeliveryConfigured({ ...env, [key]: "" }), false);
+    const run = setup({ env: { ...env, [key]: value } });
+    assert.equal(enquiryDeliveryConfigured({ ...env, [key]: value }), false);
     assert.equal((await run.handler(request())).status, 503, key);
     assert.equal(run.calls.length, 0);
+    assert.equal(run.sends.length, 0);
   }
   for (const secret of [
     "1x0000000000000000000000000000000AA",
@@ -187,6 +188,7 @@ test("fails closed when delivery, credentials, CAPTCHA key or durable limiter is
   for (const dependencies of [
     { rateLimitsReady: false },
     { clientKey: () => null },
+    { sendEmail: undefined },
   ]) {
     const run = setup({ dependencies });
     assert.equal((await run.handler(request())).status, 503);
@@ -330,7 +332,7 @@ test("requires CAPTCHA success, exact hostname and enquiry action before reservi
   }
 });
 
-test("CAPTCHA outage and durable limiter failure cannot proceed to Gmail", async () => {
+test("CAPTCHA outage and durable limiter failure cannot proceed to the email send", async () => {
   for (const reply of [
     new Error("Provider secret detail"),
     new Response("unavailable", { status: 500 }),
@@ -350,9 +352,10 @@ test("CAPTCHA outage and durable limiter failure cannot proceed to Gmail", async
   });
   assert.equal((await run.handler(request())).status, 503);
   assert.equal(run.calls.length, 1);
+  assert.equal(run.sends.length, 0);
 });
 
-test("durable quota rejects with Retry-After and never refreshes Google token", async () => {
+test("durable quota rejects with Retry-After and never sends", async () => {
   const run = setup({
     dependencies: {
       reserveAttempt: async () => ({ allowed: false, retryAfter: 61 }),
@@ -362,50 +365,10 @@ test("durable quota rejects with Retry-After and never refreshes Google token", 
   assert.equal(response.status, 429);
   assert.equal(response.headers.get("retry-after"), "61");
   assert.equal(run.calls.length, 1);
+  assert.equal(run.sends.length, 0);
 });
 
-test("refresh errors, malformed tokens and overprivileged scopes cannot send mail", async () => {
-  for (const token of [
-    new Error("refresh token secret"),
-    Response.json({ error: "invalid_grant" }, { status: 400 }),
-    {},
-    { access_token: "" },
-    { ...googleToken, token_type: "Other" },
-    { ...googleToken, scope: undefined },
-    { ...googleToken, scope: "openid email" },
-    { ...googleToken, scope: `${googleToken.scope} https://mail.google.com/` },
-    {
-      ...googleToken,
-      scope: `${googleToken.scope} https://www.googleapis.com/auth/gmail.readonly`,
-    },
-  ]) {
-    const run = setup({ replies: [captcha, token] });
-    const response = await run.handler(request());
-    assert.equal(response.status, 503);
-    assert.ok(!(await response.text()).includes("refresh token secret"));
-    assert.equal(run.calls.length, 2);
-    assert.equal(run.reservations.length, 1);
-  }
-});
-
-test("send permission may be accompanied only by the one-time identity scopes", async () => {
-  for (const identity of [
-    "openid email",
-    "openid https://www.googleapis.com/auth/userinfo.email",
-  ]) {
-    const run = setup({
-      replies: [
-        captcha,
-        { ...googleToken, scope: `${googleToken.scope} ${identity}` },
-        { id: "message-id" },
-      ],
-    });
-    assert.equal((await run.handler(request())).status, 200);
-    assert.equal(run.calls.length, 3);
-  }
-});
-
-test("only Gmail acknowledgement succeeds; MIME preserves Unicode and fixes all routing headers", async () => {
+test("only a binding message id succeeds; the message is fixed except Reply-To and the body", async () => {
   const run = setup();
   const data = {
     ...valid,
@@ -418,105 +381,128 @@ test("only Gmail acknowledgement succeeds; MIME preserves Unicode and fixes all 
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { ok: true });
   assert.equal(response.headers.get("cache-control"), "no-store");
-  assert.equal(run.calls.length, 3);
+  assert.equal(run.calls.length, 1);
   assert.deepEqual(run.reservations, ["192.0.2.10"]);
   assert.equal(
     run.calls[0].url,
     "https://challenges.cloudflare.com/turnstile/v0/siteverify",
   );
   assert.equal(run.calls[0].init.body.get("response"), "mock-token");
-  assert.equal(run.calls[1].url, "https://oauth2.googleapis.com/token");
-  assert.equal(run.calls[1].init.body.get("grant_type"), "refresh_token");
-  assert.equal(run.calls[1].init.body.get("scope"), googleToken.scope);
-  assert.equal(
-    run.calls[2].url,
-    "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
-  );
-  assert.equal(
-    run.calls[2].init.headers.Authorization,
-    "Bearer mock-access-token",
-  );
   assert.ok(
     run.calls.every(
       ({ init }) => init.cache === "no-store" && init.redirect === "manual",
     ),
   );
-  const raw = JSON.parse(run.calls[2].init.body).raw;
-  assert.match(raw, /^[A-Za-z0-9_-]+$/);
-  const [headers, encodedBody] = Buffer.from(raw, "base64url")
-    .toString("utf8")
-    .split("\r\n\r\n");
-  assert.match(
-    headers,
-    /^From: Cavies website <contact@cavies.studio>\r\nTo: tin@cavies.studio\r\nReply-To: visitor@example.com\r\n/,
-  );
-  assert.match(
-    headers,
-    /Subject: Project enquiry: Business website & support\r\n/,
-  );
-  assert.match(headers, /Content-Type: text\/plain; charset="UTF-8"/);
+  assert.equal(run.sends.length, 1);
+  const [message] = run.sends;
+  assert.deepEqual(Object.keys(message).sort(), [
+    "from",
+    "replyTo",
+    "subject",
+    "text",
+    "to",
+  ]);
+  assert.deepEqual(message.from, {
+    name: "Cavies website",
+    email: "contact@cavies.studio",
+  });
+  assert.equal(message.to, "tin@cavies.studio");
+  assert.equal(message.replyTo, "visitor@example.com");
+  assert.equal(message.subject, "Project enquiry: Business website & support");
   assert.ok(
-    !headers.includes("attacker") &&
-      !headers.includes("Ignored subject") &&
-      !headers.includes("René"),
+    !message.subject.includes("René") &&
+      !message.subject.includes("Ignored subject") &&
+      !JSON.stringify([message.to, message.from]).includes("attacker"),
   );
-  assert.ok(encodedBody.split("\r\n").every((line) => line.length <= 76));
-  const body = Buffer.from(
-    encodedBody.replaceAll("\r\n", ""),
-    "base64",
-  ).toString("utf8");
-  assert.match(body, /Name: René · 阮/);
-  assert.ok(body.endsWith(data.brief.replaceAll("\n", "\r\n")));
+  assert.match(message.text, /Name: René · 阮/);
+  assert.ok(message.text.endsWith(data.brief));
 });
 
-test("send errors and missing IDs return failure without retry or provider details", async () => {
+test("Reply-To is the trimmed visitor address", async () => {
+  const run = setup();
+  await run.handler(request({ ...valid, email: "  visitor@example.com " }));
+  assert.equal(run.sends[0]?.replyTo, "visitor@example.com");
+});
+
+test("setup errors (nothing was sent) answer 503 temporarily unavailable", async () => {
   for (const result of [
-    new Error("access-token private-content"),
-    Response.json({ error: "private-content" }, { status: 403 }),
-    {},
-    { id: "" },
+    sendError("E_SENDER_NOT_VERIFIED"),
+    sendError("E_RECIPIENT_NOT_ALLOWED"),
+    sendError("E_RECIPIENT_PLAN_RESTRICTED"),
+    sendError("E_EMAIL_SENDING_NOT_READY"),
+    new TypeError("private-content malformed message"),
   ]) {
-    const run = setup({ replies: [captcha, googleToken, result] });
+    const run = setup({ sent: result });
+    const response = await run.handler(request());
+    assert.equal(response.status, 503);
+    const text = await response.text();
+    assert.match(text, /temporarily unavailable/);
+    assert.ok(!text.includes("private-content"));
+    assert.equal(run.sends.length, 1);
+  }
+});
+
+test("send errors and missing message ids return failure without retry or provider details", async () => {
+  for (const result of [
+    sendError("E_DELIVERY_FAILED"),
+    sendError("E_INTERNAL_SERVER_ERROR"),
+    new Error("private-content without a code"),
+    undefined,
+    {},
+    { messageId: "" },
+    { messageId: 42 },
+  ]) {
+    const run = setup({ sent: result });
     const response = await run.handler(request());
     assert.equal(response.status, 502);
-    assert.equal(run.calls.length, 3);
+    assert.equal(run.sends.length, 1);
     assert.ok(!(await response.text()).includes("private-content"));
   }
 });
 
-test("Gmail throttling is exposed as a bounded retry interval without automatic retry", async () => {
-  const run = setup({
-    replies: [
-      captcha,
-      googleToken,
-      Response.json({ error: "quota" }, { status: 429 }),
-    ],
-  });
-  const response = await run.handler(request());
-  assert.equal(response.status, 429);
-  assert.equal(response.headers.get("retry-after"), "60");
-  assert.equal(run.calls.length, 3);
+test("Email Sending throttling is a bounded retry interval without automatic retry", async () => {
+  for (const code of ["E_RATE_LIMIT_EXCEEDED", "E_DAILY_LIMIT_EXCEEDED"]) {
+    const run = setup({ sent: sendError(code) });
+    const response = await run.handler(request());
+    assert.equal(response.status, 429);
+    assert.equal(response.headers.get("retry-after"), "60");
+    assert.equal(run.sends.length, 1);
+  }
 });
 
-test("ambiguous send timeout aborts and does not retry", async () => {
-  let calls = 0;
-  let sendSignal;
+test("only the binding's error code is logged, never message fields", async () => {
+  const lines = [];
+  const original = console.log;
+  console.log = (line) => lines.push(String(line));
+  try {
+    await setup({ sent: sendError("E_DELIVERY_FAILED") }).handler(request());
+    await setup({ sent: new Error("no code") }).handler(request());
+    await setup({
+      sent: Object.assign(new Error("x"), { code: "visitor@example.com" }),
+    }).handler(request());
+  } finally {
+    console.log = original;
+  }
+  assert.deepEqual(lines, [
+    JSON.stringify({ event: "enquiry_send_failed", code: "E_DELIVERY_FAILED" }),
+  ]);
+});
+
+test("ambiguous send timeout fails and does not retry", async () => {
+  let sends = 0;
   const run = setup({
     dependencies: {
       timeoutMs: 20,
-      fetch: async (_url, init) => {
-        calls++;
-        if (calls === 1) return Response.json(captcha);
-        if (calls === 2) return Response.json(googleToken);
-        sendSignal = init.signal;
+      sendEmail: async () => {
+        sends++;
         return new Promise(() => {});
       },
     },
   });
   const response = await run.handler(request());
   assert.equal(response.status, 502);
-  assert.equal(calls, 3);
-  assert.equal(sendSignal.aborted, true);
+  assert.equal(run.calls.length, 1);
+  assert.equal(sends, 1);
 });
 
 test("a provider redirect is a failure, never followed or treated as success", async () => {
@@ -528,7 +514,5 @@ test("a provider redirect is a failure, never followed or treated as success", a
   const captchaRedirect = setup({ replies: [redirect()] });
   assert.equal((await captchaRedirect.handler(request())).status, 503);
   assert.equal(captchaRedirect.calls.length, 1);
-  const sendRedirect = setup({ replies: [captcha, googleToken, redirect()] });
-  assert.equal((await sendRedirect.handler(request())).status, 502);
-  assert.equal(sendRedirect.calls.length, 3);
+  assert.equal(captchaRedirect.sends.length, 0);
 });

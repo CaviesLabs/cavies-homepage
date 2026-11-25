@@ -17,7 +17,8 @@ const run = Math.floor(Math.random() * 200) + 1;
 const ip = (n) => `198.51.${run}.${n}`;
 const endpoint = `${base}/api/enquiry`;
 const calls = [];
-let sendStatus = 200;
+let sendCode = "";
+let turnstileRedirect = false;
 let worker;
 let stub;
 
@@ -34,6 +35,9 @@ before(async () => {
         });
         res.end(JSON.stringify(value));
       };
+      if (req.url === "/turnstile" && turnstileRedirect) {
+        return json(302, {}, { location: `http://127.0.0.1:${stubPort}/elsewhere` });
+      }
       if (req.url === "/turnstile") {
         return json(200, {
           success: true,
@@ -41,17 +45,9 @@ before(async () => {
           action: "enquiry",
         });
       }
-      if (req.url === "/token") {
-        return json(200, {
-          access_token: "stub-access-token",
-          token_type: "Bearer",
-          scope: "https://www.googleapis.com/auth/gmail.send",
-        });
-      }
-      if (sendStatus === 302) {
-        return json(302, {}, { location: `http://127.0.0.1:${stubPort}/elsewhere` });
-      }
-      return json(200, { id: "stub-message-id" });
+      // /send stands in for the EMAIL binding (worker/test-entry.ts).
+      if (sendCode) return json(200, { code: sendCode });
+      return json(200, { messageId: "stub-message-id" });
     });
   });
   await new Promise((resolve) => stub.listen(stubPort, "127.0.0.1", resolve));
@@ -116,30 +112,46 @@ const post = (ip, body = valid) =>
     body: JSON.stringify(body),
   });
 
-test("delivers through Turnstile, the Google token and the Gmail send, under workerd", async () => {
+test("delivers through Turnstile and the email send, under workerd", async () => {
   calls.length = 0;
   const response = await post(ip(10));
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { ok: true });
   assert.deepEqual(
     calls.map((call) => call.path),
-    ["/turnstile", "/token", "/send"],
+    ["/turnstile", "/send"],
   );
-  const raw = JSON.parse(calls[2].body).raw;
-  const mime = Buffer.from(raw, "base64url").toString("utf8");
-  assert.match(
-    mime,
-    /^From: Cavies website <contact@cavies.studio>\r\nTo: tin@cavies.studio\r\nReply-To: visitor@example\.com\r\n/,
-  );
+  const message = JSON.parse(calls[1].body);
+  assert.deepEqual(message.from, {
+    name: "Cavies website",
+    email: "contact@cavies.studio",
+  });
+  assert.equal(message.to, "tin@cavies.studio");
+  assert.equal(message.replyTo, "visitor@example.com");
+  assert.equal(message.subject, "Project enquiry: Security audit");
+  assert.match(message.text, /René Visitor/);
 });
 
-test("a provider redirect fails the send under workerd instead of being followed", async () => {
+test("a binding error code fails the send under workerd, and throttling answers 429", async () => {
   calls.length = 0;
-  sendStatus = 302;
-  const response = await post(ip(11));
-  sendStatus = 200;
-  assert.equal(response.status, 502);
+  sendCode = "E_DELIVERY_FAILED";
+  const failed = await post(ip(11));
+  sendCode = "E_RATE_LIMIT_EXCEEDED";
+  const throttled = await post(ip(11));
+  sendCode = "";
+  assert.equal(failed.status, 502);
+  assert.equal(throttled.status, 429);
+  assert.equal(throttled.headers.get("retry-after"), "60");
+});
+
+test("a provider redirect fails under workerd instead of being followed", async () => {
+  calls.length = 0;
+  turnstileRedirect = true;
+  const response = await post(ip(15));
+  turnstileRedirect = false;
+  assert.equal(response.status, 503);
   assert.ok(!calls.some((call) => call.path === "/elsewhere"));
+  assert.ok(!calls.some((call) => call.path === "/send"));
 });
 
 test("the Durable Object ledger allows five per client per hour and rejects the sixth", async () => {

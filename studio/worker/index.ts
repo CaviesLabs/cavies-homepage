@@ -1,6 +1,7 @@
 import {
   createEnquiryHandler,
   enquiryDeliveryConfig,
+  type EnquiryEmail,
 } from "./enquiry-delivery";
 import type { EnquiryLedger } from "./ledger";
 import {
@@ -19,9 +20,8 @@ export type Env = {
   ENQUIRY_EXTRA_ORIGIN?: string;
   ENQUIRY_ENV?: string;
   TURNSTILE_SECRET_KEY?: string;
-  GOOGLE_CLIENT_ID?: string;
-  GOOGLE_CLIENT_SECRET?: string;
-  GMAIL_REFRESH_TOKEN?: string;
+  /** Cloudflare Email Sending (`send_email` binding in the wrangler config). */
+  EMAIL?: SendEmail;
 };
 
 const securityHeaders = {
@@ -58,8 +58,10 @@ async function route(
       { status: 405, headers: { Allow: "POST", "Cache-Control": "no-store" } },
     );
   }
+  const mailer = env.EMAIL;
   const handler = createEnquiryHandler({
     config: enquiryDeliveryConfig(env),
+    sendEmail: mailer && ((message: EnquiryEmail) => mailer.send(message)),
     rateLimitsReady: enquiryRateLimitConfigured(env),
     clientKey: (incoming) => getEnquiryClientIp(incoming) || null,
     reserveAttempt: async (clientKey) =>

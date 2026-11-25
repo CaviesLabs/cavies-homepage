@@ -8,12 +8,18 @@
     "bindings": [{ "name": "LEDGER", "class_name": "EnquiryLedger" }]
   },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["EnquiryLedger"] }],
+  // The binding must exist for the endpoint to count as configured; the test
+  // entry sends to the stub instead, and wrangler dev only simulates it anyway.
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_sender_addresses": ["contact@cavies.studio"],
+      "allowed_destination_addresses": ["tin@cavies.studio"]
+    }
+  ],
   "vars": {
     "ENQUIRY_DELIVERY_ENABLED": "true",
     "TURNSTILE_SECRET_KEY": "test-turnstile-secret",
-    "GOOGLE_CLIENT_ID": "test-client-id",
-    "GOOGLE_CLIENT_SECRET": "test-client-secret",
-    "GMAIL_REFRESH_TOKEN": "test-refresh-token",
     "RATE_LIMIT_SALT": "test-rate-limit-salt-of-at-least-32-characters",
     "STUB_URL": "http://127.0.0.1:3102"
   }
