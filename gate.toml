@@ -8,13 +8,14 @@
 
 [gate]
 # A push touching any of these runs every check: the gate's own files, dependencies and toolchain, the
-# enquiry endpoint and its rate-limit ledger (visitors' messages), the privacy pages' source, and the
+# enquiry form, endpoint and rate-limit ledger (visitors' messages), the privacy pages' source, and the
 # Worker build, deploy and redirect configs.
 never_skip = [
   "gate.toml", "lefthook.yml",
   "package.json", "package-lock.json", ".npmrc", ".nvmrc",
   "tsconfig*.json", "eslint.config.*", "next.config.*", "wrangler*.jsonc",
   "studio/worker", "studio/lib/enquiry.ts", "studio/lib/contact.ts", "studio/lib/*privacy*.ts",
+  "studio/components/enquiry-*", "studio/app/contact",
   "studio/scripts/build-cf.mjs", "studio/scripts/deploy-cf.mjs", "studio/scripts/authorize-gmail.mjs",
   "studio/redirect",
 ]
