@@ -15,6 +15,37 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## The studio pre-push gate: 25 November 2026
+
+**What shipped** (branch `chore/studio-gate`; tooling and one test only; no page change, nothing deployed)
+- `gate.toml` and `lefthook.yml` (repo root): `git push` now runs the studio gate (studio-os `ops/machine/GATE.md`).
+  - Five checks, run from `studio/`, together the verify gate: lint, types, build, the enquiry and scope tests, and the workerd test.
+  - All of them skip a push that changes only Markdown or a docs folder.
+  - A check that already passed on the same files reads `same`.
+- `studio/tests/workerd.test.mjs`: the worker, stub and inspector ports now come from the gate's free block (`CAVIES_GATE_PORT_BASE`; 3101 to 3103 by hand). The stub's address goes to `wrangler dev` with `--var`. So two checkouts never collide on 3101 and 3102.
+- `never_skip` (every check runs):
+  - the gate's files, the npm, TypeScript, eslint and Next configs, and every `wrangler*.jsonc`;
+  - `studio/worker/` (the enquiry endpoint and its rate-limit ledger), `studio/lib/enquiry.ts`, `studio/lib/contact.ts` and the privacy pages' sources;
+  - the build, deploy and Gmail-authorise scripts, and `studio/redirect/`.
+- `CLAUDE.md`: the commands say the push runs the gate, and that `lefthook install` sets it up once per clone.
+
+**Decisions**
+- Meow, 25 Nov 2026: one pre-push gate for every studio repo (studio-os `DECISIONS.md`).
+- Mine: the docs folders skip every check. Code, tests and the build name them only in comments.
+
+**Open items**
+- None.
+
+**How to verify**
+- `python ~/.cavies/gate.py plan`. Or push a Markdown-only change and read the hook's lines.
+- `CAVIES_GATE_PORT_BASE=20160 npm run test:workerd` from `studio/` runs the five workerd tests on other ports.
+
+**Disk**
+- Removed: this worktree's `studio/node_modules` and build output.
+- Left: the worktree itself, for the daily sweep once merged.
+
+---
+
 ## Correction: Cloudflare Web Analytics is off for cavies.studio: 25 November 2026
 
 **What changed**
