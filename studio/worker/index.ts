@@ -1,6 +1,7 @@
 import {
   createEnquiryHandler,
   enquiryDeliveryConfig,
+  type EnquiryEmail,
 } from "./enquiry-delivery";
 import type { EnquiryLedger } from "./ledger";
 import {
@@ -19,9 +20,8 @@ export type Env = {
   ENQUIRY_EXTRA_ORIGIN?: string;
   ENQUIRY_ENV?: string;
   TURNSTILE_SECRET_KEY?: string;
-  GOOGLE_CLIENT_ID?: string;
-  GOOGLE_CLIENT_SECRET?: string;
-  GMAIL_REFRESH_TOKEN?: string;
+  /** Cloudflare Email Sending (`send_email` binding in the wrangler config). */
+  EMAIL?: SendEmail;
 };
 
 const securityHeaders = {
@@ -44,6 +44,7 @@ async function route(
   request: Request,
   env: Env,
   providerFetch?: typeof fetch,
+  sendEmail?: (message: EnquiryEmail) => Promise<unknown>,
 ): Promise<Response> {
   const { pathname } = new URL(request.url);
   if (pathname !== "/api/enquiry") {
@@ -58,8 +59,10 @@ async function route(
       { status: 405, headers: { Allow: "POST", "Cache-Control": "no-store" } },
     );
   }
+  const mailer = env.EMAIL;
   const handler = createEnquiryHandler({
     config: enquiryDeliveryConfig(env),
+    sendEmail: sendEmail ?? (mailer && ((message) => mailer.send(message))),
     rateLimitsReady: enquiryRateLimitConfigured(env),
     clientKey: (incoming) => getEnquiryClientIp(incoming) || null,
     reserveAttempt: async (clientKey) =>
@@ -74,13 +77,16 @@ async function route(
   return handler(request);
 }
 
-/** `providerFetch` is for tests only (worker/test-entry.ts). */
+/** `providerFetch` and `sendEmail` are for tests only (worker/test-entry.ts). */
 export async function handle(
   request: Request,
   env: Env,
   providerFetch?: typeof fetch,
+  sendEmail?: (message: EnquiryEmail) => Promise<unknown>,
 ): Promise<Response> {
-  return withSecurityHeaders(await route(request, env, providerFetch));
+  return withSecurityHeaders(
+    await route(request, env, providerFetch, sendEmail),
+  );
 }
 
 // wrangler.jsonc sends only /api/* here (assets.run_worker_first); every page

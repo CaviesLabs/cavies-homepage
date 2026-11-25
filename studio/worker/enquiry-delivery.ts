@@ -3,20 +3,20 @@ import { prepareEnquiry, type EnquiryFields } from "../lib/enquiry";
 // The mailbox was tin@cavies.xyz until the October 2026 move to cavies.studio;
 // the old address remains an alias of the same Google Workspace account.
 const mailbox = "tin@cavies.studio";
-// Gmail keeps API sends addressed from and to the same address out of the
-// Inbox (they only get the SENT label), so notifications come from this
-// alias of the same account, which must stay listed under Gmail's "Send mail
-// as" settings; otherwise Gmail rewrites the From header to the mailbox.
+// Sent through Cloudflare Email Sending (the `EMAIL` send_email binding) since
+// 25 November 2026. On Workers Free it delivers only to the account's verified
+// destination addresses, and tin@cavies.studio is the one verified address.
+// The sender is an address on the onboarded sending domain cavies.studio (it
+// is also an alias of the mailbox, so a reply to the notification itself goes
+// nowhere new); the binding's allowed_sender_addresses holds it to this one.
 const sender = "contact@cavies.studio";
 const canonicalOrigin = "https://cavies.studio";
 // The one workers.dev address that may be named in ENQUIRY_EXTRA_ORIGIN.
 const testOrigin = "https://cavies-studio-test.dev-226.workers.dev";
-const gmailSendScope = "https://www.googleapis.com/auth/gmail.send";
-const permittedScopes = new Set([
-  gmailSendScope,
-  "openid",
-  "email",
-  "https://www.googleapis.com/auth/userinfo.email",
+// Email Sending errors that mean "slow down", not "broken".
+const throttledCodes = new Set([
+  "E_RATE_LIMIT_EXCEEDED",
+  "E_DAILY_LIMIT_EXCEEDED",
 ]);
 const maxBodyBytes = 8 * 1024;
 const maxProviderBytes = 32 * 1024;
@@ -33,9 +33,19 @@ export type Environment = {
   ENQUIRY_EXTRA_ORIGIN?: string;
   ENQUIRY_LOCAL_ORIGIN?: string;
   TURNSTILE_SECRET_KEY?: string;
-  GOOGLE_CLIENT_ID?: string;
-  GOOGLE_CLIENT_SECRET?: string;
-  GMAIL_REFRESH_TOKEN?: string;
+  EMAIL?: EnquiryMailer;
+};
+/** The one message shape this endpoint sends (a subset of the binding's builder). */
+export type EnquiryEmail = {
+  from: { name: string; email: string };
+  to: string;
+  replyTo: string;
+  subject: string;
+  text: string;
+};
+/** The part of Cloudflare's SendEmail binding the endpoint uses. */
+export type EnquiryMailer = {
+  send(message: EnquiryEmail): Promise<{ messageId: string }>;
 };
 type LimitResult = { allowed: true } | { allowed: false; retryAfter: number };
 type JsonObject = Record<string, unknown>;
@@ -45,9 +55,8 @@ export type EnquiryDeliveryConfig = {
   production: boolean;
   allowedOrigins: string[];
   turnstileSecret: string;
-  googleClientId: string;
-  googleClientSecret: string;
-  gmailRefreshToken: string;
+  /** The `EMAIL` send_email binding is attached to the Worker. */
+  emailBound: boolean;
 };
 
 export type EnquiryDeliveryDependencies = {
@@ -55,6 +64,8 @@ export type EnquiryDeliveryDependencies = {
   rateLimitsReady: boolean;
   reserveAttempt: (clientKey: string) => Promise<LimitResult>;
   clientKey: (request: Request) => string | null;
+  /** Hands the notification to the `EMAIL` binding. Absent means not configured. */
+  sendEmail?: (message: EnquiryEmail) => Promise<unknown>;
   fetch?: typeof globalThis.fetch;
   timeoutMs?: number;
 };
@@ -84,9 +95,7 @@ export function enquiryDeliveryConfig(env: Environment): EnquiryDeliveryConfig {
     production,
     allowedOrigins,
     turnstileSecret: env.TURNSTILE_SECRET_KEY?.trim() || "",
-    googleClientId: env.GOOGLE_CLIENT_ID?.trim() || "",
-    googleClientSecret: env.GOOGLE_CLIENT_SECRET?.trim() || "",
-    gmailRefreshToken: env.GMAIL_REFRESH_TOKEN?.trim() || "",
+    emailBound: typeof env.EMAIL?.send === "function",
   };
 }
 
@@ -95,9 +104,7 @@ function deliveryConfigReady(config: EnquiryDeliveryConfig): boolean {
   return Boolean(
     config.enabled &&
     config.turnstileSecret &&
-    config.googleClientId &&
-    config.googleClientSecret &&
-    config.gmailRefreshToken &&
+    config.emailBound &&
     !(config.production && testSecret),
   );
 }
@@ -235,48 +242,10 @@ function replyAddress(value: string): boolean {
   );
 }
 
-function base64(bytes: Uint8Array): string {
-  let binary = "";
-  for (let index = 0; index < bytes.length; index += 8192) {
-    binary += String.fromCharCode(...bytes.subarray(index, index + 8192));
-  }
-  return btoa(binary);
-}
-
-function mimeMessage(
-  fields: EnquiryFields,
-  subject: string,
-  body: string,
-): string {
-  const encodedBody =
-    base64(new TextEncoder().encode(body.replace(/\r\n|\r|\n/g, "\r\n")))
-      .match(/.{1,76}/g)
-      ?.join("\r\n") || "";
-  // Subject contains only the service allowlist; no visitor-supplied name.
-  const mime = [
-    `From: Cavies website <${sender}>`,
-    `To: ${mailbox}`,
-    `Reply-To: ${fields.email.trim()}`,
-    `Subject: ${subject}`,
-    `Date: ${new Date().toUTCString()}`,
-    `Message-ID: <${crypto.randomUUID()}@cavies.studio>`,
-    "MIME-Version: 1.0",
-    'Content-Type: text/plain; charset="UTF-8"',
-    "Content-Transfer-Encoding: base64",
-    "",
-    encodedBody,
-    "",
-  ].join("\r\n");
-  return base64(new TextEncoder().encode(mime))
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
-    .replace(/=+$/, "");
-}
-
 export function createEnquiryHandler(
   dependencies: EnquiryDeliveryDependencies,
 ) {
-  const { config } = dependencies;
+  const { config, sendEmail } = dependencies;
   const fetcher = dependencies.fetch || globalThis.fetch;
   const timeout = dependencies.timeoutMs ?? providerTimeoutMs;
 
@@ -320,7 +289,11 @@ export function createEnquiryHandler(
     ) {
       return failure(400, "Submit the contact form as JSON.");
     }
-    if (!deliveryConfigReady(config) || !dependencies.rateLimitsReady) {
+    if (
+      !deliveryConfigReady(config) ||
+      !sendEmail ||
+      !dependencies.rateLimitsReady
+    ) {
       return failure(503, unavailableMessage);
     }
     const clientKey = dependencies.clientKey(request);
@@ -428,80 +401,39 @@ export function createEnquiryHandler(
       return failure(503, unavailableMessage);
     }
 
-    let accessToken: string;
     try {
-      const token = await providerJson("https://oauth2.googleapis.com/token", {
-        method: "POST",
-        body: new URLSearchParams({
-          grant_type: "refresh_token",
-          client_id: config.googleClientId,
-          client_secret: config.googleClientSecret,
-          refresh_token: config.gmailRefreshToken,
-          scope: gmailSendScope,
-        }),
-      });
-      if (
-        !token.ok ||
-        !object(token.data) ||
-        typeof token.data.access_token !== "string" ||
-        !token.data.access_token ||
-        (token.data.token_type !== undefined &&
-          token.data.token_type !== "Bearer")
-      ) {
-        return failure(503, unavailableMessage);
-      }
-      // Identity scopes establish mailbox ownership during setup. No Gmail scope
-      // other than send is accepted, even if a wider grant is misconfigured.
-      const scopes =
-        typeof token.data.scope === "string"
-          ? token.data.scope.trim().split(/\s+/)
-          : [];
-      if (
-        !scopes.includes(gmailSendScope) ||
-        scopes.some((scope) => !permittedScopes.has(scope))
-      ) {
-        return failure(503, unavailableMessage);
-      }
-      accessToken = token.data.access_token;
-    } catch {
-      return failure(503, unavailableMessage);
-    }
-
-    try {
-      const sent = await providerJson(
-        // "me" is the authorised account; Gmail rejects alias addresses here.
-        "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            raw: mimeMessage(
-              fields,
-              prepared.draft.subject,
-              prepared.draft.body,
-            ),
+      // Subject contains only the service allowlist; no visitor-supplied name.
+      // Reply-To passed the strict mailbox check above.
+      const sent = await withDeadline(
+        () =>
+          sendEmail({
+            from: { name: "Cavies website", email: sender },
+            to: mailbox,
+            replyTo: fields.email.trim(),
+            subject: prepared.draft.subject,
+            text: prepared.draft.body,
           }),
-        },
+        timeout,
       );
       if (
-        !sent.ok ||
-        !object(sent.data) ||
-        typeof sent.data.id !== "string" ||
-        !sent.data.id.trim()
+        !object(sent) ||
+        typeof sent.messageId !== "string" ||
+        !sent.messageId.trim()
       ) {
-        return failure(
-          sent.status === 429 ? 429 : 502,
-          unconfirmedMessage,
-          sent.status === 429 ? 60 : undefined,
-        );
+        return failure(502, unconfirmedMessage);
       }
       return json(200, { ok: true });
-    } catch {
+    } catch (error) {
       // A send timeout may have delivered the message. Never retry it automatically.
-      return failure(502, unconfirmedMessage);
+      // Only the binding's error code is logged: never the message or its fields.
+      const code =
+        object(error) && typeof error.code === "string" ? error.code : "";
+      if (/^E_[A-Z_]{1,60}$/.test(code)) {
+        console.log(JSON.stringify({ event: "enquiry_send_failed", code }));
+      }
+      return throttledCodes.has(code)
+        ? failure(429, unconfirmedMessage, 60)
+        : failure(502, unconfirmedMessage);
     }
   };
 }

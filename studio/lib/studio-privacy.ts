@@ -1,7 +1,7 @@
 /**
  * The studio's privacy policy for cavies.studio, as published at /privacy.
  * A dated copy of each published version is kept in the repository's
- * docs/legal/ folder (docs/legal/privacy-policy-2026-11-14.md for this one; the 10 November copy stays as published).
+ * docs/legal/ folder (docs/legal/privacy-policy-2026-11-25.md for this one; the 10 and 14 November copies stay as published).
  * When the text changes, change both, bump the version and the date, and add
  * a new dated copy rather than editing the old one.
  *
@@ -9,12 +9,12 @@
  * lines that each start with "- " is a list, anything else is a paragraph.
  * "**words**" is bold. Web and email addresses become links on the page.
  */
-export const studioPrivacyVersion = "Version 2. Effective 14 November 2026.";
+export const studioPrivacyVersion = "Version 3. Effective 25 November 2026.";
 
 export const studioPrivacyText = `## The short version
 
 - This site collects only what you choose to send us, such as an enquiry, and the request data that any website host sees. It has no analytics, ads or tracking.
-- Your enquiry goes to our email at Google Workspace. Cloudflare hosts the site, runs the form's server code and the spam check, and keeps the form-limit codes. We do not sell your information.
+- Your enquiry goes to our email at Google Workspace. Cloudflare hosts the site, runs the form's server code and the spam check, sends your enquiry on to our email, and keeps the form-limit codes. We do not sell your information.
 - To see, correct or delete what we hold about you, email contact@cavies.studio.
 
 ## Who we are
@@ -47,8 +47,8 @@ We do not use your information for advertising, and we do not sell it.
 
 These providers handle information for us:
 
-- **Cloudflare** hosts this site, runs the contact form's server code (Cloudflare Workers), keeps the form-limit codes and runs the spam check (Turnstile). Its privacy policy: https://www.cloudflare.com/privacypolicy/
-- **Google** runs our email (Google Workspace). The form's server code hands each enquiry to Google's Gmail service, which delivers it to our mailbox. Its privacy policy: https://policies.google.com/privacy
+- **Cloudflare** hosts this site, runs the contact form's server code (Cloudflare Workers), sends each enquiry to our mailbox by email (Cloudflare Email Service), keeps the form-limit codes and runs the spam check (Turnstile). Its privacy policy: https://www.cloudflare.com/privacypolicy/
+- **Google** runs our email (Google Workspace), where each enquiry arrives. Its privacy policy: https://policies.google.com/privacy
 
 We may also share information if the law requires it.
 

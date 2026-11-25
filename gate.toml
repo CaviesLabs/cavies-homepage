@@ -16,7 +16,7 @@ never_skip = [
   "tsconfig*.json", "eslint.config.*", "next.config.*", "wrangler*.jsonc",
   "studio/worker", "studio/lib/enquiry.ts", "studio/lib/contact.ts", "studio/lib/*privacy*.ts",
   "studio/components/enquiry-*", "studio/app/contact",
-  "studio/scripts/build-cf.mjs", "studio/scripts/deploy-cf.mjs", "studio/scripts/authorize-gmail.mjs",
+  "studio/scripts/build-cf.mjs", "studio/scripts/deploy-cf.mjs",
   "studio/redirect",
 ]
 versions = ["node --version", "npm --version"]
