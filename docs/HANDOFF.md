@@ -15,6 +15,32 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Gate setup step: 25 November 2026
+
+**What shipped** (branch `chore/gate-setup`; tooling only; no page change, nothing deployed)
+- `gate.toml`: `[gate] setup = "cd studio && { [ node_modules/.package-lock.json -nt package-lock.json ] || npm ci; }"`. The gate runs it once before the first check of a push, so a fresh worktree needs no hand-made install and a stale `node_modules` cannot decide a check. `npm ci` rewrites `node_modules/.package-lock.json`, so a second run finds it newer and does nothing.
+  - Fresh checkout: `npm ci`, about 49 s. Nothing changed: 0.03 s.
+- `lint` is marked `beside = true`: eslint ignores everything the build writes (`.next`, `out`, `public/_img`, `next-env.d.ts`) and writes no file.
+- `types` stays in the ordered lane: `tsconfig.json` includes `.next/types`, which the build writes, and `tsc` writes `tsconfig.tsbuildinfo`.
+- `CLAUDE.md`: the verify line says to check with `python ~/.cavies/gate.py run`, never the npm scripts by hand.
+- The weekly review's `python ~/.cavies/gate.py audit` no longer skips this repo.
+
+**Decisions**
+- Meow, 25 Nov 2026: add `setup` to every repo's `gate.toml` (studio-os review of the gate).
+- Mine: only `lint` runs beside; the other four share `.next` or `out`, or start servers.
+
+**Open items**
+- None.
+
+**How to verify**
+- `python ~/.cavies/gate.py audit --ref HEAD` from this repo.
+
+**Disk**
+- Removed: this worktree and its `studio/node_modules`.
+- Left: nothing.
+
+---
+
 ## The studio pre-push gate: 25 November 2026
 
 **What shipped** (branch `chore/studio-gate`; tooling and one test only; no page change, nothing deployed)

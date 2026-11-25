@@ -20,6 +20,10 @@ never_skip = [
   "studio/redirect",
 ]
 versions = ["node --version", "npm --version"]
+# What a fresh checkout needs before any check: the npm install in studio/. `npm ci` reinstalls everything
+# every time, so it runs only when node_modules is missing or older than the lockfile (npm ci rewrites
+# node_modules/.package-lock.json, so the next run finds it newer and does nothing).
+setup = "cd studio && { [ node_modules/.package-lock.json -nt package-lock.json ] || npm ci; }"
 
 [paths]
 # Markdown and the docs folders: code, tests and the build name them only in comments (checked 25 Nov 2026).
@@ -29,11 +33,14 @@ docs = ["*.md", "docs/**", "studio/docs/**"]
 name = "lint"
 run = "cd studio && npm run lint"
 skip = ["docs"]
+# eslint ignores everything the build writes (.next, out, public/_img, next-env.d.ts) and writes no file.
+beside = true
 
 [[check]]
 name = "types"
 run = "cd studio && npm run typecheck"
 skip = ["docs"]
+# Not beside: tsconfig includes .next/types, which the build writes, and tsc writes tsconfig.tsbuildinfo.
 units = 2
 
 [[check]]
