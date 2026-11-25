@@ -36,7 +36,7 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 - `python ~/.cavies/gate.py audit --ref HEAD` from this repo. On 25 Nov 2026 it exited 0 for commit `7b6bc06` (all five checks fresh, 26 min, most of it waiting in the job slots), and `gate.py run` then read `same` for all five.
 
 **Disk**
-- The worktree `cavies-homepage-wt-gate` and its `studio/node_modules` (about 600 MB) are removed after the merge. The audit's own checkout was removed by the gate.
+- The worktree `cavies-homepage-wt-gate` and its `studio/node_modules` (682 MB) are removed after the merge. The audit's own checkout was removed by the gate.
 
 ---
 
