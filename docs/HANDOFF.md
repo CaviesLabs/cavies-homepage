@@ -15,6 +15,26 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Enquiry form: a copied-draft notice no longer keeps the error style: 26 November 2026
+
+**What shipped**
+- PR #48 (`5396c3e`, merged as `f2f9398`). After a failed send the status line is an error (red, `aria-live="assertive"`). Copy draft and Open email draft then set a new text and left the error style on: "Draft copied" in red, read out as an alert. The text and the tone were two `useState` values. They are one `Notice` value now, set only by `announce()` or `say()` in `studio/components/enquiry-form.tsx`, so the typecheck keeps it from coming back. No wording changed.
+- Deployed: production `f4554a91-1dda-4671-9151-44814ce359b9` (`ENQUIRY_FORM_ENABLED=true ENQUIRY_DELIVERY_VERIFIED=yes npm run deploy:cf:production`, after `gate.py run --full` on `f2f9398`). Previous version `b271c8e3-a0cb-4e69-a769-113d345c249e`.
+- Found by the studio's survey of implicit state machines (studio-os `departments/engineering/reports/state-machines-2026-11-26.md`, H1), from the studio pipeline thread of 26 Nov (Fable 5.2); supervisor (Haiku): not blocking.
+
+**Decisions (mine)**
+- Not done: the survey's wider idea, one reducer for the whole form lifecycle. It would touch every handler of a working production form for no fix beyond this one.
+
+**Open**
+- GitHub reports 21 known vulnerabilities in this repo's dependencies on main (3 critical, 3 high). Not looked at here.
+- The main checkout's `studio/.env.local` (ignored) still holds a `VERCEL_OIDC_TOKEN` line from before Vercel was retired. Nothing reads it. Delete the file when next in that checkout.
+
+**How to verify**
+- https://cavies.studio/contact shows "Send enquiry" and loads Turnstile; `GET /api/enquiry` answers 405. Checked after the deploy, with `/`, `/playable-ads`, `/games/oddly-orderly` and `/privacy` (all 200). No enquiry was sent.
+- The fix itself was seen on a local dev server at 1280x900 and 390x844 with `/api/enquiry` answered by a 500 inside the test browser: error after the failed send, then a normal polite notice after Copy draft.
+
+**Disk:** removed the worktree `cavies-homepage-wt-notice` with its `node_modules`, `.next` and `out` (about 1 GB). Left: nothing.
+
 ## Enquiry form sends through Cloudflare Email Sending; Gmail token removed: 25 November 2026
 
 **What shipped**
