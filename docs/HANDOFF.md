@@ -15,6 +15,27 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Dependencies: Next.js 16.4.6, the audit's fixes, 21 GitHub alerts cleared: 26 November 2026
+
+**What shipped**
+- Meow asked (26 Nov) for the alerts GitHub reports to be looked at and fixed. PR #49 (`d872bc2`, merged as `16ff97f`): `next` 16.3.4 to 16.4.6 and `eslint-config-next` to match, plus `npm audit fix` (brace-expansion, minimatch, source-map-js, zod, the typescript-eslint chain; also ignore and semver). `npm audit`: 11 to 0. All 21 of GitHub's open alerts are at or above their first patched version (17 were Next.js).
+- How exposed the live site was: little. It is a static export plus one hand-written Worker, with no Next.js server, image optimisation API, server actions or `use cache`. A clean-up, not an incident.
+- Deployed: production `b7d1d9ee-7562-4444-a888-b5ea2043bf98` (after `gate.py run --full` on `16ff97f`). Previous version `f4554a91-1dda-4671-9151-44814ce359b9`.
+- Supervisor (Haiku) then reviewer (Opus 5.5): nothing blocking. The reviewer compared the new build with a 16.3.4 build: same 2,073 files, identical head tags, JSON-LD, image attributes, robots, sitemap, headers and redirects.
+
+**Decisions (mine)**
+- Took four releases under a week old (ignore, typescript-eslint, brace-expansion, source-map-js): build-time or dev-only, no install scripts, hashes match the registry.
+
+**Open**
+- A `wrangler dev --port 3100` started from the main checkout on 24 Nov at 20:38 is still running (root process 81444) and holds the port the smoke test uses by default. Not mine, so not stopped. Until it is, run the smoke test with `SITE_TEST_URL` on another port.
+- 16.4 writes the route prefetch files in a new format: a tab that was open across the deploy may do one full page load on its next in-app navigation.
+
+**How to verify**
+- `cd studio && npm audit` reads 0. GitHub's Dependabot page shows the alerts as fixed once it has rescanned main.
+- After the deploy: `/`, `/contact`, `/work`, `/playable-ads`, `/games/oddly-orderly`, `/privacy`, `/sitemap.xml`, `/robots.txt` answer 200; `/games` 302; `/work/` 308; an unknown path 404 with noindex; the four security headers are present; a `/_next/static` file is `immutable`; `GET /api/enquiry` 405. In a browser, Home to Work to Contact by the in-page links: 19 prefetch files fetched, no failed request, no console error. No enquiry was sent.
+
+**Disk:** removed the worktree `cavies-homepage-wt-deps` with its `node_modules`, `.next` and `out`. Left: nothing.
+
 ## Enquiry form: a copied-draft notice no longer keeps the error style: 26 November 2026
 
 **What shipped**
