@@ -15,6 +15,27 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Video ranges answered from the Cache API: PR #52 merged and live: 28 November 2026
+
+**What shipped**
+- The ranges of the previous entry cost 7 to 110 ms of Worker CPU (median 32 ms) against the Free plan's 10 ms, rising with where the range starts. PR #52 merged as `c4a4f60` (head `02f61ed`): a video request asks `caches.default` first, which cuts a range natively (Cloudflare, Workers Cache API and "Range request behavior"); a miss cuts the bytes as before and `ctx.waitUntil` puts the whole file in the cache. Key: path plus the Worker version id (a new `version_metadata` binding in the configs), so a deploy never serves the old file. Only plain ranges reach the cache; `If-Range` is kept when the copy's strong ETag is the validator; the cache's `416` is made like the slicer's. No other service was enabled. Details in `studio/docs/cloudflare-workers.md`, "Video byte ranges".
+- Deployed: production `8245fb88-4245-46f4-a8f3-73eff53dbe02` at 21:21 UTC on 27 Nov (04:22 on 28 Nov by this PC's clock), `ENQUIRY_FORM_ENABLED=true ENQUIRY_DELIVERY_VERIFIED=yes npm run deploy:cf:production`, after `gate.py run --full` on `c4a4f60` (all `same` as the passes on `02f61ed`, its tree). Previous version `35987eaf-5310-433e-899d-5f4cd924329e`.
+- CPU on production (`wrangler tail`): before 7 to 110 ms, median 32 ms (37 requests); after, warm, 0 to 2 ms, median 0 (41 requests); cold (the first request, a miss that fills the cache) 19 ms, wall 604 ms. Every request outcome `ok`; responses carry `CF-Cache-Status: HIT`.
+- Smoke check of https://cavies.studio: the trailer `bytes=0-1` 206 `bytes 0-1/14033943`; a middle range, the last 1,000 bytes and an open range 206 and byte-identical to the repo file; `14033943-` 416 `bytes */14033943`, `no-store`; no range 200, `Accept-Ranges`, 14,033,943 bytes, byte-identical; `HEAD` 200, `HEAD` with a range 206; a matching `If-Range` 206, a stale one 200, two ranges 200; a query string still 206; a missing video 404; `/`, the game page, press kit, `/contact`, `/privacy` and the capsule 200; the picture with a `Range` still 200 (static asset); `GET /api/enquiry` 405. No enquiry or email was sent.
+- Supervisor (Haiku) and reviewer (Opus 5.5) read PR #52: nothing blocking; the reviewer's two "should fix" points and the cheap ones are in the PR's second commit.
+
+**Open**
+- No one has played the trailer on an iPhone or iPad yet.
+- The cache is per data centre and may drop a copy early: the first range in a data centre, after an eviction, or after a deploy is one cold request (about 19 ms CPU, slow to start) before the cache serves.
+- The cold request's 19 ms is above the Free plan's stated 10 ms; if errors (1102) ever show on a cold request, the next step is an explicit warm-up after a deploy or the file in R2 (not enabled; Meow's call).
+
+**How to verify**
+- `curl -s -D - -o /dev/null --max-filesize 1000 -r 0-1 https://cavies.studio/games/oddly-orderly/oddly-orderly-trailer.mp4` shows 206, `Content-Range: bytes 0-1/14033943` and `CF-Cache-Status: HIT`. `cd studio && npm run test:workerd` (29 tests: every video assertion through the cache and with it off).
+
+**Disk:** worktrees `cavies-homepage-wt-ranges2` (with its `node_modules`, build output) and its branches (local and remote) removed after this entry; scratch files deleted. Models: Sonnet 5.5 did the work; Haiku 5.5 (supervisor) and Opus 5.5 (reviewer) read the branch before the merge. Not verified: playback on a real iPhone or iPad.
+
+---
+
 ## The trailer answers byte ranges: PR #51 merged and live: 28 November 2026
 
 **What shipped**

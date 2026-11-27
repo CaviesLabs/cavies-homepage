@@ -27,7 +27,15 @@ Workers static assets answer a `Range` request with `200` and the whole file, wi
 
 ### Measured
 
-CPU of range requests on production, before the cache (version `35987eaf`, 37 requests, 28 November): 7 to 110 ms, median 32 ms, growing with where the range starts (every earlier byte is read and dropped). With the cache: see the handoff entry of 28 November 2026 for the numbers, warm and cold.
+CPU of range requests on production (`wrangler tail`, `cpuTime`; the Free plan states 10 ms), 28 November 2026:
+
+| | requests | CPU | wall |
+| --- | --- | --- | --- |
+| Slicing only (version `35987eaf`) | 37 | 7 to 110 ms, median 32 ms, rising with the range's start | 98 to 198 ms |
+| With the cache (version `8245fb88`), warm | 41 | 0 to 2 ms, median 0, 90th percentile 1 | 2 to 22 ms |
+| With the cache, cold (the first request: a miss, answered by slicing, then the put) | 1 | 19 ms | 604 ms |
+
+The warm 41 were a whole-file play in 1 MB ranges, bursts of 8 and 12 parallel ranges, an open-ended range, the last 1,000 bytes, a `416`, two `HEAD`s and a conditional `GET`; all answered rightly, outcome `ok`. The cache filled within six seconds of the first request, and every later response carried `CF-Cache-Status: HIT`. A miss (a new data centre, an eviction, a new deploy) costs one cold request like the first one, then the cache serves; the 19 ms is above the stated 10 ms once per data centre per day at most.
 
 ## Build and deploy
 
