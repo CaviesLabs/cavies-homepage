@@ -6,7 +6,7 @@ Every generated or third-party asset that ships has a row here. If it is not in 
 ## Where the record really lives
 This site shows art, audio and video made in other repositories. Their provenance records are the source of truth, not this file.
 - `studio/docs/portfolio-sources.md` records, per portfolio case and per Oddly Orderly asset, which repository and commit the media came from and how it was prepared.
-- For Oddly Orderly, that file says the painted scenes and the music are AI-generated "with a provenance record for every asset in the game's repository" (`meowttt7/oddly-orderly`, revision `a2a7d4aa` for the store screenshots, trailer, capsules and icon). It also says Oddly Orderly and Butterpaw include AI-assisted or generated artwork with source provenance, and that no hand-painted or hand-lettered authorship claim is made.
+- For Oddly Orderly, that file says the painted scenes and the music are AI-generated "with a provenance record for every asset in the game's repository" (`meowttt7/oddly-orderly`, revision `a2a7d4aa` for the store set of October 2026; since 27 November 2026 the accepted set of that day, from revision `7d972636`: eighteen screenshots, the trailer, the logo, capsules and icon with the two sea otters). It also says Oddly Orderly and Butterpaw include AI-assisted or generated artwork with source provenance, and that no hand-painted or hand-lettered authorship claim is made.
 - The repo holds no sidecars (seed, model, prompt) for these files. Those are in the game repositories.
 
 ## Rules

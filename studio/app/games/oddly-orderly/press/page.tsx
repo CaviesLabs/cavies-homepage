@@ -15,7 +15,7 @@ import {
   gamePaths,
   pressAssets,
   pressParagraph,
-  screenshots,
+  pressScreenshots,
   shortDescription,
   steamUrl,
   trailer,
@@ -195,11 +195,11 @@ export default function PressKitPage() {
             <section id="screenshots" aria-labelledby="screenshots-title">
               <h2 id="screenshots-title">Screenshots</h2>
               <p>
-                From the development build, October 2026. Each downloads as a
+                From the development build, November 2026. Each downloads as a
                 full-size 1920 × 1080 JPEG.
               </p>
               <div className={styles.pressShots}>
-                {screenshots.map((shot) => (
+                {pressScreenshots.map((shot) => (
                   <figure key={shot.slug} className={styles.pressShot}>
                     <a
                       href={shot.src}

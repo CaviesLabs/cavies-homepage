@@ -15,6 +15,22 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Oddly Orderly's pages: the two otters in the magpie's place: 27 November 2026
+
+**What shipped** (PR #50, branch `claude/oddly-orderly-otters`; open, not merged, not deployed)
+- No page says "magpie" (a smoke test now fails if one does). Game page: the store's first eight screenshots, the store's short description and the otters' line word for word. Press kit: all eighteen screenshots, logo, icon, main capsule, the art note at the final `GO-PUBLIC.md` wording. Sharing image: the end card. Case study: its cover and one gallery picture that showed the bird are accepted screenshots.
+- Trailer: the accepted 52.4 s cut re-encoded H.264 High 1080p30, two-pass 2.0 Mbps, AAC 128 kbps, 14.0 MB (under the site's 15 MB download check; 2.2 Mbps came to 15.4 MB). Poster from `thumbnail-gameplay.png`; no autoplay.
+- Support: the settings as the game has them, Start over and Clear all rosettes. Left out, not checkable in the game: "Steam achievements stay earned". Privacy: the game's `privacy_policy.txt` word for word; two words differed ("the magpie" is "the otters"); the effective date is the game's own.
+- Records: `portfolio-sources.md`, `docs/PROVENANCE.md`, README, seo notes; `site-smoke.test.mjs` names the new copy.
+
+**Open**
+- The director reads the PR, then says go; deploy follows the studio rules. The game page does not carry the AI disclosure (only the press kit does, as before). The trailer was not played to the end in a browser.
+
+**How to verify**
+- `cd studio && npm run build:cf`, `npx wrangler dev --port 3217`, `SITE_TEST_URL=http://127.0.0.1:3217 npm run test:smoke` (25 pass); phone and desktop screenshots of the five pages checked by eye.
+
+**Disk:** build output and `node_modules` removed from the worktree `cavies-homepage-wt-otters` before the handoff; the worktree stays until the PR is read.
+
 ## Dependencies: Next.js 16.4.6, the audit's fixes, 21 GitHub alerts cleared: 26 November 2026
 
 **What shipped**

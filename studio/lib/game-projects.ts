@@ -10,14 +10,14 @@ export const gameProjects: Project[] = [
     headline: "A place for every little thing.",
     description:
       "Tactile puzzles about arranging everyday objects, with more than one way to put things in place.",
-    image: "/work/oddly-orderly-title-screen.webp",
+    image: "/work/oddly-orderly-keys.webp",
     imageWidth: 1920,
     imageHeight: 1080,
     color: "#e9dfc9",
     tags: ["Game design", "Interaction design", "Godot development"],
     role: "Original game design & development",
     context:
-      "An unreleased organizing game about two people moving in together, told through their belongings, with a magpie for company.",
+      "An unreleased organizing game about two people moving in together, told through their belongings, with two sea otters for company.",
     approach:
       "Drag, tap, keyboard, and gamepad controls share one object-placement system, and nothing requires holding a button. Pencil-sketch hints, undo, and alternate solutions keep the puzzles approachable, while a room-by-room journal ties over a hundred pages across 20 rooms together. Four showpieces close their rooms: a bookcase of 24 books, a kitchen dresser of 27 pieces of china, a tool wall with an outline for every tool, and a dressing table of 24 things.",
     details: [
@@ -30,11 +30,11 @@ export const gameProjects: Project[] = [
       href: "/games/oddly-orderly",
       label: "Visit the game’s page",
     },
-    imageNote: "Title screen · Development build",
+    imageNote: "Keys by the door · Development build",
     gallery: [
       {
-        src: "/work/oddly-orderly-party.webp",
-        caption: "Matching balloons to party hats · Development build",
+        src: "/work/oddly-orderly-cutlery.webp",
+        caption: "A drawer of their own, Order with the last spoon · Development build",
         width: 1920,
         height: 1080,
       },
