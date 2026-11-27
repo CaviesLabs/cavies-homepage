@@ -15,6 +15,25 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## The trailer answers byte ranges: PR #51 merged and live: 28 November 2026
+
+**What shipped**
+- PR #51 merged as `f594d6b` (head `74c21cc`). Workers static assets answer a `Range` request with 200 and the whole file (Cloudflare, "Billing and Limitations", "Range requests"); Safari on iPhone and iPad needs byte ranges (Apple, Safari Web Content Guide, "Configuring Your Server"). The configs now run the Worker first for `.mp4`, `.m4v`, `.mov` and `.webm` (the trailer is the only video) and `worker/video-range.ts` serves one range from the `ASSETS` binding: 206, 416, 200 with `Accept-Ranges`, `HEAD`, 304, `If-Range`. Pages, pictures and `/api/enquiry` are untouched. Details and cost in `studio/docs/cloudflare-workers.md`, "Video byte ranges".
+- Deployed: production `35987eaf-5310-433e-899d-5f4cd924329e` at 20:45 UTC on 27 Nov (03:45 on 28 Nov by this PC's clock), `ENQUIRY_FORM_ENABLED=true ENQUIRY_DELIVERY_VERIFIED=yes npm run deploy:cf:production`, after `gate.py run --full` on `f594d6b` (all `same` as the passes on `74c21cc`, its tree). Previous version `ba1506dd-8ff0-42c7-bb64-3867215c4fef`. (The 27 Nov entry below gives its deploy time as 19:55 UTC on 28 Nov; the deployments list says 27 Nov.)
+- Smoke check of https://cavies.studio: the trailer with `bytes=0-1` 206 `bytes 0-1/14033943`; a middle range 206 (bytes equal the file's); the last 1,000 bytes and an open range 206; `bytes=14033943-` 416 `bytes */14033943`; no range 200, `Accept-Ranges: bytes`, 14,033,943 bytes, byte-identical to the repo file; `HEAD` 200; `/`, the game page, press kit, `/contact`, `/privacy` and the capsule picture 200; a picture with a `Range` still 200 (static asset); `GET /api/enquiry` 405. No enquiry or email was sent.
+
+**Open**
+- No one has played the trailer on an iPhone or iPad yet.
+- Worker CPU: `wrangler tail` over 37 range requests shows `cpuTime` 7 to 110 ms (median 32 ms), above the Free plan's 10 ms, with every request 206 and outcome `ok`. If failures (error 1102) appear, move to the Cache API or R2 (see the doc).
+- A trailer play now costs a handful to about ten Worker requests (Free plan: 100,000 a day); it cost none before.
+
+**How to verify**
+- `curl -s -D - -o /dev/null --max-filesize 1000 -r 0-1 https://cavies.studio/games/oddly-orderly/oddly-orderly-trailer.mp4` shows 206 and `Content-Range: bytes 0-1/14033943`. `cd studio && npm run test:workerd` (19 tests).
+
+**Disk:** worktree `cavies-homepage-wt-ranges` with its `node_modules`, build output and the branch (local and remote) removed; scratch files from the checks deleted. Models: Sonnet 5.5 did the work; Haiku 5.5 (supervisor) and Opus 5.5 (reviewer) read the branch before the merge. Not verified: playback on a real iPhone or iPad.
+
+---
+
 ## Oddly Orderly's pages deployed: PR #50 merged and live: 28 November 2026
 
 **What shipped**
