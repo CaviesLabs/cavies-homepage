@@ -15,6 +15,22 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Oddly Orderly's pages deployed: PR #50 merged and live: 28 November 2026
+
+**What shipped**
+- PR #50 merged as `0f8647a` (head `f2507b8`). Added before the merge, at the otters' director's ask: the game page carries the approved two-sentence art note under the platforms line, word for word as the press kit has it (the game's `GO-PUBLIC.md` says it goes on the studio's page for the game too); a smoke test holds it.
+- Deployed: production `ba1506dd-8ff0-42c7-bb64-3867215c4fef` at about 19:55 UTC by this PC's clock (`ENQUIRY_FORM_ENABLED=true ENQUIRY_DELIVERY_VERIFIED=yes npm run deploy:cf:production`, after `gate.py run --full` on `0f8647a`: every check `same` as the passes on `f2507b8`, whose tree it is). Previous version `b7d1d9ee-7562-4444-a888-b5ea2043bf98`. The first try failed on a network timeout before anything was published; the second went through.
+- Smoke check of https://cavies.studio: the game page, press kit, support, privacy and case study answer 200 and none says "magpie"; the eight screenshots, eighteen downloads, capsule, icon, logo, sharing image and poster (34 files) answer 200 with picture content types; the trailer answers 200 at 14,033,943 bytes; `/`, `/playable-ads`, `/contact` and `/work/emberline` answer 200; the game page and press kit carry no tester address, `cavies.xyz`, password, date or Steam link.
+
+**Open**
+- A `Range` request for the trailer answers 200, not 206 (no `Accept-Ranges`). An untouched image on the site does the same, so it is the Workers static-assets host and not the new file; the trailer is faststart, `preload="none"`, so it plays as it downloads. Not rolled back for it.
+- The case study's rendered text never names the otters (its `context` line, which is not rendered, does); only its pictures and captions show them.
+
+**How to verify**
+- The five pages above on cavies.studio; `gate.py run --full` reads `same` at `0f8647a`.
+
+**Disk:** worktree `cavies-homepage-wt-otters` with its `node_modules`, build output and branch removed after this entry; the main checkout is clean on `main`. Models: Sonnet 5.5 did the work; Haiku 5.5 and Opus 5.5 read PR #50 before the merge. Not verified: the trailer played to its end in a browser.
+
 ## Oddly Orderly's pages: the two otters in the magpie's place: 27 November 2026
 
 **What shipped** (PR #50, branch `claude/oddly-orderly-otters`; open, not merged, not deployed)
