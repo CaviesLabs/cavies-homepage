@@ -137,7 +137,7 @@ const allScreenshots: Screenshot[] = [
     "cutlery",
     "A drawer of their own",
     "Order with the last spoon.",
-    "Order, the grey sea otter, rising at the edge of a wooden cutlery tray and holding a spoon upright against its chest; the tray holds three forks, three knives and two spoons, and a green cloth lies below it",
+    "Order, the grey sea otter, rising at the edge of a wooden cutlery tray and holding a spoon upright against its chest; the tray holds three forks, three knives, two spoons and three teaspoons partly behind Order, and a green cloth lies below it",
     487290,
   ),
   shot(
@@ -153,7 +153,7 @@ const allScreenshots: Screenshot[] = [
     "xylophone",
     "A scale to play",
     "The rainbow’s bars, one carried in.",
-    "A rainbow xylophone with its purple, blue and green bars in place, a red bar being carried in, yellow and orange bars waiting below it and a red-headed mallet lying to the left",
+    "A rainbow xylophone with its purple to green bars in place, a red bar being carried in, yellow and orange bars waiting below it and a red-headed mallet lying to the left",
     387742,
   ),
   shot(
@@ -168,7 +168,7 @@ const allScreenshots: Screenshot[] = [
     7,
     "glitter",
     "The glitter balls",
-    "A ball turned by the mark.",
+    "A ball being turned.",
     "A line of eight mirror balls hanging from a string of bunting against a warm brown wall, with small glowing shapes (diamonds, stars, hearts and moons) round them",
     415916,
   ),
@@ -193,7 +193,7 @@ const allScreenshots: Screenshot[] = [
     "coats",
     "Coats on the pegs",
     "Order by the bench, a coat carried to its peg.",
-    "Order, the grey sea otter, lying on the floor behind a wooden bench in a hallway, below a peg rail hung with coats, a jacket, a scarf, hats and a bag, with a jacket on a hanger being carried towards the pegs",
+    "Order, the grey sea otter, lying on the floor under a wooden bench in a hallway, below a peg rail hung with coats, a jacket, a scarf, hats and a bag, with a blue coat on a hanger being carried towards the empty pegs at the right and an orange jacket and a striped scarf still loose above the bench",
     458542,
   ),
   shot(
@@ -201,7 +201,7 @@ const allScreenshots: Screenshot[] = [
     "game-night",
     "Game night tower",
     "Odd by the game tower, a game carried.",
-    "A tall stack of colourful game boxes in rainbow order on a low wooden table, a dark green box being carried to its place, and Odd’s face peeking up from the bottom left corner of the picture",
+    "A tall stack of colourful game boxes on a low wooden table, a dark green box being carried to its place, and Odd’s face peeking up from the bottom left corner of the picture",
     370551,
   ),
   shot(
@@ -217,15 +217,15 @@ const allScreenshots: Screenshot[] = [
     "chocolates",
     "The box of chocolates",
     "A dark chocolate carried to its gap.",
-    "A box of sixteen chocolates in paper cases, arranged in rows by shape, with a dark chocolate being carried to the last gap and two more chocolates waiting beside the box",
+    "A box of sixteen chocolates in paper cases, arranged in rows by topping, with the bottom row still open, a dark chocolate being carried towards it and two more chocolates waiting beside the box",
     513924,
   ),
   shot(
     14,
     "jars",
     "Labels forward",
-    "A jar carried.",
-    "Eight jars with gingham lids and fruit labels on two wooden shelves, strawberry, blueberry and kiwi among them, one jar being carried",
+    "A jar turned, its label coming round.",
+    "Eight jars with gingham lids and fruit labels on two wooden shelves, strawberry, blueberry and kiwi among them, one jar on the lower shelf being turned so its label faces the room",
     483698,
   ),
   shot(
@@ -233,7 +233,7 @@ const allScreenshots: Screenshot[] = [
     "bookcase",
     "The bookcase",
     "A showpiece: a book carried.",
-    "A wooden bookcase of three shelves of colourful books standing in columns by colour, two books lying on the floor and a third being carried towards its shelf",
+    "A wooden bookcase of three shelves of colourful books, two books lying on the floor and a third being carried towards its shelf",
     465690,
   ),
   shot(
@@ -241,7 +241,7 @@ const allScreenshots: Screenshot[] = [
     "tool-wall",
     "The tool wall",
     "A showpiece: a tool carried to its outline.",
-    "A pegboard above a shed workbench with saws, hammers, a mallet, screwdrivers, chisels, spanners and pliers hung in their places, a wooden toolbox at the bottom right and a pair of pliers being carried to its outline",
+    "A pegboard above a shed workbench with saws, hammers, a mallet, screwdrivers, chisels and spanners hung in their places, three plier outlines still empty, a wooden toolbox at the bottom right and a pair of pliers being carried towards the outlines",
     677697,
   ),
   shot(
@@ -275,7 +275,7 @@ export const trailer = {
   height: 1080,
   bytes: 14033943,
   /** ISO 8601 duration of the 52.4-second cut accepted on 27 November 2026. */
-  duration: "PT52S",
+  duration: "PT52.4S",
   durationLabel: "52 seconds",
   /** The day this cut was added to the site, for its structured data. */
   uploadDate: "2026-11-27",

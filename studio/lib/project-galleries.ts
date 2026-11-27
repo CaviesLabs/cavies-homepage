@@ -7,7 +7,7 @@ export const projectGalleries: Record<string, GalleryImage[]> = {
     {
       src: "/games/oddly-orderly/screenshots/oddly-orderly-bookcase.webp",
       caption:
-        "The bookcase, one of four showpieces: 24 books, a colour to each column · Development build",
+        "The bookcase, one of four showpieces: 24 books · Development build",
       width: 1920,
       height: 1080,
     },

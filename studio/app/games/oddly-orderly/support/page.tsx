@@ -68,7 +68,7 @@ const settings = [
   ],
   [
     "Mono sound",
-    "Plays every sound from the middle of the picture. With it off, each sound comes from where it happens on the screen.",
+    "Plays every sound from the middle of the picture. With it off, most sounds lean towards where they happen on the screen.",
   ],
   ["Vibration", "Controller rumble, off unless you turn it on."],
   [
