@@ -28,16 +28,54 @@ async function stubSend(env: TestEnv, message: unknown): Promise<unknown> {
   return data;
 }
 
+// Counts what the video route asks of the assets binding, so a test can tell a cache hit (no
+// call) from a miss (one). `/__test/assets-calls` reads the count. A request with the header
+// `x-test-no-cache` is answered without the cache (the slicing path alone). The cache key carries
+// a version id: a random one per run, because wrangler dev keeps the local cache between runs.
+let assetCalls = 0;
+// The promises handed to waitUntil, so a test can wait for a cache put instead of a timer.
+const pending: Promise<unknown>[] = [];
+let testVersion: string | undefined;
+
 export default {
-  fetch: (request: Request, env: TestEnv) =>
-    handle(
+  fetch: (request: Request, env: TestEnv, ctx: ExecutionContext) => {
+    const { pathname } = new URL(request.url);
+    if (pathname === "/__test/assets-calls") {
+      return Response.json({ calls: assetCalls });
+    }
+    if (pathname === "/__test/settled") {
+      return Promise.allSettled(pending.splice(0)).then(() =>
+        Response.json({ calls: assetCalls }),
+      );
+    }
+    testVersion ??= crypto.randomUUID();
+    const assets = {
+      fetch: (...args: Parameters<Fetcher["fetch"]>) => {
+        assetCalls += 1;
+        return env.ASSETS.fetch(...args);
+      },
+    } as Fetcher;
+    return handle(
       request,
       {
         ...env,
+        ASSETS: assets,
+        CF_VERSION_METADATA: { id: testVersion } as WorkerVersionMetadata,
         EMAIL: {
           send: (message: unknown) => stubSend(env, message),
         } as unknown as SendEmail,
       },
-      (url, init) => fetch(env.STUB_URL + stubPaths[String(url)], init),
-    ),
+      {
+        providerFetch: (url, init) =>
+          fetch(env.STUB_URL + stubPaths[String(url)], init),
+        waitUntil: (promise) => {
+          pending.push(promise);
+          ctx.waitUntil(promise);
+        },
+        video: request.headers.has("x-test-no-cache")
+          ? { cache: undefined }
+          : {},
+      },
+    );
+  },
 } satisfies ExportedHandler<TestEnv>;

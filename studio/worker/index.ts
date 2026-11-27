@@ -10,7 +10,7 @@ import {
   hashClientKey,
   rateLimitClientKey,
 } from "./rate-limit";
-import { isVideoPath, serveVideo } from "./video-range";
+import { isVideoPath, serveVideo, type VideoDeps } from "./video-range";
 
 export { EnquiryLedger } from "./ledger";
 
@@ -18,6 +18,8 @@ export type Env = {
   LEDGER: DurableObjectNamespace<EnquiryLedger>;
   /** The static assets (`assets.binding` in the wrangler config); videos are served from here with byte ranges. */
   ASSETS: Fetcher;
+  /** The running Worker version (`version_metadata` in the wrangler config); keys the video cache. */
+  CF_VERSION_METADATA?: WorkerVersionMetadata;
   RATE_LIMIT_SALT?: string;
   ENQUIRY_DELIVERY_ENABLED?: string;
   ENQUIRY_EXTRA_ORIGIN?: string;
@@ -43,14 +45,27 @@ function withSecurityHeaders(response: Response): Response {
   return secured;
 }
 
+/** What a test may change; in production the cache is `caches.default`. */
+export type Overrides = {
+  providerFetch?: typeof fetch;
+  waitUntil?: (promise: Promise<unknown>) => void;
+  video?: Partial<VideoDeps>;
+};
+
 async function route(
   request: Request,
   env: Env,
-  providerFetch?: typeof fetch,
+  overrides: Overrides,
 ): Promise<Response> {
   const { pathname } = new URL(request.url);
   if (isVideoPath(pathname) && !pathname.startsWith("/api/")) {
-    return serveVideo(request, env.ASSETS);
+    return serveVideo(request, {
+      assets: env.ASSETS,
+      cache: caches.default,
+      version: env.CF_VERSION_METADATA?.id,
+      waitUntil: overrides.waitUntil,
+      ...overrides.video,
+    });
   }
   if (pathname !== "/api/enquiry") {
     return Response.json(
@@ -77,22 +92,23 @@ async function route(
           env.RATE_LIMIT_SALT ?? "",
         ),
       ),
-    fetch: providerFetch,
+    fetch: overrides.providerFetch,
   });
   return handler(request);
 }
 
-/** `providerFetch` is for tests only (worker/test-entry.ts). */
+/** `overrides` is for tests only (worker/test-entry.ts). */
 export async function handle(
   request: Request,
   env: Env,
-  providerFetch?: typeof fetch,
+  overrides: Overrides = {},
 ): Promise<Response> {
-  return withSecurityHeaders(await route(request, env, providerFetch));
+  return withSecurityHeaders(await route(request, env, overrides));
 }
 
 // The wrangler configs send only /api/* and the video files here (assets.run_worker_first);
 // every page and picture is a static asset and never runs this code.
 export default {
-  fetch: (request: Request, env: Env) => handle(request, env),
+  fetch: (request: Request, env: Env, ctx: ExecutionContext) =>
+    handle(request, env, { waitUntil: (promise) => ctx.waitUntil(promise) }),
 } satisfies ExportedHandler<Env>;

@@ -6,7 +6,7 @@ import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import test, { after, before } from "node:test";
-import { isVideoPath, parseRange, sliceBody } from "../worker/video-range.ts";
+import { cacheable, isVideoPath, parseRange, sliceBody } from "../worker/video-range.ts";
 
 // Ports: a free block from the studio pre-push gate when it runs this (CAVIES_GATE_PORT_BASE, studio-os
 // ops/machine/GATE.md), so two checkouts never share them; by hand, 3101 to 3103.
@@ -218,103 +218,116 @@ const clip = `${base}/games/clip.mp4`;
 const clipBytes = Buffer.from(Array.from({ length: 5000 }, (_, i) => i % 251));
 const bytesOf = async (reply) => Buffer.from(await reply.arrayBuffer());
 
-test("a video with no Range answers 200 with the whole file and Accept-Ranges", async () => {
-  const reply = await fetch(clip);
-  assert.equal(reply.status, 200);
-  assert.equal(reply.headers.get("accept-ranges"), "bytes");
-  assert.equal(reply.headers.get("content-length"), "5000");
-  assert.equal(reply.headers.get("content-type"), "video/mp4");
-  assert.equal(
-    reply.headers.get("cache-control"),
-    "public, max-age=86400, must-revalidate",
-  );
-  assert.ok(reply.headers.get("etag"));
-  assert.equal(reply.headers.get("x-content-type-options"), "nosniff");
-  assert.equal(reply.headers.get("strict-transport-security"), "max-age=63072000");
-  assert.deepEqual(await bytesOf(reply), clipBytes);
-});
+// The same assertions twice: through the cache (the way production answers) and with the
+// cache switched off by the test entry's header (the slicing fallback on its own).
+for (const [mode, extra] of [
+  ["cache", {}],
+  ["slicing only", { "x-test-no-cache": "1" }],
+]) {
+  const vfetch = (url, init = {}) =>
+    fetch(url, { ...init, headers: { ...extra, ...init.headers } });
 
-test("a video answers a first range, a middle range, an open range and the last bytes with 206", async () => {
-  const cases = [
-    ["bytes=0-1", 0, 1],
-    ["bytes=0-99", 0, 99],
-    ["bytes=1000-1999", 1000, 1999],
-    ["bytes=4900-", 4900, 4999],
-    ["bytes=-100", 4900, 4999],
-    ["bytes=4990-9999", 4990, 4999],
-    ["bytes=-99999", 0, 4999],
-  ];
-  for (const [range, start, end] of cases) {
-    const reply = await fetch(clip, { headers: { range } });
-    assert.equal(reply.status, 206, range);
-    assert.equal(reply.headers.get("content-range"), `bytes ${start}-${end}/5000`, range);
-    assert.equal(reply.headers.get("content-length"), String(end - start + 1), range);
-    assert.equal(reply.headers.get("accept-ranges"), "bytes", range);
-    assert.equal(reply.headers.get("content-type"), "video/mp4", range);
-    assert.ok(reply.headers.get("etag"), range);
-    assert.equal(reply.headers.get("x-content-type-options"), "nosniff", range);
-    assert.deepEqual(await bytesOf(reply), clipBytes.subarray(start, end + 1), range);
-  }
-});
-
-test("a range that cannot be met answers 416 with the size", async () => {
-  for (const range of ["bytes=5000-", "bytes=9000-9999", "bytes=-0"]) {
-    const reply = await fetch(clip, { headers: { range } });
-    assert.equal(reply.status, 416, range);
-    assert.equal(reply.headers.get("content-range"), "bytes */5000", range);
-    assert.equal((await bytesOf(reply)).length, 0, range);
-  }
-});
-
-test("a range the Worker does not read is ignored and the whole file comes back", async () => {
-  for (const range of ["bytes=0-1,5-9", "bytes=9-3", "items=0-1", "bytes=", "nonsense"]) {
-    const reply = await fetch(clip, { headers: { range } });
-    assert.equal(reply.status, 200, range);
-    assert.equal(reply.headers.get("accept-ranges"), "bytes", range);
-    assert.equal((await bytesOf(reply)).length, 5000, range);
-  }
-});
-
-test("If-Range keeps the range for the file's ETag and drops it for any other", async () => {
-  const etag = (await fetch(clip)).headers.get("etag");
-  const same = await fetch(clip, { headers: { range: "bytes=0-9", "if-range": etag } });
-  assert.equal(same.status, 206);
-  await same.arrayBuffer();
-  const other = await fetch(clip, { headers: { range: "bytes=0-9", "if-range": '"old"' } });
-  assert.equal(other.status, 200);
-  assert.equal((await bytesOf(other)).length, 5000);
-});
-
-test("HEAD for a video answers the headers and no body, with or without a range", async () => {
-  const plain = await fetch(clip, { method: "HEAD" });
-  assert.equal(plain.status, 200);
-  assert.equal(plain.headers.get("accept-ranges"), "bytes");
-  assert.equal(plain.headers.get("content-length"), "5000");
-  assert.equal((await bytesOf(plain)).length, 0);
-  const ranged = await fetch(clip, { method: "HEAD", headers: { range: "bytes=10-19" } });
-  assert.equal(ranged.status, 206);
-  assert.equal(ranged.headers.get("content-range"), "bytes 10-19/5000");
-  assert.equal(ranged.headers.get("content-length"), "10");
-  assert.equal((await bytesOf(ranged)).length, 0);
-});
-
-test("a conditional request for a video answers 304; other methods answer 405; a missing video 404", async () => {
-  const etag = (await fetch(clip)).headers.get("etag");
-  const notModified = await fetch(clip, { headers: { "if-none-match": etag } });
-  assert.equal(notModified.status, 304);
-  assert.equal(notModified.headers.get("accept-ranges"), "bytes");
-  // If-None-Match comes before Range (RFC 9110): a matching ETag is a 304 even with a range.
-  const rangedRevalidation = await fetch(clip, {
-    headers: { range: "bytes=0-9", "if-none-match": etag },
+  test(`a video with no Range answers 200 with the whole file and Accept-Ranges (${mode})`, async () => {
+    const reply = await vfetch(clip);
+    assert.equal(reply.status, 200);
+    assert.equal(reply.headers.get("accept-ranges"), "bytes");
+    assert.equal(reply.headers.get("content-length"), "5000");
+    assert.equal(reply.headers.get("content-type"), "video/mp4");
+    assert.equal(
+      reply.headers.get("cache-control"),
+      "public, max-age=86400, must-revalidate",
+    );
+    assert.ok(reply.headers.get("etag"));
+    assert.equal(reply.headers.get("x-content-type-options"), "nosniff");
+    assert.equal(reply.headers.get("strict-transport-security"), "max-age=63072000");
+    assert.deepEqual(await bytesOf(reply), clipBytes);
   });
-  assert.equal(rangedRevalidation.status, 304);
-  const post = await fetch(clip, { method: "POST" });
-  assert.equal(post.status, 405);
-  assert.equal(post.headers.get("allow"), "GET, HEAD");
-  const missing = await fetch(`${base}/games/missing.mp4`, { headers: { range: "bytes=0-1" } });
-  assert.equal(missing.status, 404);
-  assert.ok(!missing.headers.has("content-range"));
-});
+
+  test(`a video answers a first range, a middle range, an open range and the last bytes with 206 (${mode})`, async () => {
+    const cases = [
+      ["bytes=0-1", 0, 1],
+      ["bytes=0-99", 0, 99],
+      ["bytes=1000-1999", 1000, 1999],
+      ["bytes=4900-", 4900, 4999],
+      ["bytes=-100", 4900, 4999],
+      ["bytes=4990-9999", 4990, 4999],
+      ["bytes=-99999", 0, 4999],
+    ];
+    for (const [range, start, end] of cases) {
+      const reply = await vfetch(clip, { headers: { range } });
+      assert.equal(reply.status, 206, range);
+      assert.equal(reply.headers.get("content-range"), `bytes ${start}-${end}/5000`, range);
+      assert.equal(reply.headers.get("content-length"), String(end - start + 1), range);
+      assert.equal(reply.headers.get("accept-ranges"), "bytes", range);
+      assert.equal(reply.headers.get("content-type"), "video/mp4", range);
+      assert.ok(reply.headers.get("etag"), range);
+      assert.equal(reply.headers.get("x-content-type-options"), "nosniff", range);
+      assert.deepEqual(await bytesOf(reply), clipBytes.subarray(start, end + 1), range);
+    }
+  });
+
+  test(`a range that cannot be met answers 416 with the size (${mode})`, async () => {
+    for (const range of ["bytes=5000-", "bytes=9000-9999", "bytes=-0"]) {
+      const reply = await vfetch(clip, { headers: { range } });
+      assert.equal(reply.status, 416, range);
+      assert.equal(reply.headers.get("content-range"), "bytes */5000", range);
+      assert.equal(reply.headers.get("cache-control"), "no-store", range);
+      assert.equal(reply.headers.get("etag"), null, range);
+      assert.equal((await bytesOf(reply)).length, 0, range);
+    }
+  });
+
+  test(`a range the Worker does not read is ignored and the whole file comes back (${mode})`, async () => {
+    for (const range of ["bytes=0-1,5-9", "bytes=9-3", "items=0-1", "bytes=", "nonsense"]) {
+      const reply = await vfetch(clip, { headers: { range } });
+      assert.equal(reply.status, 200, range);
+      assert.equal(reply.headers.get("accept-ranges"), "bytes", range);
+      assert.equal((await bytesOf(reply)).length, 5000, range);
+    }
+  });
+
+  test(`If-Range keeps the range for the file's ETag and drops it for any other (${mode})`, async () => {
+    const etag = (await vfetch(clip)).headers.get("etag");
+    const same = await vfetch(clip, { headers: { range: "bytes=0-9", "if-range": etag } });
+    assert.equal(same.status, 206);
+    await same.arrayBuffer();
+    const other = await vfetch(clip, { headers: { range: "bytes=0-9", "if-range": '"old"' } });
+    assert.equal(other.status, 200);
+    assert.equal((await bytesOf(other)).length, 5000);
+  });
+
+  test(`HEAD for a video answers the headers and no body, with or without a range (${mode})`, async () => {
+    const plain = await vfetch(clip, { method: "HEAD" });
+    assert.equal(plain.status, 200);
+    assert.equal(plain.headers.get("accept-ranges"), "bytes");
+    assert.equal(plain.headers.get("content-length"), "5000");
+    assert.equal((await bytesOf(plain)).length, 0);
+    const ranged = await vfetch(clip, { method: "HEAD", headers: { range: "bytes=10-19" } });
+    assert.equal(ranged.status, 206);
+    assert.equal(ranged.headers.get("content-range"), "bytes 10-19/5000");
+    assert.equal(ranged.headers.get("content-length"), "10");
+    assert.equal((await bytesOf(ranged)).length, 0);
+  });
+
+  test(`a conditional request for a video answers 304; other methods answer 405; a missing video 404 (${mode})`, async () => {
+    const etag = (await vfetch(clip)).headers.get("etag");
+    const notModified = await vfetch(clip, { headers: { "if-none-match": etag } });
+    assert.equal(notModified.status, 304);
+    assert.equal(notModified.headers.get("accept-ranges"), "bytes");
+    // If-None-Match comes before Range (RFC 9110): a matching ETag is a 304 even with a range.
+    const rangedRevalidation = await vfetch(clip, {
+      headers: { range: "bytes=0-9", "if-none-match": etag },
+    });
+    assert.equal(rangedRevalidation.status, 304);
+    const post = await vfetch(clip, { method: "POST" });
+    assert.equal(post.status, 405);
+    assert.equal(post.headers.get("allow"), "GET, HEAD");
+    const missing = await vfetch(`${base}/games/missing.mp4`, { headers: { range: "bytes=0-1" } });
+    assert.equal(missing.status, 404);
+    assert.ok(!missing.headers.has("content-range"));
+  });
+
+}
 
 test("a page is still a plain static asset: a Range request gets 200, the whole page, no Accept-Ranges", async () => {
   const reply = await fetch(`${base}/page`, { headers: { range: "bytes=0-9" } });
@@ -335,11 +348,23 @@ test("the three wrangler configs route the same video paths to the Worker", () =
         .join("\n"),
     ).assets;
   const test = read("tests/workerd/wrangler.jsonc");
-  assert.deepEqual(test.run_worker_first, ["/api/*", "/*.mp4", "/*.m4v", "/*.mov", "/*.webm"]);
+  // The test config also routes the test entry's own counter, /__test/*.
+  const routed = test.run_worker_first.filter((pattern) => pattern !== "/__test/*");
+  assert.deepEqual(routed, ["/api/*", "/*.mp4", "/*.m4v", "/*.mov", "/*.webm"]);
   for (const path of ["wrangler.jsonc", "wrangler.production.jsonc"]) {
     const assets = read(path);
-    assert.deepEqual(assets.run_worker_first, test.run_worker_first, path);
+    assert.deepEqual(assets.run_worker_first, routed, path);
     assert.equal(assets.binding, "ASSETS", path);
+    assert.equal(
+      JSON.parse(
+        readFileSync(path, "utf8")
+          .split("\n")
+          .filter((line) => !line.trim().startsWith("//"))
+          .join("\n"),
+      ).version_metadata.binding,
+      "CF_VERSION_METADATA",
+      path,
+    );
     assert.equal(assets.html_handling, test.html_handling, path);
     assert.equal(assets.not_found_handling, test.not_found_handling, path);
   }
@@ -420,4 +445,114 @@ test("sliceBody cuts a stream of any chunk size to the bytes asked for and stops
   await collect(sliceBody(stream, 0, 9));
   assert.ok(state.cancelled, "the source is cancelled once the last byte is out");
   assert.ok(state.reads < 4, "and not read to its end");
+});
+
+// The cache path. A second fixture (games/clip-cache.mp4, 3,000 bytes) that no other test asks
+// for, so its first request is a miss. The test entry counts what the video route asks of the
+// assets binding (/__test/assets-calls): a miss asks once, a hit not at all.
+const cached = `${base}/games/clip-cache.mp4`;
+const cachedBytes = Buffer.from(Array.from({ length: 3000 }, (_, i) => (i * 7) % 253));
+const assetCalls = async () =>
+  (await (await fetch(`${base}/__test/assets-calls`)).json()).calls;
+
+test("the cache: a miss is answered from the assets binding and fills the cache; hits never ask it", async () => {
+  const before = await assetCalls();
+  const miss = await fetch(cached, { headers: { range: "bytes=10-19" } });
+  assert.equal(miss.status, 206);
+  assert.equal(miss.headers.get("content-range"), "bytes 10-19/3000");
+  assert.deepEqual(await bytesOf(miss), cachedBytes.subarray(10, 20));
+  assert.equal((await assetCalls()) - before, 1, "a miss asks the binding once");
+
+  // The put runs after the reply (waitUntil); the test entry hands back its promises.
+  await fetch(`${base}/__test/settled`);
+  const was = await assetCalls();
+  await (await fetch(cached, { headers: { range: "bytes=0-0" } })).arrayBuffer();
+  assert.equal(await assetCalls(), was, "the file reached the cache");
+
+  const hits = await assetCalls();
+  const etag = (await fetch(cached, { headers: { range: "bytes=0-0" } })).headers.get("etag");
+  assert.ok(etag);
+  for (const [range, start, end] of [
+    ["bytes=0-1", 0, 1],
+    ["bytes=1000-1999", 1000, 1999],
+    ["bytes=2900-", 2900, 2999],
+    ["bytes=-100", 2900, 2999],
+    ["bytes=2990-9999", 2990, 2999],
+  ]) {
+    const reply = await fetch(cached, { headers: { range } });
+    assert.equal(reply.status, 206, range);
+    assert.equal(reply.headers.get("content-range"), `bytes ${start}-${end}/3000`, range);
+    assert.equal(reply.headers.get("content-length"), String(end - start + 1), range);
+    assert.equal(reply.headers.get("accept-ranges"), "bytes", range);
+    assert.equal(reply.headers.get("content-type"), "video/mp4", range);
+    assert.equal(reply.headers.get("etag"), etag, range);
+    assert.equal(reply.headers.get("x-content-type-options"), "nosniff", range);
+    assert.equal(reply.headers.get("strict-transport-security"), "max-age=63072000", range);
+    assert.deepEqual(await bytesOf(reply), cachedBytes.subarray(start, end + 1), range);
+  }
+  const unmeetable = await fetch(cached, { headers: { range: "bytes=3000-" } });
+  assert.equal(unmeetable.status, 416);
+  assert.equal(unmeetable.headers.get("content-range"), "bytes */3000");
+  assert.equal(unmeetable.headers.get("cache-control"), "no-store");
+  assert.equal(unmeetable.headers.get("etag"), null);
+  assert.equal((await bytesOf(unmeetable)).length, 0);
+  const whole = await fetch(cached);
+  assert.equal(whole.status, 200);
+  assert.equal(whole.headers.get("accept-ranges"), "bytes");
+  assert.equal(whole.headers.get("content-length"), "3000");
+  assert.deepEqual(await bytesOf(whole), cachedBytes);
+  const head = await fetch(cached, { method: "HEAD", headers: { range: "bytes=10-19" } });
+  assert.equal(head.status, 206);
+  assert.equal(head.headers.get("content-range"), "bytes 10-19/3000");
+  assert.equal((await bytesOf(head)).length, 0);
+  const notModified = await fetch(cached, { headers: { "if-none-match": etag, range: "bytes=0-9" } });
+  assert.equal(notModified.status, 304);
+  // The visitor's query string never makes a second copy.
+  const plainHead = await fetch(cached, { method: "HEAD" });
+  assert.equal(plainHead.status, 200);
+  assert.equal(plainHead.headers.get("content-length"), "3000");
+  assert.equal(plainHead.headers.get("accept-ranges"), "bytes");
+  assert.equal((await bytesOf(plainHead)).length, 0);
+  const plainNotModified = await fetch(cached, { headers: { "if-none-match": etag } });
+  assert.equal(plainNotModified.status, 304);
+  assert.equal(plainNotModified.headers.get("accept-ranges"), "bytes");
+  // If-Range with the copy's ETag keeps the range, and it is answered by the cache.
+  const ifRangeHit = await fetch(cached, { headers: { range: "bytes=100-199", "if-range": etag } });
+  assert.equal(ifRangeHit.status, 206);
+  assert.deepEqual(await bytesOf(ifRangeHit), cachedBytes.subarray(100, 200));
+  const withQuery = await fetch(`${cached}?x=1`, { headers: { range: "bytes=5-6" } });
+  assert.equal(withQuery.status, 206);
+  assert.deepEqual(await bytesOf(withQuery), cachedBytes.subarray(5, 7));
+  assert.equal(await assetCalls(), hits, "none of these asked the binding");
+});
+
+test("the cache is asked only for plain ranges: several ranges, a reversed one and a stale If-Range go to the slicer", async () => {
+  const etag = (await fetch(cached, { headers: { range: "bytes=0-0" } })).headers.get("etag");
+  const before = await assetCalls();
+  const several = await fetch(cached, { headers: { range: "bytes=0-1,5-9" } });
+  assert.equal(several.status, 200);
+  assert.equal((await bytesOf(several)).length, 3000);
+  const reversed = await fetch(cached, { headers: { range: "bytes=9-3" } });
+  assert.equal(reversed.status, 200);
+  assert.equal((await bytesOf(reversed)).length, 3000);
+  const staleIfRange = await fetch(cached, { headers: { range: "bytes=0-9", "if-range": '"old"' } });
+  assert.equal(staleIfRange.status, 200);
+  assert.equal((await bytesOf(staleIfRange)).length, 3000);
+  assert.equal((await assetCalls()) - before, 3, "each of the three asked the binding");
+  const ifRange = await fetch(cached, { headers: { range: "bytes=0-9", "if-range": etag } });
+  assert.equal(ifRange.status, 206);
+  assert.deepEqual(await bytesOf(ifRange), cachedBytes.subarray(0, 10));
+  assert.equal((await assetCalls()) - before, 3, "a matching If-Range did not");
+});
+
+test("cacheable() lets only a plain range reach the cache", () => {
+  const request = (headers) => new Request("https://cavies.studio/a.mp4", { headers });
+  for (const range of [undefined, "bytes=0-1", "bytes=5-", "bytes=-5", "bytes=3-3", " Bytes = 1 - 2 "]) {
+    assert.ok(cacheable(request(range === undefined ? {} : { range })), String(range));
+  }
+  for (const range of ["bytes=9-3", "bytes=0-1,4-5", "bytes=", "bytes=-", "items=0-1", "nonsense"]) {
+    assert.ok(!cacheable(request({ range })), range);
+  }
+  // If-Range is judged after the lookup, against the copy's ETag (fromCache).
+  assert.ok(cacheable(request({ range: "bytes=0-1", "if-range": '"x"' })));
 });
