@@ -56,13 +56,20 @@ const saveFolders: {
 const settings = [
   [
     "Reduced motion",
-    "Calmer animations and page turns. The magpie fades in instead of flying, keeps still and takes nothing.",
+    "Calmer animations and page turns. An otter that lies in the room from the start is there in one still pose; the otters take nothing and make no mess.",
   ],
   [
     "Colour assist patterns",
     "Marks on the things whose colour matters, so a page sorted by colour can be tidied without telling the colours apart.",
   ],
-  ["The magpie visits", "Turn it off and the magpie stays away."],
+  [
+    "The otters visit",
+    "Turn it off and the otters stay away. Turn it off while an otter is in the middle of a job, and it lets go of whatever it has and goes.",
+  ],
+  [
+    "Mono sound",
+    "Plays every sound from the middle of the picture. With it off, each sound comes from where it happens on the screen.",
+  ],
   ["Vibration", "Controller rumble, off unless you turn it on."],
   [
     "Extra TV margin",
@@ -70,6 +77,10 @@ const settings = [
   ],
   ["Sound effects and Music", "Separate volumes."],
   ["Cursor speed", "How fast the controller’s cursor moves."],
+  [
+    "Interface size",
+    "The size of the buttons and words: 100%, 125% or 150%.",
+  ],
 ] as const;
 
 const supportHref = gameContactHref("Oddly Orderly support");
@@ -133,8 +144,10 @@ export default function SupportPage() {
             <section id="saves" aria-labelledby="saves-title">
               <h2 id="saves-title">Where your progress is saved</h2>
               <p>
-                The game keeps your rosettes, the last page you played, the
-                magpie’s treasures and your settings in a folder of its own:
+                The game keeps your rosettes, the last page you played, how each
+                page you left part-way was arranged, which small shiny things
+                the otters have taken, and your settings, in a folder of its
+                own:
               </p>
               <table className={styles.places}>
                 <thead>
@@ -173,10 +186,16 @@ export default function SupportPage() {
             <section id="starting-over" aria-labelledby="starting-over-title">
               <h2 id="starting-over-title">Starting over</h2>
               <p>
-                Open Settings › Clear all rosettes, then press it again to
-                confirm. It clears every rosette, the last page and the magpie’s
-                treasures, and keeps your settings. Steam achievements stay
-                earned.
+                To put the page you are on back as it began, open the pencil
+                menu (the paper tab at the bottom left) and choose Start over;
+                Undo takes it back.
+              </p>
+              <p>
+                To begin the whole game again, open Settings › Clear all
+                rosettes. The game asks “Clear every rosette?”; choose Yes. It
+                clears every rosette, the last page you played, how each page
+                you left part-way was arranged and the small shiny things the
+                otters have taken, and keeps your settings.
               </p>
             </section>
 

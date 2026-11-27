@@ -15,6 +15,30 @@ No earlier handoff file exists in this repo. Before this file, history is in `gi
 
 ---
 
+## Oddly Orderly's pages: the two otters in the magpie's place: 27 November 2026
+
+**What shipped** (a pull request, branch `claude/oddly-orderly-otters`; not merged, not deployed)
+- No magpie anywhere on the site. `git grep -i magpie` is empty, and a smoke test now fails if any page of the sitemap says it.
+- Game page: the store's first eight screenshots (`01` to `08`, whole, new alt text), the store's short description and the otters' feature line word for word, the trailer's description counting its twelve pages. Press kit: all eighteen screenshots (JPEG downloads), the logo, the app icon and the main capsule from the accepted set, the approved art note brought to the final two sentences of the game's `docs/GO-PUBLIC.md`. The pages' sharing image is the end card.
+- Trailer: the accepted 52.4 s cut (SHA-256 checked), re-encoded H.264 High 1080p30, two-pass 2.0 Mbps, AAC 128 kbps, 14.0 MB (under this site's 15 MB download check; 2.2 Mbps came to 15.4 MB). Poster from `thumbnail-gameplay.png`. No autoplay.
+- Support: the settings as the game has them (the otters' switch, reduced motion, mono sound, interface size), Start over (the pencil menu) and Clear all rosettes, from `strings.csv`, `game/core/progress.gd` and `docs/GAME-DESIGN.md`. Left out because the game cannot confirm it: "Steam achievements stay earned".
+- Privacy: `lib/oddly-orderly-privacy.ts` is the game's `assets/legal/privacy_policy.txt`. Two words differed: "the magpie" in the sentence on what the game stores and in the playtest notes' list is "the otters". The effective date line (October 24, 2026) is the game's own and is unchanged.
+- Case study: the cover (the title screen, which showed the bird) is now *Keys by the door* and the gallery's party photo (the bird on the present) is *A drawer of their own*; the candles and journal pictures stay.
+- Records: `studio/docs/portfolio-sources.md`, `docs/PROVENANCE.md`, `studio/README.md`; `studio/tests/site-smoke.test.mjs` names the new copy.
+
+**Decisions (mine)**
+- The case study's text still says "Four showpieces" and the bookcase and tool wall stay in its gallery: both are still in the accepted set.
+
+**Open**
+- The director reads the PR, then says go. Deploy follows the studio rules (`gate.py run --full` on the commit, smoke check after).
+- The game page does not carry the AI disclosure; only the press kit does. Not changed.
+- The trailer was checked for size, codec and the download link, not played to the end in a browser.
+
+**How to verify**
+- `cd studio && npm run build:cf`, `npx wrangler dev --port 3217`, `SITE_TEST_URL=http://127.0.0.1:3217 npm run test:smoke` (25 tests pass). Phone and desktop screenshots of the five pages were checked by eye.
+
+**Disk:** removed the build output and `node_modules` of the worktree `cavies-homepage-wt-otters` before the handoff; the worktree itself stays until the pull request is read.
+
 ## Dependencies: Next.js 16.4.6, the audit's fixes, 21 GitHub alerts cleared: 26 November 2026
 
 **What shipped**

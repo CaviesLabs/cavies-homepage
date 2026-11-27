@@ -4,6 +4,7 @@ import { projectGalleries } from "@/lib/project-galleries";
 import {
   gamePaths,
   pressAssets,
+  pressScreenshots,
   screenshots,
   trailer,
 } from "@/lib/oddly-orderly";
@@ -36,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: absoluteUrl(gamePaths.press),
       images: [
-        ...screenshots.map((shot) => shot.src),
+        ...pressScreenshots.map((shot) => shot.src),
         pressAssets.logo.src,
         pressAssets.icon.src,
         pressAssets.capsule.src,

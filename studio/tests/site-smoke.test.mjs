@@ -267,7 +267,7 @@ await test("Oddly Orderly's page shows the game and its trailer without autoplay
     "More than one tidy way",
     "Four big pages",
     "No timers, no fail states",
-    "A magpie",
+    "Two sea otters, Odd and Order, keep you company",
     "A lofi theme for every room",
     "Mouse, controller or keyboard",
   ]) {
@@ -286,15 +286,37 @@ await test("Oddly Orderly's page shows the game and its trailer without autoplay
       ),
     ].map((match) => match[1]),
   );
-  assert.ok(screenshots.size >= 6 && screenshots.size <= 8, "six to eight");
-  for (const showpiece of [
-    "bookcase",
-    "dresser",
-    "tool-wall",
-    "dressing-table",
-  ]) {
-    assert.ok(screenshots.has(showpiece), `the ${showpiece} showpiece`);
-  }
+  // The store's first eight, in the store's order (the game's GO-PUBLIC.md).
+  assert.deepEqual(
+    [...screenshots],
+    [
+      "keys",
+      "snowman",
+      "cutlery",
+      "cake",
+      "xylophone",
+      "mail",
+      "glitter",
+      "leaves",
+    ],
+    "the store's first eight screenshots, in order",
+  );
+  assert.ok(
+    text.includes(
+      "two sea otters: one makes a little mess, one brings things back.",
+    ),
+    "the store's short description, word for word",
+  );
+  assert.ok(
+    text.includes(
+      "Odd makes a little mess and takes one shiny thing from every room; Order brings the last piece back. Everything Odd took is waiting at the end.",
+    ),
+    "the store's otters line, word for word",
+  );
+  assert.ok(
+    text.includes("Twelve pages of play, from the keys by the door"),
+    "the trailer's description counts its pages",
+  );
   for (const path of gamePages.slice(1)) {
     assert.ok(html.includes(`href="${path}"`), `links ${path}`);
   }
@@ -352,7 +374,7 @@ await test("the press kit has the factsheet, the approved art note and working d
   }
   assert.ok(
     text.includes(
-      "The painted scenes and the music were made during development with generative AI tools run on our own computer, from our own drawings and prompts, then cut, fitted and arranged by us. The game does not use generative AI while it runs.",
+      "The art, the music and some of the sound effects were made with generative AI tools during development, then reviewed, edited and arranged by us. The game does not use generative AI while it runs.",
     ),
     "the approved art note, word for word",
   );
@@ -363,7 +385,11 @@ await test("the press kit has the factsheet, the approved art note and working d
   ];
   const types = { jpg: "image/jpeg", png: "image/png", mp4: "video/mp4" };
   const kinds = downloads.map(([, href]) => href.split(".").pop());
-  assert.ok(kinds.filter((kind) => kind === "jpg").length >= 7, "JPEGs");
+  assert.equal(
+    kinds.filter((kind) => kind === "jpg").length,
+    19,
+    "the eighteen screenshots and the capsule, as JPEGs",
+  );
   assert.ok(
     kinds.includes("png") && kinds.includes("mp4"),
     "logo, icon, trailer",
@@ -402,6 +428,10 @@ await test("the privacy policy is the game's own, with an anchor per section", (
   assert.ok(html.includes('href="mailto:contact@cavies.studio"'));
   assert.ok(html.includes('href="/games/oddly-orderly/support"'));
   assert.ok(!text.includes("private testing"));
+  assert.ok(
+    text.includes("which small shiny things the otters have taken"),
+    "the game's current policy text",
+  );
 });
 
 await test("support covers contact, saves, starting over, notes, accessibility and refunds", () => {
@@ -415,6 +445,7 @@ await test("support covers contact, saves, starting over, notes, accessibility a
     "Clear all rosettes",
     "Delete notes",
     "Reduced motion",
+    "The otters visit",
     "Colour assist patterns",
     "Refunds go through the store you bought the game from",
   ]) {
@@ -430,6 +461,12 @@ await test("the case study counts pages, names the showpieces and links the game
   assert.ok(text.includes("Four showpieces"));
   assert.ok(casePage.includes('href="/games/oddly-orderly"'));
   assert.ok(htmlByPath.get("/").includes('href="/games/oddly-orderly"'));
+});
+
+await test("the retired magpie is on no page of the site", () => {
+  for (const [path, html] of htmlByPath) {
+    assert.ok(!/magpie/i.test(html), `${path}: no magpie`);
+  }
 });
 
 await test("/games goes to the games section", async () => {

@@ -27,7 +27,7 @@ import styles from "./game.module.css";
 const path = gamePaths.game;
 const title = "Oddly Orderly: a cozy tidying puzzle game";
 const description =
-  "Oddly Orderly is a cozy, wordless tidying puzzle about two people moving in together: over a hundred pages, more than one tidy way, and a magpie. Coming soon to Steam.";
+  "Oddly Orderly is a cozy, wordless tidying puzzle about two people moving in together: over a hundred pages, more than one tidy way, and two sea otters. Coming soon to Steam.";
 
 export const metadata = pageMetadata({
   title,
@@ -171,7 +171,7 @@ export default function OddlyOrderlyPage() {
               Around the <em>house.</em>
             </h2>
             <p>
-              Screenshots from the development build, October 2026. Open any of
+              Screenshots from the development build, November 2026. Open any of
               them at full size.
             </p>
           </div>
