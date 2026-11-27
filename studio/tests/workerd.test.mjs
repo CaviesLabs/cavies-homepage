@@ -3,6 +3,7 @@
 // the Workers runtime are caught. No network beyond localhost; nothing is sent.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import test, { after, before } from "node:test";
 
@@ -206,4 +207,134 @@ test("rejects a foreign origin before any provider call", async () => {
   });
   assert.equal(response.status, 403);
   assert.equal(calls.length, 0);
+});
+
+// Byte ranges for videos. The fixture clip (tests/workerd/assets/games/clip.mp4) is 5,000
+// bytes and byte i is i % 251, so every slice can be checked. Workers static assets alone
+// answer a Range request with 200 and the whole file (Cloudflare's "Billing and
+// Limitations" page); the Worker runs first for video paths and answers the range.
+const clip = `${base}/games/clip.mp4`;
+const clipBytes = Buffer.from(Array.from({ length: 5000 }, (_, i) => i % 251));
+const bytesOf = async (reply) => Buffer.from(await reply.arrayBuffer());
+
+test("a video with no Range answers 200 with the whole file and Accept-Ranges", async () => {
+  const reply = await fetch(clip);
+  assert.equal(reply.status, 200);
+  assert.equal(reply.headers.get("accept-ranges"), "bytes");
+  assert.equal(reply.headers.get("content-length"), "5000");
+  assert.equal(reply.headers.get("content-type"), "video/mp4");
+  assert.equal(
+    reply.headers.get("cache-control"),
+    "public, max-age=86400, must-revalidate",
+  );
+  assert.ok(reply.headers.get("etag"));
+  assert.equal(reply.headers.get("x-content-type-options"), "nosniff");
+  assert.equal(reply.headers.get("strict-transport-security"), "max-age=63072000");
+  assert.deepEqual(await bytesOf(reply), clipBytes);
+});
+
+test("a video answers a first range, a middle range, an open range and the last bytes with 206", async () => {
+  const cases = [
+    ["bytes=0-1", 0, 1],
+    ["bytes=0-99", 0, 99],
+    ["bytes=1000-1999", 1000, 1999],
+    ["bytes=4900-", 4900, 4999],
+    ["bytes=-100", 4900, 4999],
+    ["bytes=4990-9999", 4990, 4999],
+    ["bytes=-99999", 0, 4999],
+  ];
+  for (const [range, start, end] of cases) {
+    const reply = await fetch(clip, { headers: { range } });
+    assert.equal(reply.status, 206, range);
+    assert.equal(reply.headers.get("content-range"), `bytes ${start}-${end}/5000`, range);
+    assert.equal(reply.headers.get("content-length"), String(end - start + 1), range);
+    assert.equal(reply.headers.get("accept-ranges"), "bytes", range);
+    assert.equal(reply.headers.get("content-type"), "video/mp4", range);
+    assert.ok(reply.headers.get("etag"), range);
+    assert.equal(reply.headers.get("x-content-type-options"), "nosniff", range);
+    assert.deepEqual(await bytesOf(reply), clipBytes.subarray(start, end + 1), range);
+  }
+});
+
+test("a range that cannot be met answers 416 with the size", async () => {
+  for (const range of ["bytes=5000-", "bytes=9000-9999", "bytes=-0"]) {
+    const reply = await fetch(clip, { headers: { range } });
+    assert.equal(reply.status, 416, range);
+    assert.equal(reply.headers.get("content-range"), "bytes */5000", range);
+    assert.equal((await bytesOf(reply)).length, 0, range);
+  }
+});
+
+test("a range the Worker does not read is ignored and the whole file comes back", async () => {
+  for (const range of ["bytes=0-1,5-9", "bytes=9-3", "items=0-1", "bytes=", "nonsense"]) {
+    const reply = await fetch(clip, { headers: { range } });
+    assert.equal(reply.status, 200, range);
+    assert.equal(reply.headers.get("accept-ranges"), "bytes", range);
+    assert.equal((await bytesOf(reply)).length, 5000, range);
+  }
+});
+
+test("If-Range keeps the range for the file's ETag and drops it for any other", async () => {
+  const etag = (await fetch(clip)).headers.get("etag");
+  const same = await fetch(clip, { headers: { range: "bytes=0-9", "if-range": etag } });
+  assert.equal(same.status, 206);
+  await same.arrayBuffer();
+  const other = await fetch(clip, { headers: { range: "bytes=0-9", "if-range": '"old"' } });
+  assert.equal(other.status, 200);
+  assert.equal((await bytesOf(other)).length, 5000);
+});
+
+test("HEAD for a video answers the headers and no body, with or without a range", async () => {
+  const plain = await fetch(clip, { method: "HEAD" });
+  assert.equal(plain.status, 200);
+  assert.equal(plain.headers.get("accept-ranges"), "bytes");
+  assert.equal(plain.headers.get("content-length"), "5000");
+  assert.equal((await bytesOf(plain)).length, 0);
+  const ranged = await fetch(clip, { method: "HEAD", headers: { range: "bytes=10-19" } });
+  assert.equal(ranged.status, 206);
+  assert.equal(ranged.headers.get("content-range"), "bytes 10-19/5000");
+  assert.equal(ranged.headers.get("content-length"), "10");
+  assert.equal((await bytesOf(ranged)).length, 0);
+});
+
+test("a conditional request for a video answers 304; other methods answer 405; a missing video 404", async () => {
+  const etag = (await fetch(clip)).headers.get("etag");
+  const notModified = await fetch(clip, { headers: { "if-none-match": etag } });
+  assert.equal(notModified.status, 304);
+  assert.equal(notModified.headers.get("accept-ranges"), "bytes");
+  const post = await fetch(clip, { method: "POST" });
+  assert.equal(post.status, 405);
+  assert.equal(post.headers.get("allow"), "GET, HEAD");
+  const missing = await fetch(`${base}/games/missing.mp4`, { headers: { range: "bytes=0-1" } });
+  assert.equal(missing.status, 404);
+  assert.ok(!missing.headers.has("content-range"));
+});
+
+test("a page is still a plain static asset: a Range request gets 200, the whole page, no Accept-Ranges", async () => {
+  const reply = await fetch(`${base}/page`, { headers: { range: "bytes=0-9" } });
+  assert.equal(reply.status, 200);
+  assert.equal(reply.headers.get("accept-ranges"), null);
+  assert.equal(reply.headers.get("content-range"), null);
+  assert.match(await reply.text(), /A page\./);
+  const missing = await fetch(`${base}/no-such-page`);
+  assert.equal(missing.status, 404);
+});
+
+test("the three wrangler configs route the same video paths to the Worker", () => {
+  const read = (path) =>
+    JSON.parse(
+      readFileSync(path, "utf8")
+        .split("\n")
+        .filter((line) => !line.trim().startsWith("//"))
+        .join("\n"),
+    ).assets;
+  const test = read("tests/workerd/wrangler.jsonc");
+  assert.deepEqual(test.run_worker_first, ["/api/*", "/*.mp4", "/*.m4v", "/*.mov", "/*.webm"]);
+  for (const path of ["wrangler.jsonc", "wrangler.production.jsonc"]) {
+    const assets = read(path);
+    assert.deepEqual(assets.run_worker_first, test.run_worker_first, path);
+    assert.equal(assets.binding, "ASSETS", path);
+    assert.equal(assets.html_handling, test.html_handling, path);
+    assert.equal(assets.not_found_handling, test.not_found_handling, path);
+  }
 });

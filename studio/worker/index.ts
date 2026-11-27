@@ -10,11 +10,14 @@ import {
   hashClientKey,
   rateLimitClientKey,
 } from "./rate-limit";
+import { isVideoPath, serveVideo } from "./video-range";
 
 export { EnquiryLedger } from "./ledger";
 
 export type Env = {
   LEDGER: DurableObjectNamespace<EnquiryLedger>;
+  /** The static assets (`assets.binding` in the wrangler config); videos are served from here with byte ranges. */
+  ASSETS: Fetcher;
   RATE_LIMIT_SALT?: string;
   ENQUIRY_DELIVERY_ENABLED?: string;
   ENQUIRY_EXTRA_ORIGIN?: string;
@@ -46,6 +49,7 @@ async function route(
   providerFetch?: typeof fetch,
 ): Promise<Response> {
   const { pathname } = new URL(request.url);
+  if (isVideoPath(pathname)) return serveVideo(request, env.ASSETS);
   if (pathname !== "/api/enquiry") {
     return Response.json(
       { ok: false, message: "Not found." },
@@ -85,8 +89,8 @@ export async function handle(
   return withSecurityHeaders(await route(request, env, providerFetch));
 }
 
-// wrangler.jsonc sends only /api/* here (assets.run_worker_first); every page
-// is a static asset and never runs this code.
+// The wrangler configs send only /api/* and the video files here (assets.run_worker_first);
+// every page and picture is a static asset and never runs this code.
 export default {
   fetch: (request: Request, env: Env) => handle(request, env),
 } satisfies ExportedHandler<Env>;

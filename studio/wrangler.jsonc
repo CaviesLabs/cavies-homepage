@@ -11,8 +11,11 @@
   "main": "worker/index.ts",
   "assets": {
     "directory": "./out",
-    // Pages never invoke Worker code; only the enquiry endpoint does.
-    "run_worker_first": ["/api/*"],
+    // Pages and pictures never invoke Worker code; the enquiry endpoint does, and so do the
+    // video files, because static assets ignore a Range request (Safari needs ranges to
+    // play a video). worker/video-range.ts answers those from the ASSETS binding.
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/*.mp4", "/*.m4v", "/*.mov", "/*.webm"],
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   },
