@@ -4,6 +4,14 @@
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["cache_option_enabled"],
   "main": "../../worker/test-entry.ts",
+  // A small fixture site: a page and a clip, with the same routing as the real configs.
+  "assets": {
+    "directory": "./assets",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/*.mp4", "/*.m4v", "/*.mov", "/*.webm"],
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
   "durable_objects": {
     "bindings": [{ "name": "LEDGER", "class_name": "EnquiryLedger" }]
   },
