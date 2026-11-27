@@ -49,7 +49,9 @@ async function route(
   providerFetch?: typeof fetch,
 ): Promise<Response> {
   const { pathname } = new URL(request.url);
-  if (isVideoPath(pathname)) return serveVideo(request, env.ASSETS);
+  if (isVideoPath(pathname) && !pathname.startsWith("/api/")) {
+    return serveVideo(request, env.ASSETS);
+  }
   if (pathname !== "/api/enquiry") {
     return Response.json(
       { ok: false, message: "Not found." },

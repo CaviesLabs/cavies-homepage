@@ -10,7 +10,7 @@
 
 /** The extensions `assets.run_worker_first` sends here in the wrangler configs (tests/workerd.test.mjs holds the three configs to one list). */
 export function isVideoPath(pathname: string): boolean {
-  return /\.(mp4|m4v|mov|webm)$/.test(pathname);
+  return /\.(mp4|m4v|mov|webm)$/i.test(pathname);
 }
 
 export type RangeOutcome =
@@ -43,7 +43,7 @@ export function parseRange(header: string | null, size: number): RangeOutcome {
 }
 
 /** A body cut to bytes `start` to `end` (inclusive) of the source; the rest of the source is cancelled. */
-function sliceBody(
+export function sliceBody(
   source: ReadableStream<Uint8Array>,
   start: number,
   end: number,
@@ -88,8 +88,10 @@ function ifRangeHolds(header: string | null, etag: string | null): boolean {
 // The binding hands the Worker a body with no Content-Length (the edge adds one on the way out),
 // and a range needs the size for Content-Range and for "the last N bytes". The first request for
 // a file in an isolate reads the whole body once and remembers its size under the file's ETag (a
-// content hash, so a new deploy's file is a new key); later requests stream and cut.
-const sizes = new Map<string, number>();
+// content hash, so a new deploy's file is a new key); requests that arrive while that read is
+// still going wait for the size instead of buffering the file again, and later requests stream
+// and cut the body.
+const sizes = new Map<string, Promise<number>>();
 const sizesLimit = 32;
 
 type Source =
@@ -100,13 +102,20 @@ async function sourceOf(upstream: Response): Promise<Source> {
   const etag = upstream.headers.get("etag");
   const known = etag === null ? undefined : sizes.get(etag);
   if (known !== undefined && upstream.body !== null) {
-    return { kind: "stream", size: known, body: upstream.body };
+    try {
+      return { kind: "stream", size: await known, body: upstream.body };
+    } catch {
+      // The read that was meant to give the size failed; read this one's own copy.
+    }
   }
-  const bytes = new Uint8Array(await upstream.arrayBuffer());
+  const read = upstream.arrayBuffer().then((buffer) => new Uint8Array(buffer));
   if (etag !== null) {
     if (sizes.size >= sizesLimit) sizes.clear();
-    sizes.set(etag, bytes.byteLength);
+    const size = read.then((bytes) => bytes.byteLength);
+    sizes.set(etag, size);
+    size.catch(() => sizes.delete(etag));
   }
+  const bytes = await read;
   return { kind: "bytes", size: bytes.byteLength, bytes };
 }
 
@@ -119,7 +128,10 @@ function bodyOf(
   if (source.kind === "bytes") return source.bytes.subarray(start, end + 1);
   if (start === 0 && end === source.size - 1) return source.body;
   const { readable, writable } = new FixedLengthStream(end - start + 1);
-  void sliceBody(source.body, start, end).pipeTo(writable);
+  // A viewer who seeks or leaves cancels the stream; that is not an error.
+  sliceBody(source.body, start, end)
+    .pipeTo(writable)
+    .catch(() => {});
   return readable;
 }
 
@@ -138,14 +150,12 @@ export async function serveVideo(
     });
   }
   const rangeHeader = request.headers.get("range");
-  // The binding does not slice, so it is asked for the whole file; a conditional request
-  // (If-None-Match) goes through to it only when no range is asked.
+  // The binding does not slice, so it is asked for the whole file. A conditional request goes
+  // through to it, and its 304 is final (RFC 9110: If-None-Match comes before Range).
   const headers = new Headers();
-  if (rangeHeader === null) {
-    for (const name of ["if-none-match", "if-modified-since"]) {
-      const value = request.headers.get(name);
-      if (value !== null) headers.set(name, value);
-    }
+  for (const name of ["if-none-match", "if-modified-since"]) {
+    const value = request.headers.get(name);
+    if (value !== null) headers.set(name, value);
   }
   const upstream = await assets.fetch(
     new Request(request.url, { method: "GET", headers }),

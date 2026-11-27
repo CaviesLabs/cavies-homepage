@@ -6,6 +6,7 @@ import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import test, { after, before } from "node:test";
+import { isVideoPath, parseRange, sliceBody } from "../worker/video-range.ts";
 
 // Ports: a free block from the studio pre-push gate when it runs this (CAVIES_GATE_PORT_BASE, studio-os
 // ops/machine/GATE.md), so two checkouts never share them; by hand, 3101 to 3103.
@@ -302,6 +303,11 @@ test("a conditional request for a video answers 304; other methods answer 405; a
   const notModified = await fetch(clip, { headers: { "if-none-match": etag } });
   assert.equal(notModified.status, 304);
   assert.equal(notModified.headers.get("accept-ranges"), "bytes");
+  // If-None-Match comes before Range (RFC 9110): a matching ETag is a 304 even with a range.
+  const rangedRevalidation = await fetch(clip, {
+    headers: { range: "bytes=0-9", "if-none-match": etag },
+  });
+  assert.equal(rangedRevalidation.status, 304);
   const post = await fetch(clip, { method: "POST" });
   assert.equal(post.status, 405);
   assert.equal(post.headers.get("allow"), "GET, HEAD");
@@ -337,4 +343,81 @@ test("the three wrangler configs route the same video paths to the Worker", () =
     assert.equal(assets.html_handling, test.html_handling, path);
     assert.equal(assets.not_found_handling, test.not_found_handling, path);
   }
+});
+
+test("a path under /api/ that ends in .mp4 is still answered by the JSON 404, not the video route", async () => {
+  const reply = await fetch(`${base}/api/x.mp4`, { headers: { range: "bytes=0-1" } });
+  assert.equal(reply.status, 404);
+  assert.deepEqual(await reply.json(), { ok: false, message: "Not found." });
+});
+
+test("isVideoPath knows every extension the configs route", () => {
+  const assets = JSON.parse(
+    readFileSync("wrangler.production.jsonc", "utf8")
+      .split("\n")
+      .filter((line) => !line.trim().startsWith("//"))
+      .join("\n"),
+  ).assets;
+  for (const pattern of assets.run_worker_first.filter((p) => p !== "/api/*")) {
+    const extension = pattern.replace("/*", "");
+    assert.ok(isVideoPath(`/a/b/clip${extension}`), pattern);
+  }
+  assert.ok(!isVideoPath("/games/oddly-orderly"));
+  assert.ok(!isVideoPath("/a.mp4/b"));
+  assert.ok(!isVideoPath("/a.webp"));
+});
+
+test("parseRange follows RFC 9110 for one range and ignores what it cannot read", () => {
+  const range = (header, size = 100) => parseRange(header, size);
+  assert.deepEqual(range(null), { kind: "full" });
+  assert.deepEqual(range("bytes=0-0"), { kind: "partial", start: 0, end: 0 });
+  assert.deepEqual(range("bytes=10-19"), { kind: "partial", start: 10, end: 19 });
+  assert.deepEqual(range("bytes=90-"), { kind: "partial", start: 90, end: 99 });
+  assert.deepEqual(range("bytes=90-5000"), { kind: "partial", start: 90, end: 99 });
+  assert.deepEqual(range("bytes=-10"), { kind: "partial", start: 90, end: 99 });
+  assert.deepEqual(range("bytes=-500"), { kind: "partial", start: 0, end: 99 });
+  assert.deepEqual(range(" Bytes = 1 - 2 "), { kind: "partial", start: 1, end: 2 });
+  assert.deepEqual(range("bytes=100-"), { kind: "unsatisfiable" });
+  assert.deepEqual(range("bytes=100-200"), { kind: "unsatisfiable" });
+  assert.deepEqual(range("bytes=-0"), { kind: "unsatisfiable" });
+  assert.deepEqual(range("bytes=0-", 0), { kind: "unsatisfiable" });
+  for (const ignored of ["bytes=5-2", "bytes=0-1,4-5", "bytes=-", "bytes=", "items=0-1", "0-1", "bytes=a-b"]) {
+    assert.deepEqual(range(ignored), { kind: "full" }, ignored);
+  }
+});
+
+test("sliceBody cuts a stream of any chunk size to the bytes asked for and stops reading", async () => {
+  const source = Uint8Array.from({ length: 1000 }, (_, i) => i % 251);
+  const streamOf = (chunk) => {
+    let at = 0;
+    const state = { cancelled: false, reads: 0 };
+    const stream = new ReadableStream({
+      pull(controller) {
+        state.reads += 1;
+        if (at >= source.length) return controller.close();
+        controller.enqueue(source.slice(at, at + chunk));
+        at += chunk;
+      },
+      cancel() {
+        state.cancelled = true;
+      },
+    });
+    return { stream, state };
+  };
+  const collect = async (stream) => {
+    const parts = [];
+    for await (const part of stream) parts.push(part);
+    return Buffer.concat(parts);
+  };
+  for (const chunk of [1, 7, 64, 333, 1000, 4096]) {
+    for (const [start, end] of [[0, 0], [0, 999], [5, 5], [6, 7], [63, 64], [100, 700], [332, 333], [999, 999], [0, 499], [500, 999]]) {
+      const { stream } = streamOf(chunk);
+      const got = await collect(sliceBody(stream, start, end));
+      assert.deepEqual(got, Buffer.from(source.subarray(start, end + 1)), `chunk ${chunk} bytes ${start}-${end}`);
+    }
+  }
+  const { stream, state } = streamOf(64);
+  await collect(sliceBody(stream, 0, 9));
+  assert.ok(state.cancelled, "the source is cancelled once the last byte is out");
+  assert.ok(state.reads < 4, "and not read to its end");
 });
