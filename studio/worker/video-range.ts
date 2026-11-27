@@ -161,11 +161,12 @@ export type VideoDeps = {
 
 /**
  * A request the cache is asked to answer: no range, or one plain `bytes=a-b`, `a-` or `-n` that
- * is not reversed. Anything else (several ranges, a reversed one, a bad unit, `If-Range`) is
- * answered by `parseRange` and the binding, so what the visitor gets does not depend on the cache.
+ * is not reversed. Anything else (several ranges, a reversed one, a bad unit) is answered by
+ * `parseRange` and the binding, so what the visitor gets does not depend on the cache. A request
+ * with `If-Range` is looked up too and kept only when the cached copy's strong ETag is the
+ * validator (`fromCache`).
  */
 export function cacheable(request: Request): boolean {
-  if (request.headers.has("if-range")) return false;
   const range = request.headers.get("range");
   if (range === null) return true;
   const match = /^\s*bytes\s*=\s*(\d*)\s*-\s*(\d*)\s*$/i.exec(range);
@@ -176,11 +177,11 @@ export function cacheable(request: Request): boolean {
 }
 
 /** One entry per video per Worker version; the visitor's query string never makes a new one. */
-function cacheKey(url: string, version: string | undefined): Request {
+function cacheKey(url: string, version: string): Request {
   const key = new URL(url);
   key.search = "";
   key.hash = "";
-  key.searchParams.set("v", version ?? "0");
+  key.searchParams.set("v", version);
   return new Request(key, { method: "GET" });
 }
 
@@ -188,7 +189,10 @@ async function fromCache(
   request: Request,
   deps: VideoDeps,
 ): Promise<Response | null> {
-  if (!deps.cache || !cacheable(request)) return null;
+  // Without a version id a deploy could be served the file it replaced, so there is no cache.
+  if (!deps.cache || deps.version === undefined || !cacheable(request)) {
+    return null;
+  }
   const key = cacheKey(request.url, deps.version);
   // Range and the conditional headers go with the lookup; the cache cuts and compares itself.
   const headers = new Headers();
@@ -196,6 +200,7 @@ async function fromCache(
     const value = request.headers.get(name);
     if (value !== null) headers.set(name, value);
   }
+  // If-Range is judged here, against the copy's ETag, not by the cache.
   let hit: Response | undefined;
   try {
     hit = await deps.cache.match(new Request(key, { headers }));
@@ -204,17 +209,34 @@ async function fromCache(
   }
   if (!hit) return null;
   const ranged = request.headers.has("range");
+  const conditional =
+    request.headers.has("if-none-match") ||
+    request.headers.has("if-modified-since");
+  // An If-Range is the slicer's rule too: it holds only for the copy's strong ETag, otherwise the
+  // whole file is sent, which the binding path does.
+  const ifRange = request.headers.get("if-range");
   const sound =
-    hit.status === 304 ||
+    (hit.status === 304 && conditional) ||
     (hit.status === 200 && !ranged) ||
     ((hit.status === 206 || hit.status === 416) &&
-      hit.headers.has("content-range"));
+      ranged &&
+      hit.headers.has("content-range") &&
+      ifRangeHolds(ifRange, hit.headers.get("etag")));
   if (!sound) {
     await hit.body?.cancel();
     return null;
   }
   const out = new Headers(hit.headers);
   out.set("Accept-Ranges", "bytes");
+  if (hit.status === 416) {
+    // The same 416 as the slicer's: no validator, no type, never cached.
+    out.delete("ETag");
+    out.delete("Content-Type");
+    out.set("Content-Length", "0");
+    out.set("Cache-Control", "no-store");
+    await hit.body?.cancel();
+    return new Response(null, { status: 416, headers: out });
+  }
   if (request.method === "HEAD") {
     await hit.body?.cancel();
     return new Response(null, { status: hit.status, headers: out });
@@ -237,6 +259,7 @@ function storeInCache(
   if (!headers.has("Cache-Control")) {
     headers.set("Cache-Control", "public, max-age=3600");
   }
+  if (deps.version === undefined) return;
   deps.waitUntil(
     deps.cache
       .put(

@@ -271,6 +271,8 @@ for (const [mode, extra] of [
       const reply = await vfetch(clip, { headers: { range } });
       assert.equal(reply.status, 416, range);
       assert.equal(reply.headers.get("content-range"), "bytes */5000", range);
+      assert.equal(reply.headers.get("cache-control"), "no-store", range);
+      assert.equal(reply.headers.get("etag"), null, range);
       assert.equal((await bytesOf(reply)).length, 0, range);
     }
   });
@@ -461,16 +463,11 @@ test("the cache: a miss is answered from the assets binding and fills the cache;
   assert.deepEqual(await bytesOf(miss), cachedBytes.subarray(10, 20));
   assert.equal((await assetCalls()) - before, 1, "a miss asks the binding once");
 
-  // The put runs after the reply (waitUntil): wait until a request is answered without the binding.
-  const deadline = Date.now() + 10_000;
-  let filled = false;
-  while (!filled && Date.now() < deadline) {
-    const was = await assetCalls();
-    await (await fetch(cached, { headers: { range: "bytes=0-0" } })).arrayBuffer();
-    filled = (await assetCalls()) === was;
-    if (!filled) await new Promise((resolve) => setTimeout(resolve, 200));
-  }
-  assert.ok(filled, "the file reached the cache");
+  // The put runs after the reply (waitUntil); the test entry hands back its promises.
+  await fetch(`${base}/__test/settled`);
+  const was = await assetCalls();
+  await (await fetch(cached, { headers: { range: "bytes=0-0" } })).arrayBuffer();
+  assert.equal(await assetCalls(), was, "the file reached the cache");
 
   const hits = await assetCalls();
   const etag = (await fetch(cached, { headers: { range: "bytes=0-0" } })).headers.get("etag");
@@ -496,6 +493,8 @@ test("the cache: a miss is answered from the assets binding and fills the cache;
   const unmeetable = await fetch(cached, { headers: { range: "bytes=3000-" } });
   assert.equal(unmeetable.status, 416);
   assert.equal(unmeetable.headers.get("content-range"), "bytes */3000");
+  assert.equal(unmeetable.headers.get("cache-control"), "no-store");
+  assert.equal(unmeetable.headers.get("etag"), null);
   assert.equal((await bytesOf(unmeetable)).length, 0);
   const whole = await fetch(cached);
   assert.equal(whole.status, 200);
@@ -509,13 +508,25 @@ test("the cache: a miss is answered from the assets binding and fills the cache;
   const notModified = await fetch(cached, { headers: { "if-none-match": etag, range: "bytes=0-9" } });
   assert.equal(notModified.status, 304);
   // The visitor's query string never makes a second copy.
+  const plainHead = await fetch(cached, { method: "HEAD" });
+  assert.equal(plainHead.status, 200);
+  assert.equal(plainHead.headers.get("content-length"), "3000");
+  assert.equal(plainHead.headers.get("accept-ranges"), "bytes");
+  assert.equal((await bytesOf(plainHead)).length, 0);
+  const plainNotModified = await fetch(cached, { headers: { "if-none-match": etag } });
+  assert.equal(plainNotModified.status, 304);
+  assert.equal(plainNotModified.headers.get("accept-ranges"), "bytes");
+  // If-Range with the copy's ETag keeps the range, and it is answered by the cache.
+  const ifRangeHit = await fetch(cached, { headers: { range: "bytes=100-199", "if-range": etag } });
+  assert.equal(ifRangeHit.status, 206);
+  assert.deepEqual(await bytesOf(ifRangeHit), cachedBytes.subarray(100, 200));
   const withQuery = await fetch(`${cached}?x=1`, { headers: { range: "bytes=5-6" } });
   assert.equal(withQuery.status, 206);
   assert.deepEqual(await bytesOf(withQuery), cachedBytes.subarray(5, 7));
   assert.equal(await assetCalls(), hits, "none of these asked the binding");
 });
 
-test("the cache is asked only for plain ranges: several ranges, a reversed one and If-Range go to the slicer", async () => {
+test("the cache is asked only for plain ranges: several ranges, a reversed one and a stale If-Range go to the slicer", async () => {
   const etag = (await fetch(cached, { headers: { range: "bytes=0-0" } })).headers.get("etag");
   const before = await assetCalls();
   const several = await fetch(cached, { headers: { range: "bytes=0-1,5-9" } });
@@ -524,13 +535,14 @@ test("the cache is asked only for plain ranges: several ranges, a reversed one a
   const reversed = await fetch(cached, { headers: { range: "bytes=9-3" } });
   assert.equal(reversed.status, 200);
   assert.equal((await bytesOf(reversed)).length, 3000);
-  const ifRange = await fetch(cached, { headers: { range: "bytes=0-9", "if-range": etag } });
-  assert.equal(ifRange.status, 206);
-  assert.deepEqual(await bytesOf(ifRange), cachedBytes.subarray(0, 10));
   const staleIfRange = await fetch(cached, { headers: { range: "bytes=0-9", "if-range": '"old"' } });
   assert.equal(staleIfRange.status, 200);
   assert.equal((await bytesOf(staleIfRange)).length, 3000);
-  assert.equal((await assetCalls()) - before, 4, "each of the four asked the binding");
+  assert.equal((await assetCalls()) - before, 3, "each of the three asked the binding");
+  const ifRange = await fetch(cached, { headers: { range: "bytes=0-9", "if-range": etag } });
+  assert.equal(ifRange.status, 206);
+  assert.deepEqual(await bytesOf(ifRange), cachedBytes.subarray(0, 10));
+  assert.equal((await assetCalls()) - before, 3, "a matching If-Range did not");
 });
 
 test("cacheable() lets only a plain range reach the cache", () => {
@@ -541,5 +553,6 @@ test("cacheable() lets only a plain range reach the cache", () => {
   for (const range of ["bytes=9-3", "bytes=0-1,4-5", "bytes=", "bytes=-", "items=0-1", "nonsense"]) {
     assert.ok(!cacheable(request({ range })), range);
   }
-  assert.ok(!cacheable(request({ range: "bytes=0-1", "if-range": '"x"' })));
+  // If-Range is judged after the lookup, against the copy's ETag (fromCache).
+  assert.ok(cacheable(request({ range: "bytes=0-1", "if-range": '"x"' })));
 });
