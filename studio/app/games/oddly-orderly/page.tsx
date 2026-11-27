@@ -6,6 +6,7 @@ import { GameSubnav } from "@/components/game-subnav";
 import { Navigation } from "@/components/navigation";
 import { StructuredData } from "@/components/structured-data";
 import {
+  aboutTheArt,
   features,
   formatBytes,
   gameName,
@@ -224,6 +225,7 @@ export default function OddlyOrderlyPage() {
               </a>
             )}
           </div>
+          <p className={styles.artNote}>{aboutTheArt.join(" ")}</p>
         </section>
 
         <nav

@@ -273,6 +273,12 @@ await test("Oddly Orderly's page shows the game and its trailer without autoplay
   ]) {
     assert.ok(text.includes(feature), feature);
   }
+  assert.ok(
+    text.includes(
+      "The art, the music and some of the sound effects were made with generative AI tools during development, then reviewed, edited and arranged by us. The game does not use generative AI while it runs.",
+    ),
+    "the approved art note, word for word, on the game page",
+  );
   const videos = html.match(/<video[^>]*>/g) ?? [];
   assert.equal(videos.length, 1, "one trailer");
   assert.ok(/\scontrols(?:=""|\s|>)/.test(videos[0]), "trailer has controls");
